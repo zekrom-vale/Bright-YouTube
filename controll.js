@@ -1,21 +1,18 @@
-var bright,
-invert,
-con,
-sat;
+setInterval(evalu,1500);
 
-function test(){
+function evalu(){
 	getAvColor(document.getElementsByClassName('html5-main-video')[0]);
 	rgb= Math.floor(rgb.r+ rgb.g+ rgb.b/3);
 	rgb-= 255;
-	bright= 2 * rgb;
-	invert= 0.3 * rgb;
-	con= 1.3 * rgb;
+	var bright= 2 * rgb,
+	invert= 0.3 * rgb,
+	con= 1.3 * rgb,
 	sat= 1.27 * rgb;
 	
-	setFilter();
+	setFilter(bright, invert, con, sat);
 }
 
-function setFilter(){
+function setFilter(bright, invert, con, sat){
 	document.getElementsByClassName('html5-main-video')[0].style.filter='brightness('+ bright+ ') invert('+ invert+') contrast('+ con+ ') saturate('+ sat+ ')';
 }
 
