@@ -1,13 +1,14 @@
 "strict mode";
 var rgb=0;
 evalu();
-setInterval(evalu, 1500);
+setInterval(evalu, 100);
 
 function evalu(){
 	getAvColor(document.getElementsByClassName('html5-main-video')[0]);
-	console.log(rgb);
 	rgb= 255- rgb;
-	rgb= rgb/100;
+	console.log(rgb);
+	rgb= rgb/255;
+	console.log(rgb);
 	var bright= 2 * rgb,
 	invert= 0.3 * rgb,
 	con= 1.3 * rgb,
@@ -41,14 +42,11 @@ function getAvColor(img) {
         alert(e);
         return;
     }
-	console.log(data.data);
 	var i= C= 0;
 	while(i< data.data.length){
 		rgb+= Number(data.data[i]);
-		i+= 300;
+		i+= 100;
 		C++;
 	}
-	console.log(C);
-	console.log(rgb);
-    rgb= Math.floor(rgb/C);
+    rgb= rgb/C;
 }
