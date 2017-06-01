@@ -1,19 +1,19 @@
 "strict mode";
-var rgb= {r:0,g:0,b:0};
+var rgb=0;
 evalu();
 setInterval(evalu, 1500);
 
 function evalu(){
 	getAvColor(document.getElementsByClassName('html5-main-video')[0]);
 	console.log(rgb);
-	rgb= 255- Math.floor(rgb.r+ rgb.g+ rgb.b/3);
-	console.log(rgb);
+	rgb= 255- rgb;
+	rgb= rgb/100;
 	var bright= 2 * rgb,
 	invert= 0.3 * rgb,
 	con= 1.3 * rgb,
 	sat= 1.27 * rgb;
 	setFilter(bright, invert, con, sat);
-	rgb= {r:0,g:0,b:0};
+	rgb=0;
 }
 
 function setFilter(bright, invert, con, sat){
@@ -23,10 +23,7 @@ function setFilter(bright, invert, con, sat){
 function getAvColor(img) {
     var canvas= document.createElement('canvas'),
         context= canvas.getContext && canvas.getContext('2d'),
-        pixelInterval= 5, // Rather than inspect every single pixel in the image inspect every 5th pixel
-        count= 0,
-        data, length,
-        i= -4;
+        count= 0;
 
     // return the base colour for non-compliant browsers
     if(!context) return;
@@ -44,17 +41,14 @@ function getAvColor(img) {
         alert(e);
         return;
     }
-    while ((i+= pixelInterval * 4) < data.length){
-        count+=1;
-		console.log(data[i]);
-        rgb.r+= data[i];
-		consloe.log(rgb.r[i]);
-        rgb.g+= data[i + 1];
-        rgb.b+= data[i + 2];
-    }
-
-    // floor values to give correct values
-    rgb.r= rgb.r/count
-    rgb.g= rgb.g/count
-    rgb.b= rgb.b/count
+	console.log(data.data);
+	var i= C= 0;
+	while(i< data.data.length){
+		rgb+= Number(data.data[i]);
+		i+= 300;
+		C++;
+	}
+	console.log(C);
+	console.log(rgb);
+    rgb= Math.floor(rgb/C);
 }
