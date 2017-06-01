@@ -2,8 +2,7 @@ setInterval(evalu,1500);
 
 function evalu(){
 	getAvColor(document.getElementsByClassName('html5-main-video')[0]);
-	rgb= Math.floor(rgb.r+ rgb.g+ rgb.b/3);
-	rgb-= 255;
+	rgb= 255- Math.floor(rgb.r+ rgb.g+ rgb.b/3);
 	var bright= 2 * rgb,
 	invert= 0.3 * rgb,
 	con= 1.3 * rgb,
