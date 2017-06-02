@@ -1,5 +1,6 @@
 //Youtube is more pixalated
 var rgb=0,
+oldRgb= 140,
 clock= setInterval(evalu, 100);
 
 function evalu(){
@@ -10,11 +11,19 @@ function evalu(){
 		getAvColor(document.getElementsByClassName('html5-main-video')[0]);//This is it
 		rgb= 255- rgb;
 		console.log(rgb);
-		var bright= 0.0000075391* Math.pow(rgb, 2)+ 0.00185722* rgb+ 1.05812,
-		invert= 1- rgb,
-		con= 1.01* rgb,
-		sat= 1.013* rgb;
-		setFilter(bright, invert, con, sat);//nope
+		var ic=0.1;
+		//Now add dellays!
+		//while(ic< 0.9){
+			//var V= oldRgb* (ic- 1)+ rgb* ic;
+			V= rgb;//V/2;
+			var bright= 0.0000075391*Math.pow(V, 2) +0.00185722*V +1.05812,
+			invert= 1- V,
+			con= 1.01* V,
+			sat= 1.013* V;
+			setFilter(bright, invert, con, sat);//nope
+			//ic+= 0.1;
+		//}
+		//oldRgb= rgb;
 		rgb=0;
 	}
 }
@@ -25,8 +34,7 @@ function setFilter(bright, invert, con, sat){
 
 function getAvColor(img) {
     var canvas= document.createElement('canvas'),
-        context= canvas.getContext && canvas.getContext('2d'),
-        count= 0;
+        context= canvas.getContext && canvas.getContext('2d');
 	document.body.appendChild(canvas);
 	canvas.id= 'temp';
     // return the base colour for non-compliant browsers
@@ -36,10 +44,10 @@ function getAvColor(img) {
     var height= canvas.height= img.naturalHeight || img.offsetHeight || img.height,
         width= canvas.width= img.naturalWidth || img.offsetWidth || img.width;
 
-    context.drawImage(img, 0, 0);//Disable hardware acceleration
+    context.drawImage(img, 0, 0);//Disable hardware acceleration//Still a problem
 
     try{//Nope
-        data= context.getImageData(0, 0, width, height);
+        data= context.getImageData(10, 10, width-10, height-10);
     } catch(e) {
         // catch errors - usually due to cross domain security issues
         console.log(e);
@@ -49,18 +57,11 @@ function getAvColor(img) {
 	var i= C= 0;
 	while(i< data.data.length){//Nope!
 		var Z= Math.random();
-		Z= Math.round(Z* 3) +1;
+		Z= Math.round(Z*3) +1;
 		rgb+= Number(data.data[Z]);
-		i+= 12;
+		var Ran= Math.round(Math.random()*75 +1)*4;
+		i+= Ran;//12;
 		C++;
 	}
-	/*while(i< data.data.length){//Nope!
-		rgb+= Number(data.data[i]);
-		var Ran= Math.random();
-		Ran= Ran - 0.5;
-		Ran= Math.floor(Ran * 400);
-		i+= 1000 + Ran;
-		C++;
-	}*/
     rgb= rgb/C;
 }
