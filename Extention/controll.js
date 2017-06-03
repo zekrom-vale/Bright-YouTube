@@ -13,24 +13,31 @@ function evalu(){
 		rgb= 255- rgb;
 		console.log(rgb);
 		var ic=0.1,
-		inc= 0.1;
-		//Now add dellays!
-		while(ic< 1){
-			setTimeout(function(){
-				var V= oldRgb* (ic- 1)+ rgb* ic;
-				V= rgb;//V/2;
-				var bright= 0.0000075391*Math.pow(V, 2) +0.00185722*V +1.05812,
-				invert= 1- V,
-				con= 1.01* V,
-				sat= 1.013* V;
-				setFilter(bright, invert, con, sat);//nope
-			}, delay*ic);
-			ic+= inc;//Do I need to incrment before?
-		}
-		oldRgb= rgb;
+		inc= 0.1,
+		Test=[null,null],
+		Test[0]=Math.round(rgb/6.375),
+		Test[1]=Math.round(oldRgb/6.375);
+		if(Test[0]!= Test[1]){
+			//are they the same (or close.)
+			while(ic< 1){
+				setTimeout(tick(ic), delay*ic);//Asumming this is valid to pass paramters
+				ic+= inc;//Do I need to incrment before?
+			}
+			oldRgb= rgb;
+			}
 		rgb=0;
 	}
 }
+function tick(ic){
+	var V= oldRgb* (ic- 1)+ rgb* ic;
+	V= V/2;
+	var bright= 0.0000075391*Math.pow(V, 2) +0.00185722*V +1.05812,
+	invert= 1- V,
+	con= 1.01* V,
+	sat= 1.013* V;
+	setFilter(bright, invert, con, sat);//nope
+}
+
 
 function setFilter(bright, invert, con, sat){
 	document.getElementsByClassName('html5-main-video')[0].style.filter='brightness('+ bright+ ')';//+' invert('+ invert+') contrast('+ con+ ') saturate('+ sat+ ')';
@@ -64,7 +71,7 @@ function getAvColor(img) {
 		Z= Math.round(Z*3) +1;
 		rgb+= Number(data.data[Z]);
 		var Ran= Math.round(Math.random()*75 +1)*4;
-		i+= Ran;//12;
+		i+= Ran;
 		C++;
 	}
     rgb= rgb/C;
