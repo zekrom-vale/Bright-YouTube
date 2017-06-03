@@ -1,4 +1,3 @@
-//Youtube is more pixalated
 var rgb=0,
 oldRgb= 140,
 delay=1000,
@@ -9,7 +8,7 @@ function evalu(){
 	el= el.toString();
 	if(el.includes('playing-mode')){
 		document.getElementsByClassName('html5-main-video')[0].style.filter='';
-		getAvColor(document.getElementsByClassName('html5-main-video')[0]);//This is it
+		getAvColor(document.getElementsByClassName('html5-main-video')[0]);
 		rgb= 255- rgb;
 		console.log(rgb);
 		var ic=0.1,
@@ -20,8 +19,8 @@ function evalu(){
 		if(Test[0]!= Test[1]){
 			//are they the same (or close.)
 			while(ic< 1){
-				setTimeout(tick(ic), delay*ic);//Asumming this is valid to pass paramters
-				ic+= inc;//Do I need to incrment before?
+				setTimeout(tick(ic), delay*ic);//Asumming valid to pass//function(){...}?
+				ic+= inc;
 			}
 			oldRgb= rgb;
 			}
@@ -59,20 +58,19 @@ function getAvColor(img) {
 
     try{//Nope
         data= context.getImageData(10, 10, width-10, height-10);
-    } catch(e) {
-        // catch errors - usually due to cross domain security issues
+    }catch(e){
+        //Cross domain security issues
         console.log(e);
         return;
     }
 	document.body.removeChild(canvas);
 	var i= C= 0;
 	while(i< data.data.length){//Nope!
-		var Z= Math.random();
-		Z= Math.round(Z*3) +1;
+		var Z= Math.round(Math.random()*3);
 		rgb+= Number(data.data[Z]);
 		var Ran= Math.round(Math.random()*75 +1)*4;
 		i+= Ran;
 		C++;
 	}
-    rgb= rgb/C;
+    rgb/= C;
 }
