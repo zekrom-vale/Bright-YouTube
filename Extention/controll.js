@@ -1,7 +1,8 @@
 //Youtube is more pixalated
 var rgb=0,
 oldRgb= 140,
-clock= setInterval(evalu, 100);
+delay=1000,
+clock= setInterval(evalu, delay);
 
 function evalu(){
 	var el= document.getElementById('movie_player').classList;
@@ -11,19 +12,22 @@ function evalu(){
 		getAvColor(document.getElementsByClassName('html5-main-video')[0]);//This is it
 		rgb= 255- rgb;
 		console.log(rgb);
-		var ic=0.1;
+		var ic=0.1,
+		inc= 0.1;
 		//Now add dellays!
-		//while(ic< 0.9){
-			//var V= oldRgb* (ic- 1)+ rgb* ic;
-			V= rgb;//V/2;
-			var bright= 0.0000075391*Math.pow(V, 2) +0.00185722*V +1.05812,
-			invert= 1- V,
-			con= 1.01* V,
-			sat= 1.013* V;
-			setFilter(bright, invert, con, sat);//nope
-			//ic+= 0.1;
-		//}
-		//oldRgb= rgb;
+		while(ic< 1){
+			setTimeout(function(){
+				var V= oldRgb* (ic- 1)+ rgb* ic;
+				V= rgb;//V/2;
+				var bright= 0.0000075391*Math.pow(V, 2) +0.00185722*V +1.05812,
+				invert= 1- V,
+				con= 1.01* V,
+				sat= 1.013* V;
+				setFilter(bright, invert, con, sat);//nope
+			}, delay*ic);
+			ic+= inc;//Do I need to incrment before?
+		}
+		oldRgb= rgb;
 		rgb=0;
 	}
 }
