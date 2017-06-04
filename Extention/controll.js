@@ -14,7 +14,7 @@ function evalu(){
 		if(rgb< 254 && rgb> 30){
 			if(Math.round(rgb/6.375)!= Math.round(oldRgb/6.375)){
 				while(ic< 1){
-					setTimeout(tick(ic), delay*ic);
+					setTimeout(tick, delay*ic, ic);
 					ic+= inc;
 				}
 				oldRgb= rgb;
