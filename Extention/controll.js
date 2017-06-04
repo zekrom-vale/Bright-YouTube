@@ -28,15 +28,15 @@ function evalu(){
 }
 function tick(ic){
 	var V= oldRgb*(1-ic) + rgb*ic,
-	X= -0.0761189*V +18.9021;
+	X= 0.0266813*V -6.6303;
 	if(X>=0){
-		var bright= -0.384007*Math.pow(X, 1/5)+ 1.63776,//NaN, often
+		var bright= 0.473474*Math.pow(X, 1/7)+ 1.54676,
 		invert= 1- V,
 		con= 1.01* V,
 		sat= 1.013* V;
 	}
 	else{
-		var bright= 0.384007*Math.pow(-X, 1/5)+ 1.63776,//NaN, often
+		var bright= -0.473474*Math.pow(-X, 1/7)+ 1.53771,
 		invert= 1- V,
 		con= 1.01* V,
 		sat= 1.013* V;
