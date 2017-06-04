@@ -27,8 +27,8 @@ function evalu(){
 	}
 }
 function tick(ic){
-	var V= oldRgb*(1-ic) + rgb*ic;
-	var bright= -0.384007*Math.pow(-0.0761189*V +18.9021, 1/5)+ 1.63776,
+	var V= oldRgb*(1-ic) + rgb*ic,
+	bright= -0.384007*Math.pow(-0.0761189*V +18.9021, 1/5)+ 1.63776,
 	invert= 1- V,
 	con= 1.01* V,
 	sat= 1.013* V;
@@ -49,9 +49,9 @@ function getAvColor(img) {
     var height= canvas.height= img.naturalHeight || img.offsetHeight || img.height,
         width= canvas.width= img.naturalWidth || img.offsetWidth || img.width;
 //!!
-    context.drawImage(img, 0, 0);//--Hardware acceleration?//Problem
+    context.drawImage(img, 0, 0);//--Hardware acceleration?
 //!!
-    data= context.getImageData(S, 0, width-nS, height);
+    data= context.getImageData(0, 0, width, height);
 	document.body.removeChild(canvas);
 	var i= C= 0;
 	while(i< data.data.length){
