@@ -29,18 +29,17 @@ function evalu(){
 function tick(ic){
 	var V= oldRgb*(1-ic) + rgb*ic,
 	X= 0.0266813*V -6.6303;
-	if(X>=0){
-		var bright= 0.473474*Math.pow(X, 1/7)+ 1.54676,
-		invert= 1- V,
-		con= 1.01* V,
-		sat= 1.013* V;
-	}
-	else{
-		var bright= -0.473474*Math.pow(-X, 1/7)+ 1.53771,
-		invert= 1- V,
-		con= 1.01* V,
-		sat= 1.013* V;
-	}
+	var PN=(X<0)? PN= -1: 1,
+	bright= 0.473474*Math.pow(Math.abs(X), 1/7)+ 1.53771,
+	invert= 1- V,
+	con= 1.01* V,
+	sat= 1.013* V;
+	bright*= PN;
+	/*
+	invert*= PN;
+	con*= PN;
+	sat*= PN;
+	/*/
 	setFilter(bright, invert, con, sat);//nope
 }
 
