@@ -4,7 +4,7 @@ clock= setInterval(evalu, delay);
 
 function evalu(){
 	var el= document.getElementById('movie_player').classList.toString();
-	if(el.includes('playing-mode') && document.webkitHidden=== false){//Chrome
+	if(el.includes('playing-mode') && !document.webkitHidden){//Chrome
 		document.getElementsByClassName('html5-main-video')[0].style.filter='';
 		getAvColor(document.getElementsByClassName('html5-main-video')[0]);
 		rgb= 255- rgb;
@@ -15,12 +15,15 @@ function evalu(){
 			Math.round(rgb/6.375),
 			Math.round(oldRgb/6.375)
 		];
-		if(Test[0]!= Test[1]){//Can not test, filter is cleared
+		if(Test[0]!= Test[1] && rgb!= 255 && rgb!= 0){//Is it pitch black?
 			while(ic< 1){
 				setTimeout(tick(ic), delay*ic);//Asumming valid to pass/ function(){tick(ic)}?
 				ic+= inc;
 			}
 			oldRgb= rgb;
+		}
+		else if(rgb== 0){//White!
+			function setFilter(1, 1, 1, 1);
 		}
 		else{
 			tick(0);
