@@ -1,25 +1,23 @@
-var rgb=0,
-oldRgb= 140,
+var oldRgb= rgb=140,
 delay=1000,
 clock= setInterval(evalu, delay);
 
 function evalu(){
-	var el= document.getElementById('movie_player').classList;
-	el= el.toString();
+	var el= document.getElementById('movie_player').classList;//Assuming el is a string
 	if(el.includes('playing-mode')){
 		document.getElementsByClassName('html5-main-video')[0].style.filter='';
 		getAvColor(document.getElementsByClassName('html5-main-video')[0]);
 		rgb= 255- rgb;
-		console.log(rgb);
+		console.log(rgb);//Dev
 		var ic=0.1,
 		inc= 0.1,
-		Test=[null,null],
-		Test[0]=Math.round(rgb/6.375),
-		Test[1]=Math.round(oldRgb/6.375);
+		Test=[
+			Math.round(rgb/6.375),
+			Math.round(oldRgb/6.375)
+		];
 		if(Test[0]!= Test[1]){
-			//are they the same (or close.)
 			while(ic< 1){
-				setTimeout(tick(ic), delay*ic);//Asumming valid to pass//function(){...}?
+				setTimeout(tick(ic), delay*ic);//Asumming valid to pass/ function(){tick(ic)}?
 				ic+= inc;
 			}
 			oldRgb= rgb;
@@ -46,17 +44,15 @@ function getAvColor(img) {
     var canvas= document.createElement('canvas'),
         context= canvas.getContext && canvas.getContext('2d');
 	document.body.appendChild(canvas);
-	canvas.id= 'temp';
-    // return the base colour for non-compliant browsers
-    if(!context) return;
+    //if(!context) return;//Chrome is fine with this
 
-    // set the height and width of the canvas element to that of the image
+    // set size of the canvas to the image
     var height= canvas.height= img.naturalHeight || img.offsetHeight || img.height,
         width= canvas.width= img.naturalWidth || img.offsetWidth || img.width;
-
+//!!
     context.drawImage(img, 0, 0);//Disable hardware acceleration//Still a problem
-
-    try{//Nope
+//!!
+    try{
         data= context.getImageData(10, 10, width-10, height-10);
     }catch(e){
         //Cross domain security issues
@@ -65,7 +61,7 @@ function getAvColor(img) {
     }
 	document.body.removeChild(canvas);
 	var i= C= 0;
-	while(i< data.data.length){//Nope!
+	while(i< data.data.length){
 		var Z= Math.round(Math.random()*3);
 		rgb+= Number(data.data[Z]);
 		var Ran= Math.round(Math.random()*75 +1)*4;
