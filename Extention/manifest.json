@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "Bright YouTube",
 	"description": "This extension automaticaly agusts the brightness of YouTube videos",
-	"version": "0.3",
+	"version": "0.4",
 	
 	"permissions": [
 		"https://www.youtube.com/watch?v=*"
