@@ -12,7 +12,7 @@ function evalu(){
 		console.log(rgb);//Dev
 		var ic=0.1,
 		inc= 0.1;
-		if(rgb< 254 && rgb> 30){
+		if(rgb< 254.9 && rgb> 30){
 			if(Math.round(rgb/6.375)!= Math.round(oldRgb/6.375)){
 				while(ic< 1){
 					setTimeout(tick, delay*ic, ic);
@@ -28,10 +28,19 @@ function evalu(){
 }
 function tick(ic){
 	var V= oldRgb*(1-ic) + rgb*ic,
-	bright= -0.384007*Math.pow(-0.0761189*V +18.9021, 1/5)+ 1.63776,
-	invert= 1- V,
-	con= 1.01* V,
-	sat= 1.013* V;
+	X= -0.0761189*V +18.9021;
+	if(X>=0){
+		var bright= -0.384007*Math.pow(X, 1/5)+ 1.63776,//NaN, often
+		invert= 1- V,
+		con= 1.01* V,
+		sat= 1.013* V;
+	}
+	else{
+		var bright= 0.384007*Math.pow(-X, 1/5)+ 1.63776,//NaN, often
+		invert= 1- V,
+		con= 1.01* V,
+		sat= 1.013* V;
+	}
 	setFilter(bright, invert, con, sat);//nope
 }
 
