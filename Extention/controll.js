@@ -10,23 +10,21 @@ function evalu(){
 		rgb= 255- rgb;
 		console.log(rgb);//Dev
 		var ic=0.1,
-		inc= 0.1,
-		Test=[
-			Math.round(rgb/6.375),
-			Math.round(oldRgb/6.375)
-		];
-		if(Test[0]!= Test[1] && rgb< 254 && rgb> 30){
-			while(ic< 1){
-				setTimeout(tick(ic), delay*ic);
-				ic+= inc;
+		inc= 0.1;
+		if(rgb< 254 && rgb> 30){
+			if(Math.round(rgb/6.375)!= Math.round(oldRgb/6.375)){
+				while(ic< 1){
+					setTimeout(tick(ic), delay*ic);
+					ic+= inc;
+				}
+				oldRgb= rgb;
 			}
-			oldRgb= rgb;
+			else{
+				tick(0);
+			}
 		}
 		else if(rgb<= 30){//White
-			function setFilter(1, 1, 1, 1);
-		}
-		else{
-			tick(0);
+			setFilter(1, 1, 1, 1);
 		}
 		rgb=0;
 	}
