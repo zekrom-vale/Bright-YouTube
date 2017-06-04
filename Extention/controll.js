@@ -57,7 +57,8 @@ function getAvColor(img) {
 //!!
     context.drawImage(img, 0, 0);//--Hardware acceleration?//Problem
 //!!
-    //Find black bar//Need to reconfirm
+    //Find black bar
+	//Need to reconfirm and test for right bar ex: youtube.com/watch?v=iN6M7vD1BCY
 	try{
         data= context.getImageData(0, height/2, width/4, height/2 +1);
     }catch(e){console.log(e); return;}
@@ -65,13 +66,22 @@ function getAvColor(img) {
 	var i= S= 0;
 	while(i< data.data.length && data.data[i]>= 252 && data.data[i+1]>= 252 && data.data[i+2]>= 252){
 		S++;
-		i+=3;
+		i+=4;
+		
+	}
+	if(S>=40)S=0;
+	//Rev
+	i= data.data.length;
+	var nS= 0;
+	while(i>0 && data.data[i]>= 252 && data.data[i+1]>= 252 && data.data[i+2]>= 252){
+		nS++;
+		i-=4;
 		
 	}
 	if(S>=40)S=0;
 	//End
 	
-	data= context.getImageData(S, 0, width-S, height);
+	data= context.getImageData(S, 0, width-nS, height);
 	document.body.removeChild(canvas);
 	var i= C= 0;
 	while(i< data.data.length){
