@@ -3,7 +3,7 @@ delay=1000,
 clock= setInterval(evalu, delay);
 
 function evalu(){
-	var el= document.getElementById('movie_player').classList;//Assuming el is a string
+	var el= document.getElementById('movie_player').classList.toString();
 	if(el.includes('playing-mode')){
 		document.getElementsByClassName('html5-main-video')[0].style.filter='';
 		getAvColor(document.getElementsByClassName('html5-main-video')[0]);
@@ -15,20 +15,23 @@ function evalu(){
 			Math.round(rgb/6.375),
 			Math.round(oldRgb/6.375)
 		];
-		if(Test[0]!= Test[1]){
+		if(Test[0]!= Test[1]){//Can not test, filter is cleared
 			while(ic< 1){
 				setTimeout(tick(ic), delay*ic);//Asumming valid to pass/ function(){tick(ic)}?
 				ic+= inc;
 			}
 			oldRgb= rgb;
-			}
+		}
+		else{
+			tick(0);
+		}
 		rgb=0;
 	}
 }
 function tick(ic){
-	var V= oldRgb* (ic- 1)+ rgb* ic;
-	V= V/2;
-	var bright= 0.0000075391*Math.pow(V, 2) +0.00185722*V +1.05812,
+	var V= oldRgb*(1-ic) + rgb*ic;
+	// Dont /2
+	var bright= 0.477613*Math.pow(0.027429*V-6.57493, 1/5)+ 1.63493,//244 is too bright
 	invert= 1- V,
 	con= 1.01* V,
 	sat= 1.013* V;
@@ -62,11 +65,12 @@ function getAvColor(img) {
 	document.body.removeChild(canvas);
 	var i= C= 0;
 	while(i< data.data.length){
-		var Z= Math.round(Math.random()*3);
-		rgb+= Number(data.data[Z]);
+		rgb+= data.data[i];
+		rgb+= data.data[i+1];
+		rgb+= data.data[i+2];
 		var Ran= Math.round(Math.random()*75 +1)*4;
 		i+= Ran;
-		C++;
+		C+=3;
 	}
     rgb/= C;
 }
