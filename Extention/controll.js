@@ -1,5 +1,4 @@
-//chrome://flags/#enable-display-list-2d-canvas
-
+//chrome://flags/#enable-display-list-2d-canvas ?
 var oldRgb= rgb=140,
 delay=1000,
 clock= setInterval(evalu, delay);
@@ -21,13 +20,9 @@ function evalu(){
 				}
 				oldRgb= rgb;
 			}
-			else{
-				tick(0);
-			}
+			else tick(0);
 		}
-		else if(rgb<= 30){//White
-			setFilter(1, 1, 1, 1);
-		}
+		else if(rgb<= 30) setFilter(1, 1, 1, 1);
 		rgb=0;
 	}
 }
@@ -49,7 +44,6 @@ function getAvColor(img) {
     var canvas= document.createElement('canvas'),
         context= canvas.getContext && canvas.getContext('2d');
 	document.body.appendChild(canvas);
-    //if(!context) return;//Chrome is fine with this
 
     // set size of the canvas to the image
     var height= canvas.height= img.naturalHeight || img.offsetHeight || img.height,
@@ -57,8 +51,7 @@ function getAvColor(img) {
 //!!
     context.drawImage(img, 0, 0);//--Hardware acceleration?//Problem
 //!!
-    //Find black bar
-	//Need to reconfirm and test for right bar ex: youtube.com/watch?v=iN6M7vD1BCY
+    //Find black bar//Need to reconfirm
 	try{
         data= context.getImageData(0, height/2, width/4, height/2 +1);
     }catch(e){console.log(e); return;}
@@ -78,7 +71,8 @@ function getAvColor(img) {
 		i-=4;
 		
 	}
-	if(S>=40)S=0;
+	if(S>=30)S=0;
+	if(nS>=30)nS=0;
 	//End
 	
 	data= context.getImageData(S, 0, width-nS, height);
