@@ -33,8 +33,7 @@ function evalu(){
 }
 function tick(ic){
 	var V= oldRgb*(1-ic) + rgb*ic;
-	// Dont /2
-	var bright= 0.477613*Math.pow(0.027429*V-6.57493, 1/5)+ 1.63493,//244 is too bright
+	var bright= -0.384007*Math.pow(-0.0761189*V +18.9021, 1/5)+ 1.63776,
 	invert= 1- V,
 	con= 1.01* V,
 	sat= 1.013* V;
@@ -60,7 +59,7 @@ function getAvColor(img) {
 //!!
     //Find black bar//Need to reconfirm
 	try{
-        data= context.getImageData(0, height/2, width, height/2 +1);
+        data= context.getImageData(0, height/2, width/4, height/2 +1);
     }catch(e){console.log(e); return;}
 	
 	var i= S= 0;
