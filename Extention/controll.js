@@ -15,14 +15,14 @@ function evalu(){
 			Math.round(rgb/6.375),
 			Math.round(oldRgb/6.375)
 		];
-		if(Test[0]!= Test[1] && rgb!= 255 && rgb!= 0){//Is it pitch black?
+		if(Test[0]!= Test[1] && rgb< 254 && rgb> 30){
 			while(ic< 1){
-				setTimeout(tick(ic), delay*ic);//Asumming valid to pass/ function(){tick(ic)}?
+				setTimeout(tick(ic), delay*ic);
 				ic+= inc;
 			}
 			oldRgb= rgb;
 		}
-		else if(rgb== 0){//White!
+		else if(rgb<= 30){//White
 			function setFilter(1, 1, 1, 1);
 		}
 		else{
