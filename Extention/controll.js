@@ -4,7 +4,7 @@ clock= setInterval(evalu, delay);
 
 function evalu(){
 	var el= document.getElementById('movie_player').classList.toString();
-	if(el.includes('playing-mode')){
+	if(el.includes('playing-mode') && document.webkitHidden=== false){//Chrome
 		document.getElementsByClassName('html5-main-video')[0].style.filter='';
 		getAvColor(document.getElementsByClassName('html5-main-video')[0]);
 		rgb= 255- rgb;
