@@ -12,7 +12,7 @@ function evalu(){
 		console.log(rgb);//Dev
 		var ic=0.1,
 		inc= 0.1;
-		if(rgb< 254.9 && rgb> 30){
+		if(rgb< 254.9 && rgb> 20){
 			if(Math.round(rgb/6.375)!= Math.round(oldRgb/6.375)){
 				while(ic< 1){
 					setTimeout(tick(ic), delay*ic);
@@ -22,7 +22,7 @@ function evalu(){
 			}
 			else tick(0);
 		}
-		else if(rgb<= 30) setFilter(1, 1, 1, 1);
+		else if(rgb<= 20) setFilter(1, 1, 1, 1);
 		rgb=0;
 	}
 }

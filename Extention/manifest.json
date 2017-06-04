@@ -2,19 +2,24 @@
 	"manifest_version": 2,
 	"name": "Bright YouTube",
 	"description": "This extension automaticaly ajusts the brightness of YouTube videos",
-	"version": "0.4",
-	
+	"version": "0.5",
 	"permissions": [
 		"https://www.youtube.com/watch?v=*",
-		"https://www.youtube.com/channel/*"
+		"https://www.youtube.com/channel/*",
+		"https://www.youtube.com/embed/*",
+		"https://www.youtube-nocookie.com/embed/*"
 	],
 	"optional_permissions": [
-		"https://www.youtube.com/channel/*"
+		"https://www.youtube.com/channel/*",
+		"https://www.youtube.com/embed/*",
+		"https://www.youtube-nocookie.com/embed/*"
 	],
 	"content_scripts": [{
 		"matches": [
 			"https://www.youtube.com/watch?v=*",
-			"https://www.youtube.com/channel/*"
+			"https://www.youtube.com/channel/*",
+			"https://www.youtube.com/embed/*",
+			"https://www.youtube-nocookie.com/embed/*"
 		],
 		"js": ["controll.js"],
 		"css": ["temp.css"],
