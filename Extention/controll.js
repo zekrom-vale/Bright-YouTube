@@ -1,3 +1,5 @@
+//chrome://flags/#enable-display-list-2d-canvas
+
 var oldRgb= rgb=140,
 delay=1000,
 clock= setInterval(evalu, delay);
@@ -54,15 +56,23 @@ function getAvColor(img) {
     var height= canvas.height= img.naturalHeight || img.offsetHeight || img.height,
         width= canvas.width= img.naturalWidth || img.offsetWidth || img.width;
 //!!
-    context.drawImage(img, 0, 0);//Disable hardware acceleration//Still a problem
+    context.drawImage(img, 0, 0);//--Hardware acceleration?//Problem
 //!!
-    try{
-        data= context.getImageData(10, 10, width-10, height-10);
-    }catch(e){
-        //Cross domain security issues
-        console.log(e);
-        return;
-    }
+    //Find black bar//Need to reconfirm
+	try{
+        data= context.getImageData(0, height/2, width, height/2 +1);
+    }catch(e){console.log(e); return;}
+	
+	var i= S= 0;
+	while(i< data.data.length && data.data[i]>= 252 && data.data[i+1]>= 252 && data.data[i+2]>= 252){
+		S++;
+		i+=3;
+		
+	}
+	if(S>=40)S=0;
+	//End
+	
+	data= context.getImageData(S, 0, width-S, height);
 	document.body.removeChild(canvas);
 	var i= C= 0;
 	while(i< data.data.length){
