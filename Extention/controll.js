@@ -1,9 +1,23 @@
 //chrome://flags/#enable-display-list-2d-canvas ?
 var oldRgb= rgb=140,
-delay=1000,
-clock= setInterval(evalu, delay);
+delay=1000;
+setTimeout(function(){
+	var clock= setInterval(evalu, delay)
+}, 3000);
 
 function evalu(){
+	//security
+	oldRgb= Number(oldRgb);
+	rgb= Number(rgb);
+	delay= Number(delay)
+	rgb=(rgb>=0 && rgb<=255)? rgb: 140;
+	oldRgb=(oldRgb>=0 && oldRgb<=255)? oldRgb: 140;
+	//End security
+	if(isNaN(rgb) || isNaN(oldRgb) || isNaN(delay) || delay< 50){
+		clearInterval(clock);
+		alert("Intercepted by posibly malicious code");
+	}
+	
 	var el= document.getElementById('movie_player').classList.toString();
 	if(el.includes('playing-mode') && !document.webkitHidden){//Chrome
 		document.getElementsByClassName('html5-main-video')[0].style.filter='';
@@ -13,7 +27,7 @@ function evalu(){
 		var ic=0.1,
 		inc= 0.1;
 		if(rgb< 254.9 && rgb> 20){
-			if(Math.round(rgb/6.375)!= Math.round(oldRgb/6.375)){
+			if(Math.round(rgb/3)!= Math.round(oldRgb/3)){
 				while(ic< 1){
 					setTimeout(tick(ic), delay*ic);
 					ic+= inc;
@@ -30,15 +44,10 @@ function tick(ic){
 	var V= oldRgb*(1-ic) + rgb*ic,
 	X= 0.0266813*V -6.6303;
 	var PN= (X<0)? -1: 1,
-	bright= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.53771,
+	bright= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.53771,//247 is to dark
 	invert= 1- V,
 	con= 1.01* V,
 	sat= 1.013* V;
-	/*
-	invert*= PN;
-	con*= PN;
-	sat*= PN;
-	//*/
 	setFilter(bright, invert, con, sat);
 }
 
