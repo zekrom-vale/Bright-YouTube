@@ -1,9 +1,14 @@
 //chrome://flags/#enable-display-list-2d-canvas ?
 var oldRgb= rgb=140,
-delay=1000;
-setTimeout(function(){
-	var clock= setInterval(evalu, delay);
-}, 3000);
+delay=1000,
+clock,
+Initialize= setInterval(look, 1000);
+function look(){
+	if(document.getElementsByClassName('html5-main-video')[0].readyState== 4){
+		clock= setInterval(evalu, delay);
+		clearInterval(Initialize);
+	}
+}
 
 function evalu(){
 	//security
