@@ -1,32 +1,56 @@
-//Youtube is more pixalated
-var rgb=0,
-oldRgb= 140,
-clock= setInterval(evalu, 100);
+//chrome://flags/#enable-display-list-2d-canvas ?
+var oldRgb= rgb=140,
+delay=1000;
+setTimeout(function(){
+	var clock= setInterval(evalu, delay)
+}, 3000);
 
 function evalu(){
-	var el= document.getElementById('movie_player').classList;
-	el= el.toString();
-	if(el.includes('playing-mode')){
+	//security
+	oldRgb= Number(oldRgb);
+	rgb= Number(rgb);
+	delay= Number(delay)
+	rgb=(rgb>=0 && rgb<=255)? rgb: 140;
+	oldRgb=(oldRgb>=0 && oldRgb<=255)? oldRgb: 140;
+	//End security
+	if(isNaN(rgb) || isNaN(oldRgb) || isNaN(delay) || delay< 50){
+		clearInterval(clock);
+		alert("Intercepted by posibly malicious code");
+	}
+	
+	var el= document.getElementById('movie_player').classList.toString();
+	if(el.includes('playing-mode') && !document.webkitHidden){//Chrome
 		document.getElementsByClassName('html5-main-video')[0].style.filter='';
-		getAvColor(document.getElementsByClassName('html5-main-video')[0]);//This is it
+		getAvColor(document.getElementsByClassName('html5-main-video')[0]);
 		rgb= 255- rgb;
-		console.log(rgb);
-		var ic=0.1;
-		//Now add dellays!
-		//while(ic< 0.9){
-			//var V= oldRgb* (ic- 1)+ rgb* ic;
-			V= rgb;//V/2;
-			var bright= 0.0000075391*Math.pow(V, 2) +0.00185722*V +1.05812,
-			invert= 1- V,
-			con= 1.01* V,
-			sat= 1.013* V;
-			setFilter(bright, invert, con, sat);//nope
-			//ic+= 0.1;
-		//}
-		//oldRgb= rgb;
+		console.log(rgb);//Dev
+		var ic=0.1,
+		inc= 0.1;
+		if(rgb< 254.9 && rgb> 20){
+			if(Math.round(rgb/3)!= Math.round(oldRgb/3)){
+				while(ic< 1){
+					setTimeout(tick(ic), delay*ic);
+					ic+= inc;
+				}
+				oldRgb= rgb;
+			}
+			else tick(0);
+		}
+		else if(rgb<= 20) setFilter(1, 1, 1, 1);
 		rgb=0;
 	}
 }
+function tick(ic){
+	var V= oldRgb*(1-ic) + rgb*ic,
+	X= 0.0266813*V -6.6303;
+	var PN= (X<0)? -1: 1,
+	bright= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.53771,//247 is to dark
+	invert= 1- V,
+	con= 1.01* V,
+	sat= 1.013* V;
+	setFilter(bright, invert, con, sat);
+}
+
 
 function setFilter(bright, invert, con, sat){
 	document.getElementsByClassName('html5-main-video')[0].style.filter='brightness('+ bright+ ')';//+' invert('+ invert+') contrast('+ con+ ') saturate('+ sat+ ')';
@@ -34,34 +58,25 @@ function setFilter(bright, invert, con, sat){
 
 function getAvColor(img) {
     var canvas= document.createElement('canvas'),
-        context= canvas.getContext && canvas.getContext('2d');
+    context= canvas.getContext && canvas.getContext('2d');
 	document.body.appendChild(canvas);
-	canvas.id= 'temp';
-    // return the base colour for non-compliant browsers
-    if(!context) return;
 
-    // set the height and width of the canvas element to that of the image
+    //set canvas size
     var height= canvas.height= img.naturalHeight || img.offsetHeight || img.height,
-        width= canvas.width= img.naturalWidth || img.offsetWidth || img.width;
-
-    context.drawImage(img, 0, 0);//Disable hardware acceleration//Still a problem
-
-    try{//Nope
-        data= context.getImageData(10, 10, width-10, height-10);
-    } catch(e) {
-        // catch errors - usually due to cross domain security issues
-        console.log(e);
-        return;
-    }
+    width= canvas.width= img.naturalWidth || img.offsetWidth || img.width;
+//!!
+    context.drawImage(img, 0, 0);//--Hardware acceleration?
+//!!
+    data= context.getImageData(0, 0, width, height);
 	document.body.removeChild(canvas);
 	var i= C= 0;
-	while(i< data.data.length){//Nope!
-		var Z= Math.random();
-		Z= Math.round(Z*3) +1;
-		rgb+= Number(data.data[Z]);
-		var Ran= Math.round(Math.random()*75 +1)*4;
-		i+= Ran;//12;
-		C++;
+	while(i< data.data.length){
+		rgb+= data.data[i];
+		rgb+= data.data[i+1];
+		rgb+= data.data[i+2];
+		var Ran= Math.round(Math.random()*50 +1)*4;
+		i+= Ran;
+		C+=3;
 	}
-    rgb= rgb/C;
+    rgb/= C;
 }
