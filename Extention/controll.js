@@ -16,7 +16,6 @@ function evalu(){
 	delay= Number(delay)
 	rgb=(rgb>=0 && rgb<=255)? rgb: 140;
 	oldRgb=(oldRgb>=0 && oldRgb<=255)? oldRgb: 140;
-	//End security
 	if(isNaN(rgb) || isNaN(oldRgb) || isNaN(delay) || delay< 50){
 		clearInterval(clock);
 		var warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to continue?");
@@ -31,13 +30,14 @@ function evalu(){
 			return;
 		}
 	}
-	
+	//End security
 	var el= document.getElementById('movie_player').classList.toString();
 	if(el.includes('playing-mode') && !document.webkitHidden){//Chrome
 		document.getElementsByClassName('html5-main-video')[0].style.filter='';
 		getAvColor(document.getElementsByClassName('html5-main-video')[0]);
 		rgb= 255- rgb;
-		console.log(rgb);//Dev
+		/*
+		console.log(rgb);//*/
 		var ic=0.1,
 		inc= 0.1;
 		if(rgb< 254.9 && rgb> 20){

@@ -22,7 +22,6 @@
 			"https://www.youtube-nocookie.com/embed/*"
 		],
 		"js": ["controll.js"],
-		"css": ["temp.css"],
         "all_frames": true
 	}]
 }
