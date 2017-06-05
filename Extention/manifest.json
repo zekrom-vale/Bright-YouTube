@@ -4,7 +4,7 @@
 	"description": "This extension automaticaly ajusts the brightness of YouTube videos",
 	"version": "0.5",
 	"permissions": [
-		"https://www.youtube.com/watch?v=*",
+		"https://www.youtube.com/watch*",
 		"https://www.youtube.com/channel/*",
 		"https://www.youtube.com/embed/*",
 		"https://www.youtube-nocookie.com/embed/*"
@@ -16,7 +16,7 @@
 	],
 	"content_scripts": [{
 		"matches": [
-			"https://www.youtube.com/watch?v=*",
+			"https://www.youtube.com/watch*",
 			"https://www.youtube.com/channel/*",
 			"https://www.youtube.com/embed/*",
 			"https://www.youtube-nocookie.com/embed/*"
