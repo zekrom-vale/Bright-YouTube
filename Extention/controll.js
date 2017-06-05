@@ -2,7 +2,7 @@
 var oldRgb= rgb=140,
 delay=1000;
 setTimeout(function(){
-	var clock= setInterval(evalu, delay)
+	var clock= setInterval(evalu, delay);
 }, 3000);
 
 function evalu(){
@@ -15,7 +15,17 @@ function evalu(){
 	//End security
 	if(isNaN(rgb) || isNaN(oldRgb) || isNaN(delay) || delay< 50){
 		clearInterval(clock);
-		alert("Intercepted by posibly malicious code");
+		var warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to continue?");
+		if(warning=== true){
+			oldRgb= 140;
+			rgb= 140;
+			delay= 1000;
+			clock= setInterval(evalu, delay);
+		}
+		else{
+			document.getElementsByClassName('html5-main-video')[0].style.filter='';
+			return;
+		}
 	}
 	
 	var el= document.getElementById('movie_player').classList.toString();
