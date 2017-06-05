@@ -30,17 +30,16 @@ function tick(ic){
 	var V= oldRgb*(1-ic) + rgb*ic,
 	X= 0.0266813*V -6.6303;
 	var PN= (X<0)? -1: 1,
-	bright= 0.473474*Math.pow(Math.abs(X), 1/7)+ 1.53771,
+	bright= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.53771,
 	invert= 1- V,
 	con= 1.01* V,
 	sat= 1.013* V;
-	bright*= PN;
 	/*
 	invert*= PN;
 	con*= PN;
 	sat*= PN;
 	//*/
-	setFilter(bright, invert, con, sat);//nope
+	setFilter(bright, invert, con, sat);
 }
 
 
@@ -50,12 +49,12 @@ function setFilter(bright, invert, con, sat){
 
 function getAvColor(img) {
     var canvas= document.createElement('canvas'),
-        context= canvas.getContext && canvas.getContext('2d');
+    context= canvas.getContext && canvas.getContext('2d');
 	document.body.appendChild(canvas);
 
-    // set size of the canvas to the image
+    //set canvas size
     var height= canvas.height= img.naturalHeight || img.offsetHeight || img.height,
-        width= canvas.width= img.naturalWidth || img.offsetWidth || img.width;
+    width= canvas.width= img.naturalWidth || img.offsetWidth || img.width;
 //!!
     context.drawImage(img, 0, 0);//--Hardware acceleration?
 //!!
@@ -66,7 +65,7 @@ function getAvColor(img) {
 		rgb+= data.data[i];
 		rgb+= data.data[i+1];
 		rgb+= data.data[i+2];
-		var Ran= Math.round(Math.random()*75 +1)*4;
+		var Ran= Math.round(Math.random()*50 +1)*4;
 		i+= Ran;
 		C+=3;
 	}
