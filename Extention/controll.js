@@ -1,4 +1,3 @@
-//chrome://flags/#enable-display-list-2d-canvas ?
 var oldRgb= rgb=140,
 delay=1000,
 clock,
