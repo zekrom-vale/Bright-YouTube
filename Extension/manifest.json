@@ -1,8 +1,19 @@
 {
 	"manifest_version": 2,
 	"name": "Bright YouTube",
-	"description": "This extension automaticaly ajusts the brightness of YouTube videos",
+	"default_locale": "en",
 	"version": "0.5",
+	"description": "This extension automaticaly ajusts the brightness of YouTube videos",
+	"browser_action": {
+		"icons":{
+			"16": "img/YT16.png",
+			"32": "img/YT32.png",
+			"64": "img/YT64.png",
+			"128": "img/YT128.png"
+		},
+		"default_title": "Enable/Disable", 
+		"default_popup": "act.html"
+	}
 	"permissions": [
 		"https://www.youtube.com/watch*",
 		"https://www.youtube.com/channel/*",
