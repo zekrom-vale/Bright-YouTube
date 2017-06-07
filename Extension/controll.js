@@ -54,10 +54,7 @@ function evalu(){
 		else if(rgb<= 20) setFilter(1, 1, 1, 1);
 		rgb=0;
 	}
-	else{
-		
-		document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
-	}
+	else document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
 }
 function tick(ic){
 	var V= oldRgb*(1-ic) + rgb*ic,
