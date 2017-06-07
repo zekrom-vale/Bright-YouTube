@@ -33,6 +33,7 @@ function evalu(){
 	//End security
 	var el= document.getElementById('movie_player').classList.toString();
 	if(el.includes('playing-mode') && !document.webkitHidden){//Chrome
+		document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
 		document.getElementsByClassName('html5-main-video')[0].style.filter='';
 		getAvColor(document.getElementsByClassName('html5-main-video')[0]);
 		rgb= 255- rgb;
@@ -52,6 +53,10 @@ function evalu(){
 		}
 		else if(rgb<= 20) setFilter(1, 1, 1, 1);
 		rgb=0;
+	}
+	else{
+		
+		document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
 	}
 }
 function tick(ic){
