@@ -1,6 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Bright YouTube",
+	"short_name": "Brt YT",
 	"version": "1.0",
 	"description": "This extension automaticaly ajusts the brightness of YouTube videos",
 	"icons":{
@@ -13,7 +14,12 @@
 		"default_title": "Bright YouTube Options", 
 		"default_popup": "popup/act.html"
 	},
+	 "devtools_page": "https://github.com/zekrom-vale/Bright-YouTube/tree/Experimental",
+	"homepage_url": "https://github.com/zekrom-vale/Bright-YouTube",
+	"offline_enabled": true,
 	"permissions": [
+		"https://gaming.youtube.com/watch*",
+		"https://gaming.youtube.com/channel/*",
 		"https://www.youtube.com/watch*",
 		"https://www.youtube.com/channel/*",
 		"https://www.youtube.com/embed/*",
@@ -27,13 +33,15 @@
 	],
 	"content_scripts": [{
 		"matches": [
+			"https://gaming.youtube.com/watch*",
+			"https://gaming.youtube.com/channel/*",
 			"https://www.youtube.com/watch*",
 			"https://www.youtube.com/channel/*",
 			"https://www.youtube.com/embed/*",
 			"https://www.youtube-nocookie.com/embed/*"
 		],
 		"css": ["main.css"],
-		"js": ["controll.js", "popup/page.js"],
+		"js": ["controll.js"],
         "all_frames": true
 	}]
 }

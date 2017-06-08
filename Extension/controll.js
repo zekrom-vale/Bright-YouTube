@@ -2,18 +2,14 @@ var oldRgb= rgb=140,
 delay=1000,
 clock,
 Active,
-Initialize= setInterval(look, 1000),
 GI=1;//First pass looks it up!
-function look(){
-	if(document.getElementsByClassName('html5-main-video')[0].readyState== 4){
-		clock= setInterval(evalu, delay);
-		clearInterval(Initialize);
-	}
-}
+document.getElementsByClassName('html5-main-video')[0].addEventListener('canplay',function(){
+	clock= setInterval(evalu, delay);
+},{once: true});
 
 function evalu(){
 	GI++;
-	if(GI>=2){
+	if(GI>=2 || Active=== false){
 		GI=0;
 		gettingItem= chrome.storage.local.get('Active', function(items){
 			Active= items.Active;
