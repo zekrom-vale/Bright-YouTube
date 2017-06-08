@@ -2,7 +2,8 @@ var oldRgb= rgb=140,
 delay=1000,
 clock,
 Active,
-Initialize= setInterval(look, 1000);
+Initialize= setInterval(look, 1000),
+GI=1;//First pass looks it up!
 function look(){
 	if(document.getElementsByClassName('html5-main-video')[0].readyState== 4){
 		clock= setInterval(evalu, delay);
@@ -11,20 +12,24 @@ function look(){
 }
 
 function evalu(){
-	gettingItem= chrome.storage.local.get('Active', function(items){
-		Active= items.Active;
-	});
-	gettingItem= chrome.storage.local.get('Short', function(items){
-		if(items.Short=== true){
-			clearInterval(clock);
+	GI++;
+	if(GI>=2){
+		GI=0;
+		gettingItem= chrome.storage.local.get('Active', function(items){
+			Active= items.Active;
+		});
+		gettingItem= chrome.storage.local.get('Short', function(items){
+			if(items.Short=== true){
+				clearInterval(clock);
+				document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
+				document.getElementsByClassName('html5-main-video')[0].style.filter='';
+			}
+		});
+		if(Active=== false){
 			document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
 			document.getElementsByClassName('html5-main-video')[0].style.filter='';
+			return;
 		}
-	});
-	if(Active=== false){
-		document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
-		document.getElementsByClassName('html5-main-video')[0].style.filter='';
-		return;
 	}
 	//security
 	oldRgb= Number(oldRgb);
