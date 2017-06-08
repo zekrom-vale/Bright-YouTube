@@ -33,21 +33,23 @@ function StorageChange(changes){
 	try{
 		if(changes.Active.newValue=== true) START();
 		else STOP();
-	}catch(e){}
+	}catch(e){}//changes.Active.newValue does not exist
 }
 
 function STOP(){
 	onPause();
-	document.getElementsByClassName('html5-main-video')[0].removeEventListener('play', onPlay);
-	document.getElementsByClassName('html5-main-video')[0].removeEventListener('pause', onPause);
-	document.getElementsByClassName('html5-main-video')[0].style.filter='';
+	var x= document.getElementsByClassName('html5-main-video')[0];
+	x.removeEventListener('play', onPlay);
+	x.removeEventListener('pause', onPause);
+	x.style.filter='';
 }
 
 function START(){
 	clock= setInterval(evalu, delay);
+	var x= document.getElementsByClassName('html5-main-video')[0];
 	document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
-	document.getElementsByClassName('html5-main-video')[0].addEventListener('play', onPlay);
-	document.getElementsByClassName('html5-main-video')[0].addEventListener('pause', onPause);
+	x.addEventListener('play', onPlay);
+	x.addEventListener('pause', onPause);
 }
 
 //End Active?
@@ -120,7 +122,7 @@ function getAvColor(img) {
     var height= canvas.height= img.naturalHeight || img.offsetHeight || img.height,
     width= canvas.width= img.naturalWidth || img.offsetWidth || img.width;
 //!!
-    context.drawImage(img, 0, 0);//--Hardware acceleration?
+    context.drawImage(img, 0, 0);//--Hardware acceleration!!
 //!!
     data= context.getImageData(0, 0, width, height);
 	document.body.removeChild(canvas);
