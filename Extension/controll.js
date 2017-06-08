@@ -9,41 +9,42 @@ document.getElementsByClassName('html5-main-video')[0].addEventListener('pause',
 
 function onPlay(){
 	gettingItem= chrome.storage.local.get('Short', function(items){
+		console.log(items.Short);
 		if(items.Short=== true){
 			SHORT();
 		}
+		else clock= setInterval(evalu, delay);
 	});
-	gettingItem= chrome.storage.local.get('Active', function(items){
-		Active= items.Active;
-	});
-	if(Active=== false){
-		console.log('off');
-		document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
-		document.getElementsByClassName('html5-main-video')[0].style.filter='';
-		return;
-	}
-	else{
-		clock= setInterval(evalu, delay);
-		document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
-	}
 }
 
 function onPause(){
-	clock= clearInterval(evalu);
+	clearInterval(clock);
 	document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
 }
 
 function SHORT(){
-	var x= document.getElementsByClassName('html5-main-video')[0];
-	x.removeEventListener('play', onPlay);
-	x.removeEventListener('pause', onPause);
-	document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
-	x.style.filter='';
+	onPause();
+	document.getElementsByClassName('html5-main-video')[0].removeEventListener('play', onPlay);
+	document.getElementsByClassName('html5-main-video')[0].removeEventListener('pause', onPause);
+	document.getElementsByClassName('html5-main-video')[0].style.filter='';
 }
 
 //End Active?
 function evalu(){
 	if(document.webkitHidden) return;//Chrome
+	//Disabled?
+	gettingItem= chrome.storage.local.get('Active', function(items){
+		Active= items.Active;
+	});
+	if(Active=== false){
+		document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
+		document.getElementsByClassName('html5-main-video')[0].style.filter='';
+		return;
+	}
+	else{
+		document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
+	}
+	//End
 	//security
 	oldRgb= Number(oldRgb);
 	rgb= Number(rgb);
