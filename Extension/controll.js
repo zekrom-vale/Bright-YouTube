@@ -13,7 +13,7 @@ function evalu(){
 	//security
 	oldRgb= Number(oldRgb);
 	rgb= Number(rgb);
-	delay= Number(delay)
+	delay= Number(delay);
 	rgb=(rgb>=0 && rgb<=255)? rgb: 140;
 	oldRgb=(oldRgb>=0 && oldRgb<=255)? oldRgb: 140;
 	if(isNaN(rgb) || isNaN(oldRgb) || isNaN(delay) || delay< 50){
