@@ -3,11 +3,11 @@
 	delay=1000,
 	clock;
 	gettingItem= chrome.storage.local.get('Active', function(items){
-		if(items.Active=== false) STOP();
-		else START();
+		if(items.Active=== true) START();
 	});
-	chrome.storage.onChanged.addListener(StorageChange);
-
+	gettingItem= chrome.storage.local.get('Short', function(items){
+		if(items.Short=== false) chrome.storage.onChanged.addListener(StorageChange);
+	});
 //Active?
 function onPlay(){
 	gettingItem= chrome.storage.local.get('Short', function(items){
@@ -60,11 +60,9 @@ function evalu(){
 	oldRgb= Number(oldRgb);
 	rgb= Number(rgb);
 	delay= Number(delay);
-	rgb=(rgb>=0 && rgb<=255)? rgb: 140;
-	oldRgb=(oldRgb>=0 && oldRgb<=255)? oldRgb: 140;
 	if(isNaN(rgb) || isNaN(oldRgb) || isNaN(delay) || delay< 50){
 		clearInterval(clock);
-		var warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to continue?");
+		var warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
 		if(warning=== true){
 			oldRgb= 140;
 			rgb= 140;
@@ -72,14 +70,14 @@ function evalu(){
 			clock= setInterval(evalu, delay);
 		}
 		else{
-			document.getElementsByClassName('html5-main-video')[0].style.filter='';
+			SHORT();
 			return;
 		}
 	}
 	//End security
 	document.getElementsByClassName('html5-main-video')[0].style.filter='';
 	getAvColor(document.getElementsByClassName('html5-main-video')[0]);
-	rgb= 255- rgb;
+	rgb= 255-rgb;
 	/*
 	console.log(rgb);//*/
 	var ic=0.1,
@@ -123,7 +121,6 @@ function getAvColor(img) {
     width= canvas.width= img.naturalWidth || img.offsetWidth || img.width;
 //!!
     context.drawImage(img, 0, 0);//--Hardware acceleration!!
-//!!
     data= context.getImageData(0, 0, width, height);
 	document.body.removeChild(canvas);
 	var i= C= 0;
