@@ -33,12 +33,19 @@
   transition: .4s;
 }
 
-input:checked + .slider {
+input:checked + .slider:not(.red) {
   background-color: #2196F3;
 }
 
-input:focus + .slider {
+input:focus + .slider:not(.red) {
   box-shadow: 0 0 1px #2196F3;
+}
+input:checked + .slider.red {
+  background-color: red;
+}
+
+input:focus + .slider.red {
+  box-shadow: 0 0 1px red;
 }
 
 input:checked + .slider:before {

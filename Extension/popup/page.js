@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	gettingItem= chrome.storage.local.get('Active', function(items){
 		if(items.Active=== false) document.getElementById('IO').checked= false;
 	});
+	gettingItem= chrome.storage.local.get('Short', function(items){
+		if(items.Short=== true) document.getElementById('ST').checked= true;
+	});
 	document.getElementById("IO").addEventListener("change", IO);
 	document.getElementById("ST").addEventListener("change", Srt);
 });

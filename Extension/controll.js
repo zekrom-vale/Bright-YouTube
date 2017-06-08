@@ -11,8 +11,10 @@ function look(){
 }
 
 function evalu(){
-	gettingItem= chrome.storage.local.get(['Active', 'Short'], function(items){
+	gettingItem= chrome.storage.local.get('Active', function(items){
 		Active= items.Active;
+	});
+	gettingItem= chrome.storage.local.get('Short', function(items){
 		if(items.Short=== true){
 			clearInterval(clock);
 			document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
