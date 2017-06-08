@@ -1,33 +1,49 @@
 var oldRgb= rgb=140,
 delay=1000,
 clock,
-Active,
-GI=1;//First pass looks it up!
-document.getElementsByClassName('html5-main-video')[0].addEventListener('canplay', Loop);
-function Loop(){
-	clock= setInterval(evalu, delay);
-	this.removeEventListener('canplay', Loop);
-}
-function evalu(){
-	GI++;
-	if(GI>=2 || Active=== false){
-		GI=0;
-		gettingItem= chrome.storage.local.get('Active', function(items){
-			Active= items.Active;
-		});
-		gettingItem= chrome.storage.local.get('Short', function(items){
-			if(items.Short=== true){
-				clearInterval(clock);
-				document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
-				document.getElementsByClassName('html5-main-video')[0].style.filter='';
-			}
-		});
-		if(Active=== false){
-			document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
-			document.getElementsByClassName('html5-main-video')[0].style.filter='';
-			return;
+Active;
+
+//Active?
+document.getElementsByClassName('html5-main-video')[0].addEventListener('play', onPlay);
+document.getElementsByClassName('html5-main-video')[0].addEventListener('pause', onPause);
+
+function onPlay(){
+	gettingItem= chrome.storage.local.get('Short', function(items){
+		if(items.Short=== true){
+			SHORT();
 		}
+	});
+	gettingItem= chrome.storage.local.get('Active', function(items){
+		Active= items.Active;
+	});
+	if(Active=== false){
+		console.log('off');
+		document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
+		document.getElementsByClassName('html5-main-video')[0].style.filter='';
+		return;
 	}
+	else{
+		clock= setInterval(evalu, delay);
+		document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
+	}
+}
+
+function onPause(){
+	clock= clearInterval(evalu);
+	document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
+}
+
+function SHORT(){
+	var x= document.getElementsByClassName('html5-main-video')[0];
+	x.removeEventListener('play', onPlay);
+	x.removeEventListener('pause', onPause);
+	document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
+	x.style.filter='';
+}
+
+//End Active?
+function evalu(){
+	if(document.webkitHidden) return;//Chrome
 	//security
 	oldRgb= Number(oldRgb);
 	rgb= Number(rgb);
@@ -49,30 +65,25 @@ function evalu(){
 		}
 	}
 	//End security
-	var el= document.getElementById('movie_player').classList.toString();
-	if(el.includes('playing-mode') && !document.webkitHidden){//Chrome
-		document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
-		document.getElementsByClassName('html5-main-video')[0].style.filter='';
-		getAvColor(document.getElementsByClassName('html5-main-video')[0]);
-		rgb= 255- rgb;
-		/*
-		console.log(rgb);//*/
-		var ic=0.1,
-		inc= 0.1;
-		if(rgb< 254.9 && rgb> 20){
-			if(Math.round(rgb/3)!= Math.round(oldRgb/3)){
-				while(ic< 1){
-					setTimeout(tick(ic), delay*ic);
-					ic+= inc;
-				}
-				oldRgb= rgb;
+	document.getElementsByClassName('html5-main-video')[0].style.filter='';
+	getAvColor(document.getElementsByClassName('html5-main-video')[0]);
+	rgb= 255- rgb;
+	/*
+	console.log(rgb);//*/
+	var ic=0.1,
+	inc= 0.1;
+	if(rgb< 254.9 && rgb> 20){
+		if(Math.round(rgb/3)!= Math.round(oldRgb/3)){
+			while(ic< 1){
+				setTimeout(tick(ic), delay*ic);
+				ic+= inc;
 			}
-			else tick(0);
+			oldRgb= rgb;
 		}
-		else if(rgb<= 20) setFilter(1, 1, 1, 1);
-		rgb=0;
+		else tick(0);
 	}
-	else document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
+	else if(rgb<= 20) setFilter(1, 1, 1, 1);
+	rgb=0;
 }
 function tick(ic){
 	var V= oldRgb*(1-ic) + rgb*ic,
