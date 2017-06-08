@@ -1,7 +1,6 @@
 var oldRgb= rgb=140,
 delay=1000,
-clock,
-Active;
+clock;
 
 //Active?
 document.getElementsByClassName('html5-main-video')[0].addEventListener('play', onPlay);
@@ -27,24 +26,24 @@ function SHORT(){
 	document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
 	x.style.filter='';
 }
-
 //End Active?
+
 function evalu(){
 	if(document.webkitHidden) return;//Chrome
 	//Disabled?
 	gettingItem= chrome.storage.local.get('Active', function(items){
-		Active= items.Active;
+		if(items.Active=== false){
+			console.log('off');
+			document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
+			document.getElementsByClassName('html5-main-video')[0].style.filter='';
+			return;
+		}
+		else{
+			clock= setInterval(evalu, delay);
+			document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
+		}
 	});
-	if(Active=== false){
-		console.log('off');
-		document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
-		document.getElementsByClassName('html5-main-video')[0].style.filter='';
-		return;
-	}
-	else{
-		clock= setInterval(evalu, delay);
-		document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
-	}
+	
 	//End Disabled?
 	//security
 	oldRgb= Number(oldRgb);
