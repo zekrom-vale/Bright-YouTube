@@ -6,3 +6,9 @@
 	display:flex;
 	margin-bottom:10px
 }
+.black{
+	background:black
+}
+.black .name{
+	color:white;
+}
