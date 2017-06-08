@@ -3,10 +3,11 @@ delay=1000,
 clock,
 Active,
 GI=1;//First pass looks it up!
-document.getElementsByClassName('html5-main-video')[0].addEventListener('canplay',function(){
+document.getElementsByClassName('html5-main-video')[0].addEventListener('canplay', Loop);
+function Loop(){
 	clock= setInterval(evalu, delay);
-},{once: true});
-
+	this.removeEventListener('canplay', Loop);
+}
 function evalu(){
 	GI++;
 	if(GI>=2 || Active=== false){
