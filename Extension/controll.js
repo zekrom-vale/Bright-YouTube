@@ -2,12 +2,15 @@
 	var oldRgb= rgb=140,
 	delay=1000,
 	clock;
-	gettingItem= chrome.storage.local.get('Active', function(items){
-		if(items.Active=== true) START();
-	});
 	gettingItem= chrome.storage.local.get('Short', function(items){
-		if(items.Short=== false) chrome.storage.onChanged.addListener(StorageChange);
+		if(items.Short=== false){
+			chrome.storage.onChanged.addListener(StorageChange);
+			gettingItem= chrome.storage.local.get('Active', function(items){
+				if(items.Active=== true) START();
+			});
+		}
 	});
+	
 //Active?
 function onPlay(){
 	gettingItem= chrome.storage.local.get('Short', function(items){
@@ -55,11 +58,9 @@ function START(){
 //End Active?
 
 function evalu(){
-	if(document.webkitHidden) return;//Chrome
+	if(document.webkitHidden) return;
+	//https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
 	//security
-	oldRgb= Number(oldRgb);
-	rgb= Number(rgb);
-	delay= Number(delay);
 	if(isNaN(rgb) || isNaN(oldRgb) || isNaN(delay) || delay< 50){
 		clearInterval(clock);
 		var warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
