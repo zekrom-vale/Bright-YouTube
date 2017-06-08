@@ -4,12 +4,12 @@ clock;
 //Active?
 document.getElementsByClassName('html5-main-video')[0].addEventListener('play', onPlay);
 document.getElementsByClassName('html5-main-video')[0].addEventListener('pause', onPause);
-chrome.storage.onChanged.addListener(StorageChange);//2.0
+chrome.storage.onChanged.addListener(StorageChange);
+
+
 function onPlay(){
 	gettingItem= chrome.storage.local.get('Short', function(items){
-		if(items.Short=== true){
-			SHORT();
-		}
+		if(items.Short=== true) SHORT();
 		else{
 			clock= setInterval(evalu, delay);
 			document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
@@ -23,14 +23,10 @@ function onPause(){
 }
 
 function SHORT(){
-	console.log('Shorted');
-	onPause();
-	document.getElementsByClassName('html5-main-video')[0].removeEventListener('play', onPlay);
-	document.getElementsByClassName('html5-main-video')[0].removeEventListener('pause', onPause);
-	document.getElementsByClassName('html5-main-video')[0].style.filter='';
+	STOP();
 	chrome.storage.onChanged.removeListener(StorageChange);
 }
-//Active? 2.0
+
 function StorageChange(changes){
 	try{
 		if(changes.Active.newValue=== true){
@@ -39,13 +35,15 @@ function StorageChange(changes){
 			document.getElementsByClassName('html5-main-video')[0].addEventListener('play', onPlay);
 			document.getElementsByClassName('html5-main-video')[0].addEventListener('pause', onPause);
 		}
-		else{
-			onPause();
-			document.getElementsByClassName('html5-main-video')[0].removeEventListener('play', onPlay);
-			document.getElementsByClassName('html5-main-video')[0].removeEventListener('pause', onPause);
-			document.getElementsByClassName('html5-main-video')[0].style.filter='';
-		}
+		else STOP();
 	}catch(e){}
+}
+
+function STOP(){
+	onPause();
+	document.getElementsByClassName('html5-main-video')[0].removeEventListener('play', onPlay);
+	document.getElementsByClassName('html5-main-video')[0].removeEventListener('pause', onPause);
+	document.getElementsByClassName('html5-main-video')[0].style.filter='';
 }
 
 //End Active?
