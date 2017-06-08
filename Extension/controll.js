@@ -1,18 +1,19 @@
 var oldRgb= rgb=140,
 delay=1000,
 clock;
-
 //Active?
 document.getElementsByClassName('html5-main-video')[0].addEventListener('play', onPlay);
 document.getElementsByClassName('html5-main-video')[0].addEventListener('pause', onPause);
-
+chrome.storage.onChanged.addListener(StorageChange);//2.0
 function onPlay(){
 	gettingItem= chrome.storage.local.get('Short', function(items){
-		console.log(items.Short);
 		if(items.Short=== true){
 			SHORT();
 		}
-		else clock= setInterval(evalu, delay);
+		else{
+			clock= setInterval(evalu, delay);
+			document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
+		}
 	});
 }
 
@@ -22,26 +23,35 @@ function onPause(){
 }
 
 function SHORT(){
+	console.log('Shorted');
 	onPause();
 	document.getElementsByClassName('html5-main-video')[0].removeEventListener('play', onPlay);
 	document.getElementsByClassName('html5-main-video')[0].removeEventListener('pause', onPause);
 	document.getElementsByClassName('html5-main-video')[0].style.filter='';
+	chrome.storage.onChanged.removeListener(StorageChange);
+}
+//Active? 2.0
+function StorageChange(changes){
+	try{
+		if(changes.Active.newValue=== true){
+			clock= setInterval(evalu, delay);
+			document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
+			document.getElementsByClassName('html5-main-video')[0].addEventListener('play', onPlay);
+			document.getElementsByClassName('html5-main-video')[0].addEventListener('pause', onPause);
+		}
+		else{
+			onPause();
+			document.getElementsByClassName('html5-main-video')[0].removeEventListener('play', onPlay);
+			document.getElementsByClassName('html5-main-video')[0].removeEventListener('pause', onPause);
+			document.getElementsByClassName('html5-main-video')[0].style.filter='';
+		}
+	}catch(e){}
 }
 
 //End Active?
+
 function evalu(){
 	if(document.webkitHidden) return;//Chrome
-	//Disabled?
-	gettingItem= chrome.storage.local.get('Active', function(items){
-		if(items.Active=== false){
-			document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
-			document.getElementsByClassName('html5-main-video')[0].style.filter='';
-			return;
-		}
-		else document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
-	});
-	
-	//End
 	//security
 	oldRgb= Number(oldRgb);
 	rgb= Number(rgb);
