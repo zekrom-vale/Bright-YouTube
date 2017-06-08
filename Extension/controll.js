@@ -13,19 +13,6 @@ function onPlay(){
 			SHORT();
 		}
 	});
-	gettingItem= chrome.storage.local.get('Active', function(items){
-		Active= items.Active;
-	});
-	if(Active=== false){
-		console.log('off');
-		document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
-		document.getElementsByClassName('html5-main-video')[0].style.filter='';
-		return;
-	}
-	else{
-		clock= setInterval(evalu, delay);
-		document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
-	}
 }
 
 function onPause(){
@@ -44,6 +31,21 @@ function SHORT(){
 //End Active?
 function evalu(){
 	if(document.webkitHidden) return;//Chrome
+	//Disabled?
+	gettingItem= chrome.storage.local.get('Active', function(items){
+		Active= items.Active;
+	});
+	if(Active=== false){
+		console.log('off');
+		document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
+		document.getElementsByClassName('html5-main-video')[0].style.filter='';
+		return;
+	}
+	else{
+		clock= setInterval(evalu, delay);
+		document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
+	}
+	//End Disabled?
 	//security
 	oldRgb= Number(oldRgb);
 	rgb= Number(rgb);
