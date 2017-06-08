@@ -1,12 +1,14 @@
-var oldRgb= rgb=140,
-delay=1000,
-clock;
+//On document_idle
+	var oldRgb= rgb=140,
+	delay=1000,
+	clock;
+	gettingItem= chrome.storage.local.get('Active', function(items){
+		if(items.Active=== false) STOP();
+		else START();
+	});
+	chrome.storage.onChanged.addListener(StorageChange);
+
 //Active?
-document.getElementsByClassName('html5-main-video')[0].addEventListener('play', onPlay);
-document.getElementsByClassName('html5-main-video')[0].addEventListener('pause', onPause);
-chrome.storage.onChanged.addListener(StorageChange);
-
-
 function onPlay(){
 	gettingItem= chrome.storage.local.get('Short', function(items){
 		if(items.Short=== true) SHORT();
@@ -29,12 +31,7 @@ function SHORT(){
 
 function StorageChange(changes){
 	try{
-		if(changes.Active.newValue=== true){
-			clock= setInterval(evalu, delay);
-			document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
-			document.getElementsByClassName('html5-main-video')[0].addEventListener('play', onPlay);
-			document.getElementsByClassName('html5-main-video')[0].addEventListener('pause', onPause);
-		}
+		if(changes.Active.newValue=== true) START();
 		else STOP();
 	}catch(e){}
 }
@@ -44,6 +41,13 @@ function STOP(){
 	document.getElementsByClassName('html5-main-video')[0].removeEventListener('play', onPlay);
 	document.getElementsByClassName('html5-main-video')[0].removeEventListener('pause', onPause);
 	document.getElementsByClassName('html5-main-video')[0].style.filter='';
+}
+
+function START(){
+	clock= setInterval(evalu, delay);
+	document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
+	document.getElementsByClassName('html5-main-video')[0].addEventListener('play', onPlay);
+	document.getElementsByClassName('html5-main-video')[0].addEventListener('pause', onPause);
 }
 
 //End Active?
