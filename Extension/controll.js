@@ -39,7 +39,7 @@ function StorageChange(changes){
 	try{
 		if(changes.Active.newValue=== true) START();
 		else STOP();
-	}catch(e){}//changes.Active.newValue does not exist
+	}catch(e){}
 }
 
 function STOP(){
@@ -47,7 +47,7 @@ function STOP(){
 	var x= document.getElementsByClassName('html5-main-video')[0];
 	x.removeEventListener('play', onPlay);
 	x.removeEventListener('pause', onPause);
-	document.getElementById('Brt-YT').innerHTML= '';//x.style.filter='';
+	document.getElementById('Brt-YT').innerHTML= '';
 }
 
 function START(){
@@ -61,7 +61,8 @@ function START(){
 //End Active?
 
 function evalu(){
-	if(document.webkitHidden) return;
+	var x= document.getElementsByClassName('html5-main-video')[0];
+	if(document.webkitHidden || x.style.filter!= '' || x.readyState< 4) return;
 	//https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
 	//security
 	if(isNaN(rgb) || isNaN(oldRgb) || isNaN(delay) || delay< 50){
@@ -79,7 +80,7 @@ function evalu(){
 		}
 	}
 	//End security
-	document.getElementById('Brt-YT').innerHTML= '';//document.getElementsByClassName('html5-main-video')[0].style.filter='';
+	document.getElementById('Brt-YT').innerHTML= '';
 	getAvColor(document.getElementsByClassName('html5-main-video')[0]);
 	rgb= 255-rgb;
 	/*
@@ -99,6 +100,7 @@ function evalu(){
 	else if(rgb<= 20) setFilter(1, 1);
 	rgb=0;
 }
+
 function tick(ic){
 	var V= oldRgb*(1-ic) + rgb*ic,
 	X= 0.0266813*V -6.6303;
