@@ -4,6 +4,9 @@
 	clock;
 	gettingItem= chrome.storage.local.get('Short', function(items){
 		if(items.Short=== false){
+				var Style= document.createElement('style');
+				Style.id= 'Brt-YT';
+				document.head.appendChild(Style);
 			chrome.storage.onChanged.addListener(StorageChange);
 			gettingItem= chrome.storage.local.get('Active', function(items){
 				if(items.Active=== true) START();
@@ -44,7 +47,7 @@ function STOP(){
 	var x= document.getElementsByClassName('html5-main-video')[0];
 	x.removeEventListener('play', onPlay);
 	x.removeEventListener('pause', onPause);
-	x.style.filter='';
+	document.getElementById('Brt-YT').innerHTML= '';//x.style.filter='';
 }
 
 function START(){
@@ -76,7 +79,7 @@ function evalu(){
 		}
 	}
 	//End security
-	document.getElementsByClassName('html5-main-video')[0].style.filter='';
+	document.getElementById('Brt-YT').innerHTML= '';//document.getElementsByClassName('html5-main-video')[0].style.filter='';
 	getAvColor(document.getElementsByClassName('html5-main-video')[0]);
 	rgb= 255-rgb;
 	/*
@@ -104,12 +107,14 @@ function tick(ic){
 	invert= 1- V,
 	con= 1.01* V,
 	sat= 1.013* V;
-	setFilter(bright, invert, con, sat);
+	setFilter(bright/*, invert, con, sat*/);
 }
 
 
-function setFilter(bright, invert, con, sat){
-	document.getElementsByClassName('html5-main-video')[0].style.filter='brightness('+ bright+ ')';//+' invert('+ invert+') contrast('+ con+ ') saturate('+ sat+ ')';
+function setFilter(bright=1, invert=0, con=1, sat=1){
+	document.getElementById('Brt-YT').innerHTML= '.html5-main-video{filter: '+
+		'brightness('+ bright+ ') invert('+ invert+') contrast('+ con+ ') saturate('+ sat+ ')'+
+	'}';
 }
 
 function getAvColor(img) {
