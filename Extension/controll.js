@@ -96,7 +96,7 @@ function evalu(){
 		}
 		else tick(0);
 	}
-	else if(rgb<= 20) setFilter(1, 1, 1, 1);
+	else if(rgb<= 20) setFilter(1, 1);
 	rgb=0;
 }
 function tick(ic){
