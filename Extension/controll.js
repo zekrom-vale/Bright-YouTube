@@ -2,6 +2,7 @@
 	var oldRgb= rgb=140,
 	delay=1000,
 	clock;
+setTimeout(function(){
 	chrome.storage.local.get('Short', function(items){
 		if(items.Short!== true){
 				var Style= document.createElement('style');
@@ -13,6 +14,7 @@
 			});
 		}
 	});
+}, 500);
 	
 //Active?
 function onPlay(){
