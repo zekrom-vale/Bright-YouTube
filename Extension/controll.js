@@ -154,5 +154,10 @@ function toggle(poz= true){
 		if(poz) document.getElementsByClassName('player-icon-pause')[0].classList.add('active');
 		else document.getElementsByClassName('player-icon-pause')[0].classList.remove('active');
 	}
-	
+	else{
+		try{
+			if(poz) document.getElementsByClassName('playpause')[0].classList.add('active');
+			else document.getElementsByClassName('playpause')[0].classList.remove('active');
+		}catch(e){}
+	}
 }

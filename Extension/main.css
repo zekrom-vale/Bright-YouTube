@@ -1,3 +1,4 @@
+.active#playpause,
 .active.player-icon-pause,
 .active.ytp-play-button .ytp-svg-fill{
 	    fill:yellow;
