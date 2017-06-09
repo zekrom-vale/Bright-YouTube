@@ -4,13 +4,15 @@
 	clock;
 setTimeout(function(){
 	chrome.storage.local.get('Short', function(items){
+		console.log(items.Short);
 		if(items.Short!== true){
 				var Style= document.createElement('style');
 				Style.id= 'Brt-YT';
 				document.head.appendChild(Style);
 			chrome.storage.onChanged.addListener(StorageChange);
 			chrome.storage.local.get('Active', function(items){
-				if(items.Active=== true) START();
+				console.log(items.Active);
+				if(items.Active!== false) START();
 			});
 		}
 	});
@@ -19,7 +21,7 @@ setTimeout(function(){
 //Active?
 function onPlay(){
 	chrome.storage.local.get('Short', function(items){
-		if(items.Short=== true){
+		if(items.Short!== false){
 			STOP();
 			chrome.storage.onChanged.removeListener(StorageChange);
 		}
@@ -135,16 +137,14 @@ function getAvColor(img) {
 	document.body.removeChild(canvas);
 	var i= C= 0;
 	while(i< data.data.length){
-		rgb+= data.data[i];
-		rgb+= data.data[i+1];
-		rgb+= data.data[i+2];
+		rgb+= data.data[i] + data.data[i+1] + data.data[i+2];
 		var Ran= Math.round(Math.random()*50 +1)*4;
 		i+= Ran;
 		C+=3;
 	}
     rgb/= C;
 }
-
+//Indicate
 function toggle(poz= true){
 	var win= window.location.hostname;
 	if(/youtube/i.test(win)){
