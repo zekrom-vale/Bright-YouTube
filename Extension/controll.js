@@ -2,13 +2,13 @@
 	var oldRgb= rgb=140,
 	delay=1000,
 	clock;
-	gettingItem= chrome.storage.local.get('Short', function(items){
+	chrome.storage.local.get('Short', function(items){
 		if(items.Short!== true){
 				var Style= document.createElement('style');
 				Style.id= 'Brt-YT';
 				document.head.appendChild(Style);
 			chrome.storage.onChanged.addListener(StorageChange);
-			gettingItem= chrome.storage.local.get('Active', function(items){
+			chrome.storage.local.get('Active', function(items){
 				if(items.Active=== true) START();
 			});
 		}
@@ -16,7 +16,7 @@
 	
 //Active?
 function onPlay(){
-	gettingItem= chrome.storage.local.get('Short', function(items){
+	chrome.storage.local.get('Short', function(items){
 		if(items.Short=== true) SHORT();
 		else{
 			clock= setInterval(evalu, delay);
