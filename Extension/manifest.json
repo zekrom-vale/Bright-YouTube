@@ -1,0 +1,49 @@
+{
+	"manifest_version": 2,
+	"name": "Bright YouTube",
+	"short_name": "Brt YT",
+	"version": "1.1",
+	"description": "This extension automaticaly ajusts the brightness of YouTube videos",
+	"icons":{
+		"16": "img/YT16.png",
+		"32": "img/YT32.png",
+		"64": "img/YT64.png",
+		"128": "img/YT128.png"
+	},
+	"browser_action": {
+		"default_title": "Bright YouTube Options", 
+		"default_popup": "popup/act.html"
+	},
+	 "devtools_page": "https://github.com/zekrom-vale/Bright-YouTube/tree/Experimental",
+	"homepage_url": "https://github.com/zekrom-vale/Bright-YouTube",
+	"offline_enabled": true,
+	"permissions": [
+		"https://gaming.youtube.com/watch*",
+		"https://gaming.youtube.com/channel/*",
+		"https://www.youtube.com/watch*",
+		"https://www.youtube.com/channel/*",
+		"https://www.youtube.com/embed/*",
+		"https://www.youtube-nocookie.com/embed/*",
+		"https://www.twitch.tv/videos/*",
+		"storage"
+	],
+	"optional_permissions": [
+		"https://www.youtube.com/channel/*",
+		"https://www.youtube.com/embed/*",
+		"https://www.youtube-nocookie.com/embed/*"
+	],
+	"content_scripts": [{
+		"matches": [
+			"https://gaming.youtube.com/watch*",
+			"https://gaming.youtube.com/channel/*",
+			"https://www.youtube.com/watch*",
+			"https://www.youtube.com/channel/*",
+			"https://www.youtube.com/embed/*",
+			"https://www.youtube-nocookie.com/embed/*",
+			"https://www.twitch.tv/videos/*"
+		],
+		"css": ["main.css"],
+		"js": ["controll.js"],
+        "all_frames": true
+	}]
+}

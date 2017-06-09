@@ -1,0 +1,7 @@
+.active.player-icon-pause,
+.active.ytp-play-button .ytp-svg-fill{
+	fill:yellow
+}
+.active#playpause{
+	filter:invert(1)
+}
