@@ -3,7 +3,7 @@
 	delay=1000,
 	clock;
 	gettingItem= chrome.storage.local.get('Short', function(items){
-		if(items.Short=== false){
+		if(items.Short!== true){
 				var Style= document.createElement('style');
 				Style.id= 'Brt-YT';
 				document.head.appendChild(Style);
@@ -44,7 +44,7 @@ function StorageChange(changes){
 
 function STOP(){
 	onPause();
-	var x= document.getElementsByClassName('html5-main-video')[0];
+	var x= document.getElementsByTagName('video')[0];
 	x.removeEventListener('play', onPlay);
 	x.removeEventListener('pause', onPause);
 	document.getElementById('Brt-YT').innerHTML= '';
@@ -52,7 +52,7 @@ function STOP(){
 
 function START(){
 	clock= setInterval(evalu, delay);
-	var x= document.getElementsByClassName('html5-main-video')[0];
+	var x= document.getElementsByTagName('video')[0];
 	document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
 	x.addEventListener('play', onPlay);
 	x.addEventListener('pause', onPause);
@@ -61,7 +61,8 @@ function START(){
 //End Active?
 
 function evalu(){
-	var x= document.getElementsByClassName('html5-main-video')[0];
+	//var x= document.getElementsByClassName('html5-main-video')[0];
+	var x= document.getElementsByTagName('video')[0];
 	if(document.webkitHidden || x.style.filter!= '' || x.readyState< 4) return;
 	//https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
 	//security
@@ -81,7 +82,7 @@ function evalu(){
 	}
 	//End security
 	document.getElementById('Brt-YT').innerHTML= '';
-	getAvColor(document.getElementsByClassName('html5-main-video')[0]);
+	getAvColor(x);
 	rgb= 255-rgb;
 	/*
 	console.log(rgb);//*/
@@ -114,7 +115,7 @@ function tick(ic){
 
 
 function setFilter(bright=1, invert=0, con=1, sat=1){
-	document.getElementById('Brt-YT').innerHTML= '.html5-main-video{filter: '+
+	document.getElementById('Brt-YT').innerHTML= 'video{filter: '+
 		'brightness('+ bright+ ') invert('+ invert+') contrast('+ con+ ') saturate('+ sat+ ')'+
 	'}';
 }
