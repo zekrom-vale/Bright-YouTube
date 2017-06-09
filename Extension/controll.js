@@ -1,16 +1,47 @@
-//On document_idle
+//On document_idle //global
 	var oldRgb= rgb=140,
 	delay=1000,
 	clock;
 	gettingItem= chrome.storage.local.get('Short', function(items){
-		if(items.Short=== false){
+		if(items.Short!== true){
 			chrome.storage.onChanged.addListener(StorageChange);
+			setTimeout(function(){
+				document.getElementsByClassName('filters')[0].addEventListener('mouseenter', FILTERin);
+			}, 500);
+			setTimeout(function(){
+				document.getElementsByClassName('filters')[0].addEventListener('mouseleave', FILTERout);
+			}, 500);
+			//<li data-name="filters" class="active">
 			gettingItem= chrome.storage.local.get('Active', function(items){
 				if(items.Active=== true) START();
 			});
 		}
 	});
-	
+//Filter
+function FILTERin(){
+	console.log(this.parentNode.classList.contains('active'));
+	if(this.parentNode.classList.contains('active')=== true){
+		START();
+	}
+	else{
+		STOP();
+	}
+}
+function FILTERout(){
+	console.log(this.parentNode.classList.contains('active'));
+	if(this.parentNode.classList.contains('active')=== true){
+		STOP();
+		this.parentNode.classList.add('active');
+	}
+	else{
+		START();
+		this.parentNode.classList.remove('active');
+	}
+}
+
+
+//End Filter
+
 //Active?
 function onPlay(){
 	gettingItem= chrome.storage.local.get('Short', function(items){
@@ -38,7 +69,8 @@ function StorageChange(changes){
 		else STOP();
 	}catch(e){}//changes.Active.newValue does not exist
 }
-
+//End Active?
+//IO
 function STOP(){
 	onPause();
 	var x= document.getElementsByClassName('html5-main-video')[0];
@@ -54,8 +86,8 @@ function START(){
 	x.addEventListener('play', onPlay);
 	x.addEventListener('pause', onPause);
 }
+//End IO
 
-//End Active?
 
 function evalu(){
 	if(document.webkitHidden) return;
@@ -65,8 +97,7 @@ function evalu(){
 		clearInterval(clock);
 		var warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
 		if(warning=== true){
-			oldRgb= 140;
-			rgb= 140;
+			oldRgb= rgb= 140;
 			delay= 1000;
 			clock= setInterval(evalu, delay);
 		}
@@ -83,7 +114,7 @@ function evalu(){
 	console.log(rgb);//*/
 	var ic=0.1,
 	inc= 0.1;
-	if(rgb< 254.9 && rgb> 20){
+	if(rgb< 254.9 && rgb> 40){
 		if(Math.round(rgb/3)!= Math.round(oldRgb/3)){
 			while(ic< 1){
 				setTimeout(tick(ic), delay*ic);
@@ -93,7 +124,7 @@ function evalu(){
 		}
 		else tick(0);
 	}
-	else if(rgb<= 20) setFilter(1, 1, 1, 1);
+	else if(rgb<= 40) setFilter(1, 1);
 	rgb=0;
 }
 function tick(ic){
@@ -104,12 +135,12 @@ function tick(ic){
 	invert= 1- V,
 	con= 1.01* V,
 	sat= 1.013* V;
-	setFilter(bright, invert, con, sat);
+	setFilter(bright/*, invert, con, sat*/);
 }
 
 
-function setFilter(bright, invert, con, sat){
-	document.getElementsByClassName('html5-main-video')[0].style.filter='brightness('+ bright+ ')';//+' invert('+ invert+') contrast('+ con+ ') saturate('+ sat+ ')';
+function setFilter(bright=1, invert=0, con=1, sat=1){
+	document.getElementsByClassName('html5-main-video')[0].style.filter='brightness('+ bright+ ') invert('+ invert+') contrast('+ con+ ') saturate('+ sat+ ')';
 }
 
 function getAvColor(img) {
