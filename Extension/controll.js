@@ -20,14 +20,14 @@ function onPlay(){
 		if(items.Short=== true) SHORT();
 		else{
 			clock= setInterval(evalu, delay);
-			document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
+			toggle();
 		}
 	});
 }
 
 function onPause(){
 	clearInterval(clock);
-	document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
+	toggle(false);
 }
 
 function SHORT(){
@@ -53,7 +53,7 @@ function STOP(){
 function START(){
 	clock= setInterval(evalu, delay);
 	var x= document.getElementsByTagName('video')[0];
-	document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
+	toggle();
 	x.addEventListener('play', onPlay);
 	x.addEventListener('pause', onPause);
 }
@@ -63,7 +63,7 @@ function START(){
 function evalu(){
 	//var x= document.getElementsByClassName('html5-main-video')[0];
 	var x= document.getElementsByTagName('video')[0];
-	if(document.webkitHidden || x.style.filter!= '' || x.readyState< 4) return;
+	if(document.webkitHidden || x.style.filter!='' || x.readyState< 4) return;
 	//https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
 	//security
 	if(isNaN(rgb) || isNaN(oldRgb) || isNaN(delay) || delay< 50){
@@ -142,4 +142,17 @@ function getAvColor(img) {
 		C+=3;
 	}
     rgb/= C;
+}
+
+function toggle(poz= true){
+	var win= window.location.hostname;
+	if(/youtube/i.test(win)){
+		if(poz) document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
+		else document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
+	}
+	else if(/twitch/i.test(win)){
+		if(poz) document.getElementsByClassName('player-icon-pause')[0].classList.add('active');
+		else document.getElementsByClassName('player-icon-pause')[0].classList.remove('active');
+	}
+	
 }

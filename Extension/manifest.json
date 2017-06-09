@@ -24,6 +24,7 @@
 		"https://www.youtube.com/channel/*",
 		"https://www.youtube.com/embed/*",
 		"https://www.youtube-nocookie.com/embed/*",
+		"https://www.twitch.tv/videos*",
 		"storage"
 	],
 	"optional_permissions": [
@@ -38,7 +39,8 @@
 			"https://www.youtube.com/watch*",
 			"https://www.youtube.com/channel/*",
 			"https://www.youtube.com/embed/*",
-			"https://www.youtube-nocookie.com/embed/*"
+			"https://www.youtube-nocookie.com/embed/*",
+			"https://www.twitch.tv/videos*"
 		],
 		"css": ["main.css"],
 		"js": ["controll.js"],
