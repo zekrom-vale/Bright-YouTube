@@ -19,7 +19,10 @@ setTimeout(function(){
 //Active?
 function onPlay(){
 	chrome.storage.local.get('Short', function(items){
-		if(items.Short=== true) SHORT();
+		if(items.Short=== true){
+			STOP();
+			chrome.storage.onChanged.removeListener(StorageChange);
+		}
 		else{
 			clock= setInterval(evalu, delay);
 			toggle();
@@ -30,11 +33,6 @@ function onPlay(){
 function onPause(){
 	clearInterval(clock);
 	toggle(false);
-}
-
-function SHORT(){
-	STOP();
-	chrome.storage.onChanged.removeListener(StorageChange);
 }
 
 function StorageChange(changes){
@@ -78,7 +76,8 @@ function evalu(){
 			clock= setInterval(evalu, delay);
 		}
 		else{
-			SHORT();
+			STOP();
+			chrome.storage.onChanged.removeListener(StorageChange);
 			return;
 		}
 	}
