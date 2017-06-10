@@ -6,7 +6,7 @@ setTimeout(inlze, 500);
 
 function inlze(){
 	try{
-		chrome.storage.local.get('Active', function(items){
+		chrome.storage.local.get('Active', items=>{
 			switch(typeof items.Active){
 				case 'boolean':
 					var Style= document.createElement('style');
@@ -63,17 +63,18 @@ function STOP(){
 
 function START(){
 	clock= setInterval(evalu, delay);
-	var x= document.getElementsByTagName('video')[0];
 	toggle();
+	var x= document.getElementsByTagName('video')[0];
 	x.addEventListener('play', onPlay);
 	x.addEventListener('pause', onPause);
 }
 
 //End Active?
-
 function evalu(){
 	var x= document.getElementsByTagName('video')[0];
-	if(document.webkitHidden || x.style.filter!='' || x.readyState< 4) return;
+	if(x.style.filter!='' || x.readyState< 4) return;
+	if(document.webkitHidden) return;
+	if(document.hidden) return;
 	//https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
 	//security
 	if(isNaN(rgb+ oldRgb+ delay) || delay< 50){
@@ -117,24 +118,24 @@ function evalu(){
 function tick(ic){
 	var V= oldRgb*(1-ic) + rgb*ic,
 	X= 0.0266813*V -6.6303;
-	var PN= (X<0)? -1: 1,
+	var PN= X<0? -1: 1,
 	bright= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.53771,//247 is to dark
-	invert= 1- V,
-	con= 1.01* V,
-	sat= 1.013* V;
+	invert= 0;
+	con= 1;
+	sat= 1;
 	setFilter(bright/*, invert, con, sat*/);
 }
 
 
 function setFilter(bright=1, invert=0, con=1, sat=1){
-	bright= (bright!=1)? 'brightness('+ bright+ ') ': '';
-	invert= (invert!=0)? 'invert('+ invert+') ': '';
-	con= (con!=1)? 'contrast('+ con+ ') ': '';
-	sat= (sat!=1)? 'saturate('+ sat+ ')': '';
+	bright= bright!=1? 'brightness('+ bright+ ') ': '';
+	invert= invert!=0? 'invert('+ invert+') ': '';
+	con= con!=1? 'contrast('+ con+ ') ': '';
+	sat= sat!=1? 'saturate('+ sat+ ')': '';
 	document.getElementById('Brt-YT').innerHTML= 'video{filter: '+bright+ invert+ con+ sat+ '}';
 }
 
-function getAvColor(img) {
+function getAvColor(img){
     var canvas= document.createElement('canvas'),
     context= canvas.getContext && canvas.getContext('2d');
 	document.body.appendChild(canvas);
@@ -143,9 +144,8 @@ function getAvColor(img) {
     var height= canvas.height= img.naturalHeight || img.offsetHeight || img.height,
     width= canvas.width= img.naturalWidth || img.offsetWidth || img.width;
 //!!
-    context.drawImage(img, 0, 0);//--Hardware acceleration!!
-	// ,0 ,0 is nesisary
-    data= context.getImageData(0, 0, width, height);
+    context.drawImage(img,0,0);//--Hardware acceleration!!
+    data= context.getImageData(0,0, width, height);
 	document.body.removeChild(canvas);
 	var i= C= 0;
 	while(i< data.data.length){
@@ -160,17 +160,20 @@ function getAvColor(img) {
 function toggle(poz= true){
 	var win= window.location.hostname;
 	if(/youtube/i.test(win)){
-		if(poz) document.getElementsByClassName('ytp-play-button')[0].classList.add('active');
-		else document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
+		(poz)?
+		document.getElementsByClassName('ytp-play-button')[0].classList.add('active'):
+		document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
 	}
 	else if(/twitch/i.test(win)){
-		if(poz) document.getElementsByClassName('player-icon-pause')[0].classList.add('active');
-		else document.getElementsByClassName('player-icon-pause')[0].classList.remove('active');
+		(poz)?
+		document.getElementsByClassName('player-icon-pause')[0].classList.add('active'):
+		document.getElementsByClassName('player-icon-pause')[0].classList.remove('active');
 	}
 	else{
 		try{
-			if(poz) document.getElementsByClassName('playpause')[0].classList.add('active');
-			else document.getElementsByClassName('playpause')[0].classList.remove('active');
-		}catch(e){}
+			(poz)?
+			document.getElementsByClassName('playpause')[0].classList.add('active'):
+			document.getElementsByClassName('playpause')[0].classList.remove('active');
+		}finally{}
 	}
 }

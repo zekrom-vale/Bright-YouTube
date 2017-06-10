@@ -1,6 +1,6 @@
 var quit;
-document.addEventListener('DOMContentLoaded', function(){
-	gettingItem= chrome.storage.local.get('Active', function(items){
+document.addEventListener('DOMContentLoaded', ()=>{
+	gettingItem= chrome.storage.local.get('Active', items=>{
 		if(items.Active=== false) document.getElementById('IO').checked= false;
 		else if(items.Active=== 'Short'){
 			document.getElementById('ST').checked= true;
@@ -9,15 +9,15 @@ document.addEventListener('DOMContentLoaded', function(){
 	});
 	document.getElementById("IO").addEventListener("change", IO);
 	document.getElementById("ST").addEventListener("change", Srt);
-	document.documentElement.addEventListener("mouseleave",function(){
-		quit= setTimeout(function(){
+	document.documentElement.addEventListener("mouseleave",()=>{
+		quit= setTimeout(()=>{
 			window.close();
 		},3000);
 	});
-	document.documentElement.addEventListener("mouseenter", function(){
+	document.documentElement.addEventListener("mouseenter", ()=>{
 		clearTimeout(quit);
 	});
-	document.getElementById("close").addEventListener("click", function(){
+	document.getElementById("close").addEventListener("click", ()=>{
 		window.close();
 	});
 });
@@ -35,8 +35,7 @@ function Srt(){
 	Dlt();
 }
 function Dlt(){
-	if(!document.getElementById('IO').checked) disabled();
-	else enabled();
+	(!document.getElementById('IO').checked)? disabled(): enabled();
 }
 function enabled(){
 	chrome.browserAction.setIcon({
