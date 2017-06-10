@@ -12,12 +12,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function IO(){
 	var IOc= document.getElementById('IO').checked;
-	chrome.storage.local.set({'Active': IOc}, function(){console.log('saved!')})
+	chrome.storage.local.set({'Active': IOc});
 	Dlt();
 }
 function Srt(){
 	var STc= document.getElementById('ST').checked;
-	chrome.storage.local.set({'Short': STc}, function(){console.log('saved!')})
+	chrome.storage.local.set({'Short': STc});
 	Dlt();
 }
 
