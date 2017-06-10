@@ -73,9 +73,7 @@ function START(){
 function evalu(){
 	var x= document.getElementsByTagName('video')[0];
 	if(x.style.filter!='' || x.readyState< 4) return;
-	if(document.webkitHidden) return;
-	if(document.hidden) return;
-	//https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
+	if(document.webkitHidden || document.hidden) return;
 	//security
 	if(isNaN(rgb+ oldRgb+ delay) || delay< 50){
 		clearInterval(clock);
