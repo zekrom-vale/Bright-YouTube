@@ -76,7 +76,7 @@ function evalu(){
 	if(document.webkitHidden || x.style.filter!='' || x.readyState< 4) return;
 	//https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
 	//security
-	if(isNaN(rgb) || isNaN(oldRgb) || isNaN(delay) || delay< 50){//try isNaN(x+y+z)
+	if(isNaN(rgb+ oldRgb+ delay) || delay< 50){
 		clearInterval(clock);
 		var warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
 		if(warning=== true){
