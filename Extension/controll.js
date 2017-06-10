@@ -2,22 +2,41 @@
 	var oldRgb= rgb=140,
 	delay=1000,
 	clock;
-setTimeout(function(){
-	chrome.storage.local.get('Short', function(items){
-		console.log(items.Short);
-		if(items.Short!== true){
-				var Style= document.createElement('style');
-				Style.id= 'Brt-YT';
-				document.head.appendChild(Style);
-			chrome.storage.onChanged.addListener(StorageChange);
-			chrome.storage.local.get('Active', function(items){
-				console.log(items.Active);
-				if(items.Active!== false) START();
-			});
-		}
-	});
-}, 500);
-	
+setTimeout(inlze, 500);
+
+
+function inlze(){
+	try{
+		chrome.storage.local.get('Short', function(items){
+			console.log(items.Short);
+			if(items.Short!== true){
+					var Style= document.createElement('style');
+					Style.id= 'Brt-YT';
+					document.head.appendChild(Style);
+				chrome.storage.onChanged.addListener(StorageChange);
+				chrome.storage.local.get('Active', function(items){
+					console.log(items.Active);
+					if(items.Active!== false) START();
+					else if(typeof items.Active=== undefined){
+						chrome.storage.local.set({'Active': true}, function(){console.log('saved!')});
+						START();
+					}
+				});
+			}
+			else if(typeof items.Short=== undefined) set();
+		});
+	}catch(e){
+		console.log(e);
+		set();
+	}
+}
+
+//set
+function set(){
+	chrome.storage.local.set({'Short': false}, function(){console.log('saved!')});
+	chrome.storage.local.set({'Active': true}, function(){console.log('saved!')});
+	inlze();
+}
 //Active?
 function onPlay(){
 	chrome.storage.local.get('Short', function(items){
@@ -118,9 +137,11 @@ function tick(ic){
 
 
 function setFilter(bright=1, invert=0, con=1, sat=1){
-	document.getElementById('Brt-YT').innerHTML= 'video{filter: '+
-		'brightness('+ bright+ ') invert('+ invert+') contrast('+ con+ ') saturate('+ sat+ ')'+
-	'}';
+	bright= (bright!=1)? 'brightness('+ bright+ ') ': '';
+	invert= (invert!=0)? 'invert('+ invert+') ': '';
+	con= (con!=1)? 'contrast('+ con+ ') ': '';
+	sat= (sat!=1)? 'saturate('+ sat+ ')': '';
+	document.getElementById('Brt-YT').innerHTML= 'video{filter: '+bright+ invert+ con+ sat+ '}';
 }
 
 function getAvColor(img) {
