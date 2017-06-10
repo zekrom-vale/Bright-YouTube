@@ -1,6 +1,10 @@
 .name{
 	font-size:25px;
-	margin-left:5px
+	margin-left:5px;
+	cursor:default;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	user-select:none
 }
 .box{
 	display:flex;
