@@ -8,19 +8,19 @@ function inlze(){
 	try{
 		chrome.storage.local.get('Active', function(items){
 			switch(typeof items.Active){
-			case 'boolean':
-				var Style= document.createElement('style');
-				Style.id= 'Brt-YT';
-				document.head.appendChild(Style);
-				chrome.storage.onChanged.addListener(StorageChange);
-				if(items.Active=== true) START();
-				break;
-			case 'undefined':
-				chrome.storage.local.set({'Active': true});
-				inlze();
-				break;
-			default:
-				return;
+				case 'boolean':
+					var Style= document.createElement('style');
+					Style.id= 'Brt-YT';
+					document.head.appendChild(Style);
+					chrome.storage.onChanged.addListener(StorageChange);
+					if(items.Active=== true) START();
+					break;
+				case 'undefined':
+					chrome.storage.local.set({'Active': true});
+					inlze();
+					break;
+				default:
+					return;
 			}
 		});
 	}catch(e){
@@ -48,8 +48,9 @@ function StorageChange(changes){
 		else if(changes.Active.newValue=== 'Short'){
 			STOP();
 			chrome.storage.onChanged.removeListener(StorageChange);
+			document.head.removeChild(document.getElementById('Brt-YT'));
 		}
-	}catch(e){}
+	}finally{}
 }
 
 function STOP(){
@@ -75,7 +76,7 @@ function evalu(){
 	if(document.webkitHidden || x.style.filter!='' || x.readyState< 4) return;
 	//https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
 	//security
-	if(isNaN(rgb) || isNaN(oldRgb) || isNaN(delay) || delay< 50){
+	if(isNaN(rgb) || isNaN(oldRgb) || isNaN(delay) || delay< 50){//try isNaN(x+y+z)
 		clearInterval(clock);
 		var warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
 		if(warning=== true){
@@ -87,6 +88,7 @@ function evalu(){
 		else{
 			STOP();
 			chrome.storage.onChanged.removeListener(StorageChange);
+			document.head.removeChild(document.getElementById('Brt-YT'));
 			return;
 		}
 	}
@@ -142,11 +144,12 @@ function getAvColor(img) {
     width= canvas.width= img.naturalWidth || img.offsetWidth || img.width;
 //!!
     context.drawImage(img, 0, 0);//--Hardware acceleration!!
+	// ,0 ,0 is nesisary
     data= context.getImageData(0, 0, width, height);
 	document.body.removeChild(canvas);
 	var i= C= 0;
 	while(i< data.data.length){
-		rgb+= data.data[i] + data.data[i+1] + data.data[i+2];
+		rgb+= data.data[i]+ data.data[i+1]+ data.data[i+2];
 		var Ran= Math.round(Math.random()*50 +1)*4;
 		i+= Ran;
 		C+=3;
