@@ -4,22 +4,17 @@
 	clock;
 setTimeout(inlze, 500);
 
-
 function inlze(){
 	try{
 		chrome.storage.local.get('Active', function(items){
-			if(items.Active!== 'Short'){
-					var Style= document.createElement('style');
-					Style.id= 'Brt-YT';
-					document.head.appendChild(Style);
-					chrome.storage.onChanged.addListener(StorageChange);
+			if(typeof items.Active=== 'boolean'){
+				var Style= document.createElement('style');
+				Style.id= 'Brt-YT';
+				document.head.appendChild(Style);
+				chrome.storage.onChanged.addListener(StorageChange);
 				if(items.Active=== true) START();
-				else if(typeof items.Active=== undefined){
-					chrome.storage.local.set({'Active': true});
-					START();
-				}
 			}
-			else if(typeof items.Short=== undefined){
+			else if(typeof items.Short=== 'undefined'){
 				chrome.storage.local.set({'Active': true});
 				inlze();
 			}
