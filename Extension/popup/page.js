@@ -29,8 +29,7 @@ function IO(){
 	Dlt();
 }
 function Srt(){
-	var STc= document.getElementById('ST').checked;
-	if(STc){
+	if(document.getElementById('ST').checked){
 		chrome.storage.local.set({'Active': 'Short'});
 		document.getElementById('IO').checked= false;
 	}

@@ -8,7 +8,6 @@ setTimeout(inlze, 500);
 function inlze(){
 	try{
 		chrome.storage.local.get('Active', function(items){
-	/**/	console.log(items.Active);
 			if(items.Active!== 'Short'){
 					var Style= document.createElement('style');
 					Style.id= 'Brt-YT';
@@ -20,31 +19,22 @@ function inlze(){
 					START();
 				}
 			}
-			else if(typeof items.Short=== undefined) set();
+			else if(typeof items.Short=== undefined){
+				chrome.storage.local.set({'Active': true});
+				inlze();
+			}
 		});
 	}catch(e){
 		console.log(e);
-		set();
+		chrome.storage.local.set({'Active': true});
+		inlze();
 	}
 }
 
-//set
-function set(){
-	chrome.storage.local.set({'Active': true});
-	inlze();
-}
 //Active?
 function onPlay(){
-	chrome.storage.local.get('Active', function(items){
-		if(items.Active=== 'Short'){
-			STOP();
-			chrome.storage.onChanged.removeListener(StorageChange);
-		}
-		else{
-			clock= setInterval(evalu, delay);
-			toggle();
-		}
-	});
+	clock= setInterval(evalu, delay);
+	toggle();
 }
 
 function onPause(){
@@ -56,6 +46,10 @@ function StorageChange(changes){
 	try{
 		if(changes.Active.newValue=== true) START();
 		else if(changes.Active.newValue=== false) STOP();
+		else if(changes.Active.newValue=== 'Short'){
+			STOP();
+			chrome.storage.onChanged.removeListener(StorageChange);
+		}
 	}catch(e){}
 }
 
