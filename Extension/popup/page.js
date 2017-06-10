@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 	document.getElementById("IO").addEventListener("change", IO);
 	document.getElementById("ST").addEventListener("change", Srt);
+	document.getElementById("close").addEventListener("click", function(){
+		window.close();
+	})
 });
 
 
