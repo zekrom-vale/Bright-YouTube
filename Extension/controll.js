@@ -7,21 +7,18 @@ setTimeout(inlze, 500);
 
 function inlze(){
 	try{
-		chrome.storage.local.get('Short', function(items){
-	/**/	console.log(items.Short);
-			if(items.Short!== true){
+		chrome.storage.local.get('Active', function(items){
+	/**/	console.log(items.Active);
+			if(items.Active!== 'Short'){
 					var Style= document.createElement('style');
 					Style.id= 'Brt-YT';
 					document.head.appendChild(Style);
-				chrome.storage.onChanged.addListener(StorageChange);
-				chrome.storage.local.get('Active', function(items){
-	/**/			console.log(items.Active);
-					if(items.Active!== false) START();
-					else if(typeof items.Active=== undefined){
-						chrome.storage.local.set({'Active': true});
-						START();
-					}
-				});
+					chrome.storage.onChanged.addListener(StorageChange);
+				if(items.Active=== true) START();
+				else if(typeof items.Active=== undefined){
+					chrome.storage.local.set({'Active': true});
+					START();
+				}
 			}
 			else if(typeof items.Short=== undefined) set();
 		});
@@ -33,14 +30,13 @@ function inlze(){
 
 //set
 function set(){
-	chrome.storage.local.set({'Short': false});
 	chrome.storage.local.set({'Active': true});
 	inlze();
 }
 //Active?
 function onPlay(){
-	chrome.storage.local.get('Short', function(items){
-		if(items.Short!== false){
+	chrome.storage.local.get('Active', function(items){
+		if(items.Active=== 'Short'){
 			STOP();
 			chrome.storage.onChanged.removeListener(StorageChange);
 		}
@@ -59,7 +55,7 @@ function onPause(){
 function StorageChange(changes){
 	try{
 		if(changes.Active.newValue=== true) START();
-		else STOP();
+		else if(changes.Active.newValue=== false) STOP();
 	}catch(e){}
 }
 
@@ -82,7 +78,6 @@ function START(){
 //End Active?
 
 function evalu(){
-	//var x= document.getElementsByClassName('html5-main-video')[0];
 	var x= document.getElementsByTagName('video')[0];
 	if(document.webkitHidden || x.style.filter!='' || x.readyState< 4) return;
 	//https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
@@ -106,7 +101,7 @@ function evalu(){
 	document.getElementById('Brt-YT').innerHTML= '';
 	getAvColor(x);
 	rgb= 255-rgb;
-	/*
+	//*
 	console.log(rgb);//*/
 	var ic=0.1,
 	inc= 0.1;

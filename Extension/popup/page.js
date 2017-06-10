@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
 	gettingItem= chrome.storage.local.get('Active', function(items){
 		if(items.Active=== false) document.getElementById('IO').checked= false;
-	});
-	gettingItem= chrome.storage.local.get('Short', function(items){
-		if(items.Short=== true) document.getElementById('ST').checked= true;
+		else if(items.Active=== 'Short'){
+			document.getElementById('ST').checked= true;
+			document.getElementById('IO').checked= false;
+		}
 	});
 	document.getElementById("IO").addEventListener("change", IO);
 	document.getElementById("ST").addEventListener("change", Srt);
@@ -14,18 +15,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function IO(){
-	var IOc= document.getElementById('IO').checked;
-	chrome.storage.local.set({'Active': IOc});
+	chrome.storage.local.set({'Active': document.getElementById('IO').checked});
+	document.getElementById('ST').checked= false;
 	Dlt();
 }
 function Srt(){
 	var STc= document.getElementById('ST').checked;
-	chrome.storage.local.set({'Short': STc});
+	if(STc){
+		chrome.storage.local.set({'Active': 'Short'});
+		document.getElementById('IO').checked= false;
+	}
+	else document.getElementById('IO').checked= true;
 	Dlt();
 }
 
 function Dlt(){
-	if(document.getElementById('ST').checked=== true || document.getElementById('IO').checked=== false) disabled();
+	if(document.getElementById('IO').checked=== false) disabled();
 	else enabled();
 }
 
