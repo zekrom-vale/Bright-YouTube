@@ -16,3 +16,12 @@
 .black .name{
 	color:white;
 }
+#close{
+	position:absolute;
+	bottom:5px;
+	right:5px;
+	font-size:15px;
+	border:solid red 1px;
+	border-radius:5px;
+	background:grey;
+}
