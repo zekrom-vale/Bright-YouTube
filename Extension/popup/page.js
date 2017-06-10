@@ -1,5 +1,5 @@
 var quit;
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function(){
 	gettingItem= chrome.storage.local.get('Active', function(items){
 		if(items.Active=== false) document.getElementById('IO').checked= false;
 		else if(items.Active=== 'Short'){
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.documentElement.addEventListener("mouseleave",function(){
 		quit= setTimeout(function(){
 			window.close();
-		},2000);
+		},3000);
 	});
 	document.documentElement.addEventListener("mouseenter", function(){
 		clearTimeout(quit);
@@ -21,8 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		window.close();
 	});
 });
-
-
 function IO(){
 	chrome.storage.local.set({'Active': document.getElementById('IO').checked});
 	document.getElementById('ST').checked= false;
@@ -36,12 +34,10 @@ function Srt(){
 	else document.getElementById('IO').checked= true;
 	Dlt();
 }
-
 function Dlt(){
-	if(document.getElementById('IO').checked=== false) disabled();
+	if(!document.getElementById('IO').checked) disabled();
 	else enabled();
 }
-
 function enabled(){
 	chrome.browserAction.setIcon({
 		path:{

@@ -1,7 +1,7 @@
 //On document_idle
-	var oldRgb= rgb=140,
-	delay=1000,
-	clock;
+var oldRgb= rgb=140,
+delay=1000,
+clock;
 setTimeout(inlze, 500);
 
 function inlze(){
@@ -13,7 +13,7 @@ function inlze(){
 					Style.id= 'Brt-YT';
 					document.head.appendChild(Style);
 					chrome.storage.onChanged.addListener(StorageChange);
-					if(items.Active=== true) START();
+					if(items.Active) START();
 					break;
 				case 'undefined':
 					chrome.storage.local.set({'Active': true});
@@ -45,7 +45,7 @@ function StorageChange(changes){
 	try{
 		if(changes.Active.newValue=== true) START();
 		else if(changes.Active.newValue=== false) STOP();
-		else if(changes.Active.newValue=== 'Short'){
+		else if(changes.Active.newValue== 'Short'){
 			STOP();
 			chrome.storage.onChanged.removeListener(StorageChange);
 			document.head.removeChild(document.getElementById('Brt-YT'));
