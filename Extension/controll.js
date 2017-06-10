@@ -1,22 +1,19 @@
-//On document_idle
-	var oldRgb= rgb=140,
-	delay=1000,
-	clock;
-setTimeout(function(){
-	chrome.storage.local.get('Short', function(items){
-		console.log(items.Short);
-		if(items.Short!== true){
-				var Style= document.createElement('style');
-				Style.id= 'Brt-YT';
-				document.head.appendChild(Style);
-			chrome.storage.onChanged.addListener(StorageChange);
-			chrome.storage.local.get('Active', function(items){
-				console.log(items.Active);
-				if(items.Active!== false) START();
-			});
-		}
-	});
-}, 500);
+var oldRgb= rgb=140,
+delay=1000,
+clock;
+chrome.storage.local.get('Short', function(items){
+	console.log(items.Short);
+	if(items.Short!== true){
+			var Style= document.createElement('style');
+			Style.id= 'Brt-YT';
+			document.head.appendChild(Style);
+		chrome.storage.onChanged.addListener(StorageChange);
+		chrome.storage.local.get('Active', function(items){
+			console.log(items.Active);
+			if(items.Active!== false) START();
+		});
+	}
+});
 	
 //Active?
 function onPlay(){
@@ -45,6 +42,7 @@ function StorageChange(changes){
 }
 
 function STOP(){
+	console.log('stop');
 	onPause();
 	var x= document.getElementsByTagName('video')[0];
 	x.removeEventListener('play', onPlay);
@@ -53,6 +51,7 @@ function STOP(){
 }
 
 function START(){
+	console.log('start');
 	clock= setInterval(evalu, delay);
 	var x= document.getElementsByTagName('video')[0];
 	toggle();
@@ -63,6 +62,7 @@ function START(){
 //End Active?
 
 function evalu(){
+	console.log('evalu');
 	//var x= document.getElementsByClassName('html5-main-video')[0];
 	var x= document.getElementsByTagName('video')[0];
 	if(document.webkitHidden || x.style.filter!='' || x.readyState< 4) return;
@@ -70,7 +70,7 @@ function evalu(){
 	//security
 	if(isNaN(rgb) || isNaN(oldRgb) || isNaN(delay) || delay< 50){
 		clearInterval(clock);
-		var warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
+		var warning= confirm("Varables ilegaly modifyed, posibly due to malicious code.  Do you want to Reset and Continue?");
 		if(warning=== true){
 			oldRgb= 140;
 			rgb= 140;
@@ -110,17 +110,20 @@ function tick(ic){
 	X= 0.0266813*V -6.6303;
 	var PN= (X<0)? -1: 1,
 	bright= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.53771,//247 is to dark
-	invert= 1- V,
-	con= 1.01* V,
-	sat= 1.013* V;
-	setFilter(bright/*, invert, con, sat*/);
+	invert= 0,
+	con= 1,
+	sat= 1;
+	setFilter(bright, invert, con, sat);
 }
 
 
 function setFilter(bright=1, invert=0, con=1, sat=1){
-	document.getElementById('Brt-YT').innerHTML= 'video{filter: '+
-		'brightness('+ bright+ ') invert('+ invert+') contrast('+ con+ ') saturate('+ sat+ ')'+
-	'}';
+	bright= (bright!=1)? 'brightness('+ bright+ ') ': '';
+	console.log(bright);
+	invert= (invert!=0)? 'invert('+ invert+') ': '';
+	con= (con!=1)? 'contrast('+ con+ ') ': '';
+	sat= (sat!=1)? 'saturate('+ sat+ ')': '';
+	document.getElementById('Brt-YT').innerHTML= 'video{filter: '+bright+ invert+ con+ sat+ '}';
 }
 
 function getAvColor(img) {
