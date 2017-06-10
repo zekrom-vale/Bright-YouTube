@@ -1,3 +1,4 @@
+var quit;
 document.addEventListener('DOMContentLoaded', function() {
 	gettingItem= chrome.storage.local.get('Active', function(items){
 		if(items.Active=== false) document.getElementById('IO').checked= false;
@@ -8,9 +9,17 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 	document.getElementById("IO").addEventListener("change", IO);
 	document.getElementById("ST").addEventListener("change", Srt);
+	document.documentElement.addEventListener("mouseleave",function(){
+		quit= setTimeout(function(){
+			window.close();
+		},2000);
+	});
+	document.documentElement.addEventListener("mouseenter", function(){
+		clearTimeout(quit);
+	});
 	document.getElementById("close").addEventListener("click", function(){
 		window.close();
-	})
+	});
 });
 
 
