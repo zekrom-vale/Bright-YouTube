@@ -4,7 +4,8 @@ const delay=1000,
 BROWSER= chrome,
 VID= document.getElementsByTagName('video')[0];
 const canvas= document.createElement('canvas'),
-context= canvas.getContext && canvas.getContext('2d');
+context= canvas.getContext('2d', {alpha:false});
+
 setTimeout(inlze, 500);
 function inlze(){
 	try{
@@ -148,7 +149,7 @@ function getAvColor(img){
 	let i= C= 0;
 	while(i< data.data.length){
 		rgb+= data.data[i]+ data.data[i+1]+ data.data[i+2];
-		let Ran= Math.round(Math.random()*50 +1)*4;
+		let Ran= Math.round(Math.random()*50 +1)*3;
 		i+= Ran;
 		C+=3;
 	}
