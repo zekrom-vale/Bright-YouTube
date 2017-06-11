@@ -5,7 +5,9 @@ BROWSER= chrome,
 VID= document.getElementsByTagName('video')[0],
 //canvas
 canvas= document.createElement('canvas'),
-context= canvas.getContext('2d', {"alpha": false, "willReadFrequently": true});
+context= canvas.getContext('2d', {alpha:false, willReadFrequently:true});
+canvas.id= 'Brt-canvas';
+
 setTimeout(()=>{
 	BROWSER.storage.local.get('Active', items=>{
 		switch(typeof items.Active){
@@ -14,7 +16,6 @@ setTimeout(()=>{
 				items.Active= true;		//fallthrough
 			case 'boolean':
 				let Style= document.createElement('style');
-				canvas.id= 'Brt-canvas';
 				Style.id= 'Brt-YT';
 				document.head.appendChild(Style);
 				BROWSER.storage.onChanged.addListener(StorageChange);
@@ -116,6 +117,8 @@ function tick(ic){
 	sat= 1;
 	setFilter(bright, invert, con, sat);
 }
+
+
 function setFilter(bright=1, invert=0, con=1, sat=1){
 	bright= bright!=1? 'brightness('+ bright+ ') ': '';
 	invert= invert!=0? 'invert('+ invert+') ': '';
@@ -143,7 +146,7 @@ function getAvColor(img){
 	let i= C= 0;
 	while(i< data.data.length){
 		rgb+= data.data[i]+ data.data[i+1]+ data.data[i+2];
-		let Ran= Math.round(Math.random()*300 +1)*4;
+		let Ran= Math.round(Math.random()*50 +1)*4;
 		i+= Ran;
 		C+=3;
 	}
