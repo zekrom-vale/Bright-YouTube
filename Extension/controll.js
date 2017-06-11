@@ -3,36 +3,30 @@ clock;
 const delay=1000,
 BROWSER= chrome,
 VID= document.getElementsByTagName('video')[0],
+//canvas
 canvas= document.createElement('canvas'),
 context= canvas.getContext('2d', {alpha:false, willReadFrequently:true});
 canvas.id= 'Brt-canvas';
-setTimeout(inlze, 500);
-function inlze(){
-	try{
-		BROWSER.storage.local.get('Active', items=>{
-			switch(typeof items.Active){
-				case 'boolean':
-					let Style= document.createElement('style');
-					Style.id= 'Brt-YT';
-					document.head.appendChild(Style);
-					BROWSER.storage.onChanged.addListener(StorageChange);
-					document.body.appendChild(canvas);
-					if(items.Active) START();
-					break;
-				case 'undefined':
-					BROWSER.storage.local.set({'Active': true});
-					inlze();
-					break;
-				default:
-					document.body.removeChild(canvas);
-			}
-		});
-	}catch(e){
-		console.log(e);
-		BROWSER.storage.local.set({'Active': true});
-		inlze();
-	}
-}
+
+setTimeout(()=>{
+	BROWSER.storage.local.get('Active', items=>{
+		switch(typeof items.Active){
+			case 'undefined':
+				BROWSER.storage.local.set({'Active': true});
+				items.Active= true;		//fallthrough
+			case 'boolean':
+				let Style= document.createElement('style');
+				Style.id= 'Brt-YT';
+				document.head.appendChild(Style);
+				BROWSER.storage.onChanged.addListener(StorageChange);
+				document.body.appendChild(canvas);
+				if(items.Active) START();
+				break;
+			default:
+				document.body.removeChild(canvas);
+		}
+	});
+}, 500);
 
 //Active?
 function onPlay(){
