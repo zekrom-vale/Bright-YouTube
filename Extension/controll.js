@@ -2,10 +2,10 @@ var oldRgb= rgb=140,
 clock;
 const delay=1000,
 BROWSER= chrome,
-VID= document.getElementsByTagName('video')[0];
-const canvas= document.createElement('canvas'),
+VID= document.getElementsByTagName('video')[0],
+canvas= document.createElement('canvas'),
 context= canvas.getContext('2d', {alpha:false, willReadFrequently:true});
-
+canvas.id= 'Brt-canvas';
 setTimeout(inlze, 500);
 function inlze(){
 	try{
@@ -143,8 +143,7 @@ function getAvColor(img){
 		width= canvas.width= img.naturalWidth || img.offsetWidth || img.width;
 	}
 	//End Delta size
-//!!
-    context.drawImage(img,0,0);//--Hardware acceleration!!
+    context.drawImage(img,0,0);//context now removes hardware exceleration
     data= context.getImageData(0,0, width, height);
 	let i= C= 0;
 	while(i< data.data.length){

@@ -5,3 +5,6 @@
 .active#playpause{
 	filter:invert(1)
 }
+#Brt-canvas{
+	display:none;
+}
