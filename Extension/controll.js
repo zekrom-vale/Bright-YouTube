@@ -149,7 +149,7 @@ function getAvColor(img){
 	let i= C= 0;
 	while(i< data.data.length){
 		rgb+= data.data[i]+ data.data[i+1]+ data.data[i+2];
-		let Ran= Math.round(Math.random()*50 +1)*3;
+		let Ran= Math.round(Math.random()*50 +1)*4;
 		i+= Ran;
 		C+=3;
 	}
