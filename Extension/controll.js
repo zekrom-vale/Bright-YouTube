@@ -3,18 +3,19 @@ clock;
 const delay=1000,
 BROWSER= chrome,
 VID= document.getElementsByTagName('video')[0];
-
+const canvas= document.createElement('canvas'),
+context= canvas.getContext && canvas.getContext('2d');
 setTimeout(inlze, 500);
-
 function inlze(){
 	try{
 		BROWSER.storage.local.get('Active', items=>{
 			switch(typeof items.Active){
 				case 'boolean':
-					let Style= document.createElement('style');//const has same scope as var
+					let Style= document.createElement('style');
 					Style.id= 'Brt-YT';
 					document.head.appendChild(Style);
 					BROWSER.storage.onChanged.addListener(StorageChange);
+					document.body.appendChild(canvas);
 					if(items.Active) START();
 					break;
 				case 'undefined':
@@ -128,16 +129,13 @@ function setFilter(bright=1, invert=0, con=1, sat=1){
 }
 
 function getAvColor(img){
-    let canvas= document.createElement('canvas'),
-    context= canvas.getContext && canvas.getContext('2d');
-	document.body.appendChild(canvas);
 	//Delta size
 	const T= document.body.className.toString();
 	if(T.includes('enhancer-for-youtube')){
-		var size= /_(1?)\d{3}x[1-9]\d{2}/.exec(T)[0],
+		var size= /_(1?)\d{3}x\d{3}/.exec(T)[0],
 		width= /^_(1?)\d{3}/.exec(size);
 		var width= canvas.width= width.toString().replace(/\D/g,''),
-		height= canvas.height= /[1-9]\d{2}$/.exec(size)[0];
+		height= canvas.height= /\d{3}$/.exec(size)[0];
 	}
 	else{
 		var height= canvas.height= img.naturalHeight || img.offsetHeight || img.height,
@@ -147,7 +145,6 @@ function getAvColor(img){
 //!!
     context.drawImage(img,0,0);//--Hardware acceleration!!
     data= context.getImageData(0,0, width, height);
-	document.body.removeChild(canvas);
 	let i= C= 0;
 	while(i< data.data.length){
 		rgb+= data.data[i]+ data.data[i+1]+ data.data[i+2];
