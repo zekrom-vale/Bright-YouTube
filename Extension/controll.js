@@ -1,31 +1,28 @@
-//On document_idle
 var oldRgb= rgb=140,
-delay=1000,
 clock;
+const delay=1000,
+BROWSER= chrome;
 setTimeout(inlze, 500);
 
 function inlze(){
 	try{
-		chrome.storage.local.get('Active', items=>{
+		BROWSER.storage.local.get('Active', items=>{
 			switch(typeof items.Active){
 				case 'boolean':
-					var Style= document.createElement('style');
+					let Style= document.createElement('style');//const has same scope as var
 					Style.id= 'Brt-YT';
 					document.head.appendChild(Style);
-					chrome.storage.onChanged.addListener(StorageChange);
+					BROWSER.storage.onChanged.addListener(StorageChange);
 					if(items.Active) START();
 					break;
 				case 'undefined':
-					chrome.storage.local.set({'Active': true});
+					BROWSER.storage.local.set({'Active': true});
 					inlze();
-					break;
-				default:
-					return;
 			}
 		});
 	}catch(e){
 		console.log(e);
-		chrome.storage.local.set({'Active': true});
+		BROWSER.storage.local.set({'Active': true});
 		inlze();
 	}
 }
@@ -47,24 +44,24 @@ function StorageChange(changes){
 		else if(changes.Active.newValue=== false) STOP();
 		else if(changes.Active.newValue== 'Short'){
 			STOP();
-			chrome.storage.onChanged.removeListener(StorageChange);
+			BROWSER.storage.onChanged.removeListener(StorageChange);
 			document.head.removeChild(document.getElementById('Brt-YT'));
 		}
 	}finally{}
 }
 
 function STOP(){
+	let x= document.getElementsByTagName('video')[0];
 	onPause();
-	var x= document.getElementsByTagName('video')[0];
 	x.removeEventListener('play', onPlay);
 	x.removeEventListener('pause', onPause);
 	document.getElementById('Brt-YT').innerHTML= '';
 }
 
 function START(){
+	let x= document.getElementsByTagName('video')[0];
 	clock= setInterval(evalu, delay);
 	toggle();
-	var x= document.getElementsByTagName('video')[0];
 	x.addEventListener('play', onPlay);
 	x.addEventListener('pause', onPause);
 }
@@ -75,18 +72,17 @@ function evalu(){
 	if(x.style.filter!='' || x.readyState< 4) return;
 	if(document.webkitHidden || document.hidden) return;
 	//security
-	if(isNaN(rgb+ oldRgb+ delay) || delay< 50){
+	if(isNaN(rgb+ oldRgb)){
 		clearInterval(clock);
 		var warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
 		if(warning=== true){
 			oldRgb= 140;
 			rgb= 140;
-			delay= 1000;
 			clock= setInterval(evalu, delay);
 		}
 		else{
 			STOP();
-			chrome.storage.onChanged.removeListener(StorageChange);
+			BROWSER.storage.onChanged.removeListener(StorageChange);
 			document.head.removeChild(document.getElementById('Brt-YT'));
 			return;
 		}
@@ -114,14 +110,14 @@ function evalu(){
 }
 
 function tick(ic){
-	var V= oldRgb*(1-ic) + rgb*ic,
+	let V= oldRgb*(1-ic) + rgb*ic,
 	X= 0.0266813*V -6.6303;
-	var PN= X<0? -1: 1,
-	bright= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.53771,//247 is to dark
+	let PN= X<0? -1: 1;
+	var bright= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.53771,//247 is to dark
 	invert= 0;
 	con= 1;
 	sat= 1;
-	setFilter(bright/*, invert, con, sat*/);
+	setFilter(bright, invert, con, sat);
 }
 
 
@@ -145,10 +141,10 @@ function getAvColor(img){
     context.drawImage(img,0,0);//--Hardware acceleration!!
     data= context.getImageData(0,0, width, height);
 	document.body.removeChild(canvas);
-	var i= C= 0;
+	let i= C= 0;
 	while(i< data.data.length){
 		rgb+= data.data[i]+ data.data[i+1]+ data.data[i+2];
-		var Ran= Math.round(Math.random()*50 +1)*4;
+		let Ran= Math.round(Math.random()*50 +1)*4;
 		i+= Ran;
 		C+=3;
 	}
@@ -156,7 +152,7 @@ function getAvColor(img){
 }
 //Indicate
 function toggle(poz= true){
-	var win= window.location.hostname;
+	let win= window.location.hostname;
 	if(/youtube/i.test(win)){
 		(poz)?
 		document.getElementsByClassName('ytp-play-button')[0].classList.add('active'):
