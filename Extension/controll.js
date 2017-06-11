@@ -22,6 +22,9 @@ function inlze(){
 				case 'undefined':
 					BROWSER.storage.local.set({'Active': true});
 					inlze();
+					break;
+				default:
+					document.body.removeChild(canvas);
 			}
 		});
 	}catch(e){
@@ -49,6 +52,7 @@ function StorageChange(changes){
 		else if(changes.Active.newValue== 'Short'){
 			STOP();
 			BROWSER.storage.onChanged.removeListener(StorageChange);
+			document.body.removeChild(canvas);
 			document.head.removeChild(document.getElementById('Brt-YT'));
 		}
 	}finally{}
