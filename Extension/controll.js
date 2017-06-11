@@ -4,7 +4,7 @@ const delay=1000,
 BROWSER= chrome,
 VID= document.getElementsByTagName('video')[0];
 const canvas= document.createElement('canvas'),
-context= canvas.getContext('2d', {alpha:false});
+context= canvas.getContext('2d', {alpha:false, willReadFrequently:true});
 
 setTimeout(inlze, 500);
 function inlze(){
