@@ -1,7 +1,9 @@
 var oldRgb= rgb=140,
 clock;
 const delay=1000,
-BROWSER= chrome;
+BROWSER= chrome,
+VID= document.getElementsByTagName('video')[0];
+
 setTimeout(inlze, 500);
 
 function inlze(){
@@ -51,30 +53,27 @@ function StorageChange(changes){
 }
 
 function STOP(){
-	let x= document.getElementsByTagName('video')[0];
 	onPause();
-	x.removeEventListener('play', onPlay);
-	x.removeEventListener('pause', onPause);
+	VID.removeEventListener('play', onPlay);
+	VID.removeEventListener('pause', onPause);
 	document.getElementById('Brt-YT').innerHTML= '';
 }
 
 function START(){
-	let x= document.getElementsByTagName('video')[0];
 	clock= setInterval(evalu, delay);
 	toggle();
-	x.addEventListener('play', onPlay);
-	x.addEventListener('pause', onPause);
+	VID.addEventListener('play', onPlay);
+	VID.addEventListener('pause', onPause);
 }
 
 //End Active?
 function evalu(){
-	var x= document.getElementsByTagName('video')[0];
-	if(x.style.filter!='' || x.readyState< 4) return;
+	if(VID.style.filter!='' || VID.readyState< 4) return;
 	if(document.webkitHidden || document.hidden) return;
 	//security
 	if(isNaN(rgb+ oldRgb)){
 		clearInterval(clock);
-		var warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
+		let warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
 		if(warning=== true){
 			oldRgb= 140;
 			rgb= 140;
@@ -89,12 +88,11 @@ function evalu(){
 	}
 	//End security
 	document.getElementById('Brt-YT').innerHTML= '';
-	getAvColor(x);
+	getAvColor(VID);
 	rgb= 255-rgb;
 	//*
 	console.log(rgb);//*/
-	var ic=0.1,
-	inc= 0.1;
+	var ic= inc= 0.1;
 	if(rgb< 254.9 && rgb> 20){
 		if(Math.round(rgb/3)!= Math.round(oldRgb/3)){
 			while(ic< 1){
@@ -130,13 +128,29 @@ function setFilter(bright=1, invert=0, con=1, sat=1){
 }
 
 function getAvColor(img){
-    var canvas= document.createElement('canvas'),
+    let canvas= document.createElement('canvas'),
     context= canvas.getContext && canvas.getContext('2d');
 	document.body.appendChild(canvas);
-
-    //set canvas size
-    var height= canvas.height= img.naturalHeight || img.offsetHeight || img.height,
-    width= canvas.width= img.naturalWidth || img.offsetWidth || img.width;
+	//Delta size
+	const T= document.body.className.toString();
+	if(T.includes('enhancer-for-youtube')){
+		var size= /_(1?)\d{3}x[1-9]\d{2}/.exec(T)[0],
+		width= /^_(1?)\d{3}/.exec(size);
+		width= width.toString();
+		console.log(size);
+		var width= canvas.width= width.replace(/\D/g,''),
+		height= canvas.height= /[1-9]\d{2}$/.exec(size)[0];
+	}
+	else{
+		//set canvas size
+		var height= canvas.height= img.naturalHeight || img.offsetHeight || img.height,
+		width= canvas.width= img.naturalWidth || img.offsetWidth || img.width;
+	}
+	
+	
+	
+	//End Delta size
+    
 //!!
     context.drawImage(img,0,0);//--Hardware acceleration!!
     data= context.getImageData(0,0, width, height);
