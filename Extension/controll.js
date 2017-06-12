@@ -4,8 +4,9 @@ const delay=1000,
 BROWSER= chrome,
 VID= document.getElementsByTagName('video')[0],
 //canvas
+SUB=25,//Border not processed
 canvas= document.createElement('canvas'),
-context= canvas.getContext('2d', {alpha:false, willReadFrequently:true});
+context= canvas.getContext && canvas.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
 canvas.id= 'Brt-canvas';
 
 setTimeout(()=>{
@@ -135,14 +136,16 @@ function getAvColor(img){
 		width= /^_(1?)\d{3}/.exec(size);
 		var width= canvas.width= width.toString().replace(/\D/g,''),
 		height= canvas.height= /\d{3}$/.exec(size)[0];
+		context.drawImage(img,0,0);//hardware exceleration
 	}
 	else{
-		var height= canvas.height= img.naturalHeight || img.offsetHeight || img.height,
-		width= canvas.width= img.naturalWidth || img.offsetWidth || img.width;
+		var height= canvas.height= img.naturalHeight-SUB*2 || img.offsetHeight-SUB*2 || img.height-SUB*2,
+		width= canvas.width= img.naturalWidth-SUB*2 || img.offsetWidth-SUB*2 || img.width-SUB*2;
+		context.drawImage(img, SUB, SUB, width, height,0,0,width,height);//hardware exceleration
 	}
 	//End Delta size
-    context.drawImage(img,0,0);//context now removes hardware exceleration
     data= context.getImageData(0,0, width, height);
+	
 	let i= C= 0;
 	while(i< data.data.length){
 		rgb+= data.data[i]+ data.data[i+1]+ data.data[i+2];
