@@ -31,9 +31,8 @@ setTimeout(()=>{
 					opt.checked= items.Active;
 					opt.id= 'Brt-opt';
 					document.getElementById('menu-container').appendChild(opt);
-						BROWSER.storage.local.get('Active', items=>{
-							BROWSER.storage.local.set({'Active': this.checked});
-						});
+					opt.addEventListener("change",()=>{
+						BROWSER.storage.local.set({'Active': opt.checked});
 					});
 				}finally{}
 		}

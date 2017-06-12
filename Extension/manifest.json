@@ -15,14 +15,12 @@
 		"default_title": "Bright YouTube Options", 
 		"default_popup": "popup/act.html"
 	},
-	 "devtools_page": "https://github.com/zekrom-vale/Bright-YouTube/tree/Experimental",
+	"devtools_page": "https://github.com/zekrom-vale/Bright-YouTube/tree/Experimental",
 	"homepage_url": "https://github.com/zekrom-vale/Bright-YouTube",
 	"offline_enabled": true,
 	"permissions": [
 		"https://gaming.youtube.com/watch*",
-		"https://gaming.youtube.com/channel/*",
 		"https://www.youtube.com/watch*",
-		"https://www.youtube.com/channel/*",
 		"https://www.youtube.com/embed/*",
 		"https://www.youtube-nocookie.com/embed/*",
 		"https://www.twitch.tv/videos/*",
@@ -30,6 +28,7 @@
 	],
 	"optional_permissions": [
 		"https://www.youtube.com/channel/*",
+		"https://gaming.youtube.com/channel/*",
 		"https://www.youtube.com/embed/*",
 		"https://www.youtube-nocookie.com/embed/*"
 	],
