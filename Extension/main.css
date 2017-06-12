@@ -8,3 +8,10 @@
 #Brt-canvas{
 	display:none;
 }
+#Brt-opt{
+	position:absolute;
+    left:-33px;
+    top:9px;
+    height:20px;
+    width:20px
+}

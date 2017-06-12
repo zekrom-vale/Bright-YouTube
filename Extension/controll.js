@@ -22,6 +22,9 @@ setTimeout(()=>{
 				BROWSER.storage.onChanged.addListener(StorageChange);
 				document.body.appendChild(canvas);
 				if(items.Active) START();
+				try{
+				}finally{}
+				
 				break;
 			default:
 				document.body.removeChild(canvas);
