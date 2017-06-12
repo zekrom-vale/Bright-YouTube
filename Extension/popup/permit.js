@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		if(rez) document.getElementById('Game').checked= true;
 	});
 	BROWSER.permissions.contains({
-		origins: ["https://www.youtube.com/embed/*", "https://www.youtube-nocookie.com/embed/*"]
+		origins: ["https://www.youtube-nocookie.com/embed/*"]
 	}, rez=>{
 		if(rez) document.getElementById('embed').checked= true;
 	});
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		if(rez) document.getElementById('Twitch').checked= true;
 	});
 	BROWSER.permissions.contains({
-		origins: ["<all_urls>"]//Eculde "https://www.youtube.com/watch*"/ reset
+		origins: ["<all_urls>"]//Exculde "https://www.youtube.com/watch*"/ reset
 	}, rez=>{
 		if(rez) document.getElementById('All').checked= true;
 	});
@@ -50,7 +50,7 @@ function rGame(){
 
 function rEmbed(){
 	BROWSER.permissions.request({
-		origins: ["https://www.youtube.com/embed/*", "https://www.youtube-nocookie.com/embed/*"]
+		origins: ["https://www.youtube-nocookie.com/embed/*"]// "https://www.youtube.com/embed/*" cannot be removed
 	}, granted=>{
 		if(!granted) document.getElementById('embed').checked= false;
 	});
@@ -69,10 +69,15 @@ function rAll(){
 		origins: ["<all_urls>"]
 	}, granted=>{
 		if(!granted) document.getElementById('All').checked= false;
+		else{
+			document.getElementById('Game').checked= true;
+			document.getElementById('embed').checked= true;
+			document.getElementById('Twitch').checked= true;
+		}
 	});
 }
 
-//Depretiate
+//Depretiate //Not removing urls
 function dGame(){
 	BROWSER.permissions.remove({
 		origins: ["https://gaming.youtube.com/watch*"]
@@ -83,8 +88,9 @@ function dGame(){
 
 function dEmbed(){
 	BROWSER.permissions.remove({
-		origins: ["https://www.youtube.com/embed/*", "https://www.youtube-nocookie.com/embed/*"]
+		origins: ["https://www.youtube-nocookie.com/embed/*"]
 	}, removed=>{
+		console.log(removed);
 		if(!removed) document.getElementById('embed').checked= true;
 	});
 }
@@ -101,6 +107,7 @@ function dAll(){
 	BROWSER.permissions.remove({
 		origins: ["<all_urls>"]//Eculde "https://www.youtube.com/watch*"/ reset
 	}, removed=>{
+		console.log(removed);
 		if(!removed) document.getElementById('All').checked= true;
 	});
 }

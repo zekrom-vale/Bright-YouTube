@@ -24,9 +24,9 @@ setTimeout(()=>{
 				document.body.appendChild(canvas);
 				BROWSER.storage.onChanged.addListener(StorageChange);
 				if(items.Active) START();
-			//Inline on/off
+			//Inline on/off //Must delay over 1000ms
 				try{
-					const opt= document.createElement('input');
+					let opt= document.createElement('input');
 					opt.type= 'checkbox'
 					opt.checked= items.Active;
 					opt.id= 'Brt-opt';
@@ -37,7 +37,7 @@ setTimeout(()=>{
 				}finally{}
 		}
 	});
-}, 500);
+}, 1000);
 
 //Active?
 function onPlay(){
