@@ -3,44 +3,45 @@ clock;
 const delay=1000,
 BROWSER= chrome,
 VID= document.getElementsByTagName('video')[0],
-//canvas
-SUB=25,//Border not processed
-canvas= document.createElement('canvas'),
-context= canvas.getContext && canvas.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
-canvas.id= 'Brt-canvas';
 
-setTimeout(()=>{
-	BROWSER.storage.local.get('Active', items=>{
-		switch(typeof items.Active){
-			case 'undefined':
-				BROWSER.storage.local.set({'Active': true});
-				items.Active= true;		//fallthrough
-			case 'boolean':
-				let Style= document.createElement('style');
-				Style.id= 'Brt-YT';
-				document.head.appendChild(Style);
-				BROWSER.storage.onChanged.addListener(StorageChange);
-				document.body.appendChild(canvas);
-				if(items.Active) START();
-				try{
-					const opt= document.createElement('input');
-					opt.type= 'checkbox'
-					opt.checked= items.Active;
-					opt.id= 'Brt-opt';
-					document.getElementById('menu-container').appendChild(opt);
-					opt.addEventListener("change",function(){
-						BROWSER.storage.local.get('Active', items=>{
-							BROWSER.storage.local.set({'Active': this.checked});
-						});
-					});
-				}finally{}
-				
-				break;
-			default:
-				document.body.removeChild(canvas);
-		}
-	});
-}, 500);
+var items= BROWSER.storage.local.get('Active', geT(items));
+switch(typeof items.Active){
+	case 'undefined':
+		BROWSER.storage.local.set({'Active': true});
+		items.Active= true;		//fallthrough
+	case 'boolean':
+		//Style
+		const Style= document.createElement('style');
+		Style.id= 'Brt-YT';
+		document.head.appendChild(Style);
+		
+		//Canvas
+		const SUB=25,//Border not processed
+		canvas= document.createElement('canvas'),
+		context= canvas.getContext && canvas.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
+		canvas.id= 'Brt-canvas';
+		document.body.appendChild(canvas);
+		
+		//Actvate
+		BROWSER.storage.onChanged.addListener(StorageChange);
+		if(items.Active) START();
+		
+		//Inline on/off
+		try{
+			const opt= document.createElement('input');
+			opt.type= 'checkbox';
+			opt.checked= items.Active;
+			opt.id= 'Brt-opt';
+			document.getElementById('menu-container').appendChild(opt);
+			opt.addEventListener("change",function(){//Want |this|
+				BROWSER.storage.local.set({'Active': this.checked});
+			});
+		}finally{}
+}
+
+function geT(items){
+	return {'Active': items.Active};
+}
 
 //Active?
 function onPlay(){
