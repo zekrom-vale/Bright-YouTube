@@ -1,8 +1,7 @@
-const BROWSER= chrome;
 document.addEventListener('DOMContentLoaded', ()=>{
-	document.getElementById('exp').addEventListener('change', function(){
+	/* document.getElementById('exp').addEventListener('change', function(){
 		
-	});
+	}); */
 	document.getElementById('Game').addEventListener('change', function(){//Extra
 		this.checked? rGame(): dGame();
 	});
@@ -21,28 +20,37 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	
 	
 	
-	document.getElementById().addEventListener('change', ()=>{});
+	//document.getElementById().addEventListener('change', ()=>{});
 });
 //Request
 
 function rGame(){
-	BROWSER.permissions.request({
-		permissions: ["https://gaming.youtube.com/watch*"]
-	}, granted=>{
-		if(!granted) document.getElementById('Game').checked= false
-	});
+	if(document.getElementById('Chan').checked=== true){
+			BROWSER.permissions.request({
+			origins: ["https://gaming.youtube.com/watch*", "https://gaming.youtube.com/channel/*"]
+		}, granted=>{
+			if(!granted) document.getElementById('Game').checked= false
+		});
+	}
+	else{
+		BROWSER.permissions.request({
+			origins: ["https://gaming.youtube.com/watch*"]
+		}, granted=>{
+			if(!granted) document.getElementById('Game').checked= false
+		});
+	}
 }
 function rChan(){
 	if(document.getElementById('Game').checked=== true){
 		BROWSER.permissions.request({
-			permissions: ["https://gaming.youtube.com/watch*", "https://gaming.youtube.com/channel/*"]
+			origins: ["https://gaming.youtube.com/watch*", "https://gaming.youtube.com/channel/*"]
 		}, granted=>{
 			if(!granted) document.getElementById('Chan').checked= false
 		});
 	}
 	else{
 		BROWSER.permissions.request({
-			permissions: ["https://gaming.youtube.com/watch*"]
+			origins: ["https://gaming.youtube.com/watch*"]
 		}, granted=>{
 			if(!granted) document.getElementById('Chan').checked= false
 		});
@@ -51,8 +59,24 @@ function rChan(){
 
 function rEmbed(){
 	BROWSER.permissions.request({
-		permissions: ["https://www.youtube.com/embed/*", "https://www.youtube-nocookie.com/embed/*",]
+		origins: ["https://www.youtube.com/embed/*", "https://www.youtube-nocookie.com/embed/*"]
 	}, granted=>{
-		if(!granted) document.getElementById('Game').checked= false
+		if(!granted) document.getElementById('Embed').checked= false
+	});
+}
+
+function rTwitch(){
+	BROWSER.permissions.request({
+		origins: ["https://www.twitch.tv/videos/*"]
+	}, granted=>{
+		if(!granted) document.getElementById('Twitch').checked= false
+	});
+}
+
+function rAll(){
+	BROWSER.permissions.request({
+		origins: ["<all_urls>"]
+	}, granted=>{
+		if(!granted) document.getElementById('All').checked= false
 	});
 }

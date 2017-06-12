@@ -20,9 +20,6 @@
 	"offline_enabled": true,
 	"permissions": [
 		"https://www.youtube.com/watch*",
-		"https://www.youtube.com/embed/*",
-		"https://www.youtube-nocookie.com/embed/*",
-		"https://www.twitch.tv/videos/*",
 		"storage"
 	],
 	"optional_permissions": [
@@ -30,7 +27,9 @@
 		"https://gaming.youtube.com/watch*",
 		"https://gaming.youtube.com/channel/*",
 		"https://www.youtube.com/embed/*",
-		"https://www.youtube-nocookie.com/embed/*"
+		"https://www.youtube-nocookie.com/embed/*",
+		"https://www.twitch.tv/videos/*",
+		"<all_urls>"
 	],
 	"content_scripts": [{
 		"matches": [
@@ -40,7 +39,8 @@
 			"https://www.youtube.com/channel/*",
 			"https://www.youtube.com/embed/*",
 			"https://www.youtube-nocookie.com/embed/*",
-			"https://www.twitch.tv/videos/*"
+			"https://www.twitch.tv/videos/*",
+			"<all_urls>"
 		],
 		"css": ["main.css"],
 		"js": ["controll.js"],
