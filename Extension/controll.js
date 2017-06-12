@@ -23,6 +23,16 @@ setTimeout(()=>{
 				document.body.appendChild(canvas);
 				if(items.Active) START();
 				try{
+					const opt= document.createElement('input');
+					opt.type= 'checkbox'
+					opt.checked= items.Active;
+					opt.id= 'Brt-opt';
+					document.getElementById('menu-container').appendChild(opt);
+					opt.addEventListener("change",function(){
+						BROWSER.storage.local.get('Active', items=>{
+							BROWSER.storage.local.set({'Active': this.checked});
+						});
+					});
 				}finally{}
 				
 				break;
