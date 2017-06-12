@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', ()=>{
-	/* document.getElementById('exp').addEventListener('change', function(){
-		
-	}); */
+	document.getElementById('exp').addEventListener('click', function(){
+		document.getElementById('permit').style.display= document.getElementById('permit').style.display==''? 'none': '';
+	});
 	//Set
 	BROWSER.permissions.contains({
 		origins: ["https://gaming.youtube.com/watch*"]
