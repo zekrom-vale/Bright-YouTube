@@ -4,6 +4,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	});
 	//Set
 	BROWSER.permissions.contains({
+		origins: ["https://www.youtube.com/watch*"]
+	}, rez=>{
+		if(rez) document.getElementById('YT').checked= true;
+	});
+	BROWSER.permissions.contains({
 		origins: ["https://gaming.youtube.com/watch*"]
 	}, rez=>{
 		if(rez) document.getElementById('Game').checked= true;
@@ -24,7 +29,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		if(rez) document.getElementById('All').checked= true;
 	});
 	//End Set
-	
+	document.getElementById('YT').addEventListener('change', function(){//Extra
+		this.checked? rYT(): dYT();
+	});
 	document.getElementById('Game').addEventListener('change', function(){//Extra
 		this.checked? rGame(): dGame();
 	});
@@ -40,6 +47,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
 });
 //Request
 //Any path is ignored.
+function rYT(){
+	BROWSER.permissions.request({
+		origins: ["https://www.youtube.com/watch*"]
+	}, granted=>{
+		if(!granted) document.getElementById('YT').checked= false;
+	});
+}
 function rGame(){
 	BROWSER.permissions.request({
 		origins: ["https://gaming.youtube.com/watch*"]
@@ -70,14 +84,19 @@ function rAll(){
 	}, granted=>{
 		if(!granted) document.getElementById('All').checked= false;
 		else{
-			document.getElementById('Game').checked= true;
-			document.getElementById('embed').checked= true;
-			document.getElementById('Twitch').checked= true;
+			document.getElementById('YT').checked= document.getElementById('Game').checked= document.getElementById('embed').checked= document.getElementById('Twitch').checked= true;
 		}
 	});
 }
 
 //Depretiate //Not removing urls
+function dYT(){
+	BROWSER.permissions.remove({
+		origins: ["https://www.youtube.com/watch*"]
+	}, removed=>{
+		if(!removed) document.getElementById('YT').checked= true;
+	});
+}
 function dGame(){
 	BROWSER.permissions.remove({
 		origins: ["https://gaming.youtube.com/watch*"]
@@ -107,7 +126,9 @@ function dAll(){
 	BROWSER.permissions.remove({
 		origins: ["<all_urls>"]//Eculde "https://www.youtube.com/watch*"/ reset
 	}, removed=>{
-		console.log(removed);
 		if(!removed) document.getElementById('All').checked= true;
+		else{
+			document.getElementById('YT').checked= document.getElementById('Game').checked= document.getElementById('embed').checked= document.getElementById('Twitch').checked= false;
+		}
 	});
 }

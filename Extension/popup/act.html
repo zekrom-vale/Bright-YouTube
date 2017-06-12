@@ -24,11 +24,19 @@
 		</span>
 		<button id="close">X</button>
 		
+		
 		<button style="margin:10px 0; border-radius:10px; background:aqua; color:black; font-size:20px" id="exp">
 			Permissions
 		</button>
 		<div id="permit" style="display:none">
 			<script src="permit.js"></script>
+			<span class="box">
+				<label class="switch">
+					<input type="checkbox" id="YT">
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> YouTube</span>
+			</span>
 			<span class="box">
 				<label class="switch">
 					<input type="checkbox" id="Game">
@@ -51,14 +59,13 @@
 				</label>
 				<span class="name"> Twitch</span>
 			</span>
-			
 			<!--All-->
-			<span class="box"  title="Curently cannot be removed!">
+			<span class="box">
 				<label class="switch">
 					<input type="checkbox" id="All">
 					<div class="slider round red"></div>
 				</label>
-				<span class="name" style="color:red"> All URLs EXP</span>
+				<span class="name" style="color:red"> All URLs</span>
 			</span>
 		</div>
 	</body>
