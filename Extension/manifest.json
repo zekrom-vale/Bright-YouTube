@@ -19,7 +19,6 @@
 	"homepage_url": "https://github.com/zekrom-vale/Bright-YouTube",
 	"offline_enabled": true,
 	"permissions": [
-		"https://gaming.youtube.com/watch*",
 		"https://www.youtube.com/watch*",
 		"https://www.youtube.com/embed/*",
 		"https://www.youtube-nocookie.com/embed/*",
@@ -28,6 +27,7 @@
 	],
 	"optional_permissions": [
 		"https://www.youtube.com/channel/*",
+		"https://gaming.youtube.com/watch*",
 		"https://gaming.youtube.com/channel/*",
 		"https://www.youtube.com/embed/*",
 		"https://www.youtube-nocookie.com/embed/*"
