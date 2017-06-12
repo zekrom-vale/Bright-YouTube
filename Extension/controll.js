@@ -16,28 +16,26 @@ setTimeout(()=>{
 				BROWSER.storage.local.set({'Active': true});
 				items.Active= true;		//fallthrough
 			case 'boolean':
+			//Style
 				let Style= document.createElement('style');
 				Style.id= 'Brt-YT';
 				document.head.appendChild(Style);
-				BROWSER.storage.onChanged.addListener(StorageChange);
+			//Canvas
 				document.body.appendChild(canvas);
+				BROWSER.storage.onChanged.addListener(StorageChange);
 				if(items.Active) START();
+			//Inline on/off
 				try{
 					const opt= document.createElement('input');
 					opt.type= 'checkbox'
 					opt.checked= items.Active;
 					opt.id= 'Brt-opt';
 					document.getElementById('menu-container').appendChild(opt);
-					opt.addEventListener("change",function(){
 						BROWSER.storage.local.get('Active', items=>{
 							BROWSER.storage.local.set({'Active': this.checked});
 						});
 					});
 				}finally{}
-				
-				break;
-			default:
-				document.body.removeChild(canvas);
 		}
 	});
 }, 500);
