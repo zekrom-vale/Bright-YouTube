@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		if(rez) document.getElementById('Twitch').checked= true;
 	});
 	BROWSER.permissions.contains({
-		origins: ["<all_urls>"]//Exculde "https://www.youtube.com/watch*"/ reset
+		origins: ["<all_urls>"]
 	}, rez=>{
 		if(rez) document.getElementById('All').checked= true;
 	});
@@ -89,7 +89,7 @@ function rAll(){
 	});
 }
 
-//Depretiate //Not removing urls
+//Depretiate
 function dYT(){
 	BROWSER.permissions.remove({
 		origins: ["https://www.youtube.com/watch*"]
@@ -124,7 +124,7 @@ function dTwitch(){
 
 function dAll(){
 	BROWSER.permissions.remove({
-		origins: ["<all_urls>"]//Eculde "https://www.youtube.com/watch*"/ reset
+		origins: ["<all_urls>"]
 	}, removed=>{
 		if(!removed) document.getElementById('All').checked= true;
 		else{

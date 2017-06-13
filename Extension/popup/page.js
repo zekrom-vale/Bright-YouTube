@@ -10,10 +10,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	});
 	document.getElementById("IO").addEventListener("change", IO);
 	document.getElementById("ST").addEventListener("change", Srt);
+	/* 
 	document.documentElement.addEventListener("mouseleave",()=>{
 		quit= setTimeout(()=>window.close(),3000);
 	});
-	document.documentElement.addEventListener("mouseenter", ()=>clearTimeout(quit));
+	document.documentElement.addEventListener("mouseenter", ()=>clearTimeout(quit)); //*/
 	document.getElementById("close").addEventListener("click", ()=>window.close());
 });
 function IO(){

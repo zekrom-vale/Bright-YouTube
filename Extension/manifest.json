@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "Bright YouTube",
 	"short_name": "Brt YT",
-	"version": "1.3",
+	"version": "1.4",
 	"minimum_chrome_version": "49",
 	"description": "This extension automaticaly ajusts the brightness of YouTube videos",
 	"icons":{
