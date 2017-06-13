@@ -16,6 +16,7 @@ setTimeout(()=>{
 				BROWSER.storage.local.set({'Active': true});
 				items.Active= true;		//fallthrough
 			case 'boolean':
+				VID.addEventListener('error', SHORT);
 				VID.addEventListener('canplay',()=>{
 				//Style
 					let Style= document.createElement('style');
@@ -58,21 +59,23 @@ function StorageChange(changes){
 		if(changes.Active.newValue=== true) START();
 		else if(changes.Active.newValue=== false) STOP();
 		else if(changes.Active.newValue== 'Short'){
-			STOP();
-			BROWSER.storage.onChanged.removeListener(StorageChange);
-			document.body.removeChild(canvas);
-			document.head.removeChild(document.getElementById('Brt-YT'));
+			SHORT();
 		}
 	}finally{}
 }
-
+function SHORT(){
+	STOP();
+	BROWSER.storage.onChanged.removeListener(StorageChange);
+	VID.removeEventListener('error', SHORT);
+	document.body.removeChild(canvas);
+	document.head.removeChild(document.getElementById('Brt-YT'));
+}
 function STOP(){
 	onPause();
 	VID.removeEventListener('play', onPlay);
 	VID.removeEventListener('pause', onPause);
 	document.getElementById('Brt-YT').innerHTML= '';
 }
-
 function START(){
 	clock= setInterval(evalu, delay);
 	toggle();
@@ -94,9 +97,7 @@ function evalu(){
 			clock= setInterval(evalu, delay);
 		}
 		else{
-			STOP();
-			BROWSER.storage.onChanged.removeListener(StorageChange);
-			document.head.removeChild(document.getElementById('Brt-YT'));
+			SHORT();
 			return;
 		}
 	}
