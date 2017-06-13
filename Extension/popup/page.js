@@ -32,24 +32,30 @@ document.addEventListener('DOMContentLoaded', ()=>{
 			case 407:
 				items.Err.text= 'Security Alert: '+ items.Err.text;
 				break;
+			case 100.7:
+				items.Err.text= 'Security Alert Overide: '+ items.Err.text;
+				break;
 			case 502:
 				items.Err.text= 'Controll script Error: '+ items.Err.text;
 		}
-		document.getElementById('display').innerHTML= items.Err.text;
+		document.getElementById('display').innerHTML= items.Err.text+ ' '+ items.Err.code;
 		document.getElementById('display').title= items.Err.time;
 	});
 	BROWSER.storage.local.get('Err', items=>{
 		let d= new Date();
-		d.setDate(d.getDate() - 14);
+		d.setDate(d.getDate() - 4);
 		if(Date.parse(items.Err.time)<= d) {
 			console.log('old');
 			BROWSER.storage.local.set({'Err': ''});
 			document.getElementById('display').innerHTML='';
 		}
 		else console.log('not old');
-		
 	});
 });
+function setErr(code, text){
+	BROWSER.storage.local.set({'Err': {'time':Date(), 'code':code, 'text':text}});
+}
+//End Get ERR
 function IO(){
 	BROWSER.storage.local.set({'Active': document.getElementById('IO').checked});
 	document.getElementById('ST').checked= false;

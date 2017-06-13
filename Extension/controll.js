@@ -38,7 +38,7 @@ setTimeout(()=>{
 							BROWSER.storage.local.set({'Active': opt.checked});
 						});
 					}catch(e){
-						BROWSER.storage.local.set({'Err': {'time':Date(), 'code':503, 'text':e}});
+						BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':e}});
 					}
 				}, {once:true});
 			//
@@ -100,6 +100,8 @@ function evalu(){
 			oldRgb= 140;
 			rgb= 140;
 			clock= setInterval(evalu, delay);
+			BROWSER.storage.local.set({'Void': true});
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':100.7, 'text':'Varables ilegaly modifyed'}});
 		}
 		else{
 			SHORT();
