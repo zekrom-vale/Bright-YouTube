@@ -41,10 +41,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		document.getElementById('display').innerHTML= items.Err.text;
 		document.getElementById('display').title= items.Err.time;
 	});
-});
-document.addEventListener('pagehide', function(){//does not trigger
 	BROWSER.storage.local.get('Err', items=>{
-		if(document.getElementById('display').innerHTML== items.Err.toString()) BROWSER.storage.local.set({'Err': ''});
+		let d= new Date();
+		d.setDate(d.getDate() - 14);
+		if(Date.parse(items.Err.time)<= d) {
+			console.log('old');
+			BROWSER.storage.local.set({'Err': ''});
+			document.getElementById('display').innerHTML='';
+		}
+		else console.log('not old');
 		
 	});
 });
