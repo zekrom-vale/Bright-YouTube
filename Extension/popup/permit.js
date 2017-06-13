@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	}, rez=>{
 		if(rez) document.getElementById('All').checked= true;
 	});
+	
 	//End Set
 	document.getElementById('YT').addEventListener('change', function(){//Extra
 		this.checked? rYT(): dYT();
@@ -64,7 +65,7 @@ function rGame(){
 
 function rEmbed(){
 	BROWSER.permissions.request({
-		origins: ["https://www.youtube-nocookie.com/embed/*"]// "https://www.youtube.com/embed/*" cannot be removed
+		origins: ["https://www.youtube-nocookie.com/embed/*"/*, "https://www.youtube.com/embed/*"*/]// cannot be removed
 	}, granted=>{
 		if(!granted) document.getElementById('embed').checked= false;
 	});
@@ -107,7 +108,7 @@ function dGame(){
 
 function dEmbed(){
 	BROWSER.permissions.remove({
-		origins: ["https://www.youtube-nocookie.com/embed/*"]
+		origins: ["https://www.youtube-nocookie.com/embed/*"/*, "https://www.youtube.com/embed/*"*/]
 	}, removed=>{
 		console.log(removed);
 		if(!removed) document.getElementById('embed').checked= true;
@@ -132,3 +133,13 @@ function dAll(){
 		}
 	});
 }
+
+
+/*
+	chrome.permissions.onAdded.addListener(callback=>{
+		document.getElementById('display').innerHTML= 'Obrained: '+ Object.values(callback);
+	});
+	chrome.permissions.onRemoved.addListener(callback=>{
+		document.getElementById('display').innerHTML= 'Removed: '+ Object.values(callback);
+	});
+*/
