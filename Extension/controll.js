@@ -79,7 +79,7 @@ function START(){
 
 //End Active?
 function evalu(){
-	if(VID.style.filter!='' || VID.readyState< 4) return;
+	if(VID.style.filter!='' || VID.readyState< 4) return;//Uncaught TypeError: Cannot read property 'style' of undefined
 	if(document.webkitHidden || document.hidden) return;
 	//security
 	if(isNaN(rgb+ oldRgb)){
@@ -169,7 +169,7 @@ function getAvColor(img){
 function toggle(poz= true){
 	let win= window.location.hostname;
 	if(/youtube/i.test(win)){
-		(poz)?
+		(poz)?//Error in response to storage.get: TypeError: Cannot read property 'classList' of undefined
 		document.getElementsByClassName('ytp-play-button')[0].classList.add('active'):
 		document.getElementsByClassName('ytp-play-button')[0].classList.remove('active');
 	}
