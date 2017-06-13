@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	ALL= document.getElementById('All');
 	
 	document.getElementById('exp').addEventListener('click', function(){
-		document.getElementById('permit').style.display= document.getElementById('permit').style.display==''? 'none': '';
+		const PRMT= document.getElementById('permit');
+		PRMT.style.display= PRMT.style.display==''? 'none': '';
 	});
 	//Set
 	BROWSER.permissions.contains({
@@ -36,20 +37,20 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	});
 	
 	//End Set
-	YTB.addEventListener('change', function(){//Extra
-		this.checked? rYT(): dYT();
+	YTB.addEventListener('change', ()=>{
+		YTB.checked? rYT(): dYT();
 	});
-	GAME.addEventListener('change', function(){//Extra
-		this.checked? rGame(): dGame();
+	GAME.addEventListener('change', ()=>{
+		GAME.checked? rGame(): dGame();
 	});
-	EMB.addEventListener('change', function(){
-		this.checked? rEmbed(): dEmbed();
+	EMB.addEventListener('change', ()=>{
+		EMB.checked? rEmbed(): dEmbed();
 	});
-	TWCH.addEventListener('change', function(){
-		this.checked? rTwitch(): dTwitch();
+	TWCH.addEventListener('change', ()=>{
+		TWCH.checked? rTwitch(): dTwitch();
 	});
-	ALL.addEventListener('change', function(){
-		this.checked? rAll(): dAll();
+	ALL.addEventListener('change', ()=>{
+		ALL.checked? rAll(): dAll();
 	});
 });
 //Request
@@ -89,10 +90,7 @@ function rAll(){
 	BROWSER.permissions.request({
 		origins: ["<all_urls>"]
 	}, granted=>{
-		if(!granted) ALL.checked= false;
-		else{
-			YTB.checked= GAME.checked= EMB.checked= TWCH.checked= true;
-		}
+		granted? YTB.checked= GAME.checked= EMB.checked= TWCH.checked= true: ALL.checked= false;
 	});
 }
 
@@ -133,10 +131,7 @@ function dAll(){
 	BROWSER.permissions.remove({
 		origins: ["<all_urls>"]
 	}, removed=>{
-		if(!removed) ALL.checked= true;
-		else{
-			YTB.checked= GAME.checked= EMB.checked= TWCH.checked= false;
-		}
+		removed? YTB.checked= GAME.checked= EMB.checked= TWCH.checked= false: ALL.checked= true;
 	});
 }
 
