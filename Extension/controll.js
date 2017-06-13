@@ -8,11 +8,12 @@ SUB=25,//Border not processed
 canvas= document.createElement('canvas'),
 context= canvas.getContext && canvas.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
 canvas.id= 'Brt-canvas';
-
+try{
 setTimeout(()=>{
 	BROWSER.storage.local.get('Active', items=>{
 		switch(typeof items.Active){
 			case 'undefined':
+				BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Active in storage, overiden to true'}});
 				BROWSER.storage.local.set({'Active': true});
 				items.Active= true;		//fallthrough
 			case 'boolean':
@@ -36,13 +37,17 @@ setTimeout(()=>{
 						opt.addEventListener("change",()=>{
 							BROWSER.storage.local.set({'Active': opt.checked});
 						});
-					}finally{}
+					}catch(e){
+						BROWSER.storage.local.set({'Err': {'time':Date(), 'code':503, 'text':e}});
+					}
 				}, {once:true});
 			//
 		}
 	});
 }, 2000);
-
+}catch(e){
+	BROWSER.storage.local.set({'Err': {'time':Date(), 'code':502, 'text':e}});
+}
 //Active?
 function onPlay(){
 	clock= setInterval(evalu, delay);
@@ -58,11 +63,11 @@ function StorageChange(changes){
 	try{
 		if(changes.Active.newValue=== true) START();
 		else if(changes.Active.newValue=== false) STOP();
-		else if(changes.Active.newValue== 'Short'){
-			SHORT();
-		}
+		else if(changes.Active.newValue== 'Short') SHORT();
 	}finally{}
 }
+//End Active?
+//STP
 function SHORT(){
 	STOP();
 	BROWSER.storage.onChanged.removeListener(StorageChange);
@@ -82,13 +87,13 @@ function START(){
 	VID.addEventListener('play', onPlay);
 	VID.addEventListener('pause', onPause);
 }
-
-//End Active?
+//End STP
 function evalu(){
 	if(VID.style.filter!='' || VID.readyState< 4) return;//Uncaught TypeError: Cannot read property 'style' of undefined
 	if(document.webkitHidden || document.hidden) return;
 	//security
 	if(isNaN(rgb+ oldRgb)){
+		
 		clearInterval(clock);
 		let warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
 		if(warning=== true){
@@ -98,6 +103,7 @@ function evalu(){
 		}
 		else{
 			SHORT();
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':407, 'text':'Varables ilegaly modifyed'}});
 			return;
 		}
 	}

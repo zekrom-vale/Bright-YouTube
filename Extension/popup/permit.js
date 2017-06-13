@@ -42,8 +42,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
 			case 401:
 				items.Err.text= 'Request Denied: '+ items.Err.text;
 				break;
-			case 404:
+			case 404.1:
 				items.Err.text= 'Error, could not remove: '+ items.Err.text;
+				break;
+			case 404:
+				items.Err.text= 'Error, could not find: '+ items.Err.text;
+				break;
+			case 407:
+				items.Err.text= 'Security Alert: '+ items.Err.text;
+				break;
+			case 502:
+				items.Err.text= 'Controll script Error: '+ items.Err.text;
 		}
 		document.getElementById('display').innerHTML= items.Err.text;
 		document.getElementById('display').title= items.Err.time;
@@ -124,7 +133,7 @@ function dYT(YTB){
 	}, removed=>{
 		if(!removed){
 			YTB.checked= true;
-			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':`"${YTB.id}"`}});
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404.1, 'text':`"${YTB.id}"`}});
 		}
 	});
 }
@@ -134,7 +143,7 @@ function dGame(GAME){
 	}, removed=>{
 		if(!removed) {
 			GAME.checked= true;
-			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':`"${GAME.id}"`}});
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404.1, 'text':`"${GAME.id}"`}});
 		}
 	});
 }
@@ -146,7 +155,7 @@ function dEmbed(EMB){
 		console.log(removed);
 		if(!removed){
 			EMB.checked= true;
-			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':`"${EMB.id}"`}});
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404.1, 'text':`"${EMB.id}"`}});
 		}
 	});
 }
@@ -157,7 +166,7 @@ function dTwitch(TWCH){
 	}, removed=>{
 		if(!removed){
 			TWCH.checked= true;
-			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':`"${TWCH.id}"`}});
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404.1, 'text':`"${TWCH.id}"`}});
 		}
 	});
 }
@@ -169,7 +178,7 @@ function dAll(ALL,YTB,GAME,EMB,TWCH){
 		if(removed) YTB.checked= GAME.checked= EMB.checked= TWCH.checked= false
 		else{
 			ALL.checked= true;
-			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':`"${ALL.id}"`}});
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404.1, 'text':`"${ALL.id}"`}});
 		}
 	});
 }
