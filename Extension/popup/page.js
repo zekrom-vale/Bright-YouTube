@@ -16,6 +16,39 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	});
 	document.documentElement.addEventListener("mouseenter", ()=>clearTimeout(quit)); //*/
 	document.getElementById("close").addEventListener("click", ()=>window.close());
+	
+	//Get ERR
+	BROWSER.storage.local.get('Err', items=>{
+		switch(items.Err.code){
+			case 401:
+				items.Err.text= 'Request Denied: '+ items.Err.text;
+				break;
+			case 404.1:
+				items.Err.text= 'Error, could not remove: '+ items.Err.text;
+				break;
+			case 404:
+				items.Err.text= 'Error, could not find: '+ items.Err.text;
+				break;
+			case 407:
+				items.Err.text= 'Security Alert: '+ items.Err.text;
+				break;
+			case 502:
+				items.Err.text= 'Controll script Error: '+ items.Err.text;
+		}
+		document.getElementById('display').innerHTML= items.Err.text;
+		document.getElementById('display').title= items.Err.time;
+	});
+	BROWSER.storage.local.get('Err', items=>{
+		let d= new Date();
+		d.setDate(d.getDate() - 14);
+		if(Date.parse(items.Err.time)<= d) {
+			console.log('old');
+			BROWSER.storage.local.set({'Err': ''});
+			document.getElementById('display').innerHTML='';
+		}
+		else console.log('not old');
+		
+	});
 });
 function IO(){
 	BROWSER.storage.local.set({'Active': document.getElementById('IO').checked});
