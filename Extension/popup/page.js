@@ -1,7 +1,7 @@
 var quit;
 const BROWSER= chrome;
 document.addEventListener('DOMContentLoaded', ()=>{
-	gettingItem= BROWSER.storage.local.get('Active', items=>{
+	BROWSER.storage.local.get('Active', items=>{
 		if(items.Active=== false) document.getElementById('IO').checked= false;
 		else if(items.Active=== 'Short'){
 			document.getElementById('ST').checked= true;

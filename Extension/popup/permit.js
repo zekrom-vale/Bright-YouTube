@@ -36,6 +36,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	ALL.addEventListener('change', ()=>{
 		ALL.checked? rAll(ALL,YTB,GAME,EMB,TWCH): dAll(ALL,YTB,GAME,EMB,TWCH);
 	});
+	//Get ERR
+	BROWSER.storage.local.get('Err', items=>{
+		document.getElementById('display').innerHTML= items.Err;
+	});
+});
+document.addEventListener('beforeunload', function(){//does not trigger
+	BROWSER.storage.local.get('Err', items=>{
+		if(document.getElementById('display').innerHTML== items.Err.toString()) BROWSER.storage.local.set({'Err': ''});
+		
+	});
 });
 //Request
 //Any path is ignored.
@@ -45,7 +55,7 @@ function rYT(YTB){
 	}, granted=>{
 		if(!granted) {
 			YTB.checked= false;
-			document.getElementById('display').innerHTML= `Request Denied "${YTB.id}"`;
+			BROWSER.storage.local.set({'Err':  `Request Denied "${YTB.id}"`});
 		}
 	});
 }
@@ -55,7 +65,7 @@ function rGame(GAME){
 	}, granted=>{
 		if(!granted){
 			GAME.checked= false;
-			document.getElementById('display').innerHTML= `Request Denied "${GAME.id}"`;
+			BROWSER.storage.local.set({'Err': `Request Denied "${GAME.id}"`});
 		}
 	});
 }
@@ -66,7 +76,7 @@ function rEmbed(EMB){
 	}, granted=>{
 		if(!granted) {
 			EMB.checked= false;
-			document.getElementById('display').innerHTML= `Request Denied "${EMB.id}"`;
+			BROWSER.storage.local.set({'Err': `Request Denied "${EMB.id}"`});
 		}
 	});
 }
@@ -77,7 +87,7 @@ function rTwitch(TWCH){
 	}, granted=>{
 		if(!granted){
 			TWCH.checked= false;
-			document.getElementById('display').innerHTML= `Request Denied "${TWCH.id}"`;
+			BROWSER.storage.local.set({'Err': `Request Denied "${TWCH.id}"`});
 		}
 	});
 }
@@ -97,7 +107,7 @@ function dYT(YTB){
 	}, removed=>{
 		if(!removed){
 			YTB.checked= true;
-			document.getElementById('display').innerHTML= `Error, could not remove "${YTB.id}"`;
+			BROWSER.storage.local.set({'Err': `Error, could not remove "${YTB.id}"`});
 		}
 	});
 }
@@ -107,7 +117,7 @@ function dGame(GAME){
 	}, removed=>{
 		if(!removed) {
 			GAME.checked= true;
-			document.getElementById('display').innerHTML= `Error, could not remove "${GAME.id}"`;
+			BROWSER.storage.local.set({'Err':`Error, could not remove "${GAME.id}"`});
 		}
 	});
 }
@@ -119,7 +129,7 @@ function dEmbed(EMB){
 		console.log(removed);
 		if(!removed){
 			EMB.checked= true;
-			document.getElementById('display').innerHTML= `Error, could not remove "${EMB.id}"`;
+			BROWSER.storage.local.set({'Err': `Error, could not remove "${EMB.id}"`});
 		}
 	});
 }
@@ -130,7 +140,7 @@ function dTwitch(TWCH){
 	}, removed=>{
 		if(!removed){
 			TWCH.checked= true;
-			document.getElementById('display').innerHTML= `Error, could not remove "${TWCH.id}"`;
+			BROWSER.storage.local.set({'Err': `Error, could not remove "${TWCH.id}"`});
 		}
 	});
 }
