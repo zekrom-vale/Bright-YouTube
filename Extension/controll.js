@@ -16,28 +16,31 @@ setTimeout(()=>{
 				BROWSER.storage.local.set({'Active': true});
 				items.Active= true;		//fallthrough
 			case 'boolean':
-			//Style
-				let Style= document.createElement('style');
-				Style.id= 'Brt-YT';
-				document.head.appendChild(Style);
-			//Canvas
-				document.body.appendChild(canvas);
-				BROWSER.storage.onChanged.addListener(StorageChange);
-				if(items.Active) START();
-			//Inline on/off //Must delay over 1000ms
-				try{
-					let opt= document.createElement('input');
-					opt.type= 'checkbox'
-					opt.checked= items.Active;
-					opt.id= 'Brt-opt';
-					document.getElementById('menu-container').appendChild(opt);
-					opt.addEventListener("change",()=>{
-						BROWSER.storage.local.set({'Active': opt.checked});
-					});
-				}finally{}
+				VID.addEventListener('canplay',()=>{
+				//Style
+					let Style= document.createElement('style');
+					Style.id= 'Brt-YT';
+					document.head.appendChild(Style);
+				//Canvas
+					document.body.appendChild(canvas);
+					BROWSER.storage.onChanged.addListener(StorageChange);
+					if(items.Active) START();
+				//Inline on/off //Must delay over 1000ms
+					try{
+						let opt= document.createElement('input');
+						opt.type= 'checkbox'
+						opt.checked= items.Active;
+						opt.id= 'Brt-opt';
+						document.getElementById('menu-container').appendChild(opt);
+						opt.addEventListener("change",()=>{
+							BROWSER.storage.local.set({'Active': opt.checked});
+						});
+					}finally{}
+				}, {once:true});
+			//
 		}
 	});
-}, 1000);
+}, 2000);
 
 //Active?
 function onPlay(){
