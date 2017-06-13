@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', ()=>{
+	const YTB= document.getElementById('YT'),
+	GAME= document.getElementById('Game'),
+	EMB= document.getElementById('embed'),
+	TWCH= document.getElementById('Twitch'),
+	ALL= document.getElementById('All');
+	
 	document.getElementById('exp').addEventListener('click', function(){
 		document.getElementById('permit').style.display= document.getElementById('permit').style.display==''? 'none': '';
 	});
@@ -6,43 +12,43 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	BROWSER.permissions.contains({
 		origins: ["https://www.youtube.com/watch*"]
 	}, rez=>{
-		if(rez) document.getElementById('YT').checked= true;
+		if(rez) YTB.checked= true;
 	});
 	BROWSER.permissions.contains({
 		origins: ["https://gaming.youtube.com/watch*"]
 	}, rez=>{
-		if(rez) document.getElementById('Game').checked= true;
+		if(rez) GAME.checked= true;
 	});
 	BROWSER.permissions.contains({
 		origins: ["https://www.youtube-nocookie.com/embed/*"]
 	}, rez=>{
-		if(rez) document.getElementById('embed').checked= true;
+		if(rez) EMB.checked= true;
 	});
 	BROWSER.permissions.contains({
 		origins: ["https://www.twitch.tv/videos/*"]
 	}, rez=>{
-		if(rez) document.getElementById('Twitch').checked= true;
+		if(rez) TWCH.checked= true;
 	});
 	BROWSER.permissions.contains({
 		origins: ["<all_urls>"]
 	}, rez=>{
-		if(rez) document.getElementById('All').checked= true;
+		if(rez) ALL.checked= true;
 	});
 	
 	//End Set
-	document.getElementById('YT').addEventListener('change', function(){//Extra
+	YTB.addEventListener('change', function(){//Extra
 		this.checked? rYT(): dYT();
 	});
-	document.getElementById('Game').addEventListener('change', function(){//Extra
+	GAME.addEventListener('change', function(){//Extra
 		this.checked? rGame(): dGame();
 	});
-	document.getElementById('embed').addEventListener('change', function(){
+	EMB.addEventListener('change', function(){
 		this.checked? rEmbed(): dEmbed();
 	});
-	document.getElementById('Twitch').addEventListener('change', function(){
+	TWCH.addEventListener('change', function(){
 		this.checked? rTwitch(): dTwitch();
 	});
-	document.getElementById('All').addEventListener('change', function(){
+	ALL.addEventListener('change', function(){
 		this.checked? rAll(): dAll();
 	});
 });
@@ -52,14 +58,14 @@ function rYT(){
 	BROWSER.permissions.request({
 		origins: ["https://www.youtube.com/watch*"]
 	}, granted=>{
-		if(!granted) document.getElementById('YT').checked= false;
+		if(!granted) YTB.checked= false;
 	});
 }
 function rGame(){
 	BROWSER.permissions.request({
 		origins: ["https://gaming.youtube.com/watch*"]
 	}, granted=>{
-		if(!granted) document.getElementById('Game').checked= false;
+		if(!granted) GAME.checked= false;
 	});
 }
 
@@ -67,7 +73,7 @@ function rEmbed(){
 	BROWSER.permissions.request({
 		origins: ["https://www.youtube-nocookie.com/embed/*"/*, "https://www.youtube.com/embed/*"*/]// cannot be removed
 	}, granted=>{
-		if(!granted) document.getElementById('embed').checked= false;
+		if(!granted) EMB.checked= false;
 	});
 }
 
@@ -75,7 +81,7 @@ function rTwitch(){
 	BROWSER.permissions.request({
 		origins: ["https://www.twitch.tv/videos/*"]
 	}, granted=>{
-		if(!granted) document.getElementById('Twitch').checked= false;
+		if(!granted) TWCH.checked= false;
 	});
 }
 
@@ -83,9 +89,9 @@ function rAll(){
 	BROWSER.permissions.request({
 		origins: ["<all_urls>"]
 	}, granted=>{
-		if(!granted) document.getElementById('All').checked= false;
+		if(!granted) ALL.checked= false;
 		else{
-			document.getElementById('YT').checked= document.getElementById('Game').checked= document.getElementById('embed').checked= document.getElementById('Twitch').checked= true;
+			YTB.checked= GAME.checked= EMB.checked= TWCH.checked= true;
 		}
 	});
 }
@@ -95,14 +101,14 @@ function dYT(){
 	BROWSER.permissions.remove({
 		origins: ["https://www.youtube.com/watch*"]
 	}, removed=>{
-		if(!removed) document.getElementById('YT').checked= true;
+		if(!removed) YTB.checked= true;
 	});
 }
 function dGame(){
 	BROWSER.permissions.remove({
 		origins: ["https://gaming.youtube.com/watch*"]
 	}, removed=>{
-		if(!removed) document.getElementById('Game').checked= true;
+		if(!removed) GAME.checked= true;
 	});
 }
 
@@ -111,7 +117,7 @@ function dEmbed(){
 		origins: ["https://www.youtube-nocookie.com/embed/*"/*, "https://www.youtube.com/embed/*"*/]
 	}, removed=>{
 		console.log(removed);
-		if(!removed) document.getElementById('embed').checked= true;
+		if(!removed) EMB.checked= true;
 	});
 }
 
@@ -119,7 +125,7 @@ function dTwitch(){
 	BROWSER.permissions.remove({
 		origins: ["https://www.twitch.tv/videos/*"]
 	}, removed=>{
-		if(!removed) document.getElementById('Twitch').checked= true;
+		if(!removed) TWCH.checked= true;
 	});
 }
 
@@ -127,9 +133,9 @@ function dAll(){
 	BROWSER.permissions.remove({
 		origins: ["<all_urls>"]
 	}, removed=>{
-		if(!removed) document.getElementById('All').checked= true;
+		if(!removed) ALL.checked= true;
 		else{
-			document.getElementById('YT').checked= document.getElementById('Game').checked= document.getElementById('embed').checked= document.getElementById('Twitch').checked= false;
+			YTB.checked= GAME.checked= EMB.checked= TWCH.checked= false;
 		}
 	});
 }
