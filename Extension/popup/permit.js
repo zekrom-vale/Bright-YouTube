@@ -38,6 +38,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	});
 	//Get ERR
 	BROWSER.storage.local.get('Err', items=>{
+		switch(items.Err.code){
+			case 401:
+				items.Err.text= 'Request Denied: '+ items.Err.text;
+				break;
+			case 404:
+				items.Err.text= 'Error, could not remove: '+ items.Err.text;
+		}
 		document.getElementById('display').innerHTML= items.Err.text;
 		document.getElementById('display').title= items.Err.time;
 	});
@@ -61,7 +68,7 @@ function rYT(YTB){
 	}, granted=>{
 		if(!granted) {
 			YTB.checked= false;
-			BROWSER.storage.local.set({'Err': {'time': Date(), 'text': `Request Denied "${YTB.id}"`}});
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':401, 'text':`"${YTB.id}"`}});
 		}
 	});
 }
@@ -71,7 +78,7 @@ function rGame(GAME){
 	}, granted=>{
 		if(!granted){
 			GAME.checked= false;//Error in response to permissions.request: ReferenceError: date is not defined
-			BROWSER.storage.local.set({'Err': {'time': Date(), 'text': `Request Denied "${GAME.id}"`}});
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':401, 'text':`"${GAME.id}"`}});
 		}
 	});
 }
@@ -82,7 +89,7 @@ function rEmbed(EMB){
 	}, granted=>{
 		if(!granted) {
 			EMB.checked= false;
-			BROWSER.storage.local.set({'Err': {'time': Date(), 'text': `Request Denied "${EMB.id}"`}});
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':401, 'text':`"${EMB.id}"`}});
 		}
 	});
 }
@@ -93,7 +100,7 @@ function rTwitch(TWCH){
 	}, granted=>{
 		if(!granted){
 			TWCH.checked= false;
-			BROWSER.storage.local.set({'Err': {'time': Date(), 'text': `Request Denied "${TWCH.id}"`}});
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':401, 'text':`"${TWCH.id}"`}});
 		}
 	});
 }
@@ -105,7 +112,7 @@ function rAll(ALL,YTB,GAME,EMB,TWCH){
 		if(granted) YTB.checked= GAME.checked= EMB.checked= TWCH.checked= true
 		else{
 			ALL.checked= false;
-			BROWSER.storage.local.set({'Err': {'time': Date(), 'text': `Request Denied "${ALL.id}"`}});
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':401, 'text':`"${ALL.id}"`}});
 		}
 	});
 }
@@ -117,7 +124,7 @@ function dYT(YTB){
 	}, removed=>{
 		if(!removed){
 			YTB.checked= true;
-			BROWSER.storage.local.set({'Err': {'time': Date(), 'text': `Error, could not remove "${YTB.id}"`}});
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':`"${YTB.id}"`}});
 		}
 	});
 }
@@ -127,7 +134,7 @@ function dGame(GAME){
 	}, removed=>{
 		if(!removed) {
 			GAME.checked= true;
-			BROWSER.storage.local.set({'Err': {'time': Date(), 'text': `Error, could not remove "${GAME.id}"`}});
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':`"${GAME.id}"`}});
 		}
 	});
 }
@@ -139,7 +146,7 @@ function dEmbed(EMB){
 		console.log(removed);
 		if(!removed){
 			EMB.checked= true;
-			BROWSER.storage.local.set({'Err': {'time': Date(), 'text': `Error, could not remove "${EMB.id}"`}});
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':`"${EMB.id}"`}});
 		}
 	});
 }
@@ -150,7 +157,7 @@ function dTwitch(TWCH){
 	}, removed=>{
 		if(!removed){
 			TWCH.checked= true;
-			BROWSER.storage.local.set({'Err': {'time': Date(), 'text': `Error, could not remove "${TWCH.id}"`}});
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':`"${TWCH.id}"`}});
 		}
 	});
 }
@@ -162,7 +169,7 @@ function dAll(ALL,YTB,GAME,EMB,TWCH){
 		if(removed) YTB.checked= GAME.checked= EMB.checked= TWCH.checked= false
 		else{
 			ALL.checked= true;
-			BROWSER.storage.local.set({'Err': {'time': Date(), 'text': `Error, could not remove "${ALL.id}"`}});
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':`"${ALL.id}"`}});
 		}
 	});
 }
