@@ -39,13 +39,13 @@ setTimeout(()=>{
 								BROWSER.storage.local.set({'Active': opt.checked});
 							});
 						}catch(e){
-							BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':e}});
+							BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':Object.entries(e)}});
 						}
 					}, {once:true});
 				//
 			}
 		}catch(e){
-			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':502, 'text':e}});
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':502, 'text':Object.entries(e)}});
 		}
 	});
 }, 2000);
@@ -57,6 +57,10 @@ function set(){
 	else if(/twitch/.test(window.location.hostname)){
 		var PLY=document.getElementsByClassName('player-icon-pause')[0];
 	}
+	/*//More options!
+	else if(/___website domain___/.test(window.location.hostname)){
+		var PLY=document.getElementsByClassName('___class name of play button___')[0];
+	}//*/
 	else{
 		var PLY= document.getElementsByClassName('playpause')[0];
 	}

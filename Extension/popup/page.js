@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	document.documentElement.addEventListener("mouseenter", quit=>clearTimeout(quit)); //*/
 	document.getElementById("close").addEventListener("click", ()=>window.close() );
 	//Get ERR
-	BROWSER.storage.local.get('Err', items=>{
+	BROWSER.storage.local.get('Err', items=>{//Use Object.entries(obj);
 		switch(items.Err.code){//https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
 			case 200:
 				items.Err.text= 'OK: '+ items.Err.text;
@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 			case '5':
 				items.Err.Class= 'Server Err';
 		}
+		console.log(items.Err.text);
 		document.getElementById('display').innerHTML= items.Err.text+ ' '+ items.Err.code;
 		document.getElementById('display').title= items.Err.time+ ': '+ items.Err.Class;
 	});
