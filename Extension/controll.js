@@ -8,6 +8,9 @@ SUB=25,//Border not processed
 canvas= document.createElement('canvas'),
 context= canvas.getContext && canvas.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
 canvas.id= 'Brt-canvas';
+if(document.getElementsByClassName('audio_only_div')[0]){
+	return;
+}
 const PLY= set();
 setTimeout(()=>{
 	BROWSER.storage.local.get('Active', items=>{
@@ -108,6 +111,10 @@ function START(){
 }
 //End STP
 function evalu(){
+	if(document.getElementsByClassName('audio_only_div')[0]){
+		SHORT();
+		return;
+	}
 	if(VID.style.filter!='' || VID.readyState< 4) return;//Uncaught TypeError: Cannot read property 'style' of undefined
 	if(document.webkitHidden || document.hidden) return;
 	//security
