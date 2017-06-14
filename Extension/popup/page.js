@@ -1,4 +1,3 @@
-var quit;
 const BROWSER= chrome;
 document.addEventListener('DOMContentLoaded', ()=>{
 	BROWSER.storage.local.get('Active', items=>{
@@ -10,11 +9,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	});
 	document.getElementById("IO").addEventListener("change", IO);
 	document.getElementById("ST").addEventListener("change", Srt);
-	/* 
-	document.documentElement.addEventListener("mouseleave",()=>{
+	/*
+	var quit;
+	document.documentElement.addEventListener("mouseleave",quit=>{
 		quit= setTimeout(()=>window.close(),3000);
 	});
-	document.documentElement.addEventListener("mouseenter", ()=>clearTimeout(quit)); //*/
+	document.documentElement.addEventListener("mouseenter", quit=>clearTimeout(quit)); //*/
 	document.getElementById("close").addEventListener("click", ()=>window.close() );
 	//Get ERR
 	BROWSER.storage.local.get('Err', items=>{
@@ -55,13 +55,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
 				items.Err.Class= 'Redirection';
 				break;
 			case '4':
-				items.Err.Class= 'Client Error';
+				items.Err.Class= 'Client Err';
 				break;
 			case '5':
-				items.Err.Class= 'Server Error';
-				break;
-			default:
-				items.Err.Class+= ' NA';
+				items.Err.Class= 'Server Err';
 		}
 		document.getElementById('display').innerHTML= items.Err.text+ ' '+ items.Err.code;
 		document.getElementById('display').title= items.Err.time+ ': '+ items.Err.Class;
@@ -96,19 +93,19 @@ function Dlt(){
 	if(document.getElementById('IO').checked){
 		BROWSER.browserAction.setIcon({
 			path:{
-				"16": "../img/YT16.png",
-				"32": "../img/YT32.png",
-				"64": "../img/YT64.png",
-				"128": "../img/YT128.png"
+				"16":"../img/YT16.png",
+				"32":"../img/YT32.png",
+				"64":"../img/YT64.png",
+				"128":"../img/YT128.png"
 			}
 		});
 	}
 	else{
 		BROWSER.browserAction.setIcon({
 			path:{
-				"16": "../img/off16.png",
-				"32": "../img/off32.png",
-				"64": "../img/off64.png"
+				"16":"../img/off16.png",
+				"32":"../img/off32.png",
+				"64":"../img/off64.png"
 			}
 		});
 	}
