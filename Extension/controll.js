@@ -8,7 +8,7 @@ SUB=25,//Border not processed
 canvas= document.createElement('canvas'),
 context= canvas.getContext && canvas.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
 canvas.id= 'Brt-canvas';
-
+const PLY= set();
 setTimeout(()=>{
 	BROWSER.storage.local.get('Active', items=>{
 		try{
@@ -49,6 +49,20 @@ setTimeout(()=>{
 		}
 	});
 }, 2000);
+//Set PLY
+function set(){
+	if(/youtube/.test(window.location.hostname)){//Needs to be var
+		var PLY= document.getElementsByClassName('ytp-play-button')[0];
+	}
+	else if(/twitch/.test(window.location.hostname)){
+		var PLY=document.getElementsByClassName('player-icon-pause')[0];
+	}
+	else{
+		var PLY= document.getElementsByClassName('playpause')[0];
+	}
+	return PLY;
+}
+
 //Active?
 function onPlay(){
 	clock= setInterval(evalu, delay);
@@ -179,16 +193,6 @@ function getAvColor(){
 }
 //Indicate
 function toggle(poz= true){
-	var win= window.location.hostname;
-	if(/youtube/.test(win)){//Needs to be var
-		var PLY= document.getElementsByClassName('ytp-play-button')[0];
-	}
-	else if(/twitch/.test(win)){
-		var PLY=document.getElementsByClassName('player-icon-pause')[0];
-	}
-	else{
-		var PLY= document.getElementsByClassName('playpause')[0];
-	}
 	try{
 		(poz)?PLY.classList.add('active'):PLY.classList.remove('active');
 	}finally{}
