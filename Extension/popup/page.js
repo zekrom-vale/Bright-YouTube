@@ -19,7 +19,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	
 	//Get ERR
 	BROWSER.storage.local.get('Err', items=>{
-		switch(items.Err.code){
+		switch(items.Err.code){//https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+			case 200:
+				items.Err.text= 'OK: '+ items.Err.text;
+				break;
 			case 401:
 				items.Err.text= 'Request Denied: '+ items.Err.text;
 				break;
@@ -37,9 +40,32 @@ document.addEventListener('DOMContentLoaded', ()=>{
 				break;
 			case 502:
 				items.Err.text= 'Controll script Error: '+ items.Err.text;
+				break;
+			default:
+				items.Err.text= '"No context": '+ items.Err.text;
+		}
+		items.Err.Class= items.Err.code.toString().charAt(0);
+		switch(items.Err.Class){
+			case '1':
+				items.Err.Class= 'Informational';
+				break;
+			case '2':
+				items.Err.Class= 'Successful';
+				break;
+			case '3':
+				items.Err.Class= 'Redirection';
+				break;
+			case '4':
+				items.Err.Class= 'Client Error';
+				break;
+			case '5':
+				items.Err.Class= 'Server Error';
+				break;
+			default:
+				items.Err.Class+= ' NA';
 		}
 		document.getElementById('display').innerHTML= items.Err.text+ ' '+ items.Err.code;
-		document.getElementById('display').title= items.Err.time;
+		document.getElementById('display').title= items.Err.time+ ': '+ items.Err.Class;
 	});
 	BROWSER.storage.local.get('Err', items=>{
 		let d= new Date();
