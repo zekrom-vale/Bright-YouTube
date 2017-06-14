@@ -7,12 +7,10 @@ VID= document.getElementsByTagName('video')[0],
 SUB=25,//Border not processed
 canvas= document.createElement('canvas'),
 context= canvas.getContext && canvas.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
-canvas.id= 'Brt-canvas';
-if(document.getElementsByClassName('audio_only_div')[0]){
-	return;
-}
-const PLY= set();
-setTimeout(()=>{
+canvas.id= 'Brt-canvas',
+PLY= set();
+
+var main= setTimeout(()=>{
 	BROWSER.storage.local.get('Active', items=>{
 		try{
 			switch(typeof items.Active){
@@ -52,6 +50,7 @@ setTimeout(()=>{
 		}
 	});
 }, 2000);
+if(document.getElementsByClassName('audio_only_div')[0]) clearTimeout(main);
 //Set PLY
 function set(){
 	if(/youtube/.test(window.location.hostname)){//Needs to be var
