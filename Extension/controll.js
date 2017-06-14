@@ -30,36 +30,36 @@ var main= setTimeout(()=>{
 						BROWSER.storage.onChanged.addListener(StorageChange);
 						if(items.Active) START();
 					//Inline on/off //Must delay over 1000ms
-						try{
+						if(/youtube/.test(window.location.hostname)){
 							let opt= document.createElement('input');
 							opt.type= 'checkbox'
 							opt.checked= items.Active;
 							opt.id= 'Brt-opt';
 							document.getElementById('menu-container').appendChild(opt);
-							opt.addEventListener("change",()=>{
+							opt.addEventListener("change", opt=>{
 								BROWSER.storage.local.set({'Active': opt.checked});
 							});
-						}catch(e){
-							BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':Object.entries(e)}});
 						}
 					}, {once:true});
-				//
 			}
 		}catch(e){
 			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':502, 'text':Object.entries(e)}});
 		}
 	});
 }, 2000);
-if(document.getElementsByClassName('audio_only_div')[0]) clearTimeout(main);
-//Set PLY
+if(document.getElementsByClassName('audio_only_div')[0]){//never logged
+	clearTimeout(main);
+	console.log('cut');
+}
 function set(){
+	//Set PLY
 	if(/youtube/.test(window.location.hostname)){//Needs to be var
 		var PLY= document.getElementsByClassName('ytp-play-button')[0];
 	}
 	else if(/twitch/.test(window.location.hostname)){
 		var PLY=document.getElementsByClassName('player-icon-pause')[0];
 	}
-	/*//More options!
+	/* "//*"= on "/*"= off	//More options!
 	else if(/___website domain___/.test(window.location.hostname)){
 		var PLY=document.getElementsByClassName('___class name of play button___')[0];
 	}//*/
