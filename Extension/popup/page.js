@@ -15,8 +15,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		quit= setTimeout(()=>window.close(),3000);
 	});
 	document.documentElement.addEventListener("mouseenter", ()=>clearTimeout(quit)); //*/
-	document.getElementById("close").addEventListener("click", ()=>window.close());
-	
+	document.getElementById("close").addEventListener("click", ()=>window.close() );
 	//Get ERR
 	BROWSER.storage.local.get('Err', items=>{
 		switch(items.Err.code){//https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
@@ -70,12 +69,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	BROWSER.storage.local.get('Err', items=>{
 		let d= new Date();
 		d.setDate(d.getDate() - 4);
-		if(Date.parse(items.Err.time)<= d) {
-			console.log('old');
+		if(Date.parse(items.Err.time)<= d){
 			BROWSER.storage.local.set({'Err': ''});
 			document.getElementById('display').innerHTML='';
 		}
-		else console.log('not old');
 	});
 });
 function setErr(code, text){
@@ -96,24 +93,23 @@ function Srt(){
 	Dlt();
 }
 function Dlt(){
-	(!document.getElementById('IO').checked)? disabled(): enabled();
-}
-function enabled(){
-	BROWSER.browserAction.setIcon({
-		path:{
-			"16": "../img/YT16.png",
-			"32": "../img/YT32.png",
-			"64": "../img/YT64.png",
-			"128": "../img/YT128.png"
-		}
-	});
-}
-function disabled(){
-	BROWSER.browserAction.setIcon({
-		path:{
-			"16": "../img/off16.png",
-			"32": "../img/off32.png",
-			"64": "../img/off64.png"
-		}
-	});
+	if(document.getElementById('IO').checked){
+		BROWSER.browserAction.setIcon({
+			path:{
+				"16": "../img/YT16.png",
+				"32": "../img/YT32.png",
+				"64": "../img/YT64.png",
+				"128": "../img/YT128.png"
+			}
+		});
+	}
+	else{
+		BROWSER.browserAction.setIcon({
+			path:{
+				"16": "../img/off16.png",
+				"32": "../img/off32.png",
+				"64": "../img/off64.png"
+			}
+		});
+	}
 }
