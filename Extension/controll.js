@@ -172,18 +172,10 @@ function setFilter(brt=1, vrt=0, con=1, sat=1){
 
 function getAvColor(){
 	//Delta size
-	const BDY= document.body.className.toString();
-	if(BDY.includes('enhancer-for-youtube')){
-		var size= /_(1?)\d{3}x\d{3}/.exec(BDY)[0],
-		width= VAS.width= /^_(1?)\d{3}/.exec(size).toString().replace(/\D/g,''),
-		height= VAS.height= /\d{3}$/.exec(size)[0];
-		CONT.drawImage(VID,0,0);//hardware exceleration
-	}
-	else{
-		var height= VAS.height= VID.naturalHeight-SUB*2 || VID.offsetHeight-SUB*2 || VID.height-SUB*2,
-		width= VAS.width= VID.naturalWidth-SUB*2 || VID.offsetWidth-SUB*2 || VID.width-SUB*2;
-		CONT.drawImage(VID, SUB, SUB, width, height,0,0,width,height);//hardware exceleration
-	}
+	if(VID.clientWidth<= 450) let SUB= 5;//Is this legal?
+	var height= VAS.height= VID.clientHeight-SUB*2,
+	width= VAS.width= VID.clientWidth-SUB*2;
+	CONT.drawImage(VID, SUB, SUB, width, height,0,0,width,height);//hardware exceleration
 	//End Delta size
     data= CONT.getImageData(0,0, width, height);
 	
