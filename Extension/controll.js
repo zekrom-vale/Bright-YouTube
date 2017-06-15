@@ -56,9 +56,10 @@ function set(){
 	else if(/___website domain___/.test(window.location.hostname)){
 		var PLY=document.getElementsByClassName('___class name of play button___')[0];
 	}//*/
-	else{
+	else if(document.getElementsByClassName('playpause')[0]){
 		var PLY= document.getElementsByClassName('playpause')[0];
 	}
+	else PLY= false;
 	return PLY;
 }
 
@@ -171,12 +172,10 @@ function setFilter(brt=1, vrt=0, con=1, sat=1){
 }
 
 function getAvColor(){
-	//Delta size
-	if(VID.clientWidth<= 450) let SUB= 5;//Is this legal?
-	var height= VAS.height= VID.clientHeight-SUB*2,
-	width= VAS.width= VID.clientWidth-SUB*2;
-	CONT.drawImage(VID, SUB, SUB, width, height,0,0,width,height);//hardware exceleration
-	//End Delta size
+	var o= (VID.clientWidth<= 450)? 0:1,
+	height= VAS.height= VID.clientHeight-SUB*2*o,
+	width= VAS.width= VID.clientWidth-SUB*2*o;
+	CONT.drawImage(VID, SUB*o, SUB*o, width, height,0,0,width,height);//hardware exceleration
     data= CONT.getImageData(0,0, width, height);
 	
 	let i= C= 0;
@@ -190,7 +189,7 @@ function getAvColor(){
 }
 //Indicate
 function toggle(poz= true){
-	try{
+	if(PLY!= false){
 		(poz)?PLY.classList.add('active'):PLY.classList.remove('active');
-	}finally{}
+	}
 }
