@@ -9,7 +9,7 @@ VAS= document.createElement('canvas'),
 CONT= VAS.getContext && VAS.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
 VAS.id= 'Brt-canvas',
 PLY= set();
-
+if(VID){//Don't start if VID does not exist!
 var main= setTimeout(()=>{
 	BROWSER.storage.local.get('Active', items=>{
 		switch(typeof items.Active){
@@ -18,8 +18,8 @@ var main= setTimeout(()=>{
 				BROWSER.storage.local.set({'Active': true});
 				items.Active= true;		//fallthrough
 			case 'boolean':
-				VID.addEventListener('error', SHORT);
-				VID.addEventListener('abort', SHORT);
+				//VID.addEventListener('error', SHORT);
+				//VID.addEventListener('abort', SHORT);
 				VID.addEventListener('canplay',()=>{
 				//Style
 					let Style= document.createElement('style');
@@ -30,7 +30,7 @@ var main= setTimeout(()=>{
 					BROWSER.storage.onChanged.addListener(StorageChange);
 					if(items.Active) START();
 				//Inline IO
-					if(/youtube/.test(window.location.hostname) && /watch\?v=/.test(window.location.pathname)){
+					if(/youtube/.test(window.location.hostname) && /watch/.test(window.location.pathname)){
 						let opt= document.createElement('input');
 						opt.type= 'checkbox'
 						opt.checked= items.Active;
@@ -44,6 +44,7 @@ var main= setTimeout(()=>{
 		}
 	});
 }, 2000);
+}
 function set(){
 	//Set PLY
 	if(/youtube/.test(window.location.hostname)){//Needs to be var
@@ -90,8 +91,8 @@ function SHORT(){
 	document.body.removeChild(VAS);
 	document.head.removeChild(document.getElementById('Brt-YT'));
 	//Fail
-	VID.removeEventListener('error', SHORT);
-	VID.removeEventListener('abort', SHORT);
+	//VID.removeEventListener('error', SHORT);
+	//VID.removeEventListener('abort', SHORT);
 }
 function STOP(){
 	onPause();
@@ -162,7 +163,6 @@ function tick(ic){
 	setFilter(brt, vrt, con, sat);
 }
 
-
 function setFilter(brt=1, vrt=0, con=1, sat=1){
 	brt= brt!=1? `brtness(${brt}) `: '';
 	vrt= vrt!=0? `invert(${vrt}) `: '';
@@ -181,8 +181,7 @@ function getAvColor(){
 	let i= C= 0;
 	while(i< data.data.length){
 		rgb+= data.data[i]+ data.data[i+1]+ data.data[i+2];
-		let Ran= Math.round(Math.random()*50 +1)*4;
-		i+= Ran;
+		i+= Math.round(Math.random()*50 +1)*4;
 		C+=3;
 	}
     rgb/= C;
