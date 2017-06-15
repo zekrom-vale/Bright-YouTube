@@ -1,56 +1,49 @@
 var oldRgb= rgb=140,
 clock;
-const delay=1000,
+const DLY=1000,
 BROWSER= chrome,
 VID= document.getElementsByTagName('video')[0],
-//canvas
-SUB=25,//Border not processed
-canvas= document.createElement('canvas'),
-context= canvas.getContext && canvas.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
-canvas.id= 'Brt-canvas',
+//Canvas
+SUB=25,
+VAS= document.createElement('canvas'),
+CONT= VAS.getContext && VAS.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
+VAS.id= 'Brt-canvas',
 PLY= set();
 
 var main= setTimeout(()=>{
 	BROWSER.storage.local.get('Active', items=>{
-		try{
-			switch(typeof items.Active){
-				case 'undefined':
-					BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Active in storage, overiden to true'}});
-					BROWSER.storage.local.set({'Active': true});
-					items.Active= true;		//fallthrough
-				case 'boolean':
-					VID.addEventListener('error', SHORT);
-					VID.addEventListener('canplay',()=>{
-					//Style
-						let Style= document.createElement('style');
-						Style.id= 'Brt-YT';
-						document.head.appendChild(Style);
-					//Canvas
-						document.body.appendChild(canvas);
-						BROWSER.storage.onChanged.addListener(StorageChange);
-						if(items.Active) START();
-					//Inline on/off //Must delay over 1000ms
-						if(/youtube/.test(window.location.hostname)){
-							let opt= document.createElement('input');
-							opt.type= 'checkbox'
-							opt.checked= items.Active;
-							opt.id= 'Brt-opt';
-							document.getElementById('menu-container').appendChild(opt);
-							opt.addEventListener("change", opt=>{
-								BROWSER.storage.local.set({'Active': opt.checked});
-							});
-						}
-					}, {once:true});
-			}
-		}catch(e){
-			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':502, 'text':Object.entries(e)}});
+		switch(typeof items.Active){
+			case 'undefined':
+				BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Active und, overiden to true'}});
+				BROWSER.storage.local.set({'Active': true});
+				items.Active= true;		//fallthrough
+			case 'boolean':
+				VID.addEventListener('error', SHORT);
+				VID.addEventListener('abort', SHORT);
+				VID.addEventListener('canplay',()=>{
+				//Style
+					let Style= document.createElement('style');
+					Style.id= 'Brt-YT';
+					document.head.appendChild(Style);
+				//Canvas
+					document.body.appendChild(VAS);
+					BROWSER.storage.onChanged.addListener(StorageChange);
+					if(items.Active) START();
+				//Inline IO
+					if(/youtube/.test(window.location.hostname) && /watch\?v=/.test(window.location.pathname)){
+						let opt= document.createElement('input');
+						opt.type= 'checkbox'
+						opt.checked= items.Active;
+						opt.id= 'Brt-opt';
+						document.getElementById('menu-container').appendChild(opt);
+						opt.addEventListener("change", opt=>{
+							BROWSER.storage.local.set({'Active': opt.checked});
+						});
+					}
+				}, {once:true});
 		}
 	});
 }, 2000);
-if(document.getElementsByClassName('audio_only_div')[0]){//never logged
-	clearTimeout(main);
-	console.log('cut');
-}
 function set(){
 	//Set PLY
 	if(/youtube/.test(window.location.hostname)){//Needs to be var
@@ -71,7 +64,7 @@ function set(){
 
 //Active?
 function onPlay(){
-	clock= setInterval(evalu, delay);
+	clock= setInterval(evalu, DLY);
 	toggle();
 }
 
@@ -93,8 +86,11 @@ function SHORT(){
 	STOP();
 	BROWSER.storage.onChanged.removeListener(StorageChange);
 	VID.removeEventListener('error', SHORT);
-	document.body.removeChild(canvas);
+	document.body.removeChild(VAS);
 	document.head.removeChild(document.getElementById('Brt-YT'));
+	//Fail
+	VID.removeEventListener('error', SHORT);
+	VID.removeEventListener('abort', SHORT);
 }
 function STOP(){
 	onPause();
@@ -103,7 +99,7 @@ function STOP(){
 	document.getElementById('Brt-YT').innerHTML= '';
 }
 function START(){
-	clock= setInterval(evalu, delay);
+	clock= setInterval(evalu, DLY);
 	toggle();
 	VID.addEventListener('play', onPlay);
 	VID.addEventListener('pause', onPause);
@@ -123,8 +119,8 @@ function evalu(){
 		let warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
 		if(warning=== true){
 			oldRgb= rgb= 140;
-			clock= setInterval(evalu, delay);
-			BROWSER.storage.local.set({'Vd': 'min'});
+			clock= setInterval(evalu, DLY);
+			BROWSER.storage.local.set({'0': true});
 			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':100.7, 'text':'Varables ilegaly modifyed'}});
 		}
 		else{
@@ -144,7 +140,7 @@ function evalu(){
 	if(rgb< 254.9 && rgb> 20){
 		if(Math.round(rgb/3)!= Math.round(oldRgb/3)){
 			while(ic< 1){
-				setTimeout(tick(ic), delay*ic);
+				setTimeout(tick(ic), DLY*ic);
 				ic+= inc;
 			}
 			oldRgb= rgb;
@@ -152,7 +148,6 @@ function evalu(){
 		else tick(0);
 	}
 	else if(rgb<= 20) setFilter(1, 1);
-	rgb=0;
 }
 
 function tick(ic){
@@ -180,17 +175,17 @@ function getAvColor(){
 	const BDY= document.body.className.toString();
 	if(BDY.includes('enhancer-for-youtube')){
 		var size= /_(1?)\d{3}x\d{3}/.exec(BDY)[0],
-		width= canvas.width= /^_(1?)\d{3}/.exec(size).toString().replace(/\D/g,''),
-		height= canvas.height= /\d{3}$/.exec(size)[0];
-		context.drawImage(VID,0,0);//hardware exceleration
+		width= VAS.width= /^_(1?)\d{3}/.exec(size).toString().replace(/\D/g,''),
+		height= VAS.height= /\d{3}$/.exec(size)[0];
+		CONT.drawImage(VID,0,0);//hardware exceleration
 	}
 	else{
-		var height= canvas.height= VID.naturalHeight-SUB*2 || VID.offsetHeight-SUB*2 || VID.height-SUB*2,
-		width= canvas.width= VID.naturalWidth-SUB*2 || VID.offsetWidth-SUB*2 || VID.width-SUB*2;
-		context.drawImage(VID, SUB, SUB, width, height,0,0,width,height);//hardware exceleration
+		var height= VAS.height= VID.naturalHeight-SUB*2 || VID.offsetHeight-SUB*2 || VID.height-SUB*2,
+		width= VAS.width= VID.naturalWidth-SUB*2 || VID.offsetWidth-SUB*2 || VID.width-SUB*2;
+		CONT.drawImage(VID, SUB, SUB, width, height,0,0,width,height);//hardware exceleration
 	}
 	//End Delta size
-    data= context.getImageData(0,0, width, height);
+    data= CONT.getImageData(0,0, width, height);
 	
 	let i= C= 0;
 	while(i< data.data.length){

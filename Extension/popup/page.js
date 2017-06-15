@@ -44,8 +44,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 				items.Err.text= '"No context": '+ items.Err.text;
 		}
 		items.Err.Class= items.Err.code.toString().charAt(0);
-		switch(items.Err.Class){
-			case '1':
+		switch(items.Err.Class){//equivelent to ===, not ==
+			case '1'://not Number(1)
 				items.Err.Class= 'Informational';
 				break;
 			case '2':
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 			case '5':
 				items.Err.Class= 'Server Err';
 		}
-		console.log(items.Err.text);
+		console.log(items.Err.text);//May want to encodeURI
 		document.getElementById('display').innerHTML= items.Err.text+ ' '+ items.Err.code;
 		document.getElementById('display').title= items.Err.time+ ': '+ items.Err.Class;
 	});
