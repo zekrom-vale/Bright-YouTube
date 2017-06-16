@@ -32,6 +32,10 @@
 	width:calc(100% - 20px);
 	height:300px
 }
+.a *:not(.not){
+	width:100%;
+}
+
 h1,
 h2,
 h3,
