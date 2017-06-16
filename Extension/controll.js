@@ -24,15 +24,16 @@ var main= setTimeout(()=>{
 				//Style
 					let Style= document.createElement('style');
 					Style.id= 'Brt-YT';
-					document.head.appendChild(Style);
+					VID.appendChild(Style);
 				//Canvas
-					document.body.appendChild(VAS);
+					VID.appendChild(VAS);
+					VID.setAttribute('scoped','');//This API has not been standardized.
 					BROWSER.storage.onChanged.addListener(StorageChange);
 					if(items.Active) START();
 				//Inline IO
 					if(/youtube/.test(window.location.hostname) && /watch/.test(window.location.pathname)){
 						let opt= document.createElement('input');
-						opt.type= 'checkbox'
+						opt.type= 'checkbox';
 						opt.checked= items.Active;
 						opt.id= 'Brt-opt';
 						document.getElementById('menu-container').appendChild(opt);
@@ -88,8 +89,8 @@ function SHORT(){
 	STOP();
 	BROWSER.storage.onChanged.removeListener(StorageChange);
 	VID.removeEventListener('error', SHORT);
-	document.body.removeChild(VAS);
-	document.head.removeChild(document.getElementById('Brt-YT'));
+	VID.removeChild(VAS);
+	VID.removeChild(document.getElementById('Brt-YT'));
 	//Fail
 	//VID.removeEventListener('error', SHORT);
 	//VID.removeEventListener('abort', SHORT);
