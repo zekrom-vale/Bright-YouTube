@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	document.getElementById('exp').addEventListener('click', ()=>{
 		const PRMT= document.getElementById('permit');
 		PRMT.style.display= PRMT.style.display==''? 'none': '';
+		document.getElementsByClassName('a')[0].style.display= document.getElementsByClassName('a')[0].style.display==''? 'none': '';
 	});
 	//Set
 	BROWSER.permissions.getAll(callback=>{
@@ -151,8 +152,6 @@ function dAll(ALL,YTB,GAME,EMB,TWCH){
 		}
 	});
 }
-
-
 /*
 	chrome.permissions.onAdded.addListener(callback=>{
 		document.getElementById('display').innerHTML= 'Obrained: '+ Object.values(callback);

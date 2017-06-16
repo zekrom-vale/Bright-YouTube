@@ -1,5 +1,12 @@
 const BROWSER= chrome;
+var n=0;
 document.addEventListener('DOMContentLoaded', ()=>{
+	//Ranbow
+	setInterval(()=>{
+		n=n<=360? n+2: 0;
+		document.getElementById('setRb').innerHTML= '.rb{filter:hue-rotate('+ n +'deg)}';
+	}, 200);
+	//End Ranbow
 	BROWSER.storage.local.get('Active', items=>{
 		if(items.Active=== false) document.getElementById('IO').checked= false;
 		else if(items.Active=== 'Short'){
