@@ -1,3 +1,4 @@
+"strict mode";
 var oldRgb= rgb=140,
 clock;
 const DLY=1000,
@@ -9,8 +10,8 @@ VAS= document.createElement('canvas'),
 CONT= VAS.getContext && VAS.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
 VAS.id= 'Brt-canvas',
 PLY= set();
-if(VID){//Don't start if VID does not exist!
 var main= setTimeout(()=>{
+	if(!VID) return;//Stop if VID does not exist
 	BROWSER.storage.local.get('Active', items=>{
 		switch(typeof items.Active){
 			case 'undefined':
@@ -45,7 +46,6 @@ var main= setTimeout(()=>{
 		}
 	});
 }, 2000);
-}
 function set(){
 	//Set PLY
 	if(/youtube/.test(window.location.hostname)){//Needs to be var
