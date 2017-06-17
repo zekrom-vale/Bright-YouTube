@@ -91,17 +91,20 @@ function SHORT(){
 	VID.removeEventListener('error', SHORT);
 	VID.removeChild(VAS);
 	VID.removeChild(document.getElementById('Brt-YT'));
+	VID.style.willChange= '';
 	//Fail
 	//VID.removeEventListener('error', SHORT);
 	//VID.removeEventListener('abort', SHORT);
 }
 function STOP(){
+	VID.style.willChange= 'auto';
 	onPause();
 	VID.removeEventListener('play', onPlay);
 	VID.removeEventListener('pause', onPause);
 	document.getElementById('Brt-YT').innerHTML= '';
 }
 function START(){
+	VID.style.willChange= 'filter';
 	clock= setInterval(evalu, DLY);
 	toggle();
 	VID.addEventListener('play', onPlay);
