@@ -1,5 +1,5 @@
 "strict mode";
-var oldRgb= rgb=140,
+var oldRgb= rgb= glRgb=140,
 clock;
 const DLY=1000,
 BROWSER= chrome,
@@ -26,9 +26,15 @@ var main= setTimeout(()=>{
 					let Style= document.createElement('style');
 					Style.id= 'Brt-YT';
 					VID.appendChild(Style);
+					Style.setAttribute('scoped','');
+					
+					let StyleGl= document.createElement('style');
+					StyleGl.id= 'Brt-Gl';
+					document.head.appendChild(StyleGl);
+					/*//Created on hover document.getElementsByClassName('ytp-preview')[0].appendChild(StyleGl);
+					StyleGl.setAttribute('scoped',''); //*/
 				//Canvas
 					VID.appendChild(VAS);
-					VID.setAttribute('scoped','');//This API has not been standardized.
 					BROWSER.storage.onChanged.addListener(StorageChange);
 					if(items.Active) START();
 				//Inline IO
@@ -141,6 +147,8 @@ function evalu(){
 	rgb= 255-rgb;
 	/*
 	console.log(rgb);//*/
+	glRgb= (rgb+ glRgb)/2;
+	tick(ic, true);
 	var ic= 0.1;
 	const inc= 0.1;
 	if(rgb< 254.9 && rgb> 20){
@@ -156,23 +164,25 @@ function evalu(){
 	else if(rgb<= 20) setFilter(1, 1);
 }
 
-function tick(ic){
-	let V= oldRgb*(1-ic) + rgb*ic,
-	X= 0.0266813*V -6.6303;
-	let PN= X<0? -1: 1;
+function tick(ic, gl= false){
+	var V= gl=== true? glRgb: oldRgb*(1-ic) + rgb*ic;
+	let X= 0.0266813*V -6.6303,
+	PN= X<0? -1: 1;
 	var brt= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.53771,//247 is to dark
 	vrt= 0;
 	con= 1;
 	sat= 1;
-	setFilter(brt, vrt, con, sat);
+	setFilter(brt, vrt, con, sat, gl);
 }
 
-function setFilter(brt=1, vrt=0, con=1, sat=1){
+function setFilter(brt=1, vrt=0, con=1, sat=1, gl= false){
 	brt= brt!=1? `brtness(${brt}) `: '';
 	vrt= vrt!=0? `invert(${vrt}) `: '';
 	con= con!=1? `contrast(${con}) `: '';
 	sat= sat!=1? `saturate(${sat})`: '';
-	document.getElementById('Brt-YT').innerHTML= `video{filter:${brt+ vrt+ con+ sat}}`;
+	var elment= gl=== true? '.ytp-preview': 'video';
+	var id= gl=== true? 'Brt-Gl':'Brt-YT';
+	document.getElementById(id).innerHTML= `${elment}{filter:${brt+ vrt+ con+ sat}}`;
 }
 
 function getAvColor(){
