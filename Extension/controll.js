@@ -22,13 +22,12 @@ var main= setTimeout(()=>{
 					styleGl.id= 'Brt-Gl';
 					var Style= document.createElement('style');
 					Style.id= 'Brt-YT';
-					Style.setAttribute('scoped','');
 				//Canvas
 					var VAS= document.createElement('canvas');
 					VAS.id= 'Brt-canvas';
 				//append
-					VID.appendChild(Style);//Removed
-					VID.appendChild(VAS);//Removed
+					document.head.appendChild(Style);
+					document.head.appendChild(VAS);
 					document.head.appendChild(styleGl);
 					BROWSER.storage.onChanged.addListener(StorageChange);
 					if(items.Active) START();
