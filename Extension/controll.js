@@ -35,6 +35,10 @@ var main= setTimeout(()=>{
 					StyleGl.setAttribute('scoped',''); //*/
 				//Canvas
 					VID.appendChild(VAS);
+<<<<<<< HEAD
+=======
+					VID.setAttribute('scoped','');//This API has not been standardized.
+>>>>>>> parent of 054e714... starting multi vid support
 					BROWSER.storage.onChanged.addListener(StorageChange);
 					if(items.Active) START();
 				//Inline IO
