@@ -4,7 +4,7 @@ clock;
 const DLY=1000,
 BROWSER= chrome,
 VID= document.getElementsByTagName('video')[0],
-//Canvas//Must be moved inside while loop;
+//Canvas
 SUB=25,
 VAS= document.createElement('canvas'),
 CONT= VAS.getContext && VAS.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
@@ -19,8 +19,6 @@ var main= setTimeout(()=>{
 				BROWSER.storage.local.set({'Active': true});
 				items.Active= true;		//fallthrough
 			case 'boolean':
-			//var g;
-			//while(g< VID.length){	//Change VID -> VID[g];
 				//VID.addEventListener('error', SHORT);
 				//VID.addEventListener('abort', SHORT);
 				VID.addEventListener('canplay',()=>{
@@ -31,7 +29,6 @@ var main= setTimeout(()=>{
 				//Canvas
 					VID.appendChild(VAS);
 					VID.setAttribute('scoped','');//This API has not been standardized.
-			//g++;}
 					BROWSER.storage.onChanged.addListener(StorageChange);
 					if(items.Active) START();
 				//Inline IO
