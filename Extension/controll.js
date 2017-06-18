@@ -5,7 +5,9 @@ const DLY=1000,
 BROWSER= chrome,
 VID= document.getElementsByTagName('video')[0],
 //Canvas
-SUB=25;
+SUB=25,
+VAS= document.createElement('canvas'),
+CONT= VAS.getContext && VAS.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
 PLY= set();
 var main= setTimeout(()=>{
 	BROWSER.storage.local.get('Active', items=>{
@@ -23,10 +25,9 @@ var main= setTimeout(()=>{
 					var Style= document.createElement('style');
 					Style.id= 'Brt-YT';
 				//Canvas
-					var VAS= document.createElement('canvas');
 					VAS.id= 'Brt-canvas';
 				//append
-					document.head.appendChild(Style);
+					document.head.appendChild(Style);//VID is cleared of childNodes
 					document.head.appendChild(VAS);
 					document.head.appendChild(styleGl);
 					BROWSER.storage.onChanged.addListener(StorageChange);
@@ -48,7 +49,7 @@ var main= setTimeout(()=>{
 }, 2000);
 function set(){
 	//Set PLY
-	if(/youtube/.test(window.location.hostname)){//Needs to be var
+	if(/youtube/.test(window.location.hostname)){
 		var PLY= document.getElementsByClassName('ytp-play-button')[0];
 	}
 	else if(/twitch/.test(window.location.hostname)){
@@ -180,8 +181,6 @@ function setFilter(brt=1, vrt=0, con=1, sat=1, gl= false){
 }
 
 function getAvColor(){
-	const VAS= document.getElementById('Brt-canvas'),
-	CONT= VAS.getContext && VAS.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
 	var o= (VID.clientWidth<= 450)? 0:1,
 	height= VAS.height= VID.clientHeight-SUB*2*o,
 	width= VAS.width= VID.clientWidth-SUB*2*o;
