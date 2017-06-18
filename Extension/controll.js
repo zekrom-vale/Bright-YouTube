@@ -181,9 +181,9 @@ function setFilter(brt=1, vrt=0, con=1, sat=1, gl= false){
 }
 
 function getAvColor(){
-	var o= (document.getElementsByTagName('video')[0].clientWidth<= 450)? 0:1,
-	height= VAS.height= document.getElementsByTagName('video')[0].clientHeight-SUB*2*o,
-	width= VAS.width= document.getElementsByTagName('video')[0].clientWidth-SUB*2*o;
+	var o= (VID.clientWidth<= 450)? 0:1,
+	height= VAS.height= VID.clientHeight-SUB*2*o,
+	width= VAS.width= VID.clientWidth-SUB*2*o;
 	CONT.drawImage(VID, SUB*o, SUB*o, width, height,0,0,width,height);//hardware exceleration
     data= CONT.getImageData(0,0, width, height);
 	
