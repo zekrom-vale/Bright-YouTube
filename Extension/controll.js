@@ -18,13 +18,12 @@ var main= setTimeout(()=>{
 				items.Active= true;		//fallthrough
 			case 'boolean':
 				VID.addEventListener('canplay',()=>{
-					console.log(VID)
 				//Style
 					var styleGl= document.createElement('style');
 					styleGl.id= 'Brt-Gl';
 					var Style= document.createElement('style');
 					Style.id= 'Brt-YT';
-				//Canvas
+					
 					VAS.id= 'Brt-canvas';
 				//append
 					document.head.appendChild(Style);//VID is cleared of childNodes
@@ -117,7 +116,7 @@ function evalu(){
 		SHORT();
 		return;
 	}
-	if(VID.style.filter!='' || VID.readyState< 4) return;//Uncaught TypeError: Cannot read property 'style' of undefined
+	if(VID.style.filter!='' || document.getElementsByTagName('video')[0].readyState< 4) return;
 	if(document.webkitHidden || document.hidden) return;
 	//security
 	if(isNaN(rgb+ oldRgb)){
@@ -143,14 +142,15 @@ function evalu(){
 	/*
 	console.log(rgb);//*/
 	glRgb= (rgb+ glRgb)/2;
-	tick(ic, true);
-	var ic= 0.1;
+	tick(0, true);
+	var Ic= 0.1;
 	const inc= 0.1;
 	if(rgb< 254.9 && rgb> 20){
 		if(Math.round(rgb/3)!= Math.round(oldRgb/3)){
-			while(ic< 1){
+			while(Ic< 1){
+				let ic= Ic;//Forces ic to be local and static
 				setTimeout(tick(ic), DLY*ic);
-				ic+= inc;
+				Ic+= inc;
 			}
 			oldRgb= rgb;
 		}
@@ -160,8 +160,8 @@ function evalu(){
 }
 
 function tick(ic, gl= false){
-	var V= gl=== true? glRgb: oldRgb*(1-ic) + rgb*ic;
-	var X= 0.0266813*V -6.6303,
+	let V= gl=== true? glRgb: oldRgb*(1-ic) + rgb*ic,
+	X= 0.0266813*V -6.6303,
 	PN= X<0? -1: 1;
 	var brt= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.53771,//247 is to dark
 	vrt= 0;
@@ -181,9 +181,9 @@ function setFilter(brt=1, vrt=0, con=1, sat=1, gl= false){
 }
 
 function getAvColor(){
-	var o= (VID.clientWidth<= 450)? 0:1,
-	height= VAS.height= VID.clientHeight-SUB*2*o,
-	width= VAS.width= VID.clientWidth-SUB*2*o;
+	var o= (document.getElementsByTagName('video')[0].clientWidth<= 450)? 0:1,
+	height= VAS.height= document.getElementsByTagName('video')[0].clientHeight-SUB*2*o,
+	width= VAS.width= document.getElementsByTagName('video')[0].clientWidth-SUB*2*o;
 	CONT.drawImage(VID, SUB*o, SUB*o, width, height,0,0,width,height);//hardware exceleration
     data= CONT.getImageData(0,0, width, height);
 	
