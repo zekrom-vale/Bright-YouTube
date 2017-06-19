@@ -3,7 +3,6 @@ var oldRgb= rgb= glRgb=140,
 clock;
 const DLY=1000,
 BROWSER= chrome,
-VID= document.getElementsByTagName('video')[0],
 //Canvas
 SUB=25,
 VAS= document.createElement('canvas'),
@@ -11,6 +10,10 @@ CONT= VAS.getContext && VAS.getContext('2d', {alpha:false, willReadFrequently:tr
 PLY= set();
 var main= setTimeout(()=>{
 	BROWSER.storage.local.get('Active', items=>{
+		const VID= document.getElementsByTagName('video')[0];
+		if(document.getElementsByTagName('video')[0]=== undefined){
+			console.log(VID+ ' is undefined');
+		}
 		switch(typeof items.Active){
 			case 'undefined':
 				BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Active und, overiden to true'}});
@@ -58,7 +61,7 @@ function set(){
 	else if(/___website domain___/.test(window.location.hostname)){
 		var PLY=document.getElementsByClassName('___class name of play button___')[0];
 	}//*/
-	else if(document.getElementsByClassName('playpause')[0]){
+	else if(document.getElementsByClassName('playpause')[0]!= undefined){
 		var PLY= document.getElementsByClassName('playpause')[0];
 	}
 	else PLY= false;
@@ -86,17 +89,26 @@ function StorageChange(changes){
 //End Active?
 //STP
 function SHORT(){
+	const VID= document.getElementsByTagName('video')[0];
 	STOP();
-	BROWSER.storage.onChanged.removeListener(StorageChange);
 	VID.removeEventListener('error', SHORT);
 	VID.removeChild(document.getElementById('Brt-canvas'));
 	VID.removeChild(document.getElementById('Brt-YT'));
 	VID.style.willChange= '';
+	BROWSER.storage.onChanged.removeListener(StorageChange);
+	/*
+	Uncaught TypeError: Cannot read property 'impl' of undefined
+	at getPrivateImpl (extensions::utils:130:30)
+    at Event.publicClassPrototype.(anonymous function) [as removeListener] (extensions::utils:148:20)
+    at SHORT (chrome-extension://nbkdfeljmjhmkfienopocppjdgmkjbbm/controll.js:93:28)
+    at evalu (chrome-extension://nbkdfeljmjhmkfienopocppjdgmkjbbm/controll.js:120:3)
+	*/
 	//Fail
 	//VID.removeEventListener('error', SHORT);
 	//VID.removeEventListener('abort', SHORT);
 }
 function STOP(){
+	const VID= document.getElementsByTagName('video')[0];
 	VID.style.willChange= 'auto';
 	onPause();
 	VID.removeEventListener('play', onPlay);
@@ -104,6 +116,7 @@ function STOP(){
 	document.getElementById('Brt-YT').innerHTML= '';
 }
 function START(){
+	const VID= document.getElementsByTagName('video')[0];
 	VID.style.willChange= 'filter';
 	clock= setInterval(evalu, DLY);
 	toggle();
@@ -112,15 +125,15 @@ function START(){
 }
 //End STP
 function evalu(){
+	const VID= document.getElementsByTagName('video')[0];
 	if(document.getElementsByClassName('audio_only_div')[0]){
 		SHORT();
 		return;
 	}
-	if(VID.style.filter!='' || document.getElementsByTagName('video')[0].readyState< 4) return;
+	if(VID.style.filter!='' || VID.readyState< 4) return;
 	if(document.webkitHidden || document.hidden) return;
 	//security
 	if(isNaN(rgb+ oldRgb)){
-		
 		clearInterval(clock);
 		let warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
 		if(warning=== true){
@@ -177,14 +190,18 @@ function setFilter(brt=1, vrt=0, con=1, sat=1, gl= false){
 	sat= sat!=1? `saturate(${sat})`: '';
 	var elment= gl=== true? '.ytp-preview': 'video';
 	var id= gl=== true? 'Brt-Gl':'Brt-YT';
-	document.getElementById(id).innerHTML= `${elment}{filter:${brt+ vrt+ con+ sat}}`;
+	document.getElementById(id).innerHTML= `
+${elment}{
+	filter:${brt+ vrt+ con+ sat}
+}\n`;
 }
 
 function getAvColor(){
+	const VID= document.getElementsByTagName('video')[0];
 	var o= (VID.clientWidth<= 450)? 0:1,
 	height= VAS.height= VID.clientHeight-SUB*2*o,
 	width= VAS.width= VID.clientWidth-SUB*2*o;
-	CONT.drawImage(VID, SUB*o, SUB*o, width, height,0,0,width,height);//hardware exceleration
+	CONT.drawImage(VID, SUB*o, SUB*o, width, height, 0,0, width, height);//hardware exceleration
     data= CONT.getImageData(0,0, width, height);
 	
 	let i= C= 0;
@@ -197,7 +214,7 @@ function getAvColor(){
 }
 //Indicate
 function toggle(poz= true){
-	if(PLY!= false){
+	if(PLY!== false){
 		(poz)?PLY.classList.add('active'):PLY.classList.remove('active');
 	}
 }
