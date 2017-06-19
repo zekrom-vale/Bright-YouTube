@@ -1,7 +1,6 @@
 "strict mode";
 var oldRgb= rgb= 140,
-g= 0,
-clock;
+clock= [];
 const DLY=1000,
 BROWSER= chrome,
 VID= document.getElementsByTagName('video'),
@@ -71,13 +70,13 @@ function set(){
 }
 
 //Active?
-function onPlay(){
-	clock= setInterval(evalu, DLY);
+function onPlay(g){
+	clock[g]= setInterval(evalu(g), DLY);
 	toggle();
 }
 
-function onPause(){
-	clearInterval(clock);
+function onPause(g){
+	clearInterval(clock[g]);
 	toggle(false);
 }
 
@@ -91,31 +90,45 @@ function StorageChange(changes){
 //End Active?
 //STP
 function SHORT(){
-	VID.style.willChange= 'auto';
-	onPause();
-	VID.removeEventListener('play', onPlay);
-	VID.removeEventListener('pause', onPause);
+	var G;
+	while(G<VID.length){
+		let g=G;
+		VID[g].style.willChange= 'auto';
+		onPause(g);
+		VID[g].removeEventListener('play', onPlay);
+		VID[g].removeEventListener('pause', onPause);
+	}
 	BROWSER.storage.onChanged.removeListener(StorageChange);
-	VID.removeChild(VAS);
-	VID.removeChild(document.getElementById('Brt-YT'));
+	VID[0].removeChild(VAS);
+	VID[0].removeChild(document.getElementById('Brt-YT'));
 	VID.style.willChange= '';
 }
 function STOP(){
-	VID.style.willChange= 'auto';
-	onPause();
-	VID.removeEventListener('play', onPlay);
-	VID.removeEventListener('pause', onPause);
+	var G;
+	while(G<VID.length){
+		let g=G;
+		VID.style.willChange= 'auto';
+		onPause(g);
+		VID[g].removeEventListener('play', onPlay);
+		VID[g].removeEventListener('pause', onPause);
+		G++;
+	}
 	document.getElementById('Brt-YT').innerHTML= '';
 }
 function START(){
-	VID.style.willChange= 'filter';
-	clock= setInterval(evalu, DLY);
+	var G;
+	while(G<VID.length){
+		let g=G;
+		VID[g].style.willChange= 'filter';
+		clock[g]= setInterval(evalu(g), DLY);//multaple clocks may be ticking
+		VID[g].addEventListener('play', onPlay(g));
+		VID[g].addEventListener('pause', onPause(g));
+		G++;
+	}
 	toggle();
-	VID.addEventListener('play', onPlay);
-	VID.addEventListener('pause', onPause);
 }
 //End STP
-function evalu(){
+function evalu(g){
 	if(document.getElementsByClassName('audio_only_div')[0]){
 		SHORT();
 		return;
@@ -123,8 +136,7 @@ function evalu(){
 	if(VID[g].style.filter!='' || VID[g].readyState< 4) return;//Uncaught TypeError: Cannot read property 'style' of undefined
 	if(document.webkitHidden || document.hidden) return;
 	//security
-	if(isNaN(rgb+ oldRgb+ g)){
-		
+	if(isNaN(rgb+ oldRgb)){
 		clearInterval(clock);
 		let warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
 		if(warning=== true){
@@ -141,7 +153,7 @@ function evalu(){
 	}
 	//End security
 	document.getElementById('Brt-YT').innerHTML= '';
-	getAvColor();
+	getAvColor(g);
 	rgb= 255-rgb;
 	/*
 	console.log(rgb);//*/
@@ -179,7 +191,7 @@ function setFilter(brt=1, vrt=0, con=1, sat=1){
 	document.getElementById('Brt-YT').innerHTML= `video{\n\tfilter:${brt+ vrt+ con+ sat}\n}`;
 }
 
-function getAvColor(){
+function getAvColor(g){
 	let o= (VID[g].clientWidth<= 550)? 0:1;
 	var height= VAS.height= VID[g].clientHeight-SUB*2*o,
 	width= VAS.width= VID[g].clientWidth-SUB*2*o;
