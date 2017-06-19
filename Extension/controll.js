@@ -95,46 +95,37 @@ function StorageChange(changes){
 function SHORT(){
 	for(var G=0; G<VID.length; G++){
 		let g=G;
-		end(g);
+		VID[g].style.willChange= 'auto';
+		onPause(g);
+		VID[g].removeEventListener('play', onPlay(g), true);
+		VID[g].removeEventListener('pause', onPause(g), true);
 	}
 	BROWSER.storage.onChanged.removeListener(StorageChange);
 	VID[0].removeChild(VAS);
 	VID[0].removeChild(document.getElementById('Brt-YT'));
 	VID[0].style.willChange= '';
 }
-function end(g){
-	VID[g].style.willChange= 'auto';
-	onPause(g);
-	VID[g].removeEventListener('play', onPlay);
-	VID[g].removeEventListener('pause', onPause);
-}
 function STOP(){
 	for(var G=0; G<VID.length; G++){
 		let g=G;
-		halt(g);
+		VID.style.willChange= 'auto';
+		onPause(g);
+		VID[g].removeEventListener('play', onPlay(g), true);
+		VID[g].removeEventListener('pause', onPause(g), true);
 	}
 	document.getElementById('Brt-YT').innerHTML= '';
-}
-function halt(g){
-	VID.style.willChange= 'auto';
-	onPause(g);
-	VID[g].removeEventListener('play', onPlay(g));
-	VID[g].removeEventListener('pause', onPause(g));
 }
 function START(){
 	for(var G=0; G<VID.length; G++){
 		let g= G;
-		go(g);
+		console.log(VID[g]=== document.getElementsByTagName('video')[g]);//true
+		console.log(g);
+		VID[g].style.willChange= 'filter';
+		VID[g].addEventListener('pause', onPause(g), true);//almost like it is just onPause(g);
+		VID[g].addEventListener('play', onPlay(g), true);
+		//clock= setInterval(evalu(g), DLY);//why is this here?
 	}
 	toggle();
-}
-function go(g){
-	console.log(VID[g]=== document.getElementsByTagName('video')[g]);//true
-	console.log(g);
-	VID[g].style.willChange= 'filter';
-	VID[g].addEventListener('pause', onPause(g));//almost like it is just onPause(g);
-	VID[g].addEventListener('play', onPlay(g));
-	//clock= setInterval(evalu(g), DLY);//why is this here?
 }
 //End STP
 function evalu(g){
