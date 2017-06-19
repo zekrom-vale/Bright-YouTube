@@ -38,8 +38,8 @@ var main= setTimeout(()=>{
 						opt.checked= items.Active;
 						opt.id= 'Brt-opt';
 						document.getElementById('menu-container').appendChild(opt);
-						opt.addEventListener("change", function(){
-							BROWSER.storage.local.set({'Active': this.checked});
+						opt.addEventListener("change", opt=>{
+							BROWSER.storage.local.set({'Active': opt.checked});
 						});
 					}
 				}, {once:true});
