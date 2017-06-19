@@ -1,7 +1,6 @@
 "strict mode";
 var oldRgb= rgb= 140,
-clock= [],
-life;
+clock= [];
 const DLY=1000,
 BROWSER= chrome,
 VID= document.getElementsByTagName('video'),
@@ -26,7 +25,7 @@ var main= setTimeout(()=>{
 				BROWSER.storage.local.set({'Active': true});
 				items.Active= true;		//fallthrough
 			case 'boolean':
-				VID[0].addEventListener('canplaythrough',()=>{
+				VID[0].addEventListener('canplay',()=>{
 				//Style
 					let Style= document.createElement('style');
 					Style.id= 'Brt-YT';
@@ -72,14 +71,12 @@ function set(){
 
 //Active?
 function onPlay(g){
-	life=g;
 	clock[g]= setInterval(evalu(g), DLY);
 	toggle();
 }
 
 function onPause(g){
 	clearInterval(clock[g]);
-	if(life== g)life= null;
 	toggle(false);
 }
 
@@ -93,7 +90,7 @@ function StorageChange(changes){
 //End Active?
 //STP
 function SHORT(){
-	var G= 0;
+	var G;
 	while(G<VID.length){
 		let g=G;
 		VID[g].style.willChange= 'auto';
@@ -104,43 +101,39 @@ function SHORT(){
 	BROWSER.storage.onChanged.removeListener(StorageChange);
 	VID[0].removeChild(VAS);
 	VID[0].removeChild(document.getElementById('Brt-YT'));
-	VID[0].style.willChange= '';
+	VID.style.willChange= '';
 }
 function STOP(){
-	var G= 0;
+	var G;
 	while(G<VID.length){
 		let g=G;
 		VID.style.willChange= 'auto';
 		onPause(g);
-		VID[g].removeEventListener('play', onPlay(g));
-		VID[g].removeEventListener('pause', onPause(g));
+		VID[g].removeEventListener('play', onPlay);
+		VID[g].removeEventListener('pause', onPause);
 		G++;
 	}
 	document.getElementById('Brt-YT').innerHTML= '';
 }
 function START(){
-	var G= 0;
+	var G;
 	while(G<VID.length){
 		let g=G;
 		VID[g].style.willChange= 'filter';
-		VID[g].addEventListener('pause', onPause(g));//Forces it to stop imedatly
+		clock[g]= setInterval(evalu(g), DLY);//multaple clocks may be ticking
 		VID[g].addEventListener('play', onPlay(g));
-		//clock[g]= setInterval(evalu(g), DLY);//why is this here?
+		VID[g].addEventListener('pause', onPause(g));
 		G++;
 	}
 	toggle();
 }
 //End STP
 function evalu(g){
-	if(life!= g && life!= null){
-		clearInterval(clock[g]);
-		return;
-	}
 	if(document.getElementsByClassName('audio_only_div')[0]){
 		SHORT();
 		return;
 	}
-	if(VID[g].style.filter!='' || VID[g].readyState< 2) return;
+	if(VID[g].style.filter!='' || VID[g].readyState< 4) return;//Uncaught TypeError: Cannot read property 'style' of undefined
 	if(document.webkitHidden || document.hidden) return;
 	//security
 	if(isNaN(rgb+ oldRgb)){
@@ -148,10 +141,9 @@ function evalu(g){
 		let warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
 		if(warning=== true){
 			oldRgb= rgb= 140;
-			clock[g]= setInterval(evalu(g), DLY);
+			clock= setInterval(evalu, DLY);
 			BROWSER.storage.local.set({'0': true});
 			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':100.7, 'text':'Varables ilegaly modifyed'}});
-			return;
 		}
 		else{
 			SHORT();
