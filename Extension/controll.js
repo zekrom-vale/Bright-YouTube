@@ -5,13 +5,9 @@ const DLY=1000,
 BROWSER= chrome,
 VID= document.getElementsByTagName('video')[0],
 //Canvas
-SUB=25,
-VAS= document.createElement('canvas'),
-CONT= VAS.getContext && VAS.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
-VAS.id= 'Brt-canvas',
+SUB=25;
 PLY= set();
 var main= setTimeout(()=>{
-	if(!VID) return;//Stop if VID does not exist
 	BROWSER.storage.local.get('Active', items=>{
 		switch(typeof items.Active){
 			case 'undefined':
@@ -19,23 +15,21 @@ var main= setTimeout(()=>{
 				BROWSER.storage.local.set({'Active': true});
 				items.Active= true;		//fallthrough
 			case 'boolean':
-				//VID.addEventListener('error', SHORT);
-				//VID.addEventListener('abort', SHORT);
 				VID.addEventListener('canplay',()=>{
+					console.log(VID)
 				//Style
-					let Style= document.createElement('style');
+					var styleGl= document.createElement('style');
+					styleGl.id= 'Brt-Gl';
+					var Style= document.createElement('style');
 					Style.id= 'Brt-YT';
-					VID.appendChild(Style);
 					Style.setAttribute('scoped','');
-					
-					let StyleGl= document.createElement('style');
-					StyleGl.id= 'Brt-Gl';
-					document.head.appendChild(StyleGl);
-					/*//Created on hover document.getElementsByClassName('ytp-preview')[0].appendChild(StyleGl);
-					StyleGl.setAttribute('scoped',''); //*/
 				//Canvas
-					VID.appendChild(VAS);
-					VID.setAttribute('scoped','');//This API has not been standardized.
+					var VAS= document.createElement('canvas');
+					VAS.id= 'Brt-canvas';
+				//append
+					VID.appendChild(Style);//Removed
+					VID.appendChild(VAS);//Removed
+					document.head.appendChild(styleGl);
 					BROWSER.storage.onChanged.addListener(StorageChange);
 					if(items.Active) START();
 				//Inline IO
@@ -96,7 +90,7 @@ function SHORT(){
 	STOP();
 	BROWSER.storage.onChanged.removeListener(StorageChange);
 	VID.removeEventListener('error', SHORT);
-	VID.removeChild(VAS);
+	VID.removeChild(document.getElementById('Brt-canvas'));
 	VID.removeChild(document.getElementById('Brt-YT'));
 	VID.style.willChange= '';
 	//Fail
@@ -167,7 +161,7 @@ function evalu(){
 
 function tick(ic, gl= false){
 	var V= gl=== true? glRgb: oldRgb*(1-ic) + rgb*ic;
-	let X= 0.0266813*V -6.6303,
+	var X= 0.0266813*V -6.6303,
 	PN= X<0? -1: 1;
 	var brt= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.53771,//247 is to dark
 	vrt= 0;
@@ -187,6 +181,8 @@ function setFilter(brt=1, vrt=0, con=1, sat=1, gl= false){
 }
 
 function getAvColor(){
+	const VAS= document.getElementById('Brt-canvas'),
+	CONT= VAS.getContext && VAS.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
 	var o= (VID.clientWidth<= 450)? 0:1,
 	height= VAS.height= VID.clientHeight-SUB*2*o,
 	width= VAS.width= VID.clientWidth-SUB*2*o;
