@@ -10,8 +10,15 @@ VAS= document.createElement('canvas'),
 CONT= VAS.getContext && VAS.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
 VAS.id= 'Brt-canvas',
 PLY= set();
+/*
+const c= document.head.childNodes;
+for (var i= 0; i< c.length; i++) if(c[i].nodeType== 8) document.head.removeChild(c[i]);
+*/
 var main= setTimeout(()=>{
-	if(!VID) return;//Stop if VID does not exist
+	if(VID=== undefined){
+		return;//Stop if VID does not exist
+		console.log('VID is und\n'+ VID);
+	}
 	BROWSER.storage.local.get('Active', items=>{
 		switch(typeof items.Active){
 			case 'undefined':
@@ -19,8 +26,6 @@ var main= setTimeout(()=>{
 				BROWSER.storage.local.set({'Active': true});
 				items.Active= true;		//fallthrough
 			case 'boolean':
-				//VID.addEventListener('error', SHORT);
-				//VID.addEventListener('abort', SHORT);
 				VID.addEventListener('canplay',()=>{
 				//Style
 					let Style= document.createElement('style');
@@ -55,8 +60,8 @@ function set(){
 		var PLY=document.getElementsByClassName('player-icon-pause')[0];
 	}
 	/* "//*"= on "/*"= off	//More options!
-	else if(/___website domain___/.test(window.location.hostname)){
-		var PLY=document.getElementsByClassName('___class name of play button___')[0];
+	else if(/___domain___/.test(window.location.hostname)){
+		var PLY=document.getElementsByClassName('___class play button___')[0];
 	}//*/
 	else if(document.getElementsByClassName('playpause')[0]){
 		var PLY= document.getElementsByClassName('playpause')[0];
@@ -94,16 +99,13 @@ function SHORT(){
 	VID.removeChild(VAS);
 	VID.removeChild(document.getElementById('Brt-YT'));
 	VID.style.willChange= '';
-	//Fail
-	//VID.removeEventListener('error', SHORT);
-	//VID.removeEventListener('abort', SHORT);
 }
 function STOP(){
 	VID.style.willChange= 'auto';
 	onPause();
 	VID.removeEventListener('play', onPlay);
 	VID.removeEventListener('pause', onPause);
-	document.getElementById('Brt-YT').innerHTML= '';//if it does not exist
+	document.getElementById('Brt-YT').innerHTML= '';
 }
 function START(){
 	VID.style.willChange= 'filter';
@@ -170,16 +172,16 @@ function tick(ic){
 }
 
 function setFilter(brt=1, vrt=0, con=1, sat=1){
-	brt= brt!=1? `brtness(${brt}) `: '';
-	vrt= vrt!=0? `invert(${vrt}) `: '';
-	con= con!=1? `contrast(${con}) `: '';
-	sat= sat!=1? `saturate(${sat})`: '';
-	document.getElementById('Brt-YT').innerHTML= `video{filter:${brt+ vrt+ con+ sat}}`;
+	brt= brt==1? '': `brtness(${brt}) `;
+	vrt= vrt==0? '': `invert(${vrt}) `;
+	con= con==1? '': `contrast(${con}) `;
+	sat= sat==1? '': `saturate(${sat})`;
+	document.getElementById('Brt-YT').innerHTML= `video{\n\tfilter:${brt+ vrt+ con+ sat}\n}`;
 }
 
 function getAvColor(){
-	var o= (VID.clientWidth<= 450)? 0:1,
-	height= VAS.height= VID.clientHeight-SUB*2*o,
+	let o= (VID.clientWidth<= 550)? 0:1;
+	var height= VAS.height= VID.clientHeight-SUB*2*o,
 	width= VAS.width= VID.clientWidth-SUB*2*o;
 	CONT.drawImage(VID, SUB*o, SUB*o, width, height,0,0,width,height);//hardware exceleration
     data= CONT.getImageData(0,0, width, height);
