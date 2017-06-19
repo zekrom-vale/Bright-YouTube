@@ -1,7 +1,7 @@
 "strict mode";
 var oldRgb= rgb= 140,
-clock,
-life= null;
+clock= [],
+life;
 const DLY=1000,
 BROWSER= chrome,
 VID= document.getElementsByTagName('video'),
@@ -14,7 +14,7 @@ PLY= set();
 /*
 const c= document.head.childNodes;
 for (var i= 0; i< c.length; i++) if(c[i].nodeType== 8) document.head.removeChild(c[i]);//*/
-setTimeout(()=>{
+var main= setTimeout(()=>{
 	if(VID=== undefined){
 		return;//Stop if VID does not exist
 		console.log('VID is und\n'+ VID);
@@ -73,12 +73,12 @@ function set(){
 //Active?
 function onPlay(g){
 	life=g;
-	clock= setInterval(evalu(g), DLY);
+	clock[g]= setInterval(evalu(g), DLY);
 	toggle();
 }
 
 function onPause(g){
-	clearInterval(clock);
+	clearInterval(clock[g]);
 	if(life== g)life= null;
 	toggle(false);
 }
@@ -93,52 +93,47 @@ function StorageChange(changes){
 //End Active?
 //STP
 function SHORT(){
-	for(var G=0; G<VID.length; G++){
+	var G= 0;
+	while(G<VID.length){
 		let g=G;
-		end(g);
+		VID[g].style.willChange= 'auto';
+		onPause(g);
+		VID[g].removeEventListener('play', onPlay);
+		VID[g].removeEventListener('pause', onPause);
 	}
 	BROWSER.storage.onChanged.removeListener(StorageChange);
 	VID[0].removeChild(VAS);
 	VID[0].removeChild(document.getElementById('Brt-YT'));
 	VID[0].style.willChange= '';
 }
-function end(g){
-	VID[g].style.willChange= 'auto';
-	onPause(g);
-	VID[g].removeEventListener('play', onPlay);
-	VID[g].removeEventListener('pause', onPause);
-}
 function STOP(){
-	for(var G=0; G<VID.length; G++){
+	var G= 0;
+	while(G<VID.length){
 		let g=G;
-		halt(g);
+		VID.style.willChange= 'auto';
+		onPause(g);
+		VID[g].removeEventListener('play', onPlay(g));
+		VID[g].removeEventListener('pause', onPause(g));
+		G++;
 	}
 	document.getElementById('Brt-YT').innerHTML= '';
 }
-function halt(g){
-	VID.style.willChange= 'auto';
-	onPause(g);
-	VID[g].removeEventListener('play', onPlay(g));
-	VID[g].removeEventListener('pause', onPause(g));
-}
 function START(){
-	for(var G=0; G<VID.length; G++){
-		let g= G;
-		go(g);
+	var G= 0;
+	while(G<VID.length){
+		let g=G;
+		VID[g].style.willChange= 'filter';
+		VID[g].addEventListener('pause', onPause(g));//Forces it to stop imedatly
+		VID[g].addEventListener('play', onPlay(g));
+		//clock[g]= setInterval(evalu(g), DLY);//why is this here?
+		G++;
 	}
 	toggle();
 }
-function go(g){
-	console.log(VID[g]=== document.getElementsByTagName('video')[g]);//true
-	console.log(g);
-	VID[g].style.willChange= 'filter';
-	VID[g].addEventListener('pause', onPause(g));//almost like it is just onPause(g);
-	VID[g].addEventListener('play', onPlay(g));
-	//clock= setInterval(evalu(g), DLY);//why is this here?
-}
 //End STP
 function evalu(g){
-	if(life!= g && life!== null){
+	if(life!= g && life!= null){
+		clearInterval(clock[g]);
 		return;
 	}
 	if(document.getElementsByClassName('audio_only_div')[0]){
@@ -153,7 +148,7 @@ function evalu(g){
 		let warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
 		if(warning=== true){
 			oldRgb= rgb= 140;
-			clock= setInterval(evalu(g), DLY);
+			clock[g]= setInterval(evalu(g), DLY);
 			BROWSER.storage.local.set({'0': true});
 			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':100.7, 'text':'Varables ilegaly modifyed'}});
 			return;
