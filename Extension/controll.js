@@ -86,9 +86,11 @@ function StorageChange(changes){
 //End Active?
 //STP
 function SHORT(){
-	STOP();
+	VID.style.willChange= 'auto';
+	onPause();
+	VID.removeEventListener('play', onPlay);
+	VID.removeEventListener('pause', onPause);
 	BROWSER.storage.onChanged.removeListener(StorageChange);
-	VID.removeEventListener('error', SHORT);
 	VID.removeChild(VAS);
 	VID.removeChild(document.getElementById('Brt-YT'));
 	VID.style.willChange= '';
@@ -101,7 +103,7 @@ function STOP(){
 	onPause();
 	VID.removeEventListener('play', onPlay);
 	VID.removeEventListener('pause', onPause);
-	document.getElementById('Brt-YT').innerHTML= '';
+	document.getElementById('Brt-YT').innerHTML= '';//if it does not exist
 }
 function START(){
 	VID.style.willChange= 'filter';
