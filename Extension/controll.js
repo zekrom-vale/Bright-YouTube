@@ -1,9 +1,9 @@
 "strict mode";
 var oldRgb= rgb=140,
+g,
 clock;
 const DLY=1000,
 BROWSER= chrome,
-VID= document.getElementsByTagName('video')[0],
 //Canvas
 SUB=25,
 VAS= document.createElement('canvas'),
@@ -15,42 +15,47 @@ const c= document.head.childNodes;
 for (var i= 0; i< c.length; i++) if(c[i].nodeType== 8) document.head.removeChild(c[i]);
 */
 var main= setTimeout(()=>{
-	if(VID=== undefined){
+	if(document.getElementsByTagName('video')[0]=== undefined){
 		return;//Stop if VID does not exist
 		console.log('VID is und\n'+ VID);
 	}
-	BROWSER.storage.local.get('Active', items=>{
-		switch(typeof items.Active){
-			case 'undefined':
-				BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Active und, overiden to true'}});
-				BROWSER.storage.local.set({'Active': true});
-				items.Active= true;		//fallthrough
-			case 'boolean':
-				VID.addEventListener('canplay',()=>{
-				//Style
-					let Style= document.createElement('style');
-					Style.id= 'Brt-YT';
-					VID.appendChild(Style);
-				//Canvas
-					VID.appendChild(VAS);
-					VID.setAttribute('scoped','');//This API has not been standardized.
-					BROWSER.storage.onChanged.addListener(StorageChange);
-					if(items.Active) START();
-				//Inline IO
-					if(/youtube/.test(window.location.hostname) && /watch/.test(window.location.pathname)){
-						let opt= document.createElement('input');
-						opt.type= 'checkbox';
-						opt.checked= items.Active;
-						opt.id= 'Brt-opt';
-						document.getElementById('menu-container').appendChild(opt);
-						opt.addEventListener("change", opt=>{
-							BROWSER.storage.local.set({'Active': opt.checked});
-						});
-					}
-				}, {once:true});
-		}
-	});
+	BROWSER.storage.local.get('Active', inl);
 }, 2000);
+function inl(items){
+	switch(typeof items.Active){
+		case 'undefined':
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Active und, overiden to true'}});
+			BROWSER.storage.local.set({'Active': true});
+			items.Active= true;		//fallthrough
+		case 'boolean':
+			document.getElementsByTagName('video')[0].addEventListener('canplay',()=>{
+				for(var vids=0; vids< document.getElementsByTagName('video').length; vids++){
+					let el=document.getElementsByTagName('video')[vids];
+					el.id= 'BrtV-' +vids;//Can only have one Id!!
+				}
+			//Style
+				let Style= document.createElement('style');
+				Style.id= 'Brt-YT';
+				document.getElementById('BrtV-0').appendChild(Style);
+			//Canvas
+				document.getElementById('BrtV-0').appendChild(VAS);
+				BROWSER.storage.onChanged.addListener(StorageChange);
+				if(items.Active) START();
+			//Inline IO
+				if(/youtube/.test(window.location.hostname) && /watch/.test(window.location.pathname)){
+					let opt= document.createElement('input');
+					opt.type= 'checkbox';
+					opt.checked= items.Active;
+					opt.id= 'Brt-opt';
+					document.getElementById('menu-container').appendChild(opt);
+					opt.addEventListener("change", opt=>{
+						BROWSER.storage.local.set({'Active': opt.checked});
+					});
+				}
+			}, {once:true});
+	}
+}
+
 function set(){
 	//Set PLY
 	if(/youtube/.test(window.location.hostname)){//Needs to be var
@@ -71,12 +76,14 @@ function set(){
 }
 
 //Active?
-function onPlay(){
+function onPlay(event){
+	var gSub= /BrtV-\d+/.exec(event.target.id.toString());//This is an array!
+	g= /\d/.exec(gSub);
 	clock= setInterval(evalu, DLY);
 	toggle();
 }
 
-function onPause(){
+function onPause(event){
 	clearInterval(clock);
 	toggle(false);
 }
@@ -91,31 +98,37 @@ function StorageChange(changes){
 //End Active?
 //STP
 function SHORT(){
-	VID.style.willChange= 'auto';
+	for(var vids=0; vids< document.getElementsByTagName('video'); vids++){
+		document.getElementsByTagName('video')[vids].style.willChange= 'auto';
+	}
 	onPause();
-	VID.removeEventListener('play', onPlay);
-	VID.removeEventListener('pause', onPause);
+	document.documentElement.removeEventListener('play', onPlay);
+	document.documentElement.removeEventListener('pause', onPause);
 	BROWSER.storage.onChanged.removeListener(StorageChange);
-	VID.removeChild(VAS);
-	VID.removeChild(document.getElementById('Brt-YT'));
-	VID.style.willChange= '';
+	document.documentElement.removeChild(VAS);
+	document.documentElement.removeChild(document.getElementById('Brt-YT'));
 }
 function STOP(){
-	VID.style.willChange= 'auto';
+	for(var vids=0; vids< document.getElementsByTagName('video'); vids++){
+		document.getElementsByTagName('video')[vids].style.willChange= 'auto';
+	}
 	onPause();
-	VID.removeEventListener('play', onPlay);
-	VID.removeEventListener('pause', onPause);
+	document.documentElement.removeEventListener('play', onPlay);
+	document.documentElement.removeEventListener('pause', onPause);
 	document.getElementById('Brt-YT').innerHTML= '';
 }
 function START(){
-	VID.style.willChange= 'filter';
-	clock= setInterval(evalu, DLY);
+	for(var vids=0; vids< document.getElementsByTagName('video'); vids++){
+		document.getElementsByTagName('video')[vids].style.willChange= 'filter';
+	}
+	//clock= setInterval(evalu, DLY);
 	toggle();
-	VID.addEventListener('play', onPlay);
-	VID.addEventListener('pause', onPause);
+	document.documentElement.addEventListener('play', onPlay(event));
+	document.documentElement.addEventListener('pause', onPause(event));
 }
 //End STP
 function evalu(){
+	const VID= document.getElementById('BrtV-'+g);
 	if(document.getElementsByClassName('audio_only_div')[0]){
 		SHORT();
 		return;
@@ -141,7 +154,7 @@ function evalu(){
 	}
 	//End security
 	document.getElementById('Brt-YT').innerHTML= '';
-	getAvColor();
+	getAvColor(VID);
 	rgb= 255-rgb;
 	/*
 	console.log(rgb);//*/
@@ -179,7 +192,7 @@ function setFilter(brt=1, vrt=0, con=1, sat=1){
 	document.getElementById('Brt-YT').innerHTML= `video{\n\tfilter:${brt+ vrt+ con+ sat}\n}`;
 }
 
-function getAvColor(){
+function getAvColor(VID){
 	let o= (VID.clientWidth<= 550)? 0:1;
 	var height= VAS.height= VID.clientHeight-SUB*2*o,
 	width= VAS.width= VID.clientWidth-SUB*2*o;
