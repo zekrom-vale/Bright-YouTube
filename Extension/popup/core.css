@@ -16,6 +16,11 @@
 .black .name{
 	color:white
 }
+.black input,
+.black select{
+	background-color:black;
+	color:white
+}
 #close{
 	position:fixed;
 	bottom:5px;
@@ -32,16 +37,16 @@
 	width:calc(100% - 20px);
 	height:300px
 }
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-h7,
-h8,
-p{
+.black #CSScore,
+.black h1,
+.black h2,
+.black h3,
+.black h4,
+.black h5,
+.black h6,
+.black h7,
+.black h8,
+.black p{
 	color:white
 }
 
