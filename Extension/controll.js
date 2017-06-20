@@ -77,20 +77,24 @@ var main= setTimeout(()=>{
 }, 2000);
 function set(){
 	//Set PLY
-	if(/youtube/.test(window.location.hostname)){//Needs to be var
-		var PLY= document.getElementsByClassName('ytp-play-button')[0];
+	try{
+		if(/youtube/.test(window.location.hostname)){//Needs to be var
+			var PLY= document.getElementsByClassName('ytp-play-button')[0];
+		}
+		else if(/twitch/.test(window.location.hostname)){
+			var PLY=document.getElementsByClassName('player-icon-pause')[0];
+		}
+		/* "//*"= on "/*"= off	//More options!
+		else if(/___domain___/.test(window.location.hostname)){
+			var PLY=document.getElementsByClassName('___class play button___')[0];
+		}//*/
+		else if(document.getElementsByClassName('playpause')[0]){
+			var PLY= document.getElementsByClassName('playpause')[0];
+		}
+		else PLY= false;
+	}catch(e){
+		PLY= false;
 	}
-	else if(/twitch/.test(window.location.hostname)){
-		var PLY=document.getElementsByClassName('player-icon-pause')[0];
-	}
-	/* "//*"= on "/*"= off	//More options!
-	else if(/___domain___/.test(window.location.hostname)){
-		var PLY=document.getElementsByClassName('___class play button___')[0];
-	}//*/
-	else if(document.getElementsByClassName('playpause')[0]){
-		var PLY= document.getElementsByClassName('playpause')[0];
-	}
-	else PLY= false;
 	return PLY;
 }
 
