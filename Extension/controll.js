@@ -47,6 +47,20 @@ var main= setTimeout(()=>{
 							BROWSER.storage.local.set({'Active': opt.checked});
 						});
 					}
+					else{
+						BROWSER.storage.local.get(['Poz', 'Active'], items=>{
+							let opt= document.createElement('input');
+							opt.type= 'checkbox';
+							opt.checked= items.Active;
+							opt.id= 'Brt-opt';
+							opt.classList.add('Brt-Fixed');
+							opt.style= items.Poz;
+							document.documentElement.appendChild(opt);
+							opt.addEventListener("change", opt=>{
+								BROWSER.storage.local.set({'Active': opt.checked});
+							});
+						}
+					}
 				}, {once:true});
 		}
 	});
