@@ -37,34 +37,29 @@ var main= setTimeout(()=>{
 					BROWSER.storage.onChanged.addListener(StorageChange);
 					if(items.Active) START();
 				//Inline IO
-					if(/youtube/.test(window.location.hostname) && /watch/.test(window.location.pathname)){
-						let opt= document.createElement('input');
+					BROWSER.storage.local.get(['PozOn', 'PozSkip', 'PozCSS', 'Active'], items=>{
+						if(items.PozOn=== false)return;//!important
+						var opt= document.createElement('input');
 						opt.type= 'checkbox';
 						opt.checked= items.Active;
 						opt.id= 'Brt-opt';
-						document.getElementById('menu-container').appendChild(opt);
-						opt.addEventListener("change", opt=>{
-							BROWSER.storage.local.set({'Active': opt.checked});
-						});
-					}
-					else{
-						BROWSER.storage.local.get(['Poz', 'Active'], items=>{
-							if(items.Poz.Active=== false)return;
-							let opt= document.createElement('input');
-							opt.type= 'checkbox';
-							opt.checked= items.Active;
-							opt.id= 'Brt-opt';
+						if(/youtube/.test(window.location.hostname)
+							&& /watch/.test(window.location.pathname)
+							&& items.PozSkip!== true){//!important
+								document.getElementById('menu-container').appendChild(opt);
+						}
+						else{
 							opt.classList.add('Brt-Fixed');
 							document.documentElement.appendChild(opt);
 							//style
-							let sheet= document.createElement('style');
-							sheet.id= 'Brt-FS';
-							sheet.innerHTML= items.Poz.CSS;//!important
-							opt.addEventListener("change", opt=>{
-								BROWSER.storage.local.set({'Active': opt.checked});
-							});
 						}
-					}
+						let sheet= document.createElement('style');
+						sheet.id= 'Brt-FS';
+						sheet.innerHTML= items.PozCSS;//!important
+						opt.addEventListener("change", opt=>{
+							BROWSER.storage.local.set({'Active': opt.checked});
+						});
+					});
 				}, {once:true});
 		}
 	});

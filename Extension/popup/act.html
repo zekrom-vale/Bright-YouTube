@@ -91,16 +91,26 @@
 			</a>
 		</div>
 		<!--CSS for opt-->
+		<script src="opt.js"></script>
 		<button style="margin:10px 10px; border-radius:10px; background:aqua; color:black; font-size:20px" id="CSS">
 			On / Off options
 		</button>
-		<div id="CSScore" style="color:white; font-weight:800">
+		<div id="CSScore" style="color:white; font-weight:800; display:none">
 			<span class="box">
 				<label class="switch">
 					<input type="checkbox" id="OnOff" checked>
 					<div class="slider round"></div>
 				</label>
 				<span class="name"> Enabled</span>
+			</span>
+			<span>
+				Apply to:
+				<select id="Apply">
+					<option value="#Brt-opt.Brt-Fixed">Non-YouTube</option>
+					<option value="#Brt-opt:not(.Brt-Fixed)">YouTube</option>
+					<option value="#Brt-opt">Both</option>
+					<option value="ovrd,#Brt-opt">Overide YouTube</option>
+				</select>
 			</span>
 			<span>
 				position: 
@@ -213,13 +223,21 @@
 					<!--https://www.w3schools.com/cssref/css_units.asp-->
 				</select>
 			</span>
+			<span>
+				background-color:
+				<input id="Bc" type="color"/>
+				<!--
+					document.getElementById('Bc').value
+					"#858585"
+				-->
+			</span>
 			<!--Advanceder-->
 			<h3>
 				<a href="https://www.w3schools.com/css" target="_blank" title="w3schools on CSS" style="color:#6FF">
 					CSS Style (Advanced)
 				</a>
 			</h3>
-			<input type="text" style="width:calc(100vw - 20px); height:100px resize:both; overflow:auto"/>
+			<input type="text" style="width:calc(100vw - 20px); height:100px; resize:both; overflow:auto"/>
 		</div>
 		<!--ad-->
 		<div class="a">
