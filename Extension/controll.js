@@ -45,7 +45,7 @@ var main= setTimeout(()=>{
 						opt.id= 'Brt-opt';
 						if(/youtube/.test(window.location.hostname)
 							&& /watch/.test(window.location.pathname)
-							&& items.PozSkip!== true){//!important
+							&& items.PozSkip!== true){
 								document.getElementById('menu-container').appendChild(opt);
 						}
 						else{
@@ -55,7 +55,18 @@ var main= setTimeout(()=>{
 						}
 						let sheet= document.createElement('style');
 						sheet.id= 'Brt-FS';
-						sheet.innerHTML= items.PozCSS;//!important
+						sheet.innerHTML= '.Brt-Fixed'+ 
+						'{\n\tposition:'+ items.PozCSS.position+
+						';\n\t'+ items.PozCSS.TB.join('')+
+						';\n\t'+ items.PozCSS.RL.join('')+
+						';\n\t'+ items.PozCSS.PT.join('')+
+						';\n\t'+ items.PozCSS.PR.join('')+
+						';\n\t'+ items.PozCSS.PB.join('')+
+						';\n\t'+ items.PozCSS.PL.join('')+
+						'\n}'+
+						items.PozCSS.apply+
+						'{\n\t'+ items.PozCSS.Bc+
+						'}';
 						opt.addEventListener("change", opt=>{
 							BROWSER.storage.local.set({'Active': opt.checked});
 						});
