@@ -13,12 +13,8 @@ are allowed and to Bright YouTube on the Chrome Store are <b>not restricted by t
 All people (unless otherwise nagotated) that sell Bright YouTube are required to 
 pay the Licence Holder 65% of profits, excluding other services provided.  But still
 are required to inform the Licence Holder of ishues and/or fixed.  And are required to
-link to the sorce code in GitHub.
+link to the sorce code in GitHub.  Finaly, the minumum price per unit shall be $2.25 USD.
 
-<h2>
-  Distrabuting (of no charge)
-</h2>
-The fixed distrabution fee is $15
 <h2>
   Organization or Busness
 </h2>
