@@ -19,5 +19,5 @@ Testers:
 
 Note the new licence is now in effect, affecting all previous versions down to 
 <a href="https://github.com/zekrom-vale/Bright-YouTube/commit/697cda09f8c41e3965349f3368485006913f2728">
-  SHA-697cda09f8c41e3965349f3368485006913f2728
+  <code class="commit-sha">697cda0</code>
 </a>
