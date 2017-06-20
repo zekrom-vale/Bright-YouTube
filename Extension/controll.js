@@ -1,8 +1,7 @@
 "strict mode";
 var oldRgb= rgb=140,
-g=0,
-clock,
-oPl;
+g,
+clock;
 const DLY=1000,
 BROWSER= chrome,
 //Canvas
@@ -78,13 +77,13 @@ function set(){
 
 //Active?
 function onPlay(event){
-	var gSub= /BrtV-\d+/.exec(event.target.id);
+	var gSub= /BrtV-\d+/.exec(event.target.id.toString());//This is an array!
 	g= /\d/.exec(gSub);
 	clock= setInterval(evalu, DLY);
 	toggle();
 }
 
-function onPause(){
+function onPause(event){
 	clearInterval(clock);
 	toggle(false);
 }
@@ -103,7 +102,7 @@ function SHORT(){
 		document.getElementsByTagName('video')[vids].style.willChange= 'auto';
 	}
 	onPause();
-	document.documentElement.removeEventListener('play', oPl);
+	document.documentElement.removeEventListener('play', onPlay);
 	document.documentElement.removeEventListener('pause', onPause);
 	BROWSER.storage.onChanged.removeListener(StorageChange);
 	document.documentElement.removeChild(VAS);
@@ -114,7 +113,7 @@ function STOP(){
 		document.getElementsByTagName('video')[vids].style.willChange= 'auto';
 	}
 	onPause();
-	document.documentElement.removeEventListener('play', oPl);
+	document.documentElement.removeEventListener('play', onPlay);
 	document.documentElement.removeEventListener('pause', onPause);
 	document.getElementById('Brt-YT').innerHTML= '';
 }
@@ -122,11 +121,10 @@ function START(){
 	for(var vids=0; vids< document.getElementsByTagName('video'); vids++){
 		document.getElementsByTagName('video')[vids].style.willChange= 'filter';
 	}
-	
-	clock= setInterval(evalu, DLY);
+	//clock= setInterval(evalu, DLY);
 	toggle();
-	document.documentElement.addEventListener('play', oPl= function(){onPlay(event);});//function named() is not valid!
-	document.documentElement.addEventListener('pause', onPause);
+	document.documentElement.addEventListener('play', onPlay(event));
+	document.documentElement.addEventListener('pause', onPause(event));
 }
 //End STP
 function evalu(){
