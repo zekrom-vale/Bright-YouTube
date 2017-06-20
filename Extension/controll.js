@@ -66,7 +66,7 @@ var main= setTimeout(()=>{
 						'\n}'+
 						items.PozCSS.apply+
 						'{\n\t'+ items.PozCSS.Bc+
-						'}';
+						'\n}';
 						opt.addEventListener("change", opt=>{
 							BROWSER.storage.local.set({'Active': opt.checked});
 						});
