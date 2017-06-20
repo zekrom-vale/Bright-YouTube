@@ -95,6 +95,13 @@
 			On / Off options
 		</button>
 		<div id="CSScore" style="color:white; font-weight:800">
+			<span class="box">
+				<label class="switch">
+					<input type="checkbox" id="OnOff" checked>
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> Enabled</span>
+			</span>
 			<span>
 				position: 
 				<select id="position">
@@ -108,7 +115,7 @@
 					<option value="bottom">bottom</option>
 				</select>
 				:
-				<input id="TBn" type="text" pattern="\d+" title="number" style="width:30px"/>
+				<input id="TBn" type="number " style="width:30px"/>
 				<select id="TBu" style="width:40px">
 					<option value="px">pixles(px)</option>
 					<option value="in">inches(in)</option>
@@ -128,7 +135,7 @@
 					<option value="left">left</option>
 				</select>
 				:
-				<input id="RLn" type="text" pattern="\d+" title="number" style="width:30px"/>
+				<input id="RLn" type="number " style="width:30px"/>
 				<select id="RLu" style="width:40px">
 					<option value="px">pixles(px)</option>
 					<option value="in">inches(in)</option>
@@ -144,7 +151,7 @@
 			</span>
 			<span>
 				padding-top:
-				<input id="PTn" type="text" pattern="\d+" title="number" style="width:30px"/>
+				<input id="PTn" type="number " style="width:30px"/>
 				<select id="PTu" style="width:40px">
 					<option value="px">pixles(px)</option>
 					<option value="in">inches(in)</option>
@@ -160,7 +167,7 @@
 			</span>
 			<span>
 				padding-right:
-				<input id="PRn" type="text" pattern="\d+" title="number" style="width:30px"/>
+				<input id="PRn" type="number " style="width:30px"/>
 				<select id="PRu" style="width:40px">
 					<option value="px">pixles(px)</option>
 					<option value="in">inches(in)</option>
@@ -176,7 +183,7 @@
 			</span>
 			<span>
 				padding-bottom:
-				<input id="PBn" type="text" pattern="\d+" title="number" style="width:30px"/>
+				<input id="PBn" type="number " style="width:30px"/>
 				<select id="PBu" style="width:40px">
 					<option value="px">pixles(px)</option>
 					<option value="in">inches(in)</option>
@@ -192,7 +199,7 @@
 			</span>
 			<span>
 				padding-left:
-				<input id="PLn" type="text" pattern="\d+" title="number" style="width:30px"/>
+				<input id="PLn" type="number " style="width:30px"/>
 				<select id="PLu" style="width:40px">
 					<option value="px">pixles(px)</option>
 					<option value="in">inches(in)</option>
@@ -206,6 +213,13 @@
 					<!--https://www.w3schools.com/cssref/css_units.asp-->
 				</select>
 			</span>
+			<!--Advanceder-->
+			<h3>
+				<a href="https://www.w3schools.com/css" target="_blank" title="w3schools on CSS" style="color:#6FF">
+					CSS Style (Advanced)
+				</a>
+			</h3>
+			<input type="text" style="width:calc(100vw - 20px); height:100px resize:both; overflow:auto"/>
 		</div>
 		<!--ad-->
 		<div class="a">
