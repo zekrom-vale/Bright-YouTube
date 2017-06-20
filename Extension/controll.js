@@ -49,13 +49,17 @@ var main= setTimeout(()=>{
 					}
 					else{
 						BROWSER.storage.local.get(['Poz', 'Active'], items=>{
+							if(items.Poz.Active=== false)return;
 							let opt= document.createElement('input');
 							opt.type= 'checkbox';
 							opt.checked= items.Active;
 							opt.id= 'Brt-opt';
 							opt.classList.add('Brt-Fixed');
-							opt.style= items.Poz;
 							document.documentElement.appendChild(opt);
+							//style
+							let sheet= document.createElement('style');
+							sheet.id= 'Brt-FS';
+							sheet.innerHTML= items.Poz.CSS;//!important
 							opt.addEventListener("change", opt=>{
 								BROWSER.storage.local.set({'Active': opt.checked});
 							});
