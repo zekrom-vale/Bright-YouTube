@@ -1,9 +1,10 @@
 "strict mode";
-var oldRgb= rgb=140,
+var oldRgb= rgb= 140,
+g= 0,
 clock;
 const DLY=1000,
 BROWSER= chrome,
-VID= document.getElementsByTagName('video')[0],
+VID= document.getElementsByTagName('video'),
 //Canvas
 SUB=25,
 VAS= document.createElement('canvas'),
@@ -12,8 +13,7 @@ VAS.id= 'Brt-canvas',
 PLY= set();
 /*
 const c= document.head.childNodes;
-for (var i= 0; i< c.length; i++) if(c[i].nodeType== 8) document.head.removeChild(c[i]);
-*/
+for (var i= 0; i< c.length; i++) if(c[i].nodeType== 8) document.head.removeChild(c[i]);//*/
 var main= setTimeout(()=>{
 	if(VID=== undefined){
 		return;//Stop if VID does not exist
@@ -26,14 +26,14 @@ var main= setTimeout(()=>{
 				BROWSER.storage.local.set({'Active': true});
 				items.Active= true;		//fallthrough
 			case 'boolean':
-				VID.addEventListener('canplay',()=>{
+				VID[0].addEventListener('canplay',()=>{
 				//Style
 					let Style= document.createElement('style');
 					Style.id= 'Brt-YT';
-					VID.appendChild(Style);
+					VID[0].appendChild(Style);
 				//Canvas
-					VID.appendChild(VAS);
-					VID.setAttribute('scoped','');//This API has not been standardized.
+					VID[0].appendChild(VAS);
+					VID[0].setAttribute('scoped','');//This API has not been standardized.
 					BROWSER.storage.onChanged.addListener(StorageChange);
 					if(items.Active) START();
 				//Inline IO
@@ -120,10 +120,10 @@ function evalu(){
 		SHORT();
 		return;
 	}
-	if(VID.style.filter!='' || VID.readyState< 4) return;//Uncaught TypeError: Cannot read property 'style' of undefined
+	if(VID[g].style.filter!='' || VID[g].readyState< 4) return;//Uncaught TypeError: Cannot read property 'style' of undefined
 	if(document.webkitHidden || document.hidden) return;
 	//security
-	if(isNaN(rgb+ oldRgb)){
+	if(isNaN(rgb+ oldRgb+ g)){
 		
 		clearInterval(clock);
 		let warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
@@ -180,10 +180,10 @@ function setFilter(brt=1, vrt=0, con=1, sat=1){
 }
 
 function getAvColor(){
-	let o= (VID.clientWidth<= 550)? 0:1;
-	var height= VAS.height= VID.clientHeight-SUB*2*o,
-	width= VAS.width= VID.clientWidth-SUB*2*o;
-	CONT.drawImage(VID, SUB*o, SUB*o, width, height,0,0,width,height);//hardware exceleration
+	let o= (VID[g].clientWidth<= 550)? 0:1;
+	var height= VAS.height= VID[g].clientHeight-SUB*2*o,
+	width= VAS.width= VID[g].clientWidth-SUB*2*o;
+	CONT.drawImage(VID[g], SUB*o, SUB*o, width, height,0,0,width,height);//hardware exceleration
     data= CONT.getImageData(0,0, width, height);
 	
 	let i= C= 0;
