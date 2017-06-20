@@ -1,5 +1,5 @@
 <h1>
-  Limits to distrabution
+  Limits to distribution
 </h1>
 <h2>
   Links
