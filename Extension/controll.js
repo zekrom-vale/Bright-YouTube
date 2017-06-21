@@ -1,4 +1,3 @@
-//chrome://flags/#enable-canvas-2d-dynamic-rendering-mode-switching
 "strict mode";
 var oldRgb= rgb=140,
 clock;
@@ -10,50 +9,66 @@ SUB=25,
 VAS= document.createElement('canvas'),
 CONT= VAS.getContext && VAS.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
 VAS.id= 'Brt-canvas',
-PLY= setPl();//set() is used by somthing else
+PLY= setPl();
 setTimeout(()=>{
 	if(VID=== undefined){
-		console.log('VID is und\n'+ VID);//Now will log
+		console.log('VID is und\n'+ VID);
 		return;
 	}
-	BROWSER.storage.local.get('Active', items=>{//Chrome fails to do this.
-	//Element is not a constructor
-	//Disable chrome://flags/#enable-experimental-canvas-features
-		switch(typeof items.Active){
-			case 'undefined':
-				BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Active und, overiden to true'}});
-				BROWSER.storage.local.set({'Active': true});
-				items.Active= true;		//fallthrough
-			case 'boolean':
-				VID.addEventListener('canplay',()=>{
-				//Style
-					let Style= document.createElement('style');
-					Style.id= 'Brt-YT';
-					VID.appendChild(Style);
-				//Canvas
-					VID.appendChild(VAS);
-					BROWSER.storage.onChanged.addListener(StorageChange);
-					if(items.Active) START();
-				//Inline IO
-					BROWSER.storage.local.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
-						if(items.PozOn!== false){
-							var opt= document.createElement('input');
-							opt.type= 'checkbox';
-							opt.checked= items.Active;
-							opt.id= 'Brt-opt';
-							if(/youtube/.test(window.location.hostname)
-								&& /watch/.test(window.location.pathname)
-								&& items.PozSkip!== true){
-									document.getElementById('menu-container').appendChild(opt);
-							}
-							else{
-								opt.classList.add('Brt-Fixed');
-								document.documentElement.appendChild(opt);
-								//style
-							}
-							let sheet= document.createElement('style');
-							sheet.id= 'Brt-FS';
-							if(items.AdvOn=== false){
+	try{
+		BROWSER.storage.local.get('Active', items=>{
+			Intlize(items);
+		});
+	}catch(e){
+		console.log(e);
+		var log= Object.entries(e),
+		cr,
+		text= '';
+		for(cr in log){
+			text+=log[cr][0]+ ','+ log[cr][1]+ ';';
+		}
+		BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Chromemium error'+ text}});
+		var items.Active= true;
+		Intlize(items);
+	}
+}, 2000);
+
+function Intlize(items){
+	switch(typeof items.Active){
+		case 'undefined':
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Active und, overiden to true'}});
+			BROWSER.storage.local.set({'Active': true});
+			items.Active= true;		//fallthrough
+		case 'boolean':
+			VID.addEventListener('canplay',()=>{
+			//Style
+				let Style= document.createElement('style');
+				Style.id= 'Brt-YT';
+				VID.appendChild(Style);
+			//Canvas
+				VID.appendChild(VAS);
+				BROWSER.storage.onChanged.addListener(StorageChange);
+				if(items.Active) START();
+			//Inline IO
+				BROWSER.storage.local.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
+					if(items.PozOn!== false){
+						var opt= document.createElement('input');
+						opt.type= 'checkbox';
+						opt.checked= items.Active;
+						opt.id= 'Brt-opt';
+						if(/youtube/.test(window.location.hostname)
+							&& /watch/.test(window.location.pathname)
+							&& items.PozSkip!== true){
+								document.getElementById('menu-container').appendChild(opt);
+						}
+						else{
+							opt.classList.add('Brt-Fixed');
+							document.documentElement.appendChild(opt);
+							//style
+						}
+						let sheet= document.createElement('style');
+						sheet.id= 'Brt-FS';
+						if(items.AdvOn=== false){
 sheet.innerHTML= `.Brt-Fixed{
 	position:${items.PozCSS.position};
 	${items.PozCSS.TB.join('')};
@@ -66,18 +81,17 @@ sheet.innerHTML= `.Brt-Fixed{
 ${items.PozCSS.apply}{
 	${items.PozCSS.Bc}
 }`;
-							}
-							else sheet.innerHTML= items.Adv;
-							opt.addEventListener("change", function(){
-								BROWSER.storage.local.set({'Active': this.checked});
-								console.log('switch');
-							});
 						}
-					});
-				}, {once:true});
-		}
-	});
-}, 2000);
+						else sheet.innerHTML= items.Adv;
+						opt.addEventListener("change", function(){
+							BROWSER.storage.local.set({'Active': this.checked});
+							console.log('switch');
+						});
+					}
+				});
+			}, {once:true});
+	}
+}
 function setPl(){
 	//Set PLY
 	try{
