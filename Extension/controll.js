@@ -9,7 +9,7 @@ SUB=25,
 VAS= document.createElement('canvas'),
 CONT= VAS.getContext && VAS.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
 VAS.id= 'Brt-canvas',
-PLY= set();
+PLY= setPl();
 var main= setTimeout(()=>{
 	if(VID=== undefined){
 		return;//Stop if VID does not exist
@@ -63,15 +63,16 @@ sheet.innerHTML= `.Brt-Fixed{
 ${items.PozCSS.apply}{
 	${items.PozCSS.Bc}
 }`;
-						opt.addEventListener("change", opt=>{
-							BROWSER.storage.local.set({'Active': opt.checked});
+						opt.addEventListener("change", function(){
+							BROWSER.storage.local.set({'Active': this.checked});
+							console.log('switch');
 						});
 					});
 				}, {once:true});
 		}
 	});
 }, 2000);
-function set(){
+function setPl(){
 	//Set PLY
 	try{
 		if(/youtube/.test(window.location.hostname)){//Needs to be var
