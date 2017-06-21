@@ -6,8 +6,8 @@ This is the branch for contributers that will help the Copyright Holder (zekrom_
 to improve the Pro verson of Bright-YouTube.
 
 If you can not help with this, buy it on Chrome's App Store (Not yet avalable) or a
-diferent distributer.  If you still don't want to buy it install the 'Working verson'
-here on GitHub.
+diferent distributer.  If you still don't want to buy it install the <a 
+href="https://github.com/zekrom-vale/Bright-YouTube/tree/Working">Working verson</a>.
 
 To see brightness graph go to https://www.desmos.com/calculator/9j6xmk4snl
 
