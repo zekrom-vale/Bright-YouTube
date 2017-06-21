@@ -1,3 +1,4 @@
+//chrome://flags/#enable-canvas-2d-dynamic-rendering-mode-switching
 "strict mode";
 var oldRgb= rgb=140,
 clock;
@@ -9,13 +10,15 @@ SUB=25,
 VAS= document.createElement('canvas'),
 CONT= VAS.getContext && VAS.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
 VAS.id= 'Brt-canvas',
-PLY= setPl();
-var main= setTimeout(()=>{
+PLY= setPl();//set() is used by somthing else
+setTimeout(()=>{
 	if(VID=== undefined){
-		return;//Stop if VID does not exist
-		console.log('VID is und\n'+ VID);
+		console.log('VID is und\n'+ VID);//Now will log
+		return;
 	}
-	BROWSER.storage.local.get('Active', items=>{
+	BROWSER.storage.local.get('Active', items=>{//Chrome fails to do this.
+	//Element is not a constructor
+	//Disable chrome://flags/#enable-experimental-canvas-features
 		switch(typeof items.Active){
 			case 'undefined':
 				BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Active und, overiden to true'}});
@@ -29,29 +32,28 @@ var main= setTimeout(()=>{
 					VID.appendChild(Style);
 				//Canvas
 					VID.appendChild(VAS);
-					VID.setAttribute('scoped','');//This API has not been standardized.
 					BROWSER.storage.onChanged.addListener(StorageChange);
 					if(items.Active) START();
 				//Inline IO
 					BROWSER.storage.local.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
-						if(items.PozOn=== false)return;//!important
-						var opt= document.createElement('input');
-						opt.type= 'checkbox';
-						opt.checked= items.Active;
-						opt.id= 'Brt-opt';
-						if(/youtube/.test(window.location.hostname)
-							&& /watch/.test(window.location.pathname)
-							&& items.PozSkip!== true){
-								document.getElementById('menu-container').appendChild(opt);
-						}
-						else{
-							opt.classList.add('Brt-Fixed');
-							document.documentElement.appendChild(opt);
-							//style
-						}
-						let sheet= document.createElement('style');
-						sheet.id= 'Brt-FS';
-						if(items.AdvOn=== false){
+						if(items.PozOn!== false){
+							var opt= document.createElement('input');
+							opt.type= 'checkbox';
+							opt.checked= items.Active;
+							opt.id= 'Brt-opt';
+							if(/youtube/.test(window.location.hostname)
+								&& /watch/.test(window.location.pathname)
+								&& items.PozSkip!== true){
+									document.getElementById('menu-container').appendChild(opt);
+							}
+							else{
+								opt.classList.add('Brt-Fixed');
+								document.documentElement.appendChild(opt);
+								//style
+							}
+							let sheet= document.createElement('style');
+							sheet.id= 'Brt-FS';
+							if(items.AdvOn=== false){
 sheet.innerHTML= `.Brt-Fixed{
 	position:${items.PozCSS.position};
 	${items.PozCSS.TB.join('')};
@@ -64,12 +66,13 @@ sheet.innerHTML= `.Brt-Fixed{
 ${items.PozCSS.apply}{
 	${items.PozCSS.Bc}
 }`;
+							}
+							else sheet.innerHTML= items.Adv;
+							opt.addEventListener("change", function(){
+								BROWSER.storage.local.set({'Active': this.checked});
+								console.log('switch');
+							});
 						}
-						else sheet.innerHTML= items.Adv;
-						opt.addEventListener("change", function(){
-							BROWSER.storage.local.set({'Active': this.checked});
-							console.log('switch');
-						});
 					});
 				}, {once:true});
 		}
