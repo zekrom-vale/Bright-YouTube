@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', (event)=>{
 		CSScore.style.display= CSScore.style.display== 'none'? '': 'none';
 		document.getElementsByClassName('a')[0].style.display= document.getElementsByClassName('a')[0].style.display==''? 'none': '';
 		//Load new values
-		BROWSER.storage.local.get(['PozOn', 'PozSkip', 'PozCSS', 'Adv'], items=>{
+		BROWSER.storage.local.get(['PozOn', 'PozSkip', 'PozCSS', 'Adv', 'AdvOn'], items=>{
 			document.getElementById('OnOff').value= items.PozOn;
 			document.getElementById('Apply').value= items.PozSkip=== true? 'ovrd,#Brt-opt': items.PozCSS.apply;
 			document.getElementById('position').value= items.PozCSS.position;
@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', (event)=>{
 			document.getElementById('Bc').value= items.PozCSS.Bc;
 			
 			items.Adv=== undefined? items.Adv= undefined :document.getElementById('adv').value= items.Adv;
+			document.getElementById('AdvOn').checked= items.Adv;
 		});
 	});
 	document.getElementById('OnOff').addEventListener('change', ()=>{
@@ -103,5 +104,8 @@ document.addEventListener('DOMContentLoaded', (event)=>{
 		setTimeout(()=>{
 			this.value= 'Reset';
 		}, 1000);
+	});
+	document.getElementById('AdvOn').addEventListener('change', function(){
+		BROWSER.storage.local.set({'AdvOn':this.checked});
 	});
 });

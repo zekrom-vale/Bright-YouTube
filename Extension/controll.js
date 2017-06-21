@@ -33,7 +33,7 @@ var main= setTimeout(()=>{
 					BROWSER.storage.onChanged.addListener(StorageChange);
 					if(items.Active) START();
 				//Inline IO
-					BROWSER.storage.local.get(['PozOn', 'PozSkip', 'PozCSS', 'Active'], items=>{
+					BROWSER.storage.local.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
 						if(items.PozOn=== false)return;//!important
 						var opt= document.createElement('input');
 						opt.type= 'checkbox';
@@ -51,6 +51,7 @@ var main= setTimeout(()=>{
 						}
 						let sheet= document.createElement('style');
 						sheet.id= 'Brt-FS';
+						if(AdvOn=== false){
 sheet.innerHTML= `.Brt-Fixed{
 	position:${items.PozCSS.position};
 	${items.PozCSS.TB.join('')};
@@ -63,6 +64,8 @@ sheet.innerHTML= `.Brt-Fixed{
 ${items.PozCSS.apply}{
 	${items.PozCSS.Bc}
 }`;
+						}
+						else sheet.innerHTML= items.Adv;
 						opt.addEventListener("change", function(){
 							BROWSER.storage.local.set({'Active': this.checked});
 							console.log('switch');
