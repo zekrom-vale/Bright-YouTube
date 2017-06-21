@@ -67,7 +67,7 @@ ${items.PozCSS.apply}{
 						}
 						else sheet.innerHTML= items.Adv;
 						opt.addEventListener("change", function(){
-							BROWSER.storage.local.set({'Active': this.checked});
+							BROWSER.storage.local.set({'Active': this.checked});//Still broken
 							console.log('switch');
 						});
 					});

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', (event)=>{
 		document.getElementsByClassName('a')[0].style.display= document.getElementsByClassName('a')[0].style.display==''? 'none': '';
 		//Load new values
 		BROWSER.storage.local.get(['PozOn', 'PozSkip', 'PozCSS', 'Adv', 'AdvOn'], items=>{
-			document.getElementById('OnOff').value= items.PozOn;
+			document.getElementById('OnOff').checked= items.PozOn;
 			//Set normal CSS
 			document.getElementById('Apply').value= items.PozSkip=== true? 'ovrd,#Brt-opt': items.PozCSS.apply;
 			document.getElementById('position').value= items.PozCSS.position;
@@ -27,13 +27,10 @@ document.addEventListener('DOMContentLoaded', (event)=>{
 			document.getElementById('Bc').value= items.PozCSS.Bc;
 			//Set Advanced CSS
 			items.Adv=== undefined? items.Adv= undefined :document.getElementById('adv').value= items.Adv;
-			document.getElementById('AdvOn').checked= items.Adv;
+			document.getElementById('AdvOn').checked= items.AdvOn;
 		});
 	});
-	document.getElementById('OnOff').addEventListener('change', ()=>{
-		//On/off
-		//Does set overide other parts of an object?	Probably.
-		//set(Poz.Active= value) invalid
+	document.getElementById('OnOff').addEventListener('change', function(){
 		BROWSER.storage.local.set({'PozOn':this.checked});
 	});
 	
