@@ -5,12 +5,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	TWCH= document.getElementById('Twitch'),
 	ALL= document.getElementById('All');
 	//! NOT global and must be delayed!
-	
-	document.getElementById('exp').addEventListener('click', ()=>{
-		const PRMT= document.getElementById('permit');
-		PRMT.style.display= PRMT.style.display==''? 'none': '';
-		document.getElementsByClassName('a')[0].style.display= document.getElementsByClassName('a')[0].style.display==''? 'none': '';
-	});
 	//Set
 	BROWSER.permissions.getAll(callback=>{
 		console.log(callback.origins);

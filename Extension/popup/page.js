@@ -17,14 +17,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	});
 	document.getElementById("IO").addEventListener("change", IO);
 	document.getElementById("ST").addEventListener("change", Srt);
-	/*
-	var quit;
-	document.documentElement.addEventListener("mouseleave",quit=>{
-		quit= setTimeout(()=>window.close(),3000);
-	});
-	document.documentElement.addEventListener("mouseenter", quit=>clearTimeout(quit)); //*/
-	document.getElementById("close").addEventListener("click", ()=>window.close() );
 	//Get ERR
+	try{
 	BROWSER.storage.local.get('Err', items=>{//Use Object.entries(obj);
 		switch(items.Err.code){//https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
 			case 200:
@@ -80,6 +74,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 			document.getElementById('display').innerHTML='';
 		}
 	});
+	}catch(e){}
 });
 function setErr(code, text){
 	BROWSER.storage.local.set({'Err': {'time':Date(), 'code':code, 'text':text}});

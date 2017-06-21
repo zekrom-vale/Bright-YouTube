@@ -19,8 +19,7 @@
 	"homepage_url": "https://github.com/zekrom-vale/Bright-YouTube",
 	"offline_enabled": true,
 	"permissions": [
-		"storage",
-		"declarativeWebRequest"
+		"storage"
 	],
 	"event_rules": [{
 		"event": "declarativeContent.onPageChanged",
@@ -32,6 +31,9 @@
 			"css": ["video"]
 		}]
 	}],
+	"options_ui":{
+		"page": "popup/option.html"
+	},
 	"optional_permissions": [
 		"https://www.youtube.com/watch*",
 		"https://gaming.youtube.com/watch*",
