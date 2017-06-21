@@ -8,6 +8,12 @@
 		<style id="setRb"></style>
 	</head>
 	<body style="width:300px">
+		<style>
+			body>*{
+				padding-right:30px;
+				padding-left:30px;
+			}
+		</style>
 		<a href="https://github.com/zekrom-vale" target="_blank" title="&copy; zekrom_vale">
 		<svg id="logo" viewBox="0 0 500 500">
 				<circle cy="250" cx="250" r="185" style="fill:transparent; stroke:blue; stroke-width:115px; fill:grey"/>
@@ -15,9 +21,18 @@
 				<path d="M80 80 L180 240 L220 200 L280 360 L330 300 L420 420 L330 290 L284 344 L225 180 L180 220 Z" stroke-linejoin="round" style="fill:grey; opacity:.5"/>
 			</svg>
 		</a>
-		<h2 style="color:red"><!--#2196f3-->
-			<span id="bright">Bright</span> YouTube
-		</h2>
+		<div style="font-size:40px; margin:0; position:absolute; top:30px; right: 205px">
+			<a href="https://www.patreon.com/zekrom_vale" target="_blank" style="color:white; text-decoration:none">
+				<svg width="50" height="50" viewBox="0 0 500 500" class="rb" style="fill:#3cf">
+					<rect x="0" y="10" rx="10" ry="10" height="480" width="88"/>
+					<circle cx="320" cy="190" r="179"/>
+				</svg>
+				<span style="position:relative; left:-10px; color:#2196f3" class="rb">
+					atrion
+				</span>
+			</a>
+		</div>
+		<div style="position:absolute; top:40px; right:30px">
 		<span class="box">
 			<label class="switch">
 				<input type="checkbox" id="IO" checked>
@@ -76,6 +91,7 @@
 				<span class="name" style="color:red"> All URLs</span>
 			</span>
 		</div>
+		</div>
 		<!--CSS for opt-->
 		<script src="opt.js"></script>
 		<h1>
@@ -99,6 +115,7 @@
 						<option value="ovrd,#Brt-opt">Overide YouTube</option>
 					</select>
 				</span>
+				<br/>
 				<span>
 					position: 
 					<select id="position">
@@ -232,7 +249,7 @@
 				<span class="name"> Enabled</span>
 			</span>
 			<form>
-				<textarea type="text" id="adv" style="width:calc(100vw - 30px); height:100px; resize:vertical">
+				<textarea type="text" id="adv" style="width:calc(100vw - 90px); height:100px; resize:vertical">
 #Brt-opt.Brt-Fixed{
 	position:fixed;
 	top:5px;
@@ -250,17 +267,6 @@
 				<input type="checkbox" id="arm"/>
 				<input type="reset" id="reset" disabled />
 			</form>
-		</div>
-		<div style="font-size:17px; margin:10px 0">
-			<a href="https://www.patreon.com/zekrom_vale" target="_blank" style="color:white; text-decoration:none">
-				<svg width="20" height="20" viewBox="0 0 500 500" class="rb" style="fill:#3cf">
-					<rect x="0" y="10" rx="10" ry="10" height="480" width="88"/>
-					<circle cx="320" cy="190" r="179"/>
-				</svg>
-				<span style="position:relative; left:-10px; color:#2196f3" class="rb">
-					atrion
-				</span>
-			</a>
 		</div>
 		<!--ad-->
 		<div class="a">
