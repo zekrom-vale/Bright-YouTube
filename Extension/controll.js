@@ -51,7 +51,7 @@ function Intlize(items){
 				BROWSER.storage.onChanged.addListener(StorageChange);
 				if(items.Active) START();
 			//Inline IO
-				BROWSER.storage.local.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
+				BROWSER.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
 					if(items.PozOn!== false){
 						var opt= document.createElement('input');
 						opt.type= 'checkbox';

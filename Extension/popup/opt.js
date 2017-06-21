@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', (event)=>{
 		CSScore.style.display= CSScore.style.display== 'none'? '': 'none';
 		document.getElementsByClassName('a')[0].style.display= document.getElementsByClassName('a')[0].style.display==''? 'none': '';
 		//Load new values
-		BROWSER.storage.local.get(['PozOn', 'PozSkip', 'PozCSS', 'Adv', 'AdvOn'], items=>{
+		BROWSER.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Adv', 'AdvOn'], items=>{
 			document.getElementById('OnOff').checked= items.PozOn;
 			//Set normal CSS
 			document.getElementById('Apply').value= items.PozSkip=== true? 'ovrd,#Brt-opt': items.PozCSS.apply;
@@ -31,19 +31,19 @@ document.addEventListener('DOMContentLoaded', (event)=>{
 		});
 	});
 	document.getElementById('OnOff').addEventListener('change', function(){
-		BROWSER.storage.local.set({'PozOn':this.checked});
+		BROWSER.storage.sync.set({'PozOn':this.checked});
 	});
 	
 	document.getElementById('formCSS').addEventListener('change', saveCSS);
 	//Save advanced CSS
 	document.getElementById('adv').addEventListener('change', ()=>{
-		BROWSER.storage.local.set({'Adv': document.getElementById('adv').value});
+		BROWSER.storage.sync.set({'Adv': document.getElementById('adv').value});
 	});
 	document.getElementById('adv').addEventListener('keypress', ()=>{
-		BROWSER.storage.local.set({'Adv': document.getElementById('adv').value});
+		BROWSER.storage.sync.set({'Adv': document.getElementById('adv').value});
 	});
 	document.getElementById('AdvOn').addEventListener('change', function(){
-		BROWSER.storage.local.set({'AdvOn':this.checked});
+		BROWSER.storage.sync.set({'AdvOn':this.checked});
 	});
 	//Reset Key
 	document.getElementById('arm').addEventListener('change', function(){
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', (event)=>{
 		this.value= 'Cleared';
 		document.getElementById('arm').checked= false;
 		document.getElementById('adv').value= document.getElementById('adv').innerHTML;
-		BROWSER.storage.local.set({'Adv': document.getElementById('adv').value});
+		BROWSER.storage.sync.set({'Adv': document.getElementById('adv').value});
 		setTimeout(()=>{
 			this.value= 'Reset';
 		}, 1000);
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', (event)=>{
 function saveCSS(){
 	var ovrd= /ovrd/.test(document.getElementById('Apply').value),
 	apply= ovrd=== false? document.getElementById('Apply').value: '#Brt-opt';
-	BROWSER.storage.local.set({'PozCSS': //Sync??
+	BROWSER.storage.sync.set({'PozCSS': //Sync??
 		{
 			'apply': apply,
 			'position': document.getElementById('position').value,
@@ -104,5 +104,5 @@ function saveCSS(){
 			'Bc': document.getElementById('Bc').value
 		}
 	});
-	BROWSER.storage.local.set({'PozSkip': ovrd});
+	BROWSER.storage.sync.set({'PozSkip': ovrd});
 }
