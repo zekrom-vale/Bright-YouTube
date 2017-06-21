@@ -100,30 +100,30 @@ function setPl(){
 
 //Active?
 function onPlay(){
-	clock= setInterval(evalu, DLY);
+	window.clock= setInterval(evalu, DLY);
 	toggle();
 }
 
 function onPause(){
-	clearInterval(clock);
+	clearInterval(window.clock);
 	toggle(false);
 }
 
 function StorageChange(changes){
-	try{
+	try{//Error in event handler for storage.onChanged: TypeError: Cannot read property 'newValue' of undefined
 		if(changes.Active.newValue=== true) START();
 		else if(changes.Active.newValue=== false) STOP();
 		else if(changes.Active.newValue== 'Short') SHORT();
-	}finally{}
+	}catch(e){}
 }
 //End Active?
 //STP
 function SHORT(){
 	VID.style.willChange= 'auto';
-	onPause();
+	onPause();//Not stoping
 	VID.removeEventListener('play', onPlay);
 	VID.removeEventListener('pause', onPause);
-	BROWSER.storage.onChanged.removeListener(StorageChange);
+	BROWSER.storage.onChanged.removeListener(StorageChange);//privates(this).impl of undefined
 	VID.removeChild(VAS);
 	VID.removeChild(document.getElementById('Brt-YT'));
 	VID.style.willChange= '';
@@ -137,7 +137,7 @@ function STOP(){
 }
 function START(){
 	VID.style.willChange= 'filter';
-	clock= setInterval(evalu, DLY);
+	window.clock= setInterval(evalu, DLY);
 	toggle();
 	VID.addEventListener('play', onPlay);
 	VID.addEventListener('pause', onPause);
@@ -153,11 +153,11 @@ function evalu(){
 	//security
 	if(isNaN(rgb+ oldRgb)){
 		
-		clearInterval(clock);
+		clearInterval(window.clock);
 		let warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
 		if(warning=== true){
 			oldRgb= rgb= 140;
-			clock= setInterval(evalu, DLY);
+			window.clock= setInterval(evalu, DLY);
 			BROWSER.storage.local.set({'0': true});
 			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':100.7, 'text':'Varables ilegaly modifyed'}});
 		}
