@@ -16,6 +16,7 @@
 .black .name{
 	color:white
 }
+.black textarea,
 .black input,
 .black select{
 	background-color:black;

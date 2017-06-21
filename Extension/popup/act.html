@@ -79,17 +79,6 @@
 				<span class="name" style="color:red"> All URLs</span>
 			</span>
 		</div>
-		<div style="color:white; font-size:17px; margin:10px 0">
-			<a href="https://www.patreon.com/zekrom_vale" target="_blank" style="color:white; text-decoration:none">
-				<svg width="20" height="20" viewBox="0 0 500 500" class="rb" style="fill:#3cf">
-					<rect x="0" y="10" rx="10" ry="10" height="480" width="88"/>
-					<circle cx="320" cy="190" r="179"/>
-				</svg>
-				<span style="position:relative; left:-10px; color:#2196f3" class="rb">
-					atrion
-				</span>
-			</a>
-		</div>
 		<!--CSS for opt-->
 		<script src="opt.js"></script>
 		<button style="margin:10px 10px; border-radius:10px; background:aqua; color:black; font-size:20px" id="CSS">
@@ -103,148 +92,171 @@
 				</label>
 				<span class="name"> Enabled</span>
 			</span>
-			<span>
-				Apply to:
-				<select id="Apply">
-					<option value="#Brt-opt.Brt-Fixed">Non-YouTube</option>
-					<option value="#Brt-opt:not(.Brt-Fixed)">YouTube</option>
-					<option value="#Brt-opt">Both</option>
-					<option value="ovrd,#Brt-opt">Overide YouTube</option>
-				</select>
-			</span>
-			<span>
-				position: 
-				<select id="position">
-					<option value="fixed">fixed</option>
-					<option value="absolute">absolute</option>
-				</select>
-			</span>
-			<br/>
-			<span>
-				<select id="TB">
-					<option value="top">top</option>
-					<option value="bottom">bottom</option>
-				</select>
-				:
-				<input id="TBn" type="number " style="width:30px"/>
-				<select id="TBu" style="width:40px">
-					<option value="px">pixles(px)</option>
-					<option value="in">inches(in)</option>
-					<option value="cm">centimeters(cm)</option>
-					<option value="mm">millimeters(cm)</option>
-					<option value="vw">view width(vw)</option>
-					<option value="vh">view height(vh)</option>
-					<option value="vmin">view min(vmin)</option>
-					<option value="vmax">view max(vmax)</option>
-					<option value="%">percent(%)</option>
-					<!--https://www.w3schools.com/cssref/css_units.asp-->
-				</select>
-			</span>
-			<br/>
-			<span>
-				<select id="RL">
-					<option value="right">right</option>
-					<option value="left">left</option>
-				</select>
-				:
-				<input id="RLn" type="number " style="width:30px"/>
-				<select id="RLu" style="width:40px">
-					<option value="px">pixles(px)</option>
-					<option value="in">inches(in)</option>
-					<option value="cm">centimeters(cm)</option>
-					<option value="mm">millimeters(cm)</option>
-					<option value="vw">view width(vw)</option>
-					<option value="vh">view height(vh)</option>
-					<option value="vmin">view min(vmin)</option>
-					<option value="vmax">view max(vmax)</option>
-					<option value="%">percent(%)</option>
-					<!--https://www.w3schools.com/cssref/css_units.asp-->
-				</select>
-			</span>
-			<br/>
-			<span>
-				padding-top:
-				<input id="PTn" type="number " style="width:30px"/>
-				<select id="PTu" style="width:40px">
-					<option value="px">pixles(px)</option>
-					<option value="in">inches(in)</option>
-					<option value="cm">centimeters(cm)</option>
-					<option value="mm">millimeters(cm)</option>
-					<option value="vw">view width(vw)</option>
-					<option value="vh">view height(vh)</option>
-					<option value="vmin">view min(vmin)</option>
-					<option value="vmax">view max(vmax)</option>
-					<option value="%">percent(%)</option>
-					<!--https://www.w3schools.com/cssref/css_units.asp-->
-				</select>
-			</span>
-			<br/>
-			<span>
-				padding-right:
-				<input id="PRn" type="number " style="width:30px"/>
-				<select id="PRu" style="width:40px">
-					<option value="px">pixles(px)</option>
-					<option value="in">inches(in)</option>
-					<option value="cm">centimeters(cm)</option>
-					<option value="mm">millimeters(cm)</option>
-					<option value="vw">view width(vw)</option>
-					<option value="vh">view height(vh)</option>
-					<option value="vmin">view min(vmin)</option>
-					<option value="vmax">view max(vmax)</option>
-					<option value="%">percent(%)</option>
-					<!--https://www.w3schools.com/cssref/css_units.asp-->
-				</select>
-			</span>
-			<br/>
-			<span>
-				padding-bottom:
-				<input id="PBn" type="number " style="width:30px"/>
-				<select id="PBu" style="width:40px">
-					<option value="px">pixles(px)</option>
-					<option value="in">inches(in)</option>
-					<option value="cm">centimeters(cm)</option>
-					<option value="mm">millimeters(cm)</option>
-					<option value="vw">view width(vw)</option>
-					<option value="vh">view height(vh)</option>
-					<option value="vmin">view min(vmin)</option>
-					<option value="vmax">view max(vmax)</option>
-					<option value="%">percent(%)</option>
-					<!--https://www.w3schools.com/cssref/css_units.asp-->
-				</select>
-			</span>
-			<br/>
-			<span>
-				padding-left:
-				<input id="PLn" type="number " style="width:30px"/>
-				<select id="PLu" style="width:40px">
-					<option value="px">pixles(px)</option>
-					<option value="in">inches(in)</option>
-					<option value="cm">centimeters(cm)</option>
-					<option value="mm">millimeters(cm)</option>
-					<option value="vw">view width(vw)</option>
-					<option value="vh">view height(vh)</option>
-					<option value="vmin">view min(vmin)</option>
-					<option value="vmax">view max(vmax)</option>
-					<option value="%">percent(%)</option>
-					<!--https://www.w3schools.com/cssref/css_units.asp-->
-				</select>
-			</span>
-			<br/>
-			<span>
-				background-color:
-				<input id="Bc" type="color"/>
-				<!--
-					document.getElementById('Bc').value
-					"#858585"
-				-->
-			</span>
+			<form id="formCSS">
+				<span>
+					Apply to:
+					<select id="Apply">
+						<option value="#Brt-opt.Brt-Fixed">Non-YouTube</option>
+						<option value="#Brt-opt:not(.Brt-Fixed)">YouTube</option>
+						<option value="#Brt-opt">Both</option>
+						<option value="ovrd,#Brt-opt">Overide YouTube</option>
+					</select>
+				</span>
+				<span>
+					position: 
+					<select id="position">
+						<option value="fixed">fixed</option>
+						<option value="absolute">absolute</option>
+					</select>
+				</span>
+				<br/>
+				<span>
+					<select id="TB">
+						<option value="top">top</option>
+						<option value="bottom">bottom</option>
+					</select>
+					:
+					<input id="TBn" type="number" value="5" style="width:50px"/>
+					<select id="TBu" style="width:40px">
+						<option value="px">pixles(px)</option>
+						<option value="in">inches(in)</option>
+						<option value="cm">centimeters(cm)</option>
+						<option value="mm">millimeters(cm)</option>
+						<option value="vw">view width(vw)</option>
+						<option value="vh">view height(vh)</option>
+						<option value="vmin">view min(vmin)</option>
+						<option value="vmax">view max(vmax)</option>
+						<option value="%">percent(%)</option>
+						<!--https://www.w3schools.com/cssref/css_units.asp-->
+					</select>
+				</span>
+				<br/>
+				<span>
+					<select id="RL">
+						<option value="right">right</option>
+						<option value="left">left</option>
+					</select>
+					:
+					<input id="RLn" type="number" value="5" style="width:50px"/>
+					<select id="RLu" style="width:40px">
+						<option value="px">pixles(px)</option>
+						<option value="in">inches(in)</option>
+						<option value="cm">centimeters(cm)</option>
+						<option value="mm">millimeters(cm)</option>
+						<option value="vw">view width(vw)</option>
+						<option value="vh">view height(vh)</option>
+						<option value="vmin">view min(vmin)</option>
+						<option value="vmax">view max(vmax)</option>
+						<option value="%">percent(%)</option>
+					</select>
+				</span>
+				<br/>
+				<span>
+					padding-top:
+					<input id="PTn" type="number" min="0" value="5" style="width:50px"/>
+					<select id="PTu" style="width:40px">
+						<option value="px">pixles(px)</option>
+						<option value="in">inches(in)</option>
+						<option value="cm">centimeters(cm)</option>
+						<option value="mm">millimeters(cm)</option>
+						<option value="vw">view width(vw)</option>
+						<option value="vh">view height(vh)</option>
+						<option value="vmin">view min(vmin)</option>
+						<option value="vmax">view max(vmax)</option>
+						<option value="%">percent(%)</option>
+					</select>
+				</span>
+				<br/>
+				<span>
+					padding-right:
+					<input id="PRn" type="number" min="0" style="width:30px"/>
+					<select id="PRu" style="width:40px">
+						<option value="px">pixles(px)</option>
+						<option value="in">inches(in)</option>
+						<option value="cm">centimeters(cm)</option>
+						<option value="mm">millimeters(cm)</option>
+						<option value="vw">view width(vw)</option>
+						<option value="vh">view height(vh)</option>
+						<option value="vmin">view min(vmin)</option>
+						<option value="vmax">view max(vmax)</option>
+						<option value="%">percent(%)</option>
+					</select>
+				</span>
+				<br/>
+				<span>
+					padding-bottom:
+					<input id="PBn" type="number" min="0" value="5" style="width:50px"/>
+					<select id="PBu" style="width:40px">
+						<option value="px">pixles(px)</option>
+						<option value="in">inches(in)</option>
+						<option value="cm">centimeters(cm)</option>
+						<option value="mm">millimeters(cm)</option>
+						<option value="vw">view width(vw)</option>
+						<option value="vh">view height(vh)</option>
+						<option value="vmin">view min(vmin)</option>
+						<option value="vmax">view max(vmax)</option>
+						<option value="%">percent(%)</option>
+					</select>
+				</span>
+				<br/>
+				<span>
+					padding-left:
+					<input id="PLn" type="number" min="0" value="5" style="width:50px"/>
+					<select id="PLu" style="width:40px">
+						<option value="px">pixles(px)</option>
+						<option value="in">inches(in)</option>
+						<option value="cm">centimeters(cm)</option>
+						<option value="mm">millimeters(cm)</option>
+						<option value="vw">view width(vw)</option>
+						<option value="vh">view height(vh)</option>
+						<option value="vmin">view min(vmin)</option>
+						<option value="vmax">view max(vmax)</option>
+						<option value="%">percent(%)</option>
+					</select>
+				</span>
+				<br/>
+				<span>
+					background-color:
+					<input id="Bc" type="color" value="#66FFFF"/>
+				</span>
+				<input type="reset"/>
+			</form>
 			<!--Advanceder-->
 			<h3>
 				<a href="https://www.w3schools.com/css" target="_blank" title="w3schools on CSS" style="color:#6FF">
 					CSS Style (Advanced)
 				</a>
 			</h3>
-			<input type="text" style="width:calc(100vw - 20px); height:100px; resize:both; overflow:auto"/>
+			<form>
+				<textarea type="text" id="adv" style="width:calc(100vw - 20px); height:100px; resize:vertical">
+#Brt-opt.Brt-Fixed{
+	position:fixed;
+	top:5px;
+	left:5px
+}
+#Brt-opt:not(.Brt-Fixed){
+	/*Comment*/
+	background:black
+}
+#Brt-opt{
+	background-color:blue
+}
+				</textarea>
+				<!--Need Warning-->
+				<input type="checkbox" id="arm"/>
+				<input type="reset" id="reset" disabled />
+			</form>
+		</div>
+		<div style="font-size:17px; margin:10px 0">
+			<a href="https://www.patreon.com/zekrom_vale" target="_blank" style="color:white; text-decoration:none">
+				<svg width="20" height="20" viewBox="0 0 500 500" class="rb" style="fill:#3cf">
+					<rect x="0" y="10" rx="10" ry="10" height="480" width="88"/>
+					<circle cx="320" cy="190" r="179"/>
+				</svg>
+				<span style="position:relative; left:-10px; color:#2196f3" class="rb">
+					atrion
+				</span>
+			</a>
 		</div>
 		<!--ad-->
 		<div class="a">

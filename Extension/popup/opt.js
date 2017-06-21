@@ -1,11 +1,11 @@
-document.addEventListener('DOMContentLoaded', ()=>{
+document.addEventListener('DOMContentLoaded', (event)=>{
 	document.getElementById('CSS').addEventListener('click', ()=>{
 		//Show
 		var CSScore= document.getElementById('CSScore');
 		CSScore.style.display= CSScore.style.display== 'none'? '': 'none';
 		document.getElementsByClassName('a')[0].style.display= document.getElementsByClassName('a')[0].style.display==''? 'none': '';
 		//Load new values
-		BROWSER.storage.local.get(['PozOn', 'PozSkip', 'PozCSS'], items=>{
+		BROWSER.storage.local.get(['PozOn', 'PozSkip', 'PozCSS', 'Adv'], items=>{
 			document.getElementById('OnOff').value= items.PozOn;
 			document.getElementById('Apply').value= items.PozSkip=== true? 'ovrd,#Brt-opt': items.PozCSS.apply;
 			document.getElementById('position').value= items.PozCSS.position;
@@ -31,6 +31,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 			document.getElementById('PLu').value= items.PozCSS.PL[1];
 			
 			document.getElementById('Bc').value= items.PozCSS.Bc;
+			
+			items.Adv=== undefined? items.Adv= undefined :document.getElementById('adv').value= items.Adv;
 		});
 	});
 	document.getElementById('OnOff').addEventListener('change', ()=>{
@@ -39,7 +41,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		//set(Poz.Active= value) invalid
 		BROWSER.storage.local.set({'PozOn':this.checked});
 	});
-	document.getElementById('CSScore').addEventListener('change', ()=>{
+	
+	document.getElementById('formCSS').addEventListener('change', ()=>{
 		//Save CSS
 		var ovrd= /ovrd/.test(document.getElementById('Apply').value),
 		apply= ovrd=== false? document.getElementById('Apply').value: '#Brt-opt';
@@ -78,16 +81,27 @@ document.addEventListener('DOMContentLoaded', ()=>{
 				'Bc': document.getElementById('Bc').value
 			}
 		});
-		/*style+='{\n\tposition:'+ document.getElementById('position').value+
-		';\n\t'+ document.getElementById('TB').value+ ':'+ document.getElementById('TBn').value+ document.getElementById('TBu').value+*/
-		/*';\n\t'+ document.getElementById('RL').value+ ':'+ document.getElementById('RLn').value+ document.getElementById('RLu').value+
-		';\n\tpadding-top:'+ document.getElementById('PTn').value+ document.getElementById('PTu').value+
-		';\n\tpadding-right:'+ document.getElementById('PRn').value+ document.getElementById('PRu').value+
-		';\n\tpadding-bottom:'+ document.getElementById('PBn').value+ document.getElementById('PBu').value+
-		';\n\tpadding-left:'+ document.getElementById('PLn').value+ document.getElementById('PLu').value+
-		';\n\tbackground-color:'+ document.getElementById('Bc').value;
-		BROWSER.storage.local.set({'PozCSS': style});*/
 		BROWSER.storage.local.set({'PozSkip': ovrd});
 		//End Save CSS
+	});
+	//Save advanced CSS
+	document.getElementById('adv').addEventListener('change', ()=>{
+		BROWSER.storage.local.set({'Adv': document.getElementById('adv').value});
+	});
+	document.getElementById('adv').addEventListener('keypress', ()=>{
+		BROWSER.storage.local.set({'Adv': document.getElementById('adv').value});
+	});
+	document.getElementById('arm').addEventListener('change', function(){
+		document.getElementById('reset').disabled=this.checked=== true? false: true;
+	});
+	document.getElementById('reset').addEventListener('click', function(){
+		this.disabled= true;
+		this.value= 'Cleared';
+		document.getElementById('arm').checked= false;
+		document.getElementById('adv').value= document.getElementById('adv').innerHTML;
+		BROWSER.storage.local.set({'Adv': document.getElementById('adv').value});
+		setTimeout(()=>{
+			this.value= 'Reset';
+		}, 1000);
 	});
 });

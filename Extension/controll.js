@@ -10,10 +10,6 @@ VAS= document.createElement('canvas'),
 CONT= VAS.getContext && VAS.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
 VAS.id= 'Brt-canvas',
 PLY= set();
-/*
-const c= document.head.childNodes;
-for (var i= 0; i< c.length; i++) if(c[i].nodeType== 8) document.head.removeChild(c[i]);
-*/
 var main= setTimeout(()=>{
 	if(VID=== undefined){
 		return;//Stop if VID does not exist
@@ -55,18 +51,18 @@ var main= setTimeout(()=>{
 						}
 						let sheet= document.createElement('style');
 						sheet.id= 'Brt-FS';
-						sheet.innerHTML= '.Brt-Fixed'+ 
-						'{\n\tposition:'+ items.PozCSS.position+
-						';\n\t'+ items.PozCSS.TB.join('')+
-						';\n\t'+ items.PozCSS.RL.join('')+
-						';\n\t'+ items.PozCSS.PT.join('')+
-						';\n\t'+ items.PozCSS.PR.join('')+
-						';\n\t'+ items.PozCSS.PB.join('')+
-						';\n\t'+ items.PozCSS.PL.join('')+
-						'\n}'+
-						items.PozCSS.apply+
-						'{\n\t'+ items.PozCSS.Bc+
-						'\n}';
+sheet.innerHTML= `.Brt-Fixed{
+	position:${items.PozCSS.position};
+	${items.PozCSS.TB.join('')};
+	${items.PozCSS.RL.join('')};
+	${items.PozCSS.PT.join('')};
+	${items.PozCSS.PR.join('')};
+	${items.PozCSS.PB.join('')};
+	${items.PozCSS.PL.join('')}
+}
+${items.PozCSS.apply}{
+	${items.PozCSS.Bc}
+}`;
 						opt.addEventListener("change", opt=>{
 							BROWSER.storage.local.set({'Active': opt.checked});
 						});
