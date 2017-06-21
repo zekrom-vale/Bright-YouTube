@@ -51,7 +51,7 @@ var main= setTimeout(()=>{
 						}
 						let sheet= document.createElement('style');
 						sheet.id= 'Brt-FS';
-						if(AdvOn=== false){
+						if(items.AdvOn=== false){
 sheet.innerHTML= `.Brt-Fixed{
 	position:${items.PozCSS.position};
 	${items.PozCSS.TB.join('')};
@@ -67,7 +67,7 @@ ${items.PozCSS.apply}{
 						}
 						else sheet.innerHTML= items.Adv;
 						opt.addEventListener("change", function(){
-							BROWSER.storage.local.set({'Active': this.checked});//Still broken
+							BROWSER.storage.local.set({'Active': this.checked});
 							console.log('switch');
 						});
 					});
