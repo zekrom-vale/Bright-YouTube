@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 				items.Err.text= 'Security Alert Overide: '+ items.Err.text;
 				break;
 			case 502:
-				items.Err.text= 'Controll script Error: '+ items.Err.text;
+				items.Err.text= 'Chromemium error: '+ items.Err.text;
 				break;
 			default:
 				items.Err.text= '"No context": '+ items.Err.text;

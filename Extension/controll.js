@@ -11,26 +11,25 @@ CONT= VAS.getContext && VAS.getContext('2d', {alpha:false, willReadFrequently:tr
 VAS.id= 'Brt-canvas',
 PLY= setPl();
 setTimeout(()=>{
-	if(VID=== undefined){
-		console.log('VID is und\n'+ VID);
-		return;
-	}
-	try{
-		BROWSER.storage.local.get('Active', items=>{
-			Intlize(items);
-		});
-	}catch(e){
-		console.log(e);
-		var log= Object.entries(e),
-		cr,
-		text= '';
-		for(cr in log){
-			text+=log[cr][0]+ ','+ log[cr][1]+ ';';
+	if(VID!== undefined){
+		try{
+			BROWSER.storage.local.get('Active', items=>{Intlize(items);});
 		}
-		BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Chromemium error'+ text}});
-		var items.Active= true;
-		Intlize(items);
+		catch(e){
+			console.log(e);
+			var log= Object.entries(e),
+			cr,
+			text= '';
+			for(cr in log){
+				text+=log[cr][0]+ ','+ log[cr][1]+ ';';
+			}
+			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':502, 'text': '(storage.local.get) '+ text}});
+			var items={};
+			items.Active= true;
+			Intlize(items);
+		}
 	}
+	else console.log('VID is und\n'+ VID);
 }, 2000);
 
 function Intlize(items){
