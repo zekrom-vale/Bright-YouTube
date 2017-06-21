@@ -1,5 +1,6 @@
 const BROWSER= chrome;
 var n=0;
+console.log(chrome.runtime.id);
 document.addEventListener('DOMContentLoaded', ()=>{
 	//Ranbow
 	setInterval(()=>{

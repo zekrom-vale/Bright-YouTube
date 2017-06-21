@@ -16,6 +16,8 @@ setTimeout(()=>{
 			BROWSER.storage.local.get('Active', items=>{Intlize(items);});
 		}
 		catch(e){
+			window.open('chrome-extension://'+chrome.runtime.id+"/popup/act.html");
+			//chrome-extension://nbkdfeljmjhmkfienopocppjdgmkjbbm/popup/act.html
 			console.log(e);
 			var log= Object.entries(e),
 			cr,
