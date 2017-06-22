@@ -86,6 +86,7 @@
 				</label>
 				<span class="name"> Twitch</span>
 			</span>
+			<!--if[Pro]-->
 			<span class="box">
 				<label class="switch">
 					<input type="checkbox" id="All"/>
@@ -93,9 +94,11 @@
 				</label>
 				<span class="name" style="color:red"> All URLs</span>
 			</span>
+			<!--endif[Pro]-->
 		</div>
 		</div>
 		<!--CSS for opt-->
+		<!--if[Pro]-->
 		<script src="opt.js"></script>
 		<h1>
 			On / Off options
@@ -144,7 +147,6 @@
 						<option value="vmin">view min(vmin)</option>
 						<option value="vmax">view max(vmax)</option>
 						<option value="%">percent(%)</option>
-						<!--https://www.w3schools.com/cssref/css_units.asp-->
 					</select>
 				</span>
 				<br/>
@@ -238,7 +240,6 @@
 				</span>
 				<input type="reset" id="Nreset"/>
 			</form>
-			<!--Advanceder-->
 			<h3>
 				<a href="https://www.w3schools.com/css" target="_blank" title="w3schools on CSS" style="color:#6FF">
 					CSS Style (Advanced)
@@ -266,13 +267,15 @@
 	background-color:blue
 }
 				</textarea>
-				<!--Need Warning-->
+				<!--endif[Pro]-->
 				<input type="checkbox" id="arm"/>
 				<input type="reset" id="reset" disabled />
 			</form>
 		</div>
+		<!--if[Free]->
 		<script src="ads/ad.js"></script>
 		<div class="a" id="ad" style="width:calc(100vw - 90px); height:100px; resize:vertical; margin:0 30px; padding:0"></div>
+		<!--endif[Free]-->
 		<h3 id="display"/>
 	</body>
 </html>
