@@ -1,8 +1,6 @@
-"strict mode";
 var oldRgb= rgb=140,
 clock;
 const DLY=1000,
-BROWSER= chrome,
 VID= document.getElementsByTagName('video')[0],
 //Canvas
 SUB=25,
@@ -12,24 +10,7 @@ VAS.id= 'Brt-canvas',
 PLY= setPl();
 setTimeout(()=>{
 	if(VID!== undefined){
-		try{
-			BROWSER.storage.local.get('Active', items=>{Intlize(items);});
-		}
-		catch(e){
-			window.open('chrome-extension://'+chrome.runtime.id+"/popup/act.html");
-			//chrome-extension://nbkdfeljmjhmkfienopocppjdgmkjbbm/popup/act.html
-			console.log(e);
-			var log= Object.entries(e),
-			cr,
-			text= '';
-			for(cr in log){
-				text+=log[cr][0]+ ','+ log[cr][1]+ ';';
-			}
-			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':502, 'text': '(storage.local.get) '+ text}});
-			var items={};
-			items.Active= true;
-			Intlize(items);
-		}
+			chrome.storage.local.get('Active', function(items){Intlize(items);});
 	}
 	else console.log('VID is und\n'+ VID);
 }, 2000);
@@ -37,8 +18,8 @@ setTimeout(()=>{
 function Intlize(items){
 	switch(typeof items.Active){
 		case 'undefined':
-			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Active und, overiden to true'}});
-			BROWSER.storage.local.set({'Active': true});
+			chrome.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Active und, overiden to true'}});
+			chrome.storage.local.set({'Active': true});
 			items.Active= true;		//fallthrough
 		case 'boolean':
 			VID.addEventListener('canplay',()=>{
@@ -48,10 +29,10 @@ function Intlize(items){
 				VID.appendChild(Style);
 			//Canvas
 				VID.appendChild(VAS);
-				BROWSER.storage.onChanged.addListener(StorageChange);
+				chrome.storage.onChanged.addListener(StorageChange);
 				if(items.Active) START();
 			//Inline IO
-				BROWSER.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
+				chrome.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
 					if(items.PozOn!== false){
 						var opt= document.createElement('input');
 						opt.type= 'checkbox';
@@ -85,7 +66,7 @@ ${items.PozCSS.apply}{
 						}
 						else sheet.innerHTML= items.Adv;
 						opt.addEventListener("change", function(){
-							BROWSER.storage.local.set({'Active': this.checked});
+							chrome.storage.local.set({'Active': this.checked});
 							console.log('switch');
 						});
 					}
@@ -141,7 +122,7 @@ function SHORT(){
 	onPause();//Not stoping
 	VID.removeEventListener('play', onPlay);
 	VID.removeEventListener('pause', onPause);
-	BROWSER.storage.onChanged.removeListener(StorageChange);//privates(this).impl of undefined
+	chrome.storage.onChanged.removeListener(StorageChange);//privates(this).impl of undefined
 	VID.removeChild(VAS);
 	VID.removeChild(document.getElementById('Brt-YT'));
 	VID.style.willChange= '';
@@ -176,12 +157,12 @@ function evalu(){
 		if(warning=== true){
 			oldRgb= rgb= 140;
 			window.clock= setInterval(evalu, DLY);
-			BROWSER.storage.local.set({'0': true});
-			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':100.7, 'text':'Varables ilegaly modifyed'}});
+			chrome.storage.local.set({'0': true});
+			chrome.storage.local.set({'Err': {'time':Date(), 'code':100.7, 'text':'Varables ilegaly modifyed'}});
 		}
 		else{
 			SHORT();
-			BROWSER.storage.local.set({'Err': {'time':Date(), 'code':407, 'text':'Varables ilegaly modifyed'}});
+			chrome.storage.local.set({'Err': {'time':Date(), 'code':407, 'text':'Varables ilegaly modifyed'}});
 			return;
 		}
 	}

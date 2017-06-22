@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	ALL= document.getElementById('All');
 	//! NOT global and must be delayed!
 	//Set
-	BROWSER.permissions.getAll(callback=>{
+	chrome.permissions.getAll(callback=>{
 		console.log(callback.origins);
 		info= callback.origins.toString();
 		if(info.includes("www.youtube.com/*")) YTB.checked= true;
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 //Request
 //! Any path is ignored.
 function rYT(YTB){
-	BROWSER.permissions.request({
+	chrome.permissions.request({
 		origins: ["https://www.youtube.com/watch*"]
 	}, granted=>{
 		if(!granted) {
@@ -46,7 +46,7 @@ function rYT(YTB){
 	});
 }
 function rGame(GAME){
-	BROWSER.permissions.request({
+	chrome.permissions.request({
 		origins: ["https://gaming.youtube.com/watch*"]
 	}, granted=>{
 		if(!granted){
@@ -57,7 +57,7 @@ function rGame(GAME){
 }
 
 function rEmbed(EMB){
-	BROWSER.permissions.request({
+	chrome.permissions.request({
 		origins: ["https://www.youtube-nocookie.com/embed/*"/*, "https://www.youtube.com/embed/*"*/]// cannot be removed
 	}, granted=>{
 		if(!granted) {
@@ -68,7 +68,7 @@ function rEmbed(EMB){
 }
 
 function rTwitch(TWCH){
-	BROWSER.permissions.request({
+	chrome.permissions.request({
 		origins: ["https://www.twitch.tv/videos/*"]
 	}, granted=>{
 		if(!granted){
@@ -79,7 +79,7 @@ function rTwitch(TWCH){
 }
 
 function rAll(ALL,YTB,GAME,EMB,TWCH){
-	BROWSER.permissions.request({
+	chrome.permissions.request({
 		origins: ["<all_urls>"]
 	}, granted=>{
 		if(granted) YTB.checked= GAME.checked= EMB.checked= TWCH.checked= true
@@ -92,7 +92,7 @@ function rAll(ALL,YTB,GAME,EMB,TWCH){
 
 //Depretiate
 function dYT(YTB){
-	BROWSER.permissions.remove({
+	chrome.permissions.remove({
 		origins: ["https://www.youtube.com/watch*"]
 	}, removed=>{
 		if(!removed){
@@ -102,7 +102,7 @@ function dYT(YTB){
 	});
 }
 function dGame(GAME){
-	BROWSER.permissions.remove({
+	chrome.permissions.remove({
 		origins: ["https://gaming.youtube.com/watch*"]
 	}, removed=>{
 		if(!removed) {
@@ -113,7 +113,7 @@ function dGame(GAME){
 }
 
 function dEmbed(EMB){
-	BROWSER.permissions.remove({
+	chrome.permissions.remove({
 		origins: ["https://www.youtube-nocookie.com/embed/*"/*, "https://www.youtube.com/embed/*"*/]
 	}, removed=>{
 		console.log(removed);
@@ -125,7 +125,7 @@ function dEmbed(EMB){
 }
 
 function dTwitch(TWCH){
-	BROWSER.permissions.remove({
+	chrome.permissions.remove({
 		origins: ["https://www.twitch.tv/videos/*"]
 	}, removed=>{
 		if(!removed){
@@ -136,7 +136,7 @@ function dTwitch(TWCH){
 }
 
 function dAll(ALL,YTB,GAME,EMB,TWCH){
-	BROWSER.permissions.remove({
+	chrome.permissions.remove({
 		origins: ["<all_urls>"]
 	}, removed=>{
 		if(removed) YTB.checked= GAME.checked= EMB.checked= TWCH.checked= false

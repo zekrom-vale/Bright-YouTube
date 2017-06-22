@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', (event)=>{
 	document.getElementById('OnOff').addEventListener('change', function(){
-		BROWSER.storage.sync.set({'PozOn':this.checked});
+		chrome.storage.sync.set({'PozOn':this.checked});
 	});
-	BROWSER.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Adv', 'AdvOn'], items=>{
+	chrome.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Adv', 'AdvOn'], items=>{
 		document.getElementById('OnOff').checked= items.PozOn;
 		//Set normal CSS
 		document.getElementById('Apply').value= items.PozSkip=== true? 'ovrd,#Brt-opt': items.PozCSS.apply;
@@ -29,13 +29,13 @@ document.addEventListener('DOMContentLoaded', (event)=>{
 	document.getElementById('formCSS').addEventListener('change', saveCSS);
 	//Save advanced CSS
 	document.getElementById('adv').addEventListener('change', ()=>{
-		BROWSER.storage.sync.set({'Adv': document.getElementById('adv').value});
+		chrome.storage.sync.set({'Adv': document.getElementById('adv').value});
 	});
 	document.getElementById('adv').addEventListener('keypress', ()=>{
-		BROWSER.storage.sync.set({'Adv': document.getElementById('adv').value});
+		chrome.storage.sync.set({'Adv': document.getElementById('adv').value});
 	});
 	document.getElementById('AdvOn').addEventListener('change', function(){
-		BROWSER.storage.sync.set({'AdvOn':this.checked});
+		chrome.storage.sync.set({'AdvOn':this.checked});
 	});
 	//Reset Key
 	document.getElementById('arm').addEventListener('change', function(){
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', (event)=>{
 		this.value= 'Cleared';
 		document.getElementById('arm').checked= false;
 		document.getElementById('adv').value= document.getElementById('adv').innerHTML;
-		BROWSER.storage.sync.set({'Adv': document.getElementById('adv').value});
+		chrome.storage.sync.set({'Adv': document.getElementById('adv').value});
 		setTimeout(()=>{
 			this.value= 'Reset';
 		}, 1000);
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', (event)=>{
 function saveCSS(){
 	var ovrd= /ovrd/.test(document.getElementById('Apply').value),
 	apply= ovrd=== false? document.getElementById('Apply').value: '#Brt-opt';
-	BROWSER.storage.sync.set({'PozCSS': //Sync??
+	chrome.storage.sync.set({'PozCSS': //Sync??
 		{
 			'apply': apply,
 			'position': document.getElementById('position').value,
@@ -96,5 +96,5 @@ function saveCSS(){
 			'Bc': document.getElementById('Bc').value
 		}
 	});
-	BROWSER.storage.sync.set({'PozSkip': ovrd});
+	chrome.storage.sync.set({'PozSkip': ovrd});
 }

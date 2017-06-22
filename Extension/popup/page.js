@@ -1,6 +1,4 @@
-const BROWSER= chrome;
 var n=0;
-console.log(chrome.runtime.id);
 document.addEventListener('DOMContentLoaded', ()=>{
 	//Ranbow
 	setInterval(()=>{
@@ -8,7 +6,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		document.getElementById('setRb').innerHTML= '.rb{filter:hue-rotate('+ n +'deg)}';
 	}, 200);
 	//End Ranbow
-	BROWSER.storage.local.get('Active', items=>{
+	chrome.storage.local.get('Active', items=>{
 		if(items.Active=== false) document.getElementById('IO').checked= false;
 		else if(items.Active=== 'Short'){
 			document.getElementById('ST').checked= true;
@@ -19,7 +17,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	document.getElementById("ST").addEventListener("change", Srt);
 	//Get ERR
 	try{
-		BROWSER.storage.local.get('Err', items=>{//Use Object.entries(obj);
+		chrome.storage.local.get('Err', items=>{//Use Object.entries(obj);
 			switch(items.Err.code){//https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
 				case 200:
 					items.Err.text= 'OK: '+ items.Err.text;
@@ -66,28 +64,28 @@ document.addEventListener('DOMContentLoaded', ()=>{
 			document.getElementById('display').innerHTML= items.Err.text+ ' '+ items.Err.code;
 			document.getElementById('display').title= items.Err.time+ ': '+ items.Err.Class;
 		});
-		BROWSER.storage.local.get('Err', items=>{
+		chrome.storage.local.get('Err', items=>{
 			let d= new Date();
 			d.setDate(d.getDate() - 4);
 			if(Date.parse(items.Err.time)<= d){
-				BROWSER.storage.local.set({'Err': ''});
+				chrome.storage.local.set({'Err': ''});
 				document.getElementById('display').innerHTML='';
 			}
 		});
 	}catch(e){}
 });
 function setErr(code, text){
-	BROWSER.storage.local.set({'Err': {'time':Date(), 'code':code, 'text':text}});
+	chrome.storage.local.set({'Err': {'time':Date(), 'code':code, 'text':text}});
 }
 //End Get ERR
 function IO(){
-	BROWSER.storage.local.set({'Active': document.getElementById('IO').checked});
+	chrome.storage.local.set({'Active': document.getElementById('IO').checked});
 	document.getElementById('ST').checked= false;
 	Dlt();
 }
 function Srt(){
 	if(document.getElementById('ST').checked){
-		BROWSER.storage.local.set({'Active': 'Short'});
+		chrome.storage.local.set({'Active': 'Short'});
 		document.getElementById('IO').checked= false;
 	}
 	else document.getElementById('IO').checked= true;
@@ -95,7 +93,7 @@ function Srt(){
 }
 function Dlt(){
 	if(document.getElementById('IO').checked){
-		BROWSER.browserAction.setIcon({
+		chrome.browserAction.setIcon({
 			path:{
 				"16":"../img/YT16.png",
 				"32":"../img/YT32.png",
@@ -105,7 +103,7 @@ function Dlt(){
 		});
 	}
 	else{
-		BROWSER.browserAction.setIcon({
+		chrome.browserAction.setIcon({
 			path:{
 				"16":"../img/off16.png",
 				"32":"../img/off32.png",
