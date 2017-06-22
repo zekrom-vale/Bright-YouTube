@@ -8,12 +8,9 @@ VAS= document.createElement('canvas'),
 CONT= VAS.getContext && VAS.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
 VAS.id= 'Brt-canvas',
 PLY= setPl();
-setTimeout(()=>{
-	if(VID!== undefined){
-			chrome.storage.local.get('Active', function(items){Intlize(items);});
-	}
-	else console.log('VID is und\n'+ VID);
-}, 2000);
+setTimeout(()=>{//Detect if vid does not exist.
+	chrome.storage.local.get('Active', function(items){Intlize(items);});
+}, 1500);
 
 function Intlize(items){
 	switch(typeof items.Active){
@@ -199,11 +196,11 @@ function tick(ic){
 }
 
 function setFilter(brt=1, vrt=0, con=1, sat=1){
-	brt= brt==1? '': `brtness(${brt}) `;
+	brt= brt==1? '': `brightness(${brt}) `;
 	vrt= vrt==0? '': `invert(${vrt}) `;
 	con= con==1? '': `contrast(${con}) `;
 	sat= sat==1? '': `saturate(${sat})`;
-	document.getElementById('Brt-YT').innerHTML= `video{\n\tfilter:${brt+ vrt+ con+ sat}\n}`;
+	document.getElementById('Brt-YT').innerHTML= `:root video{\n\tfilter:${brt+ vrt+ con+ sat}\n}`;
 }
 
 function getAvColor(){
