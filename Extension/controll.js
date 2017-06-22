@@ -77,7 +77,7 @@ ${items.PozCSS.apply}{
 function setPl(){
 	//Set PLY
 	try{
-		if(/youtube/.test(window.location.hostname)){//Needs to be var
+		if(/youtube/.test(window.location.hostname)){
 			var PLY= document.getElementsByClassName('ytp-play-button')[0];
 		}
 		else if(/twitch/.test(window.location.hostname)){
@@ -99,12 +99,12 @@ function setPl(){
 
 //Active?
 function onPlay(){
-	window.clock= setInterval(evalu, DLY);
+	clock= setInterval(evalu, DLY);
 	toggle();
 }
 
 function onPause(){
-	clearInterval(window.clock);
+	clearInterval(clock);
 	toggle(false);
 }
 
@@ -136,7 +136,7 @@ function STOP(){
 }
 function START(){
 	VID.style.willChange= 'filter';
-	window.clock= setInterval(evalu, DLY);
+	clock= setInterval(evalu, DLY);
 	toggle();
 	VID.addEventListener('play', onPlay);
 	VID.addEventListener('pause', onPause);
@@ -152,11 +152,11 @@ function evalu(){
 	//security
 	if(isNaN(rgb+ oldRgb)){
 		
-		clearInterval(window.clock);
+		clearInterval(clock);
 		let warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
 		if(warning=== true){
 			oldRgb= rgb= 140;
-			window.clock= setInterval(evalu, DLY);
+			clock= setInterval(evalu, DLY);
 			chrome.storage.local.set({'0': true});
 			chrome.storage.local.set({'Err': {'time':Date(), 'code':100.7, 'text':'Varables ilegaly modifyed'}});
 		}
