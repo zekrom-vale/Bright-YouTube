@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>
+			Bright YouTube Options
+		</title>
 		<meta charset="ANSI"/>
 		<link rel="stylesheet" href="core.css"/>
 		<link rel="stylesheet" href="togle.css"/>
@@ -10,12 +13,12 @@
 	<body style="width:300px">
 		<style>
 			body>*{
-				padding-right:30px;
-				padding-left:30px;
+				margin-right:30px;
+				margin-left:30px;
 			}
 		</style>
-		<a href="https://github.com/zekrom-vale" target="_blank" title="&copy; zekrom_vale">
-		<svg id="logo" viewBox="0 0 500 500">
+		<a href="https://github.com/zekrom-vale" target="_blank" title="&copy; zekrom_vale" style="position:absolute; top:100px; right:254px;">
+		<svg id="logo" viewBox="0 0 500 500" style="width:150px; height:150px">
 				<circle cy="250" cx="250" r="185" style="fill:transparent; stroke:blue; stroke-width:115px; fill:grey"/>
 				<path d="M80 80 L180 240 L220 200 L280 360 L330 300 L420 420 L340 220 L300 270 L240 130 L180 180 Z" stroke-linejoin="round" style="fill:#6FF; stroke:blue; stroke-width:3px"/>
 				<path d="M80 80 L180 240 L220 200 L280 360 L330 300 L420 420 L330 290 L284 344 L225 180 L180 220 Z" stroke-linejoin="round" style="fill:grey; opacity:.5"/>
@@ -268,10 +271,8 @@
 				<input type="reset" id="reset" disabled />
 			</form>
 		</div>
-		<!--ad-->
-		<div class="a">
-			<p>ad goes here</p>
-		</div>
-		<div id="display" style="color:white; font-size:12px"/>
+		<script src="ads/ad.js"></script>
+		<div class="a" id="ad" style="width:calc(100vw - 90px); height:100px; resize:vertical; margin:0 30px; padding:0"></div>
+		<h3 id="display"/>
 	</body>
 </html>

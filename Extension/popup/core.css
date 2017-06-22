@@ -34,7 +34,6 @@
 .a{
 	border:solid grey 5px;
 	margin:5px;
-	background:blue;
 	width:calc(100% - 20px);
 	height:300px
 }
