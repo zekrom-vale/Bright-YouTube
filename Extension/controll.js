@@ -175,29 +175,26 @@ function evalu(){
 	//End security
 	document.getElementById('Brt-YT').innerHTML= '';
 	getAvColor();
-	rgb= 255-rgb;
+	//rgb= 255-rgb;
 	/*
 	console.info(rgb);//*/
 	var IC= 1;
 	const inc= 1;
-	if(rgb< 254.9 && rgb> 20){
-		while(ic< 10){
-			let ic= IC;
-			setTimeout(tick(ic), DLY*ic);
-			IC+= inc;
-		}
-		oldRgb= rgb;
+	while(IC< 10){
+		let ic= IC;
+		setTimeout(tick(ic), (DLY/10)*ic);
+		IC+= inc;
 	}
-	else if(rgb<= 20) setFilter(1, 1);
+	oldRgb= rgb;
 }
 
 function tick(ic){
 	//More calbration required
 	let V= oldRgb*(1-ic) + rgb*ic,
-	X= 0.0266813*V -7;
-	let PN= X<0? -1: 1;
-	var brt= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.33771,//247 is to dark
-	vrt= 0;
+	X= (20+V)/255,
+	PN= X<0? -1: 1;
+	var brt= .7+PN*.02*(116*Math.pow(Math.abs(X), 1/3)-16);
+	//Alert Negative values!!
 	con= 1;
 	sat= 1;
 	setFilter(brt, vrt, con, sat);
