@@ -200,9 +200,9 @@ function tick(ic, rgb, U, W/*, r, g, b*/){
 	let PN= X<0? -1: 1;
 	var brt= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.33771,
 	//251.2 is too dark
-	W2= .45*U+ .55*W;
-	vrt=W2<= 249? 0: W2<253.5? (W2-249)/15: W2<=254.5? .3: -(((W2-254.5)/10)+.3);
-	sat= con= 1;
+	var W2= .8*U+ .2*W
+	vrt=W2<= 249? 0: W2<353.5? (W2-249)/15: W2<=354.5? .3: -(((W2-254.5)/10)+.3);
+	sat= 1;
 	setFilter(brt, vrt, con, sat);
 }
 
