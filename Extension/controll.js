@@ -217,7 +217,7 @@ function getAvColor(){
 	width= VAS.width= VID.clientWidth-SUB*2*o;
 	CONT.drawImage(VID, SUB*o, SUB*o, width, height,0,0,width,height);//hardware exceleration
     data= CONT.getImageData(0,0, width, height);
-	
+	//data.data.reduce((total,num)=>{return total+num})/data.data.length;
 	let i= C= 0;
 	while(i< data.data.length){
 		rgb+= data.data[i]+ data.data[i+1]+ data.data[i+2];
