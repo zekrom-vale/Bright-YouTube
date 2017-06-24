@@ -1,4 +1,4 @@
-var oldRgb= rgb=140,
+var oldRgb=140,
 clock;
 const DLY=1000,
 VID= document.getElementsByTagName('video')[0],
@@ -155,7 +155,7 @@ function evalu(){
 	if(VID.style.filter!='' || VID.readyState< 4) return;
 	if(document.webkitHidden || document.hidden) return;
 	//security
-	if(isNaN(rgb+ oldRgb)){
+	if(isNaN(oldRgb)){
 		console.warn('Varables ilegaly modifyed');
 		clearInterval(clock);
 		let warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
@@ -174,8 +174,10 @@ function evalu(){
 	}
 	//End security
 	document.getElementById('Brt-YT').innerHTML= '';
-	getAvColor();
-	rgb= 255-rgb;
+	var av= getAvColor();
+	var U= (av.r+av.g+av.b)/3,
+	W= 0.2126*av.r+ 0.7152*av.g+ 0.0722*av.b,
+	rgb= 255-(.8*U+.2*W);
 	//*
 	console.info(rgb);//*/
 	var IC= 1;
@@ -183,7 +185,7 @@ function evalu(){
 	if(rgb< 254.9 && rgb> 20){
 		while(IC< 10){
 			let ic= IC;
-			setTimeout(tick(ic), (DLY/10)*ic);
+			setTimeout(tick(ic, rgb), (DLY/10)*ic);
 			IC+= inc;
 		}
 		oldRgb= rgb;
@@ -191,12 +193,13 @@ function evalu(){
 	else if(rgb<= 20) setFilter(1, 1);
 }
 
-function tick(ic){
+function tick(ic, rgb){
 	//More calbration required
 	let V= oldRgb*(1-ic) + rgb*ic,
-	X= 0.0266813*V -7;
+	X= 0.0266813*V -6;
 	let PN= X<0? -1: 1;
-	var brt= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.33771,//247 is to dark
+	var brt= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.33771,//240-242 is to bright
+	//239 is to dark
 	vrt= 0;
 	con= 1;
 	sat= 1;
@@ -217,17 +220,16 @@ function getAvColor(){
 	width= VAS.width= VID.clientWidth-SUB*2*o;
 	CONT.drawImage(VID, SUB*o, SUB*o, width, height,0,0,width,height);//hardware exceleration
     data= CONT.getImageData(0,0, width, height);
-	//data.data.reduce((total,num)=>{return total+num})/data.data.length;
-	var i= 0;
-	rgb=0.2126*data.data[i]+ 0.7152*data.data[i+1]+ 0.0722*data.data[i+2];
-	i=20;
-	var C=1;
+	var i= r= g= b= a= C= 0;
 	while(i< data.data.length){
-		rgb+= 0.2126*data.data[i]+ 0.7152*data.data[i+1]+ 0.0722*data.data[i+2];
+		r+= data.data[i];
+		g+= data.data[i+1];
+		b+= data.data[i+2];
+		//a+= data.data[i+3];
 		i+= Math.round(Math.random()*50 +1)*4;
 		C++;
 	}
-	rgb/= C;
+	return {'r':r/C, 'g':g/C, 'b':b/C, 'C':C};
 }
 //Indicate
 function toggle(poz= true){
