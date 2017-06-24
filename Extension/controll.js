@@ -185,7 +185,7 @@ function evalu(){
 	if(rgb< 254.9 && rgb> 20){
 		while(IC< 10){
 			let ic= IC;
-			setTimeout(tick(ic, rgb/*, U, W, r, g, b*/), (DLY/10)*ic);
+			setTimeout(tick(ic, rgb, U, W/*, r, g, b*/), (DLY*ic)/10);
 			IC+= inc;
 		}
 		oldRgb= rgb;
@@ -193,14 +193,15 @@ function evalu(){
 	else if(rgb<= 20) setFilter(1, 1);
 }
 
-function tick(ic, rgb/*, U, W, r, g, b*/){
+function tick(ic, rgb, U, W/*, r, g, b*/){
 	//More calbration required
 	let V= oldRgb*(1-ic) + rgb*ic,
 	X= 0.0266813*V -6;
 	let PN= X<0? -1: 1;
 	var brt= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.33771,
 	//251.2 is too dark
-	vrt=rgb<= 249? 0: rgb<353.5? (rgb-249)/15: rgb<=354.5? .3: -(((rgb-254.5)/10)+.3);
+	var W2= .8*U+ .2*W
+	vrt=W2<= 249? 0: W2<353.5? (W2-249)/15: W2<=354.5? .3: -(((W2-254.5)/10)+.3);
 	sat= 1;
 	setFilter(brt, vrt, con, sat);
 }
