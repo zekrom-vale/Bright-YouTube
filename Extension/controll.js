@@ -176,14 +176,14 @@ function evalu(){
 	document.getElementById('Brt-YT').innerHTML= '';
 	getAvColor();
 	rgb= 255-rgb;
-	/*
+	//*
 	console.info(rgb);//*/
 	var IC= 1;
 	const inc= 1;
 	if(rgb< 254.9 && rgb> 20){
-		while(ic< 10){
+		while(IC< 10){
 			let ic= IC;
-			setTimeout(tick(ic), DLY*ic);
+			setTimeout(tick(ic), (DLY/10)*ic);
 			IC+= inc;
 		}
 		oldRgb= rgb;
@@ -218,13 +218,16 @@ function getAvColor(){
 	CONT.drawImage(VID, SUB*o, SUB*o, width, height,0,0,width,height);//hardware exceleration
     data= CONT.getImageData(0,0, width, height);
 	//data.data.reduce((total,num)=>{return total+num})/data.data.length;
-	let i= C= 0;
+	var i= 0;
+	rgb=0.2126*data.data[i]+ 0.7152*data.data[i+1]+ 0.0722*data.data[i+2];
+	i=20;
+	var C=1;
 	while(i< data.data.length){
-		rgb+= data.data[i]+ data.data[i+1]+ data.data[i+2];
+		rgb+= 0.2126*data.data[i]+ 0.7152*data.data[i+1]+ 0.0722*data.data[i+2];
 		i+= Math.round(Math.random()*50 +1)*4;
-		C+=3;
+		C++;
 	}
-    rgb/= C;
+	rgb/= C;
 }
 //Indicate
 function toggle(poz= true){
