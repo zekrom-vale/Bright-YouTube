@@ -1,11 +1,11 @@
 var oldRgb=140,
 clock;
-const DLY=1000,
+const DLY=800,
 VID= document.getElementsByTagName('video')[0],
 //Canvas
 SUB=25,
 VAS= document.createElement('canvas'),
-CONT= VAS.getContext && VAS.getContext('2d', {alpha:false, willReadFrequently:true, premultipliedAlpha:false, antialias: false});
+CONT= VAS.getContext && VAS.getContext('2d', {willReadFrequently:true});
 VAS.id= 'Brt-canvas',
 PLY= setPl();
 setTimeout(()=>{
@@ -177,7 +177,7 @@ function evalu(){
 	var av= getAvColor();
 	var U= (av.r+av.g+av.b)/3,
 	W= 0.2126*av.r+ 0.7152*av.g+ 0.0722*av.b,
-	rgb= 255-(.8*U+.2*W);
+	rgb= 255-(.9*U+.1*W);
 	//*
 	console.info(rgb);//*/
 	var IC= 1;
@@ -185,7 +185,7 @@ function evalu(){
 	if(rgb< 254.9 && rgb> 20){
 		while(IC< 10){
 			let ic= IC;
-			setTimeout(tick(ic, rgb), (DLY/10)*ic);
+			setTimeout(tick(ic, rgb/*, U, W, r, g, b*/), (DLY/10)*ic);
 			IC+= inc;
 		}
 		oldRgb= rgb;
@@ -193,7 +193,7 @@ function evalu(){
 	else if(rgb<= 20) setFilter(1, 1);
 }
 
-function tick(ic, rgb){
+function tick(ic, rgb/*, U, W, r, g, b*/){
 	//More calbration required
 	let V= oldRgb*(1-ic) + rgb*ic,
 	X= 0.0266813*V -6;
