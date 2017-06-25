@@ -1,6 +1,6 @@
 var oldRgb=140,
 clock;
-const DLY=800,
+const DLY=1500,
 VID= document.getElementsByTagName('video')[0],
 //Canvas
 SUB=25,
@@ -9,7 +9,7 @@ CONT= VAS.getContext && VAS.getContext('2d', {willReadFrequently:true});
 VAS.id= 'Brt-canvas',
 PLY= setPl();
 setTimeout(()=>{
-	if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', function(items){Intlize(items);});
+	if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
 }, 1500);
 
 function Intlize(items){
@@ -50,12 +50,9 @@ function Intlize(items){
 						sheet.id= 'Brt-FS';
 						if(items.AdvOn=== false){
 sheet.innerHTML= `.Brt-Fixed{
-	position:${items.PozCSS.position};
-	${items.PozCSS.TB.join('')};
-	${items.PozCSS.RL.join('')};
-	${items.PozCSS.PT.join('')};
-	${items.PozCSS.PR.join('')};
-	${items.PozCSS.PB.join('')};
+	position:${items.PozCSS.position};\n	${items.PozCSS.TB.join('')};
+	${items.PozCSS.RL.join('')};\n	${items.PozCSS.PT.join('')};
+	${items.PozCSS.PR.join('')};\n	${items.PozCSS.PB.join('')};
 	${items.PozCSS.PL.join('')}
 }
 ${items.PozCSS.apply}{
@@ -74,7 +71,6 @@ ${items.PozCSS.apply}{
 	}
 }
 function setPl(){
-	//Set PLY
 	try{
 		if(/youtube/.test(window.location.hostname)){
 			var PLY= document.getElementsByClassName('ytp-play-button')[0];
@@ -87,6 +83,7 @@ function setPl(){
 		}//*/
 		else if(document.querySelector('#playpause')!== null){
 			var PLY= document.querySelector('#playpause');
+			console.info('Got normal HTML5 video button');
 		}else{
 			PLY= false;
 			throw new ReferenceError('No button found');
@@ -179,7 +176,16 @@ function evalu(){
 	W= 0.2126*av.r+ 0.7152*av.g+ 0.0722*av.b,
 	rgb= 255-(.9*U+.1*W);
 	//*
-	console.info(rgb);//*/
+	console.groupCollapsed('rgb info');
+	console.info('r', av.r);
+	console.info('g', av.g);
+	console.info('b', av.b);
+	console.info('Count(C)', av.C);
+	console.info('Unweighted rgb(U)', U);
+	console.info('Weighted rgb(W)', W);
+	console.info('rgb', rgb);
+	console.trace('from');
+	console.groupEnd();//*/
 	var IC= 1;
 	const inc= 1;
 	if(rgb< 254.9 && rgb> 20){
@@ -199,10 +205,11 @@ function tick(ic, rgb, U, W/*, r, g, b*/){
 	X= 0.0266813*V -6;
 	let PN= X<0? -1: 1;
 	var brt= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.33771,
-	//251.2 is too dark
-	var W2= .8*U+ .2*W
+	//237 is too dark
+	//231 is too bright
+	W2= .8*U+ .2*W
 	vrt=W2<= 249? 0: W2<353.5? (W2-249)/15: W2<=354.5? .3: -(((W2-254.5)/10)+.3);
-	sat= 1;
+	con=sat= 1;
 	setFilter(brt, vrt, con, sat);
 }
 

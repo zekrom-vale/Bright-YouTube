@@ -55,19 +55,19 @@
 			"<all_urls>"
 		],
 		"exclude_matches": [
-			"https://soundcloud.com/*",
-			"https://developer.chrome.com/*",
-			"https://www.w3schools.com/*",
-			"https://developer.mozilla.org/*",
-			"https://github.com/*",
+			"*://soundcloud.com/*",
+			"*://developer.chrome.com/*",
+			"*://www.w3schools.com/*",
+			"*://developer.mozilla.org/*",
+			"*://github.com/*",
 			"*://store.steampowered.com/*",
 			"*://*.io/*",
-			"https://stackoverflow.com/*",
-			"https://jsfiddle.net/*",
-			"https://codepen.io/*",
-			"https://www.paypal.com/*",
-			"https://paypal.com/*",
-			"https://paypalobjects.com/*"
+			"*://stackoverflow.com/*",
+			"*://jsfiddle.net/*",
+			"*://codepen.io/*",
+			"*://www.paypal.com/*",
+			"*://paypal.com/*",
+			"*://paypalobjects.com/*"
 		],
 		"exclude_globs": [
 			"bank",
@@ -86,6 +86,6 @@
 		],
 		"css": ["main.css"],
 		"js": ["controll.js"],
-        "all_frames": true
+		"all_frames": true
 	}]
 }
