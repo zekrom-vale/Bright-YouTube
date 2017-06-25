@@ -1,11 +1,11 @@
 var n=0;
 document.addEventListener('DOMContentLoaded', ()=>{
-	//Ranbow
+	//Rainbow
 	setInterval(()=>{
 		n=n<=360? n+2: 0;
 		document.getElementById('setRb').innerHTML= '.rb{filter:hue-rotate('+ n +'deg)}';
 	}, 200);
-	//End Ranbow
+	//End Rainbow
 	chrome.storage.local.get('Active', items=>{
 		if(items.Active=== false) document.getElementById('IO').checked= false;
 		else if(items.Active=== 'Short'){
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 					items.Err.text= '"No context": '+ items.Err.text;
 			}
 			items.Err.Class= items.Err.code.toString().charAt(0);
-			switch(items.Err.Class){//equivelent to ===, not ==
+			switch(items.Err.Class){//equivalent to ===, not ==
 				case '1'://not Number(1)
 					items.Err.Class= 'Informational';
 					break;

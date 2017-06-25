@@ -3,7 +3,7 @@ clock;
 const DLY=1500,
 VID= document.getElementsByTagName('video')[0],
 //Canvas
-SUB=25,
+SUB=0,
 VAS= document.createElement('canvas'),
 CONT= VAS.getContext && VAS.getContext('2d', {willReadFrequently:true});
 VAS.id= 'Brt-canvas',
@@ -18,7 +18,7 @@ function Intlize(items){
 			throw new ReferenceError('Active is not defined, forced to true');
 			chrome.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Active und, overiden'}});
 			chrome.storage.local.set({'Active': true});
-			items.Active= true;		//fallthrough
+			items.Active= true;		//fall-through
 		case 'boolean':
 			VID.addEventListener('canplay',()=>{
 			//Style
@@ -29,15 +29,14 @@ function Intlize(items){
 				VID.appendChild(VAS);
 				chrome.storage.onChanged.addListener(StorageChange);
 				if(items.Active) START();
-			//Inline IO
+			//In line IO
 				chrome.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
 					if(items.PozOn!== false){
 						var opt= document.createElement('input');
 						opt.type= 'checkbox';
 						opt.checked= items.Active;
 						opt.id= 'Brt-opt';
-						if(/youtube/.test(window.location.hostname)
-							&& /watch/.test(window.location.pathname)
+						if(document.querySelector('#menu-container')!== null
 							&& items.PozSkip!== true){
 								document.getElementById('menu-container').appendChild(opt);
 						}
@@ -97,12 +96,13 @@ function setPl(){
 
 //Active?
 function onPlay(){
+	clearInterval(clock);
 	clock= setInterval(evalu, DLY);
 	toggle();
 }
 
 function onPause(){
-	clearInterval(clock);
+	clearInterval(clock);//Sometimes fails
 	toggle(false);
 }
 
@@ -137,6 +137,7 @@ function STOP(){
 }
 function START(){
 	VID.style.willChange= 'filter';
+	clearInterval(clock);
 	clock= setInterval(evalu, DLY);
 	toggle();
 	VID.addEventListener('play', onPlay);
@@ -155,7 +156,7 @@ function evalu(){
 	if(isNaN(oldRgb)){
 		console.warn('Varables ilegaly modifyed');
 		clearInterval(clock);
-		let warning= confirm("Varables ilegaly modifyed, posibly malicious code.  Do you want to Reset and Continue?");
+		let warning= confirm("Variables illegally modified, possibly malicious code.  Do you want to Reset and Continue?");
 		if(warning=== true){
 			console.warn('Continuing');
 			oldRgb= rgb= 140;
@@ -176,15 +177,14 @@ function evalu(){
 	W= 0.2126*av.r+ 0.7152*av.g+ 0.0722*av.b,
 	rgb= 255-(.9*U+.1*W);
 	//*
-	console.groupCollapsed('rgb info');
-	console.info('r', av.r);
-	console.info('g', av.g);
-	console.info('b', av.b);
-	console.info('Count(C)', av.C);
-	console.info('Unweighted rgb(U)', U);
-	console.info('Weighted rgb(W)', W);
-	console.info('rgb', rgb);
+	console.groupCollapsed('%crgb: %.2f', "color:blue",rgb);
+	console.info(av);
+	console.info('Unweighted rgb(U): %.5f', U);
+	console.info('Weighted rgb(W): %f.5', W);
+	console.info('Diference (U-W): %f.5', U-W);
+	console.info('rgb: %f.5', rgb);
 	console.trace('from');
+	console.timeStamp('time');
 	console.groupEnd();//*/
 	var IC= 1;
 	const inc= 1;
@@ -200,13 +200,21 @@ function evalu(){
 }
 
 function tick(ic, rgb, U, W/*, r, g, b*/){
-	//More calbration required
+	//More calibration required
 	let V= oldRgb*(1-ic) + rgb*ic,
 	X= 0.0266813*V -6;
 	let PN= X<0? -1: 1;
 	var brt= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.33771,
-	//237 is too dark
-	//231 is too bright
+	/*		Anomaly
+too dark
+	248.8117272654424
+
+too bright
+	244.29555905921788
+	245.78281672545228
+	246.01222483370788
+	
+	*/
 	W2= .8*U+ .2*W
 	vrt=W2<= 249? 0: W2<353.5? (W2-249)/15: W2<=354.5? .3: -(((W2-254.5)/10)+.3);
 	con=sat= 1;
@@ -225,7 +233,7 @@ function getAvColor(){
 	let o= (VID.clientWidth<= 550)? 0:1;
 	var height= VAS.height= VID.clientHeight-SUB*2*o,
 	width= VAS.width= VID.clientWidth-SUB*2*o;
-	CONT.drawImage(VID, SUB*o, SUB*o, width, height,0,0,width,height);//hardware exceleration
+	CONT.drawImage(VID, SUB*o, SUB*o, width, height,0,0,width,height);//hardware acceleration
     data= CONT.getImageData(0,0, width, height);
 	var i= r= g= b= a= C= 0;
 	while(i< data.data.length){
@@ -233,7 +241,7 @@ function getAvColor(){
 		g+= data.data[i+1];
 		b+= data.data[i+2];
 		//a+= data.data[i+3];
-		i+= Math.round(Math.random()*50 +1)*4;
+		i+= Math.round(Math.random()*20 +1)*4;
 		C++;
 	}
 	return {'r':r/C, 'g':g/C, 'b':b/C, 'C':C};
