@@ -226,7 +226,8 @@ function setFilter(brt=1, vrt=0, con=1, sat=1){
 	vrt= vrt==0? '': `invert(${vrt}) `;
 	con= con==1? '': `contrast(${con}) `;
 	sat= sat==1? '': `saturate(${sat})`;
-	document.getElementById('Brt-YT').innerHTML= `video{\n\tfilter:${brt+ vrt+ con+ sat}\n}`;
+	if(brt+vrt+con+sat=='') document.getElementById('Brt-YT').innerHTML='';
+	else document.getElementById('Brt-YT').innerHTML= `video{\n\tfilter:${brt+ vrt+ con+ sat}\n}`;
 }
 
 function getAvColor(){
