@@ -9,7 +9,7 @@ If you can not help with this, buy it on Chrome's App Store (Not yet avalable) o
 diferent distributer.  If you still don't want to buy it install the <a 
 href="https://github.com/zekrom-vale/Bright-YouTube/tree/Working">Working verson</a>.
 
-To see brightness graph go to https://www.desmos.com/calculator/9j6xmk4snl
+To see brightness graph go to <a href="https://ggbm.at/hh964TbP">Geogebra</a> or <a href="https://www.desmos.com/calculator/9j6xmk4snl">Desmos[OLD]</a>
 
 Created by zekrom_vale and contrubuited by:
 
