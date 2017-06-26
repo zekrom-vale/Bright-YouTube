@@ -220,19 +220,18 @@ too bright
 	con=sat= 1;
 	setFilter(brt, vrt, con, sat);
 }
-
 function setFilter(brt=1, vrt=0, con=1, sat=1){
 	brt= brt==1? '': `brightness(${brt}) `;
 	vrt= vrt==0? '': `invert(${vrt}) `;
 	con= con==1? '': `contrast(${con}) `;
 	sat= sat==1? '': `saturate(${sat})`;
 	if(brt+vrt+con+sat=='') document.getElementById('Brt-YT').innerHTML='';
-	else document.getElementById('Brt-YT').innerHTML= `video{\n\tfilter:${brt+ vrt+ con+ sat}\n}`;
+	else document.getElementById('Brt-YT').innerHTML= `video{\n\tfilter:${brt+ vrt+ con+ sat}\n}`;//9.1 ms Most resource incentive
 }
 
 function getAvColor(){
-	let o= (VID.clientWidth<= 550)? 0:1;
-	var height= VAS.height= VID.clientHeight-SUB*2*o,
+	var o= (VID.clientWidth<= 550)? 0:1,
+	height= VAS.height= VID.clientHeight-SUB*2*o,
 	width= VAS.width= VID.clientWidth-SUB*2*o;
 	CONT.drawImage(VID, SUB*o, SUB*o, width, height,0,0,width,height);//hardware acceleration
     data= CONT.getImageData(0,0, width, height);
@@ -242,7 +241,7 @@ function getAvColor(){
 		g+= data.data[i+1];
 		b+= data.data[i+2];
 		//a+= data.data[i+3];
-		i+= Math.round(Math.random()*20 +1)*4;
+		i+= o==0? 4: Math.round(Math.random()*5 +1)*4;
 		C++;
 	}
 	return {'r':r/C, 'g':g/C, 'b':b/C, 'C':C};
