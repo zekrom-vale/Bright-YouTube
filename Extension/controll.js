@@ -203,10 +203,16 @@ function evalu(){
 
 function tick(ic, rgb, U, W/*, r, g, b*/){
 	//More calibration required
-	let V= oldRgb*(1-ic) + rgb*ic,
-	X= 0.0266813*V -6;
-	let PN= X<0? -1: 1;
-	var brt= PN*0.473474*Math.pow(Math.abs(X), 1/7)+ 1.33771,
+	var oRGB= oldRgb;
+	//start eval
+	var V= oRGB*(1-ic) + rgb*ic;
+	let _X= 0.0266813*V -6,
+	_PN= _X<0? -1: 1;
+	var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 1.33771,
+	vrt=V<= 249? 0: V<353.5? (V-249)/15: V<=354.5? .3: -(((V-254.5)/10)+.3);
+	con=sat= 1;
+	setFilter(brt, vrt, con, sat);
+	//end eval
 	/*		Anomaly
 too dark
 	248.8117272654424
@@ -217,10 +223,6 @@ too bright
 	246.01222483370788
 	
 	*/
-	W2= .8*U+ .2*W
-	vrt=W2<= 249? 0: W2<353.5? (W2-249)/15: W2<=354.5? .3: -(((W2-254.5)/10)+.3);
-	con=sat= 1;
-	setFilter(brt, vrt, con, sat);
 }
 function setFilter(brt=1, vrt=0, con=1, sat=1){
 	brt= brt==1? '': `brightness(${brt}) `;
