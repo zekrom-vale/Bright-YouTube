@@ -15,6 +15,7 @@ setTimeout(()=>{
 function Intlize(items){
 	switch(typeof items.Active){
 		case 'undefined':
+		case 'null';
 			throw new ReferenceError('Active is not defined, forced to true');
 			chrome.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Active und, overiden'}});
 			chrome.storage.local.set({'Active': true});

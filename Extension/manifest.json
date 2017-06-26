@@ -41,7 +41,8 @@
 		"https://www.youtube.com/embed/*",
 		"https://www.youtube-nocookie.com/embed/*",
 		"https://www.twitch.tv/videos/*",
-		"<all_urls>"
+		"<all_urls>",
+		"file://*/*"
 	],
 	"content_scripts": [{
 		"matches": [
@@ -52,7 +53,8 @@
 			"https://www.youtube.com/embed/*",
 			"https://www.youtube-nocookie.com/embed/*",
 			"https://www.twitch.tv/videos/*",
-			"<all_urls>"
+			"<all_urls>",
+			"file://*/*"
 		],
 		"exclude_matches": [
 			"*://soundcloud.com/*",
