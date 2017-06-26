@@ -18,6 +18,7 @@ function Intlize(items){
 			throw new ReferenceError('Active is not defined, forced to true');
 			chrome.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Active und, overiden'}});
 			chrome.storage.local.set({'Active': true});
+			reSet();
 			items.Active= true;		//fall-through
 		case 'boolean':
 			VID.addEventListener('canplay',()=>{
@@ -251,4 +252,48 @@ function toggle(poz= true){
 	if(PLY!= false){
 		poz?PLY.classList.add('active'):PLY.classList.remove('active');
 	}
+}
+
+
+//reSet or Set
+function reSet(){
+	chrome.storage.sync.set({'PozCSS': //Sync??
+		{
+			'apply': '#Brt-opt.Brt-Fixed',
+			'position': 'fixed',
+			'TB': [
+				'top',
+				':',
+				5,
+				'px'
+			],
+			'RL':[
+				'right',
+				':',
+				5,
+				'px'
+			],
+			'PT':[
+				5,
+				'px'
+			],
+			'PR':[
+				5,
+				'px'
+			],
+			'PB':[
+				5,
+				'px'
+			],
+			'PL':[
+				5,
+				'px'
+			],
+			'Bc': '66ffff'
+		}
+	});
+	chrome.storage.sync.set({'PozSkip': false});
+	chrome.storage.sync.set({'PozOn': true});
+	chrome.storage.sync.set({'PozSkip': false});
+	chrome.storage.sync.set({'AdvOn': false});
 }
