@@ -1,4 +1,4 @@
-# Bright-YouTube Experamental
+# <a href="about:blank">Bright-YouTube</a> Experamental
 <h3>
   Automaticaly ajusts video brightness for YouTube, Twitch, and HTML5 video.
 </h3>
