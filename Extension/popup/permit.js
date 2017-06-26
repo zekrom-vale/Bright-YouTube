@@ -17,8 +17,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		if(info.includes("file://")) FILE.checked= true;
 		if(info.includes("<all_urls>")) ALL.checked= true;
 	});
-	//End Set
-	//Listen
+	//End Set	//Listen
 	YTB.addEventListener('change', ()=>{
 		var url=["https://www.youtube.com/watch*"];
 		YTB.checked? reQuest(url): dePre(url);
@@ -43,9 +42,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		ALL.checked? rAll(ALL,YTB,GAME,EMB,TWCH): dAll(ALL,YTB,GAME,EMB,TWCH);
 	});
 });
-//Request
 //! Any path is ignored.
-//Compress
 function reQuest(url){
 	chrome.permissions.request({
 		origins: url
@@ -56,7 +53,6 @@ function reQuest(url){
 		}
 	});
 }
-
 function rAll(ALL,YTB,GAME,EMB,TWCH,FILE){
 	chrome.permissions.request({
 		origins: ["<all_urls>"]
@@ -68,8 +64,6 @@ function rAll(ALL,YTB,GAME,EMB,TWCH,FILE){
 		}
 	});
 }
-
-//Depreciate
 function dePre(url){
 	chrome.permissions.remove({
 		origins: url
@@ -80,7 +74,6 @@ function dePre(url){
 		}
 	});
 }
-
 function dAll(ALL,YTB,GAME,EMB,TWCH,FILE){
 	chrome.permissions.remove({
 		origins: ["<all_urls>"]
@@ -92,11 +85,3 @@ function dAll(ALL,YTB,GAME,EMB,TWCH,FILE){
 		}
 	});
 }
-/*
-	chrome.permissions.onAdded.addListener(callback=>{
-		document.getElementById('display').innerHTML= 'Obrained: '+ Object.values(callback);
-	});
-	chrome.permissions.onRemoved.addListener(callback=>{
-		document.getElementById('display').innerHTML= 'Removed: '+ Object.values(callback);
-	});
-*/
