@@ -8,15 +8,19 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	document.getElementById("close").addEventListener("click", ()=>window.close() );
 	//Open permit
 	document.getElementById('exp').addEventListener('click', ()=>{
-		const PRMT= document.getElementById('permit');
-		PRMT.style.display= PRMT.style.display==''? 'none': '';
-		document.getElementsByClassName('a')[0].style.display= document.getElementsByClassName('a')[0].style.display==''? 'none': '';
+		with(document.getElementById('permit').style){
+			display= display==''? 'none': '';
+		}
+		with(document.getElementsByClassName('a')[0].style){
+			display= display==''? 'none': '';
+		}	
 	});
 	document.getElementById('CSS').addEventListener('click', ()=>{
-		//Show
-		var CSScore= document.getElementById('CSScore');
-		CSScore.style.display= CSScore.style.display== 'none'? '': 'none';
-		document.getElementsByClassName('a')[0].style.display= document.getElementsByClassName('a')[0].style.display==''? 'none': '';
-		//Load new values
+		with(document.getElementById('CSScore').style){
+			display= display== 'none'? '': 'none';
+		}
+		with(document.getElementsByClassName('a')[0].style){
+			display= display==''? 'none': '';
+		}
 	});
 });

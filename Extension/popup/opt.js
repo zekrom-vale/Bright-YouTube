@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', (event)=>{
 		document.getElementById('OnOff').checked= items.PozOn;
 		//Set normal CSS
 		document.getElementById('Apply').value= items.PozSkip=== true? 'ovrd,#Brt-opt': items.PozCSS.apply;
-		with(items.PozCSS){//with test
+		with(items.PozCSS){
 			document.getElementById('position').value= position;
 			document.getElementById('TB').value=  TB[0];		
 			document.getElementById('TBn').value= TB[2];		
@@ -46,8 +46,10 @@ document.addEventListener('DOMContentLoaded', (event)=>{
 	document.getElementById('reset').addEventListener('click', function(){
 		this.disabled= true;
 		this.value= 'Cleared';
-		document.getElementById('arm').checked= false;
-		document.getElementById('adv').value= document.getElementById('adv').innerHTML;
+		with(document){
+			getElementById('arm').checked= false;
+			getElementById('adv').value= getElementById('adv').innerHTML;
+		}
 		chrome.storage.sync.set({'Adv': document.getElementById('adv').value});
 		setTimeout(()=>{
 			this.value= 'Reset';
@@ -63,40 +65,42 @@ document.addEventListener('DOMContentLoaded', (event)=>{
 function saveCSS(){
 	var ovrd= /ovrd/.test(document.getElementById('Apply').value),
 	apply= ovrd=== false? document.getElementById('Apply').value: '#Brt-opt';
-	chrome.storage.sync.set({'PozCSS': //Sync??
-		{
-			'apply': apply,
-			'position': document.getElementById('position').value,
-			'TB': [
-				document.getElementById('TB').value,
-				':',
-				document.getElementById('TBn').value,
-				document.getElementById('TBu').value
-			],
-			'RL':[
-				document.getElementById('RL').value,
-				':',
-				document.getElementById('RLn').value,
-				document.getElementById('RLu').value
-			],
-			'PT':[
-				document.getElementById('PTn').value,
-				document.getElementById('PTu').value
-			],
-			'PR':[
-				document.getElementById('PRn').value,
-				document.getElementById('PRu').value
-			],
-			'PB':[
-				document.getElementById('PBn').value,
-				document.getElementById('PBu').value
-			],
-			'PL':[
-				document.getElementById('PLn').value,
-				document.getElementById('PLu').value
-			],
-			'Bc': document.getElementById('Bc').value
-		}
-	});
+	with(document){
+		chrome.storage.sync.set({'PozCSS': //Sync??
+			{
+				'apply': apply,
+				'position': getElementById('position').value,
+				'TB': [
+					getElementById('TB').value,
+					':',
+					getElementById('TBn').value,
+					getElementById('TBu').value
+				],
+				'RL':[
+					getElementById('RL').value,
+					':',
+					getElementById('RLn').value,
+					getElementById('RLu').value
+				],
+				'PT':[
+					getElementById('PTn').value,
+					getElementById('PTu').value
+				],
+				'PR':[
+					getElementById('PRn').value,
+					getElementById('PRu').value
+				],
+				'PB':[
+					getElementById('PBn').value,
+					getElementById('PBu').value
+				],
+				'PL':[
+					getElementById('PLn').value,
+					getElementById('PLu').value
+				],
+				'Bc': getElementById('Bc').value
+			}
+		});
+	}
 	chrome.storage.sync.set({'PozSkip': ovrd});
 }

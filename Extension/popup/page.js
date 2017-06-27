@@ -18,47 +18,49 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	//Get ERR
 	try{
 		chrome.storage.local.get('Err', items=>{//Use Object.entries(obj);
-			switch(items.Err.code){//https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
-				case 200:
-					items.Err.text= 'OK: '+ items.Err.text;
-					break;
-				case 401:
-					items.Err.text= 'Request Denied: '+ items.Err.text;
-					break;
-				case 404.1:
-					items.Err.text= 'Error, could not remove: '+ items.Err.text;
-					break;
-				case 404:
-					items.Err.text= 'Error, could not find: '+ items.Err.text;
-					break;
-				case 407:
-					items.Err.text= 'Security Alert: '+ items.Err.text;
-					break;
-				case 100.7:
-					items.Err.text= 'Security Alert Overide: '+ items.Err.text;
-					break;
-				case 502:
-					items.Err.text= 'Chromemium error: '+ items.Err.text;
-					break;
-				default:
-					items.Err.text= '"No context": '+ items.Err.text;
-			}
-			items.Err.Class= items.Err.code.toString().charAt(0);
-			switch(items.Err.Class){//equivalent to ===, not ==
-				case '1'://not Number(1)
-					items.Err.Class= 'Informational';
-					break;
-				case '2':
-					items.Err.Class= 'Successful';
-					break;
-				case '3':
-					items.Err.Class= 'Redirection';
-					break;
-				case '4':
-					items.Err.Class= 'Client Err';
-					break;
-				case '5':
-					items.Err.Class= 'Server Err';
+			with(items.Err){
+				switch(code){//https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+					case 200:
+						text= 'OK: '+ text;
+						break;
+					case 401:
+						text= 'Request Denied: '+ text;
+						break;
+					case 404.1:
+						text= 'Error, could not remove: '+ text;
+						break;
+					case 404:
+						text= 'Error, could not find: '+ text;
+						break;
+					case 407:
+						text= 'Security Alert: '+ text;
+						break;
+					case 100.7:
+						text= 'Security Alert Overide: '+ text;
+						break;
+					case 502:
+						text= 'Chromemium error: '+ text;
+						break;
+					default:
+						text= '"No context": '+ text;
+				}
+				var Class= code.toString().charAt(0);
+				switch(Class){
+					case '1':
+						Class= 'Informational';
+						break;
+					case '2':
+						Class= 'Successful';
+						break;
+					case '3':
+						Class= 'Redirection';
+						break;
+					case '4':
+						Class= 'Client Err';
+						break;
+					case '5':
+						Class= 'Server Err';
+				}
 			}
 			console.log(items.Err.text);//May want to encodeURI
 			document.getElementById('display').innerHTML= items.Err.text+ ' '+ items.Err.code;

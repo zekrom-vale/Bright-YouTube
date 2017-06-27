@@ -17,8 +17,10 @@ function Intlize(items){
 		case 'undefined':
 		case 'null':
 			throw new ReferenceError('Active is not defined, forced to true');
-			chrome.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Active und, overiden'}});
-			chrome.storage.local.set({'Active': true});
+			with(chrome.storage.local){
+				set({'Err': {'time':Date(), 'code':404, 'text':'Active und, overiden'}});
+				set({'Active': true});
+			}
 			reSet();
 			items.Active= true;		//fall-through
 		case 'boolean':
@@ -50,15 +52,17 @@ function Intlize(items){
 						let sheet= document.createElement('style');
 						sheet.id= 'Brt-FS';
 						if(items.AdvOn=== false){
+							with(items.PozCSS){
 sheet.innerHTML= `.Brt-Fixed{
-	position:${items.PozCSS.position};\n	${items.PozCSS.TB.join('')};
-	${items.PozCSS.RL.join('')};\n	${items.PozCSS.PT.join('')};
-	${items.PozCSS.PR.join('')};\n	${items.PozCSS.PB.join('')};
-	${items.PozCSS.PL.join('')}
+	position:${position};\n	${TB.join('')};
+	${RL.join('')};\n	${PT.join('')};
+	${PR.join('')};\n	${PB.join('')};
+	${PL.join('')}
 }
-${items.PozCSS.apply}{
-	${items.PozCSS.Bc}
+${apply}{
+	${Bc}
 }`;
+							}
 						}
 						else sheet.innerHTML= items.Adv;
 						opt.addEventListener("change", function(){
@@ -110,25 +114,29 @@ function onPause(){
 
 function StorageChange(changes){
 	try{
-		if(changes.Active.newValue=== true) START();
-		else if(changes.Active.newValue=== false) STOP();
-		else if(changes.Active.newValue== 'Short'){
-			console.info('[STOP] User specification');
-			SHORT();
+		with(changes.Active){
+			if(newValue=== true) START();
+			else if(newValue=== false) STOP();
+			else if(newValue== 'Short'){
+				console.info('[STOP] User specification');
+				SHORT();
+			}
 		}
 	}catch(e){}
 }
 //End Active?
 //STP
 function SHORT(){
-	VID.style.willChange= 'auto';
 	onPause();
-	VID.removeEventListener('play', onPlay);
-	VID.removeEventListener('pause', onPause);
+	with(VID){
+		style.willChange= 'auto';
+		removeEventListener('play', onPlay);
+		removeEventListener('pause', onPause);
+		removeChild(VAS);
+		removeChild(document.getElementById('Brt-YT'));
+		style.willChange= '';
+	}
 	chrome.storage.onChanged.removeListener(StorageChange);
-	VID.removeChild(VAS);
-	VID.removeChild(document.getElementById('Brt-YT'));
-	VID.style.willChange= '';
 }
 function STOP(){
 	VID.style.willChange= 'auto';
@@ -163,8 +171,10 @@ function evalu(){
 			console.warn('Continuing');
 			oldRgb= rgb= 140;
 			clock= setInterval(evalu, DLY);
-			chrome.storage.local.set({'0': true});
-			chrome.storage.local.set({'Err': {'time':Date(), 'code':100.7, 'text':'Varables ilegaly modifyed'}});
+			with(chrome.storage.local){
+				set({'0': true});
+				set({'Err': {'time':Date(), 'code':100.7, 'text':'Varables ilegaly modifyed'}});
+			}
 		}
 		else{
 			SHORT();
@@ -179,15 +189,17 @@ function evalu(){
 	W= 0.2126*av.r+ 0.7152*av.g+ 0.0722*av.b,
 	rgb= 255-(.9*U+.1*W);
 	//*
-	console.groupCollapsed('%crgb: %.2f', "color:blue",rgb);
-	console.info(av);
-	console.info('Unweighted rgb(U): %.5f', U);
-	console.info('Weighted rgb(W): %f.5', W);
-	console.info('Diference (U-W): %f.5', U-W);
-	console.info('rgb: %f.5', rgb);
-	console.trace('from');
-	console.timeStamp('time');
-	console.groupEnd();//*/
+	with(console){
+		groupCollapsed('%crgb: %.2f', "color:blue",rgb);
+		info(av);
+		info('Unweighted rgb(U): %.5f', U);
+		info('Weighted rgb(W): %f.5', W);
+		info('Diference (U-W): %f.5', U-W);
+		info('rgb: %f.5', rgb);
+		trace('from');
+		timeStamp('time');
+		groupEnd();
+	}//*/
 	var IC= 1;
 	const inc= 1;
 	if(rgb< 254.9 && rgb> 20){
@@ -234,7 +246,7 @@ function setFilter(brt=1, vrt=0, con=1, sat=1){
 }
 
 function getAvColor(){
-	var o= (VID.clientWidth<= 550)? 0:1,
+	var o= VID.clientWidth<= 550? 0:1,
 	height= VAS.height= VID.clientHeight-SUB*2*o,
 	width= VAS.width= VID.clientWidth-SUB*2*o;
 	CONT.drawImage(VID, SUB*o, SUB*o, width, height,0,0,width,height);//hardware acceleration
@@ -260,7 +272,8 @@ function toggle(poz= true){
 
 //reSet or Set
 function reSet(){
-	chrome.storage.sync.set({'PozCSS': //Sync??
+	with(chrome.storage.sync){//With test
+	set({'PozCSS':
 		{
 			'apply': '#Brt-opt.Brt-Fixed',
 			'position': 'fixed',
@@ -295,8 +308,9 @@ function reSet(){
 			'Bc': '66ffff'
 		}
 	});
-	chrome.storage.sync.set({'PozSkip': false});
-	chrome.storage.sync.set({'PozOn': true});
-	chrome.storage.sync.set({'PozSkip': false});
-	chrome.storage.sync.set({'AdvOn': false});
+		set({'PozSkip': false});
+		set({'PozOn': true});
+		set({'PozSkip': false});
+		set({'AdvOn': false});
+	}
 }
