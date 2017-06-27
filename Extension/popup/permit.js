@@ -20,36 +20,36 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	//End Set	//Listen
 	YTB.addEventListener('change', ()=>{
 		var url=["https://www.youtube.com/watch*"];
-		YTB.checked? reQuest(url): dePre(url);
+		YTB.checked? reQuest(url, YTB): dePre(url, YTB);
 	});
 	GAME.addEventListener('change', ()=>{
 		var url= ["https://gaming.youtube.com/watch*"];
-		GAME.checked? reQuest(url): dePre(url);
+		GAME.checked? reQuest(url, GAME): dePre(url, GAME);
 	});
 	EMB.addEventListener('change', ()=>{
 		var url= ["https://www.youtube-nocookie.com/embed/*"/*, "https://www.youtube.com/embed/*"*/];
-		EMB.checked? reQuest(url): dePre(url);
+		EMB.checked? reQuest(url, EMB): dePre(url, EMB);
 	});
 	TWCH.addEventListener('change', ()=>{
 		var url= ["https://www.twitch.tv/videos/*"];
-		TWCH.checked? reQuest(url): dePre(url);
+		TWCH.checked? reQuest(url, TWCH): dePre(url, TWCH);
 	});
 	FILE.addEventListener('change', ()=>{
 		var url= ["file://*/*"];
-		FILE.checked? reQuest(url): dePre(url);
+		FILE.checked? reQuest(url, FILE): dePre(url, FILE);
 	});
 	ALL.addEventListener('change', ()=>{
 		ALL.checked? rAll(ALL,YTB,GAME,EMB,TWCH): dAll(ALL,YTB,GAME,EMB,TWCH);
 	});
 });
 //! Any path is ignored.
-function reQuest(url){
+function reQuest(url, ent){
 	chrome.permissions.request({
 		origins: url
 	}, granted=>{
 		if(!granted) {
-			this.checked= false;
-			setErr(401, `"${this.id}"`);
+			ent.checked= false;
+			setErr(401, `"${ent.id}"`);
 		}
 	});
 }
@@ -64,13 +64,13 @@ function rAll(ALL,YTB,GAME,EMB,TWCH,FILE){
 		}
 	});
 }
-function dePre(url){
+function dePre(url, ent){
 	chrome.permissions.remove({
 		origins: url
 	}, removed=>{
 		if(!removed){
-			this.checked= true;
-			setErr(404.1, `"${this.id}"`);
+			ent.checked= true;
+			setErr(404.1, `"${ent.id}"`);
 		}
 	});
 }
