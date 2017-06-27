@@ -15,7 +15,7 @@ chrome.storage.sync.get('fn', items=>{//Executed last
 		if(fn==undefined) throw new ReferenceError('fn is undefined');
 		else{
 			rez=fn.replace(/(\/{2}.*\n|\/\*([^*/]|\s)*\*\/|\s|Math\.((pow|round|ceil|floor|abs|log|exp|random|a?(cos|sin2?|tan)m(ax|in)|sqrt)|SQRT(1_)?2|PI|E|(LN|LOG)(10|2)E?)|setFilter|(([bv]r|sa)t|con|[rgbUWV]|oRGB|ic)(?!(\w|\d))|_(\w|\d)+(?!\()|var|let|(if|(if )?else)\(|[!%&(-?{-}]|true|false|undefined|null|is(NaN|Finite)(?=\(.*\)))/g,'');
-			fn= fn.replace(/(window|document|evalu?|const|function|(chrom|toggl|Intliz)e|setPl|on(Play|Pause)|S(torageChange|HORT|TOP|TART)|tick|getAvColor|fn|(inn|out)erHTML)|re(place|[sS]et|z)/, 'return;');
+			fn= fn.replace(/(window|document|evalu?|const|function|(chrom|toggl|Intliz)e|setPl|on(Play|Pause)|S(torageChange|HORT|TOP|TART)|clock|tick|getAvColor|fn|(inn|out)erHTML)|re(place|[sS]et|z)/, 'return;');
 			if((rez==''&&! /(\=>{|\(.?\)\=>)/.test(fn))){
 				console.info('input is OK');
 			}
@@ -32,7 +32,7 @@ var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 1.33771,
 vrt=V<= 249? 0: V<353.5? (V-249)/15: V<=354.5? .3: -(((V-254.5)/10)+.3);
 con=sat= 1;
 setFilter(brt, vrt, con, sat);`
-	}
+	}//return may not work, and window.var is not a constant.  However, even function func(){body} is a variable.
 	window.CSfn= new Function("ic", "rgb", "U", "W", "r", "g", "b","oRGB", fn);
 });
 setTimeout(()=>{
