@@ -278,27 +278,27 @@
 				<input type="reset" id="reset" disabled />
 				<!--endif[Pro]-->
 			</form>
-			<form>
+			<form style="width:calc(100vw - 90px)">
 				<h1>
 					[WIP]Custom filter function
 				</h1>
 				<h2>
 					Limited JavaScript
 				</h2>
-				<pre style="font-size:15px">
-Custom function variables MUST start with '_'
-No functions (includes |()=>{|)
-Most Math functions are allowed
-Use `setFilter(brt, vrt, con, sat)` to set the filter
-r: average red
-g: average green
-b: average blue
-ic: (0-10) for gradual changes of filter
-oRGB: old RGB
-U: unweighted RGB
-W: weighted RGB
-Note, eval is not used, just the function constructor
-				</pre>
+				<ol style="font-size:15px; font-weight:bold">
+					<li>Custom function variables MUST start with an underscore</li>
+					<li>No functions (includes arrow functions)</li>
+					<li>Most Math functions are allowed</li>
+					<li>Use <code style="background:LightGray">setFilter(brt, vrt, con, sat)</code> to set the filter</li>
+				</ol>
+				<pre style="font-size:15px; position:relative; left:20px; top:-10px">
+<var>r</var>: average red
+<var>g</var>: average green
+<var>b</var>: average blue
+<var>ic</var>: (0-10) pass number
+<var>oRGB</var>: old RGB
+<var>U</var>: unweighted RGB
+<var>W</var>: weighted RGB</pre>
 				<textarea style="width:calc(100vw - 90px); height:100px; resize:vertical">
 var V= oRGB*(1-ic) + rgb*ic;
 let _X= 0.0266813*V -6,
