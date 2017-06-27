@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', ()=>{
 	document.getElementById('func').addEventListener('change', ()=>{
-		var fn=document.getElementById('func').value,
-		rez=fn.replace(/(\d|Math\.(pow|round|ceil|floor|PI|abs|log|exp|random|a?cos|a?sin|a?tan|sqrt|atan2)|setFilter|(brt|vrt|con|sat|r|g|b|U|W|V|oRGB|ic)(?!(\w|\d))|_(\w|\d|_)+(?!\()|var|let|(if|else|if else)\(| |\(|\)|\+|\-|\=|\/|\*|\%|\!|\?|\<|\>|\,|\.|\n|\t|\|\||\&\&|\;|\:|true|false|undefined|null|\{|\})/g,'');
-		fn= fn.replace(/(window|document|eval|const|chrome)/, 'return;');
-		if((rez==''&&! /(\=\>\{|\((\d|\w|[,\._])?\)\=\>)/.test(fn))){
+		var fn=document.getElementById('func').value,//Order is important
+		rez=fn.replace(/(\/{2}.*\n|\/\*([^*/]|\s)*\*\/|\s|Math\.((pow|round|ceil|floor|abs|log|exp|random|a?(cos|sin2?|tan)m(ax|in)|sqrt)|SQRT(1_)?2|PI|E|(LN|LOG)(10|2)E?)|setFilter|(([bv]r|sa)t|con|[rgbUWV]|oRGB|ic)(?!(\w|\d))|_(\w|\d)+(?!\()|var|let|(if|(if )?else)\(|[!%&(-?{-}]|true|false|undefined|null|is(NaN|Finite)(?=\(.*\)))/g,'');
+		fn= fn.replace(/(window|document|evalu?|const|function|(chrom|toggl|Intliz)e|setPl|on(Play|Pause)|S(torageChange|HORT|TOP|TART)|tick|getAvColor|fn|(inn|out)erHTML)|re(place|[sS]et|z)/, 'return;');
+		if((rez==''&&! /(\=>{|\(.?\)\=>)/.test(fn))){
 			console.info('input is OK');
 			chrome.storage.sync.set({'fn':fn});
 			document.getElementById('valit').innerHTML= 'Function saved';

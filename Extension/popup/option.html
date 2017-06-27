@@ -305,14 +305,17 @@
 <var>W</var>: weighted RGB</pre>
 				<h2 id="valit"></h2>
 				<textarea style="width:calc(100vw - 90px); height:100px; resize:vertical" id="func">
-var V= oRGB*(1-ic) + rgb*ic;
+var V= oRGB*(1-ic) + U*ic;
 let _X= 0.0266813*V -6,
 _PN= _X<0? -1: 1;
 var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 1.33771,
 //Math.pow of fraction can't have negative base
 vrt=V<= 249? 0: V<353.5? (V-249)/15: V<=354.5? .3: -(((V-254.5)/10)+.3);
 con=sat= 1;
-//can exclude any parameter ex(brt) or (,vrt,,sat)
+/*
+can exclude any parameter 
+ex(brt) or (,vrt,,sat)
+*/
 setFilter(brt, vrt, con, sat);</textarea>
 			</form>
 		</div>
