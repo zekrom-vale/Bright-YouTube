@@ -8,6 +8,35 @@ VAS= document.createElement('canvas'),
 CONT= VAS.getContext && VAS.getContext('2d', {willReadFrequently:true});
 VAS.id= 'Brt-canvas',
 PLY= setPl();
+const CSfn= function(){
+	try{
+		var fn= chrome.storage.sync.get('fn', (items)=>{
+			return items.fn;//Can I use return?
+		});
+		if(fn==undefined) throw new ReferenceError('fn is undefined');
+		else{
+			rez=fn.replace(/(\/{2}.*\n|\/\*([^*/]|\s)*\*\/|\s|Math\.((pow|round|ceil|floor|abs|log|exp|random|a?(cos|sin2?|tan)m(ax|in)|sqrt)|SQRT(1_)?2|PI|E|(LN|LOG)(10|2)E?)|setFilter|(([bv]r|sa)t|con|[rgbUWV]|oRGB|ic)(?!(\w|\d))|_(\w|\d)+(?!\()|var|let|(if|(if )?else)\(|[!%&(-?{-}]|true|false|undefined|null|is(NaN|Finite)(?=\(.*\)))/g,'');
+			fn= fn.replace(/(window|document|evalu?|const|function|(chrom|toggl|Intliz)e|setPl|on(Play|Pause)|S(torageChange|HORT|TOP|TART)|tick|getAvColor|fn|(inn|out)erHTML)|re(place|[sS]et|z)/, 'return;');
+			if((rez==''&&! /(\=>{|\(.?\)\=>)/.test(fn))){
+				console.info('input is OK');
+			}
+			else{
+				throw new SyntaxError('Invalid input: '+ rez);
+			}
+		}
+	}catch(e){
+		console.warn(e);
+		fn=`var V= oRGB*(1-ic) + rgb*ic;
+let _X= 0.0266813*V -6,
+_PN= _X<0? -1: 1;
+var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 1.33771,
+vrt=V<= 249? 0: V<353.5? (V-249)/15: V<=354.5? .3: -(((V-254.5)/10)+.3);
+con=sat= 1;
+setFilter(brt, vrt, con, sat);`
+	}
+	var func= new function("ic", "rgb", "U", "W", "r", "g", "b","oRGB", fn);
+	return func;
+}
 setTimeout(()=>{
 	if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
 }, 1500);
@@ -205,7 +234,7 @@ function evalu(){
 	if(rgb< 254.9 && rgb> 20){
 		while(IC< 10){
 			let ic= IC;
-			setTimeout(tick(ic, rgb, U, W/*, r, g, b*/), (DLY*ic)/10);
+			setTimeout(tick(ic, rgb, U, W, r, g, b), (DLY*ic)/10);
 			IC+= inc;
 		}
 		oldRgb= rgb;
@@ -213,17 +242,11 @@ function evalu(){
 	else if(rgb<= 20) setFilter(1, 1);
 }
 
-function tick(ic, rgb, U, W/*, r, g, b*/){
+function tick(ic, rgb, U, W, r, g, b){
 	//More calibration required
 	var oRGB= oldRgb;
 	//start eval
-	var V= oRGB*(1-ic) + rgb*ic;
-	let _X= 0.0266813*V -6,
-	_PN= _X<0? -1: 1;
-	var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 1.33771,
-	vrt=V<= 249? 0: V<353.5? (V-249)/15: V<=354.5? .3: -(((V-254.5)/10)+.3);
-	con=sat= 1;
-	setFilter(brt, vrt, con, sat);
+	CSfn(ic, rgb, U, W, r, g, b);
 	//end eval
 	/*		Anomaly
 too dark

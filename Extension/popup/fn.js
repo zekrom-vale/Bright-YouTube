@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 			document.getElementById('valit').innerHTML= 'Function saved';
 		}
 		else{
+			console.warn('Invalid input: '+ rez);
 			document.getElementById('valit').innerHTML='Invalid input: '+ rez;
 		}
 	});
