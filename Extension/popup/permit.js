@@ -5,16 +5,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	TWCH= document.getElementById('Twitch'),
 	ALL= document.getElementById('All'),
 	FILE= document.getElementById('file');
-	//! NOT global and must be delayed!
 	//Set
 	chrome.permissions.getAll(callback=>{
+		console.info(callback.origins);
 		info= callback.origins.toString();
 		if(info.includes("www.youtube.com/*")) YTB.checked= true;
 		if(info.includes("gaming.youtube.com/*")) GAME.checked= true;
 		if(info.includes("youtube-nocookie.com/*")) EMB.checked= true;
 		if(info.includes("twitch.tv/*")) TWCH.checked= true;
 		if(info.includes("file://")) FILE.checked= true;
-		if(info.includes("<all_urls>")) ALL.checked= true;
+		if(info.includes("*://*/*")) ALL.checked= true;
 	});
 	//End Set	//Listen
 	YTB.addEventListener('change', ()=>{
@@ -38,7 +38,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		FILE.checked? reQuest(url, FILE): dePre(url, FILE);
 	});
 	ALL.addEventListener('change', ()=>{
-		ALL.checked? rAll(ALL,YTB,GAME,EMB,TWCH): dAll(ALL,YTB,GAME,EMB,TWCH);
+		url= ["*://*/*"];
+		ALL.checked? reQuest(url, ALL): dePre(url, ALL);
+		permReSet(ALL.checked);
 	});
 });
 //! Any path is ignored.
@@ -52,17 +54,6 @@ function reQuest(url, ent){
 		}
 	});
 }
-function rAll(ALL,YTB,GAME,EMB,TWCH,FILE){
-	chrome.permissions.request({
-		origins: ["<all_urls>"]
-	}, granted=>{
-		if(granted) YTB.checked= GAME.checked= EMB.checked= TWCH.checked= true
-		else{
-			ALL.checked= false;
-			setErr(401, `"${ALL.id}"`);
-		}
-	});
-}
 function dePre(url, ent){
 	chrome.permissions.remove({
 		origins: url
@@ -73,14 +64,24 @@ function dePre(url, ent){
 		}
 	});
 }
-function dAll(ALL,YTB,GAME,EMB,TWCH,FILE){
-	chrome.permissions.remove({
-		origins: ["<all_urls>"]
-	}, removed=>{
-		if(removed) YTB.checked= GAME.checked= EMB.checked= TWCH.checked= false;
-		else{
-			ALL.checked= true;
-			setErr(404.1, `"${ALL.id}"`);
-		}
-	});
+function permReSet(trlse){
+	with(document){
+		getElementById('YouTube').checked= trlse;
+		getElementById('Game').checked= trlse;
+		getElementById('Embed').checked= trlse;
+		getElementById('Twitch').checked= trlse;
+		getElementById('All').checked= trlse;
+		getElementById('Dailymotion').checked= trlse;
+		getElementById('hulu').checked= trlse;
+		getElementById('Vimeo').checked= trlse;
+		getElementById('Liveleak').checked= trlse;
+		getElementById('Break').checked= trlse;
+		getElementById('Netflix').checked= trlse;
+		getElementById('Vine').checked= trlse;
+		getElementById('Yahoo2').checked= trlse;
+		getElementById('Viewster').checked= trlse;
+		getElementById('Dot_tv').checked= trlse;
+		getElementById('Vevo').checked= trlse;
+		getElementById('Veoh').checked= trlse;
+	}
 }

@@ -28,15 +28,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	});
 	//Expand
 	document.getElementById('expandM').addEventListener('click', ()=>{
-		if(document.getElementById('more').style.display==''){
-			document.getElementById('more').style.display= 'none';
-			document.getElementById('formCSS').style.marginBottom='';
-			document.getElementById('expandM').innerHTML='More';
-		}
-		else{
-			document.getElementById('more').style.display= '';
-			document.getElementById('formCSS').style.marginBottom='531px';
-			document.getElementById('expandM').innerHTML='Less';
+		with(document){
+			if(getElementById('more').style.display==''){
+				getElementById('more').style.display= 'none';
+				getElementById('formCSS').style.marginBottom='';
+				getElementById('expandM').innerHTML='More';
+			}
+			else{
+				getElementById('more').style.display= '';
+				getElementById('formCSS').style.marginBottom='531px';
+				getElementById('expandM').innerHTML='Less';
+			}
 		}
 	});
 	//Listen

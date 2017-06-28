@@ -53,7 +53,7 @@
 		"*://*.tv/*",
 		"https://www.vevo.com/watch/*",
 		"http://www.veoh.com//*",
-		"<all_urls>",
+		"*://*/*",
 		"file://*/*"
 	],
 	"content_scripts": [{
@@ -77,7 +77,7 @@
 			"*://*.tv/*",
 			"https://www.vevo.com/watch/*",
 			"http://www.veoh.com/*",
-			"<all_urls>",
+			"*://*/*",
 			"file://*/*"
 		],
 		"exclude_matches": [
