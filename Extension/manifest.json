@@ -35,7 +35,6 @@
 		"page": "popup/option.html"
 	},
 	"optional_permissions": [
-		"activeTab",
 		"https://www.youtube.com/watch*",
 		"https://gaming.youtube.com/watch*",
 		"https://gaming.youtube.com/channel/*",
