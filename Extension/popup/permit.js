@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	//! NOT global and must be delayed!
 	//Set
 	chrome.permissions.getAll(callback=>{
-		console.log(callback.origins);
 		info= callback.origins.toString();
 		if(info.includes("www.youtube.com/*")) YTB.checked= true;
 		if(info.includes("gaming.youtube.com/*")) GAME.checked= true;

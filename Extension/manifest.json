@@ -76,7 +76,7 @@
 			"http://www.viewster.com/serie/*",
 			"*://*.tv/*",
 			"https://www.vevo.com/watch/*",
-			"http://www.veoh.com//*",
+			"http://www.veoh.com/*",
 			"<all_urls>",
 			"file://*/*"
 		],
