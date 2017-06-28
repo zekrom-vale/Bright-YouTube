@@ -38,11 +38,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		permReSet(ALL.checked);
 	});
 });
-function pros(url, ent){
+function pros(url, ent, per=null){
+	var obj={origins: url}
+	if(per!== null) obj.permissions= per;
 	if(ent.checked){
-		chrome.permissions.request({
-			origins: url
-		}, granted=>{
+		chrome.permissions.request(obj, granted=>{
 			if(!granted) {
 				ent.checked= false;
 				setErr(401, `"${ent.id}"`);
@@ -50,9 +50,7 @@ function pros(url, ent){
 		});
 	}
 	else{
-		chrome.permissions.remove({
-			origins: url
-		}, removed=>{
+		chrome.permissions.remove(obj, removed=>{
 			if(!removed){
 				ent.checked= true;
 				setErr(404.1, `"${ent.id}"`);
