@@ -39,20 +39,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	});
 	ALL.addEventListener('change', ()=>{
 		url= ["*://*/*"];
-		if(ALL.checked) reQuest(url, ALL);
+		ALL.checked? reQuest(url, ALL): dePre(url, ALL);
 		permReSet(ALL.checked);
-		if(ALL.checked==false){
-			chrome.permissions.getAll(callback=>{
-				chrome.permissions.remove({
-					origins: callback.origins
-				}, removed=>{
-					if(!removed){
-						ent.checked= true;
-						setErr(404.1, `"${ent.id}"`);
-					}
-				});
-			});
-		}
 	});
 });
 //! Any path is ignored.
@@ -95,6 +83,5 @@ function permReSet(trlse){
 		getElementById('Dot_tv').checked= trlse;
 		getElementById('Vevo').checked= trlse;
 		getElementById('Veoh').checked= trlse;
-		
 	}
 }
