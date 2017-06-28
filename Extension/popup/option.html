@@ -1,353 +1,353 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>
-			Bright YouTube Options
-		</title>
-		<meta charset="ANSI"/>
-		<link rel="stylesheet" href="core.css"/>
-		<link rel="stylesheet" href="togle.css"/>
-		<script src="js/page.js"></script>
-		<style id="setRb"></style>
-	</head>
-	<body style="width:300px">
-		<style>
-			body>*{
-				margin-right:30px;
-				margin-left:30px;
-			}
-		</style>
-		<a href="https://github.com/zekrom-vale" target="_blank" title="&copy; zekrom_vale" style="position:absolute; top:100px; right:225px;">
-		<svg id="logo" viewBox="0 0 500 500" style="width:150px; height:150px">
-				<circle cy="250" cx="250" r="185" style="fill:transparent; stroke:blue; stroke-width:115px; fill:grey"/>
-				<path d="M80 80 L180 240 L220 200 L280 360 L330 300 L420 420 L340 220 L300 270 L240 130 L180 180 Z" stroke-linejoin="round" style="fill:#6FF; stroke:blue; stroke-width:3px"/>
-				<path d="M80 80 L180 240 L220 200 L280 360 L330 300 L420 420 L330 290 L284 344 L225 180 L180 220 Z" stroke-linejoin="round" style="fill:grey; opacity:.5"/>
+<html style="width:332px">
+<head>
+	<title>
+		Bright YouTube Options
+	</title>
+	<meta charset="ANSI"/>
+	<link rel="stylesheet" href="core.css"/>
+	<link rel="stylesheet" href="togle.css"/>
+	<script src="js/page.js"></script>
+	<style id="setRb"></style>
+</head>
+<body>
+	<style>
+		body>*{
+			margin-right:30px;
+			margin-left:30px;
+		}
+	</style>
+	<a href="https://github.com/zekrom-vale" target="_blank" title="&copy; zekrom_vale" style="position:absolute; top:100px; right:225px;">
+	<svg id="logo" viewBox="0 0 500 500" style="width:150px; height:150px">
+			<circle cy="250" cx="250" r="185" style="fill:transparent; stroke:blue; stroke-width:115px; fill:grey"/>
+			<path d="M80 80 L180 240 L220 200 L280 360 L330 300 L420 420 L340 220 L300 270 L240 130 L180 180 Z" stroke-linejoin="round" style="fill:#6FF; stroke:blue; stroke-width:3px"/>
+			<path d="M80 80 L180 240 L220 200 L280 360 L330 300 L420 420 L330 290 L284 344 L225 180 L180 220 Z" stroke-linejoin="round" style="fill:grey; opacity:.5"/>
+		</svg>
+	</a>
+	<div style="font-size:40px; margin:0; position:absolute; top:30px; right: 245px">
+		<a href="https://www.patreon.com/zekrom_vale" target="_blank" style="color:white; text-decoration:none">
+			<svg width="50" height="50" viewBox="0 0 500 500" class="rb" style="fill:#3cf">
+				<rect x="0" y="10" rx="10" ry="10" height="480" width="88"/>
+				<circle cx="320" cy="190" r="179"/>
 			</svg>
+			<span style="position:relative; left:-10px; color:#2196f3" class="rb">
+				atrion
+			</span>
 		</a>
-		<div style="font-size:40px; margin:0; position:absolute; top:30px; right: 225px">
-			<a href="https://www.patreon.com/zekrom_vale" target="_blank" style="color:white; text-decoration:none">
-				<svg width="50" height="50" viewBox="0 0 500 500" class="rb" style="fill:#3cf">
-					<rect x="0" y="10" rx="10" ry="10" height="480" width="88"/>
-					<circle cx="320" cy="190" r="179"/>
-				</svg>
-				<span style="position:relative; left:-10px; color:#2196f3" class="rb">
-					atrion
-				</span>
-			</a>
+	</div>
+	<div style="position:absolute; top:40px; right:0">
+	<span class="box">
+		<label class="switch">
+			<input type="checkbox" id="IO" checked />
+			<div class="slider round"></div>
+		</label>
+		<span class="name"> Enabled</span>
+	</span>
+	
+	<span class="box"  title="Must reload to activate">
+		<label class="switch">
+			<input type="checkbox" id="ST"/>
+			<div class="slider round red"></div>
+		</label>
+		<span class="name" style="color:red"> Short</span>
+	</span>
+	<!--Permissions-->
+	<h1>
+		Permissions
+	</h1>
+	<div id="permit">
+		<script src="js/permit.js"></script>
+		<div style="height:220px; overflow-y:scroll; margin-bottom:10px">
+			<span class="box" title="youtube.com/embed/* Included">
+				<label class="switch">
+					<input type="checkbox" id="YouTube"/>
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> YouTube</span>
+			</span>
+			<span class="box">
+				<label class="switch">
+					<input type="checkbox" id="Game"/>
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> YT Games</span>
+			</span>
+			<span class="box" title="youtube.com/embed/* Excluded">
+				<label class="switch">
+					<input type="checkbox" id="Embed"/>
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> Embedded</span>
+			</span>
+			<span class="box">
+				<label class="switch">
+					<input type="checkbox" id="Twitch"/>
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> Twitch</span>
+			</span>
+			<!--if[Pro]-->
+			<script src="js/optionFile.js"></script>
+			<span class="box">
+				<label class="switch">
+					<input type="checkbox" id="Dailymotion"/>
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> Dailymotion</span>
+			</span>
+			<span class="box">
+				<label class="switch">
+					<input type="checkbox" id="hulu"/>
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> hulu</span>
+			</span>
+			<span class="box">
+				<label class="switch">
+					<input type="checkbox" id="Vimeo"/>
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> Vimeo</span>
+			</span>
+			<span class="box">
+				<label class="switch">
+					<input type="checkbox" id="Liveleak"/>
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> Liveleak</span>
+			</span>
+			<span class="box">
+				<label class="switch">
+					<input type="checkbox" id="Break"/>
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> Break</span>
+			</span>
+			<span class="box">
+				<label class="switch">
+					<input type="checkbox" id="Netflix"/>
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> Netflix</span>
+			</span>
+			<span class="box">
+				<label class="switch">
+					<input type="checkbox" id="Vine"/>
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> Vine</span>
+			</span>
+			<span class="box">
+				<label class="switch">
+					<input type="checkbox" id="Yahoo2"/>
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> Yahoo</span>
+			</span>
+			<span class="box">
+				<label class="switch">
+					<input type="checkbox" id="Viewster"/>
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> Viewster</span>
+			</span>
+			<span class="box">
+				<label class="switch">
+					<input type="checkbox" id="Dot_tv"/>
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> Dot tv</span>
+			</span>
+			<span class="box">
+				<label class="switch">
+					<input type="checkbox" id="Vevo"/>
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> Vevo</span>
+			</span>
+			<span class="box">
+				<label class="switch">
+					<input type="checkbox" id="Veoh"/>
+					<div class="slider round"></div>
+				</label>
+				<span class="name"> Veoh</span>
+			</span>
 		</div>
-		<div style="position:absolute; top:40px; right:0">
 		<span class="box">
 			<label class="switch">
-				<input type="checkbox" id="IO" checked />
+				<input type="checkbox" id="All" disabled/>
+				<div class="slider round red"></div>
+			</label>
+			<span class="name" style="color:red"> [OFF]All URLs</span>
+		</span>
+		<span class="box" title="Enable also at chrome://extensions">
+			<label class="switch">
+				<input type="checkbox" id="file">
+				<div class="slider round"></div>
+			</label>
+			<span class="name"> <a href="chrome://extensions" target="_blank" style="color:black">File</a></span>
+		</span>
+		<!--endif[Pro]-->
+	</div>
+	</div>
+	<!--CSS for opt-->
+	<!--if[Pro]-->
+	<script src="js/opt.js"></script>
+	<h1>
+		On / Off options
+	</h1>
+	<div id="CSScore" style="font-weight:800">
+		<span class="box">
+			<label class="switch">
+				<input type="checkbox" id="OnOff" checked />
 				<div class="slider round"></div>
 			</label>
 			<span class="name"> Enabled</span>
 		</span>
-		
-		<span class="box"  title="Must reload to activate">
+		<form id="formCSS">
+			<span>
+				Apply to:
+				<select id="Apply">
+					<option value="#Brt-opt.Brt-Fixed">Non-YouTube</option>
+					<option value="#Brt-opt:not(.Brt-Fixed)">YouTube</option>
+					<option value="#Brt-opt">Both</option>
+					<option value="ovrd,#Brt-opt">Overide YouTube</option>
+				</select>
+			</span>
+			<br/>
+			<span>
+				position: 
+				<select id="position">
+					<option value="fixed">fixed</option>
+					<option value="absolute">absolute</option>
+				</select>
+			</span>
+			<br/>
+			<span>
+				<select id="TB">
+					<option value="top">top</option>
+					<option value="bottom">bottom</option>
+				</select>
+				:
+				<input id="TBn" type="number" value="5" style="width:50px"/>
+				<select id="TBu" style="width:40px">
+					<option value="px">pixles(px)</option>
+					<option value="in">inches(in)</option>
+					<option value="cm">centimeters(cm)</option>
+					<option value="mm">millimeters(cm)</option>
+					<option value="vw">view width(vw)</option>
+					<option value="vh">view height(vh)</option>
+					<option value="vmin">view min(vmin)</option>
+					<option value="vmax">view max(vmax)</option>
+					<option value="%">percent(%)</option>
+				</select>
+			</span>
+			<br/>
+			<span>
+				<select id="RL">
+					<option value="right">right</option>
+					<option value="left">left</option>
+				</select>
+				:
+				<input id="RLn" type="number" value="5" style="width:50px"/>
+				<select id="RLu" style="width:40px">
+					<option value="px">pixles(px)</option>
+					<option value="in">inches(in)</option>
+					<option value="cm">centimeters(cm)</option>
+					<option value="mm">millimeters(cm)</option>
+					<option value="vw">view width(vw)</option>
+					<option value="vh">view height(vh)</option>
+					<option value="vmin">view min(vmin)</option>
+					<option value="vmax">view max(vmax)</option>
+					<option value="%">percent(%)</option>
+				</select>
+			</span>
+			<br/>
+			<span>
+				padding-top:
+				<input id="PTn" type="number" min="0" value="5" style="width:50px"/>
+				<select id="PTu" style="width:40px">
+					<option value="px">pixles(px)</option>
+					<option value="in">inches(in)</option>
+					<option value="cm">centimeters(cm)</option>
+					<option value="mm">millimeters(cm)</option>
+					<option value="vw">view width(vw)</option>
+					<option value="vh">view height(vh)</option>
+					<option value="vmin">view min(vmin)</option>
+					<option value="vmax">view max(vmax)</option>
+					<option value="%">percent(%)</option>
+				</select>
+			</span>
+			<br/>
+			<span>
+				padding-right:
+				<input id="PRn" type="number" min="0" value="5" style="width:30px"/>
+				<select id="PRu" style="width:40px">
+					<option value="px">pixles(px)</option>
+					<option value="in">inches(in)</option>
+					<option value="cm">centimeters(cm)</option>
+					<option value="mm">millimeters(cm)</option>
+					<option value="vw">view width(vw)</option>
+					<option value="vh">view height(vh)</option>
+					<option value="vmin">view min(vmin)</option>
+					<option value="vmax">view max(vmax)</option>
+					<option value="%">percent(%)</option>
+				</select>
+			</span>
+			<br/>
+			<span>
+				padding-bottom:
+				<input id="PBn" type="number" min="0" value="5" style="width:50px"/>
+				<select id="PBu" style="width:40px">
+					<option value="px">pixles(px)</option>
+					<option value="in">inches(in)</option>
+					<option value="cm">centimeters(cm)</option>
+					<option value="mm">millimeters(cm)</option>
+					<option value="vw">view width(vw)</option>
+					<option value="vh">view height(vh)</option>
+					<option value="vmin">view min(vmin)</option>
+					<option value="vmax">view max(vmax)</option>
+					<option value="%">percent(%)</option>
+				</select>
+			</span>
+			<br/>
+			<span>
+				padding-left:
+				<input id="PLn" type="number" min="0" value="5" style="width:50px"/>
+				<select id="PLu" style="width:40px">
+					<option value="px">pixles(px)</option>
+					<option value="in">inches(in)</option>
+					<option value="cm">centimeters(cm)</option>
+					<option value="mm">millimeters(cm)</option>
+					<option value="vw">view width(vw)</option>
+					<option value="vh">view height(vh)</option>
+					<option value="vmin">view min(vmin)</option>
+					<option value="vmax">view max(vmax)</option>
+					<option value="%">percent(%)</option>
+				</select>
+			</span>
+			<br/>
+			<span>
+				background-color:
+				<input id="Bc" type="color" value="#66FFFF"/>
+			</span>
+			<input type="reset" id="Nreset"/>
+		</form>
+		<br/><br/><br/><br/><br/><br/>
+		<h1>
+			<a href="https://www.w3schools.com/css" target="_blank" title="w3schools on CSS" style="color:#6FF">
+				CSS Style (Advanced)
+			</a>
+		</h1>
+		<span class="box">
 			<label class="switch">
-				<input type="checkbox" id="ST"/>
-				<div class="slider round red"></div>
+				<input type="checkbox" id="AdvOn"/>
+				<div class="slider round"></div>
 			</label>
-			<span class="name" style="color:red"> Short</span>
+			<span class="name"> Enabled</span>
 		</span>
-		<!--Permissions-->
-		<h1>
-			Permissions
-		</h1>
-		<div id="permit">
-			<script src="js/permit.js"></script>
-			<div style="height:220px; overflow-y:scroll; margin-bottom:10px">
-				<span class="box" title="youtube.com/embed/* Included">
-					<label class="switch">
-						<input type="checkbox" id="YouTube"/>
-						<div class="slider round"></div>
-					</label>
-					<span class="name"> YouTube</span>
-				</span>
-				<span class="box">
-					<label class="switch">
-						<input type="checkbox" id="Game"/>
-						<div class="slider round"></div>
-					</label>
-					<span class="name"> YT Games</span>
-				</span>
-				<span class="box" title="youtube.com/embed/* Excluded">
-					<label class="switch">
-						<input type="checkbox" id="Embed"/>
-						<div class="slider round"></div>
-					</label>
-					<span class="name"> Embedded</span>
-				</span>
-				<span class="box">
-					<label class="switch">
-						<input type="checkbox" id="Twitch"/>
-						<div class="slider round"></div>
-					</label>
-					<span class="name"> Twitch</span>
-				</span>
-				<!--if[Pro]-->
-				<script src="js/optionFile.js"></script>
-				<span class="box">
-					<label class="switch">
-						<input type="checkbox" id="Dailymotion"/>
-						<div class="slider round"></div>
-					</label>
-					<span class="name"> Dailymotion</span>
-				</span>
-				<span class="box">
-					<label class="switch">
-						<input type="checkbox" id="hulu"/>
-						<div class="slider round"></div>
-					</label>
-					<span class="name"> hulu</span>
-				</span>
-				<span class="box">
-					<label class="switch">
-						<input type="checkbox" id="Vimeo"/>
-						<div class="slider round"></div>
-					</label>
-					<span class="name"> Vimeo</span>
-				</span>
-				<span class="box">
-					<label class="switch">
-						<input type="checkbox" id="Liveleak"/>
-						<div class="slider round"></div>
-					</label>
-					<span class="name"> Liveleak</span>
-				</span>
-				<span class="box">
-					<label class="switch">
-						<input type="checkbox" id="Break"/>
-						<div class="slider round"></div>
-					</label>
-					<span class="name"> Break</span>
-				</span>
-				<span class="box">
-					<label class="switch">
-						<input type="checkbox" id="Netflix"/>
-						<div class="slider round"></div>
-					</label>
-					<span class="name"> Netflix</span>
-				</span>
-				<span class="box">
-					<label class="switch">
-						<input type="checkbox" id="Vine"/>
-						<div class="slider round"></div>
-					</label>
-					<span class="name"> Vine</span>
-				</span>
-				<span class="box">
-					<label class="switch">
-						<input type="checkbox" id="Yahoo2"/>
-						<div class="slider round"></div>
-					</label>
-					<span class="name"> Yahoo</span>
-				</span>
-				<span class="box">
-					<label class="switch">
-						<input type="checkbox" id="Viewster"/>
-						<div class="slider round"></div>
-					</label>
-					<span class="name"> Viewster</span>
-				</span>
-				<span class="box">
-					<label class="switch">
-						<input type="checkbox" id="Dot_tv"/>
-						<div class="slider round"></div>
-					</label>
-					<span class="name"> Dot tv</span>
-				</span>
-				<span class="box">
-					<label class="switch">
-						<input type="checkbox" id="Vevo"/>
-						<div class="slider round"></div>
-					</label>
-					<span class="name"> Vevo</span>
-				</span>
-				<span class="box">
-					<label class="switch">
-						<input type="checkbox" id="Veoh"/>
-						<div class="slider round"></div>
-					</label>
-					<span class="name"> Veoh</span>
-				</span>
-			</div>
-			<span class="box">
-				<label class="switch">
-					<input type="checkbox" id="All" disabled/>
-					<div class="slider round red"></div>
-				</label>
-				<span class="name" style="color:red"> [OFF]All URLs</span>
-			</span>
-			<span class="box" title="Enable also at chrome://extensions">
-				<label class="switch">
-					<input type="checkbox" id="file">
-					<div class="slider round"></div>
-				</label>
-				<span class="name"> <a href="chrome://extensions" target="_blank" style="color:black">File</a></span>
-			</span>
-			<!--endif[Pro]-->
-		</div>
-		</div>
-		<!--CSS for opt-->
-		<!--if[Pro]-->
-		<script src="js/opt.js"></script>
-		<h1>
-			On / Off options
-		</h1>
-		<div id="CSScore" style="font-weight:800">
-			<span class="box">
-				<label class="switch">
-					<input type="checkbox" id="OnOff" checked />
-					<div class="slider round"></div>
-				</label>
-				<span class="name"> Enabled</span>
-			</span>
-			<form id="formCSS">
-				<span>
-					Apply to:
-					<select id="Apply">
-						<option value="#Brt-opt.Brt-Fixed">Non-YouTube</option>
-						<option value="#Brt-opt:not(.Brt-Fixed)">YouTube</option>
-						<option value="#Brt-opt">Both</option>
-						<option value="ovrd,#Brt-opt">Overide YouTube</option>
-					</select>
-				</span>
-				<br/>
-				<span>
-					position: 
-					<select id="position">
-						<option value="fixed">fixed</option>
-						<option value="absolute">absolute</option>
-					</select>
-				</span>
-				<br/>
-				<span>
-					<select id="TB">
-						<option value="top">top</option>
-						<option value="bottom">bottom</option>
-					</select>
-					:
-					<input id="TBn" type="number" value="5" style="width:50px"/>
-					<select id="TBu" style="width:40px">
-						<option value="px">pixles(px)</option>
-						<option value="in">inches(in)</option>
-						<option value="cm">centimeters(cm)</option>
-						<option value="mm">millimeters(cm)</option>
-						<option value="vw">view width(vw)</option>
-						<option value="vh">view height(vh)</option>
-						<option value="vmin">view min(vmin)</option>
-						<option value="vmax">view max(vmax)</option>
-						<option value="%">percent(%)</option>
-					</select>
-				</span>
-				<br/>
-				<span>
-					<select id="RL">
-						<option value="right">right</option>
-						<option value="left">left</option>
-					</select>
-					:
-					<input id="RLn" type="number" value="5" style="width:50px"/>
-					<select id="RLu" style="width:40px">
-						<option value="px">pixles(px)</option>
-						<option value="in">inches(in)</option>
-						<option value="cm">centimeters(cm)</option>
-						<option value="mm">millimeters(cm)</option>
-						<option value="vw">view width(vw)</option>
-						<option value="vh">view height(vh)</option>
-						<option value="vmin">view min(vmin)</option>
-						<option value="vmax">view max(vmax)</option>
-						<option value="%">percent(%)</option>
-					</select>
-				</span>
-				<br/>
-				<span>
-					padding-top:
-					<input id="PTn" type="number" min="0" value="5" style="width:50px"/>
-					<select id="PTu" style="width:40px">
-						<option value="px">pixles(px)</option>
-						<option value="in">inches(in)</option>
-						<option value="cm">centimeters(cm)</option>
-						<option value="mm">millimeters(cm)</option>
-						<option value="vw">view width(vw)</option>
-						<option value="vh">view height(vh)</option>
-						<option value="vmin">view min(vmin)</option>
-						<option value="vmax">view max(vmax)</option>
-						<option value="%">percent(%)</option>
-					</select>
-				</span>
-				<br/>
-				<span>
-					padding-right:
-					<input id="PRn" type="number" min="0" value="5" style="width:30px"/>
-					<select id="PRu" style="width:40px">
-						<option value="px">pixles(px)</option>
-						<option value="in">inches(in)</option>
-						<option value="cm">centimeters(cm)</option>
-						<option value="mm">millimeters(cm)</option>
-						<option value="vw">view width(vw)</option>
-						<option value="vh">view height(vh)</option>
-						<option value="vmin">view min(vmin)</option>
-						<option value="vmax">view max(vmax)</option>
-						<option value="%">percent(%)</option>
-					</select>
-				</span>
-				<br/>
-				<span>
-					padding-bottom:
-					<input id="PBn" type="number" min="0" value="5" style="width:50px"/>
-					<select id="PBu" style="width:40px">
-						<option value="px">pixles(px)</option>
-						<option value="in">inches(in)</option>
-						<option value="cm">centimeters(cm)</option>
-						<option value="mm">millimeters(cm)</option>
-						<option value="vw">view width(vw)</option>
-						<option value="vh">view height(vh)</option>
-						<option value="vmin">view min(vmin)</option>
-						<option value="vmax">view max(vmax)</option>
-						<option value="%">percent(%)</option>
-					</select>
-				</span>
-				<br/>
-				<span>
-					padding-left:
-					<input id="PLn" type="number" min="0" value="5" style="width:50px"/>
-					<select id="PLu" style="width:40px">
-						<option value="px">pixles(px)</option>
-						<option value="in">inches(in)</option>
-						<option value="cm">centimeters(cm)</option>
-						<option value="mm">millimeters(cm)</option>
-						<option value="vw">view width(vw)</option>
-						<option value="vh">view height(vh)</option>
-						<option value="vmin">view min(vmin)</option>
-						<option value="vmax">view max(vmax)</option>
-						<option value="%">percent(%)</option>
-					</select>
-				</span>
-				<br/>
-				<span>
-					background-color:
-					<input id="Bc" type="color" value="#66FFFF"/>
-				</span>
-				<input type="reset" id="Nreset"/>
-			</form>
-			<br/><br/><br/><br/><br/><br/>
-			<h1>
-				<a href="https://www.w3schools.com/css" target="_blank" title="w3schools on CSS" style="color:#6FF">
-					CSS Style (Advanced)
-				</a>
-			</h1>
-			<span class="box">
-				<label class="switch">
-					<input type="checkbox" id="AdvOn"/>
-					<div class="slider round"></div>
-				</label>
-				<span class="name"> Enabled</span>
-			</span>
-			<form>
-				<textarea type="text" id="adv" style="width:calc(100vw - 90px); height:100px; resize:vertical">
+		<form>
+			<textarea type="text" id="adv" style="width:calc(100vw - 90px); height:100px; resize:vertical">
 #Brt-opt.Brt-Fixed{
 	position:fixed;
 	top:5px;
@@ -360,28 +360,28 @@
 #Brt-opt{
 	background-color:blue
 }
-				</textarea>
-				<input type="checkbox" id="arm"/>
-				<input type="reset" id="reset" disabled />
-				<!--endif[Pro]-->
-			</form>
-			<script src="js/fn.js"></script>
-			<form style="width:calc(100vw - 90px)">
-				<h1>
-					[ALPHA]Custom filter function
-				</h1>
-				<h2>
-					Limited JavaScript
-				</h2>
-				<ol style="font-size:15px; font-weight:bold">
-					<li>Custom function variables MUST start with an underscore</li>
-					<li>No functions (includes arrow functions)</li>
-					<li>if else statements allowed</li>
-					<li>document, window, or getElement is disabled</li>
-					<li>Most Math functions are allowed</li>
-					<li>Use <code style="background:LightGray">setFilter(brt, vrt, con, sat)</code> to set the filter</li>
-				</ol>
-				<pre style="font-size:15px; position:relative; left:20px; top:-10px">
+			</textarea>
+			<input type="checkbox" id="arm"/>
+			<input type="reset" id="reset" disabled />
+			<!--endif[Pro]-->
+		</form>
+		<script src="js/fn.js"></script>
+		<form style="width:calc(100vw - 90px)">
+			<h1>
+				[ALPHA]Custom filter function
+			</h1>
+			<h2>
+				Limited JavaScript
+			</h2>
+			<ol style="font-size:15px; font-weight:bold">
+				<li>Custom function variables MUST start with an underscore</li>
+				<li>No functions (includes arrow functions)</li>
+				<li>if else statements allowed</li>
+				<li>document, window, or getElement is disabled</li>
+				<li>Most Math functions are allowed</li>
+				<li>Use <code style="background:LightGray">setFilter(brt, vrt, con, sat)</code> to set the filter</li>
+			</ol>
+			<pre style="font-size:15px; position:relative; left:20px; top:-10px">
 <var>r</var>: average red
 <var>g</var>: average green
 <var>b</var>: average blue
@@ -390,8 +390,8 @@
 <var>oRGB</var>: old RGB
 <var>U</var>: unweighted RGB
 <var>W</var>: weighted RGB</pre>
-				<h2 id="valit"></h2>
-				<textarea style="width:calc(100vw - 90px); height:100px; resize:vertical" id="func">
+			<h2 id="valit"></h2>
+			<textarea style="width:calc(100vw - 90px); height:100px; resize:vertical" id="func">
 var V= oRGB*(1-ic) + U*ic;
 let _X= 0.0266813*V -6,
 _PN= _X<0? -1: 1;
@@ -404,12 +404,12 @@ can exclude any parameter
 ex(brt) or (,vrt,,sat)
 */
 setFilter(brt, vrt, con, sat);</textarea>
-			</form>
-		</div>
-		<!--if[Free]->
-		<script src="ads/ad.js"></script>
-		<div class="a" id="ad" style="width:calc(100vw - 90px); height:100px; resize:vertical; margin:0 30px; padding:0"></div>
-		<!--endif[Free]-->
-		<h3 id="display"/>
-	</body>
+		</form>
+	</div>
+	<!--if[Free]->
+	<script src="ads/ad.js"></script>
+	<div class="a" id="ad" style="width:calc(100vw - 90px); height:100px; resize:vertical; margin:0 30px; padding:0"></div>
+	<!--endif[Free]-->
+	<h3 id="display"/>
+</body>
 </html>
