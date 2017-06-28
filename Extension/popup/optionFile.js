@@ -26,21 +26,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		if(info.includes("vevo.com")) VEV.checked= true;
 		if(info.includes("veoh.com")) VEHO.checked= true;
 	});
-	//Expand
-	document.getElementById('expandM').addEventListener('click', ()=>{
-		with(document){
-			if(getElementById('more').style.display==''){
-				getElementById('more').style.display= 'none';
-				getElementById('formCSS').style.marginBottom='';
-				getElementById('expandM').innerHTML='More';
-			}
-			else{
-				getElementById('more').style.display= '';
-				getElementById('formCSS').style.marginBottom='531px';
-				getElementById('expandM').innerHTML='Less';
-			}
-		}
-	});
 	//Listen
 	DLMN.addEventListener('change', ()=>{
 		var url=["http://www.dailymotion.com/video/*"];
