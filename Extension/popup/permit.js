@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		if(info.includes("youtube-nocookie.com/*")) EMB.checked= true;
 		if(info.includes("twitch.tv/*")) TWCH.checked= true;
 		if(info.includes("file://")) FILE.checked= true;
-		if(info.includes("*://*/*")) ALL.checked= true;
+		if(callback.permissions.includes("activeTab")) ALL.checked= true;
 	});
 	//End Set	//Listen
 	YTB.addEventListener('change', ()=>{
@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		pros(["https://gaming.youtube.com/watch*"], GAME);
 	});
 	EMB.addEventListener('change', ()=>{
-		var url= ["https://www.youtube-nocookie.com/embed/*"/*, "https://www.youtube.com/embed/*"*/];
-		pros(url, EMB);
+		/*, "https://www.youtube.com/embed/*"*/
+		pros(["https://www.youtube-nocookie.com/embed/*"], EMB);
 	});
 	TWCH.addEventListener('change', ()=>{
 		pros(["https://www.twitch.tv/videos/*"], TWCH);
@@ -34,13 +34,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		pros(["file://*/*"], FILE);
 	});
 	ALL.addEventListener('change', ()=>{
-		pros(["*://*/*"], ALL);
+		pros(undefined, ALL, ["activeTab"]);
 		permReSet(ALL.checked);
 	});
 });
-function pros(url, ent, per=null){
-	var obj={origins: url}
-	if(per!== null) obj.permissions= per;
+function pros(url=undefined, ent, per=undefined){
+	var obj={};
+	if(url!== undefined) obj.origins= url;
+	if(per!== undefined) obj.permissions= per;
 	if(ent.checked){
 		chrome.permissions.request(obj, granted=>{
 			if(!granted) {
