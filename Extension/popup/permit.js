@@ -18,70 +18,45 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	});
 	//End Set	//Listen
 	YTB.addEventListener('change', ()=>{
-		var url=["https://www.youtube.com/watch*"];
-		YTB.checked? reQuest(url, YTB): dePre(url, YTB);
+		pros(["https://www.youtube.com/watch*"], YTB);
 	});
 	GAME.addEventListener('change', ()=>{
-		var url= ["https://gaming.youtube.com/watch*"];
-		GAME.checked? reQuest(url, GAME): dePre(url, GAME);
+		pros(["https://gaming.youtube.com/watch*"], GAME);
 	});
 	EMB.addEventListener('change', ()=>{
 		var url= ["https://www.youtube-nocookie.com/embed/*"/*, "https://www.youtube.com/embed/*"*/];
-		EMB.checked? reQuest(url, EMB): dePre(url, EMB);
+		pros(url, EMB);
 	});
 	TWCH.addEventListener('change', ()=>{
-		var url= ["https://www.twitch.tv/videos/*"];
-		TWCH.checked? reQuest(url, TWCH): dePre(url, TWCH);
+		pros(["https://www.twitch.tv/videos/*"], TWCH);
 	});
 	FILE.addEventListener('change', ()=>{
-		var url= ["file://*/*"];
-		FILE.checked? reQuest(url, FILE): dePre(url, FILE);
+		pros(["file://*/*"], FILE);
 	});
 	ALL.addEventListener('change', ()=>{
-		url= ["*://*/*"];
-		ALL.checked? reQuest(url, ALL): dePre(url, ALL);
+		pros(["*://*/*"], ALL);
 		permReSet(ALL.checked);
 	});
 });
-//! Any path is ignored.
-function reQuest(url, ent){
-	chrome.permissions.request({
-		origins: url
-	}, granted=>{
-		if(!granted) {
-			ent.checked= false;
-			setErr(401, `"${ent.id}"`);
-		}
-	});
-}
-function dePre(url, ent){
-	chrome.permissions.remove({
-		origins: url
-	}, removed=>{
-		if(!removed){
-			ent.checked= true;
-			setErr(404.1, `"${ent.id}"`);
-		}
-	});
-}
-function permReSet(trlse){
-	with(document){
-		getElementById('YouTube').checked= trlse;
-		getElementById('Game').checked= trlse;
-		getElementById('Embed').checked= trlse;
-		getElementById('Twitch').checked= trlse;
-		getElementById('All').checked= trlse;
-		getElementById('Dailymotion').checked= trlse;
-		getElementById('hulu').checked= trlse;
-		getElementById('Vimeo').checked= trlse;
-		getElementById('Liveleak').checked= trlse;
-		getElementById('Break').checked= trlse;
-		getElementById('Netflix').checked= trlse;
-		getElementById('Vine').checked= trlse;
-		getElementById('Yahoo2').checked= trlse;
-		getElementById('Viewster').checked= trlse;
-		getElementById('Dot_tv').checked= trlse;
-		getElementById('Vevo').checked= trlse;
-		getElementById('Veoh').checked= trlse;
+function pros(url, ent){
+	if(ent.checked){
+		chrome.permissions.request({
+			origins: url
+		}, granted=>{
+			if(!granted) {
+				ent.checked= false;
+				setErr(401, `"${ent.id}"`);
+			}
+		});
+	}
+	else{
+		chrome.permissions.remove({
+			origins: url
+		}, removed=>{
+			if(!removed){
+				ent.checked= true;
+				setErr(404.1, `"${ent.id}"`);
+			}
+		});
 	}
 }

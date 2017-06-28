@@ -28,51 +28,39 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	});
 	//Listen
 	DLMN.addEventListener('change', ()=>{
-		var url=["http://www.dailymotion.com/video/*"];
-		DLMN.checked? reQuest(url, DLMN): dePre(url, DLMN);
+		pros(["http://www.dailymotion.com/video/*"], DLMN);
 	});
 	HLU.addEventListener('change', ()=>{
-		var url=["https://www.hulu.com/*"];
-		HLU.checked? reQuest(url, HLU): dePre(url, HLU);
+		pros(["https://www.hulu.com/*"], HLU);
 	});
 	VIM.addEventListener('change', ()=>{
-		var url=["https://vimeo.com/*"];
-		VIM.checked? reQuest(url, VIM): dePre(url, VIM);
+		pros(["https://vimeo.com/*"], VIM);
 	});
 	LIVE.addEventListener('change', ()=>{
-		var url=["https://www.liveleak.com/view*"];
-		LIVE.checked? reQuest(url, LIVE): dePre(url, LIVE);
+		pros(["https://www.liveleak.com/view*"], LIVE);
 	});
 	BRK.addEventListener('change', ()=>{
-		var url=["http://www.break.com/video/*"];
-		BRK.checked? reQuest(url, BRK): dePre(url, BRK);
+		pros(["http://www.break.com/video/*"], BRK);
 	});
 	FLIX.addEventListener('change', ()=>{
-		var url=["https://www.netflix.com/"];
-		FLIX.checked? reQuest(url, FLIX): dePre(url, FLIX);
+		pros(["https://www.netflix.com/"], FLIX);
 	});
 	VINE.addEventListener('change', ()=>{
-		var url=["https://vine.co/*"];
-		VINE.checked? reQuest(url, VINE): dePre(url, VINE);
+		pros(["https://vine.co/*"], VINE);
 	});
 	YAH.addEventListener('change', ()=>{
-		var url=["https://view.yahoo.com/show/*"];
-		YAH.checked? reQuest(url, YAH): dePre(url, YAH);
+		pros(["https://view.yahoo.com/show/*"], YAH);
 	});
 	VIE.addEventListener('change', ()=>{
-		var url=["http://www.viewster.com/serie/*"];
-		VIE.checked? reQuest(url, VIE): dePre(url, VIE);
+		pros(["http://www.viewster.com/serie/*"], VIE);
 	});
 	DTV.addEventListener('change', ()=>{
-		var url=["*://*.tv/*"];
-		DTV.checked? reQuest(url, DTV): dePre(url, DTV);
+		pros(["*://*.tv/*"], DTV);
 	});
 	VEV.addEventListener('change', ()=>{
-		var url=["https://www.vevo.com/watch/*"];
-		VEV.checked? reQuest(url, VEV): dePre(url, VEV);
+		pros(["https://www.vevo.com/watch/*"], VEV);
 	});
 	VEHO.addEventListener('change', ()=>{
-		var url=["http://www.veoh.com/*"];
-		VEHO.checked? reQuest(url, VEHO): dePre(url, VEHO);
+		pros(["http://www.veoh.com/*"], VEHO);
 	});
 });
