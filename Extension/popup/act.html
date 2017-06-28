@@ -4,8 +4,8 @@
 		<meta charset="ANSI"/>
 		<link rel="stylesheet" href="core.css"/>
 		<link rel="stylesheet" href="togle.css"/>
-		<script src="page.js"></script>
-		<script src="act.js"></script>
+		<script src="js/page.js"></script>
+		<script src="js/act.js"></script>
 		<style id="setRb"></style>
 	</head>
 	<body>
@@ -37,11 +37,22 @@
 		<button id="close" style="font-weight:700">X</button>
 		<!--if[Pro]-->
 		<!--Permissions-->
-		<button style="margin:10px 10px; border-radius:10px; background:aqua; color:black; font-size:20px" id="exp">
+		<style>
+			#exp,
+			#CSS{
+				margin:10px 10px;
+				border-radius:10px;
+				background:aqua;
+				color:black;
+				font-size:20px
+			}
+		</style>
+		CSS
+		<button id="exp">
 			Permissions
 		</button>
 		<div id="permit" style="display:none">
-			<script src="permit.js"></script>
+			<script src="js/permit.js"></script>
 			<span class="box" title="youtube.com/embed/* Included">
 				<label class="switch">
 					<input type="checkbox" id="YouTube">
@@ -87,8 +98,8 @@
 			</span>
 		</div>
 		<!--CSS for opt-->
-		<script src="opt.js"></script>
-		<button style="margin:10px 10px; border-radius:10px; background:aqua; color:black; font-size:20px" id="CSS">
+		<script src="js/opt.js"></script>
+		<button id="CSS">
 			On / Off options
 		</button>
 		<div id="CSScore" style="font-weight:800; display:none">

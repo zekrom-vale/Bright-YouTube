@@ -38,9 +38,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		permReSet(ALL.checked);
 	});
 });
-function pros(url, ent, per=null){
-	var obj={origins: url}
-	if(per!== null) obj.permissions= per;
+function pros(url=undefined, ent, per=undefined){
+	var obj={};
+	if(url!==undefined) obj.origins= url;
+	if(per!== undefined) obj.permissions= per;
 	if(ent.checked){
 		chrome.permissions.request(obj, granted=>{
 			if(!granted) {
