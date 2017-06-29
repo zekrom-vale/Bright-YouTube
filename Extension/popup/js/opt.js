@@ -1,4 +1,17 @@
 document.addEventListener('DOMContentLoaded', (event)=>{
+	var div=document.createElement('div'),
+	type= ['px', 'in', 'cm', 'mm', 'vw', 'vh', 'vmax', 'vmin', '%'],
+	unit= [];
+	for(var i= 0; i<type.length; i++){
+		unit[i]= document.createElement('option');
+		unit[i].value= unit[i].innerHTML= type[i];
+		div.appendChild(unit[i]);
+	}
+	var select= document.getElementsByClassName('unit');
+	console.info(select);
+	for(var i= 0; i<select.length; i++){
+		select[i].innerHTML=div.innerHTML;
+	}
 	document.getElementById('OnOff').addEventListener('change', function(){
 		chrome.storage.sync.set({'PozOn':this.checked});
 	});
