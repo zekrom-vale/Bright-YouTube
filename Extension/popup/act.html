@@ -11,9 +11,9 @@
 <body>
 	<a href="https://github.com/zekrom-vale" target="_blank" title="&copy; zekrom_vale">
 	<svg id="logo" viewBox="0 0 500 500">
-			<circle cy="250" cx="250" r="185" style="fill:transparent; stroke:blue; stroke-width:115px; fill:gray"/>
-			<path d="M80 80 L180 240 L220 200 L280 360 L330 300 L420 420 L340 220 L300 270 L240 130 L180 180 Z" stroke-linejoin="round" style="fill:#6FF; stroke:blue; stroke-width:3px"/>
-			<path d="M80 80 L180 240 L220 200 L280 360 L330 300 L420 420 L330 290 L284 344 L225 180 L180 220 Z" stroke-linejoin="round" style="fill:grey; opacity:.5"/>
+			<circle cy="250" cx="250" r="185"/>
+			<path d="M80 80 L180 240 L220 200 L280 360 L330 300 L420 420 L340 220 L300 270 L240 130 L180 180 Z" stroke-linejoin="round" id="bolt"/>
+			<path d="M80 80 L180 240 L220 200 L280 360 L330 300 L420 420 L330 290 L284 344 L225 180 L180 220 Z" stroke-linejoin="round" id="shadow"/>
 		</svg>
 	</a>
 	<h2 style="color:red"><!--#2196f3-->
@@ -32,7 +32,7 @@
 			<input type="checkbox" id="ST">
 			<div class="slider round red"></div>
 		</label>
-		<span class="name" style="color:red"> Short</span>
+		<span class="name red"> Short</span>
 	</span>
 	<button id="close" style="font-weight:700">X</button>
 	<!--if[Pro]-->
@@ -94,7 +94,7 @@
 				<input type="checkbox" id="All" disabled>
 				<div class="slider round red"></div>
 			</label>
-			<span class="name" style="color:red"> [OFF]All URLs</span>
+			<span class="name red"> [OFF]All URLs</span>
 		</span>
 	</div>
 	<!--CSS for opt-->
@@ -134,8 +134,8 @@
 					<option value="bottom">bottom</option>
 				</select>
 				:
-				<input id="TBn" type="number" value="5" style="width:50px"/>
-				<select id="TBu" style="width:40px">
+				<input id="TBn" type="number" value="5"/>
+				<select id="TBu">
 					<option value="px">pixles(px)</option>
 					<option value="in">inches(in)</option>
 					<option value="cm">centimeters(cm)</option>
@@ -155,8 +155,8 @@
 					<option value="left">left</option>
 				</select>
 				:
-				<input id="RLn" type="number" value="5" style="width:50px"/>
-				<select id="RLu" style="width:40px">
+				<input id="RLn" type="number" value="5"/>
+				<select id="RLu">
 					<option value="px">pixles(px)</option>
 					<option value="in">inches(in)</option>
 					<option value="cm">centimeters(cm)</option>
@@ -171,8 +171,8 @@
 			<br/>
 			<span>
 				padding-top:
-				<input id="PTn" type="number" min="0" value="5" style="width:50px"/>
-				<select id="PTu" style="width:40px">
+				<input id="PTn" type="number" min="0" value="5"/>
+				<select id="PTu">
 					<option value="px">pixles(px)</option>
 					<option value="in">inches(in)</option>
 					<option value="cm">centimeters(cm)</option>
@@ -188,7 +188,7 @@
 			<span>
 				padding-right:
 				<input id="PRn" type="number" min="0" value="5" style="width:30px"/>
-				<select id="PRu" style="width:40px">
+				<select id="PRu">
 					<option value="px">pixles(px)</option>
 					<option value="in">inches(in)</option>
 					<option value="cm">centimeters(cm)</option>
@@ -203,8 +203,8 @@
 			<br/>
 			<span>
 				padding-bottom:
-				<input id="PBn" type="number" min="0" value="5" style="width:50px"/>
-				<select id="PBu" style="width:40px">
+				<input id="PBn" type="number" min="0" value="5"/>
+				<select id="PBu">
 					<option value="px">pixles(px)</option>
 					<option value="in">inches(in)</option>
 					<option value="cm">centimeters(cm)</option>
@@ -219,8 +219,8 @@
 			<br/>
 			<span>
 				padding-left:
-				<input id="PLn" type="number" min="0" value="5" style="width:50px"/>
-				<select id="PLu" style="width:40px">
+				<input id="PLn" type="number" min="0" value="5">
+				<select id="PLu">
 					<option value="px">pixles(px)</option>
 					<option value="in">inches(in)</option>
 					<option value="cm">centimeters(cm)</option>
