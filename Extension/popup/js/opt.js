@@ -5,8 +5,7 @@ document.addEventListener('DOMContentLoaded', event=>{
 	});
 	if(document.querySelector('#cUnit')!== null){
 		document.getElementById('cUnit').addEventListener('change', ()=>{
-			var unit=document.getElementById('cUnit').value;
-			unit= unit.split(/\s*,\s*/);
+			var unit= document.getElementById('cUnit').value.split(/\s*,\s*/);
 			chrome.storage.sync.set({'type': unit});
 			runSelect(unit);
 		});
@@ -17,7 +16,9 @@ document.addEventListener('DOMContentLoaded', event=>{
 	chrome.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Adv', 'AdvOn'], items=>{
 		document.getElementById('OnOff').checked= items.PozOn;
 		//Set normal CSS
-		document.getElementById('Apply').value= items.PozSkip=== true? 'ovrd,#Brt-opt': items.PozCSS.apply;
+		with(items){
+			document.getElementById('Apply').value= PozSkip=== true? 'ovrd,'+ PozCSS.apply: PozCSS.apply;
+		}
 		with(items.PozCSS){
 			document.getElementById('position').value= position;
 			document.getElementById('TB').value=  TB[0];		
@@ -37,17 +38,18 @@ document.addEventListener('DOMContentLoaded', event=>{
 			document.getElementById('Bc').value=  Bc;
 		}
 		//Set Advanced CSS
-		items.Adv=== undefined? items.Adv= undefined :document.getElementById('adv').value= items.Adv;
+		if(items.Adv!== undefined) document.getElementById('adv').value= items.Adv;
 		document.getElementById('AdvOn').checked= items.AdvOn;
 	});
 	document.getElementById('formCSS').addEventListener('change', saveCSS);
 	//Save advanced CSS
-	document.getElementById('adv').addEventListener('change', ()=>{
-		chrome.storage.sync.set({'Adv': document.getElementById('adv').value});
-	});
-	document.getElementById('adv').addEventListener('keypress', ()=>{
-		chrome.storage.sync.set({'Adv': document.getElementById('adv').value});
-	});
+	with(document.getElementById('adv')){
+		addEventListener('change', setAdv);
+		addEventListener('keypress', setAdv);
+	}
+	function setAdv(){
+		chrome.storage.sync.set({'Adv': this.value});
+	}
 	document.getElementById('AdvOn').addEventListener('change', function(){
 		chrome.storage.sync.set({'AdvOn':this.checked});
 	});
@@ -121,16 +123,16 @@ function saveCSS(){
 function runSelect(type){
 	//['pt', 'pc', 'ch', 'em', 'rem']
 	var div= document.createElement('div'),
-	unit= [];
-	var i;
+	unit= [],
+	i,
+	select= document.getElementsByClassName('unit');
 	for(i in type){
 		unit[i]= document.createElement('option');
 		unit[i].value= unit[i].innerHTML= type[i];
 		div.appendChild(unit[i]);
 	}
-	var select= document.getElementsByClassName('unit');
 	for(i in select){
-		select[i].innerHTML=div.innerHTML;
+		select[i].innerHTML= div.innerHTML;
 	}
-	if(document.querySelector('#cUnit')!== null)document.getElementById('cUnit').value= type.join(', ')
+	if(document.querySelector('#cUnit')!== null)document.getElementById('cUnit').value= type.join(', ');
 }

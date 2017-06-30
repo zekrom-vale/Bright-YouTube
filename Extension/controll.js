@@ -32,14 +32,16 @@ var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 1.33771,
 vrt=V<= 249? 0: V<353.5? (V-249)/15: V<=354.5? .3: -(((V-254.5)/10)+.3);
 con=sat= 1;
 setFilter(brt, vrt, con, sat);`
-	}//return may not work, and window.var is not a constant.  However, even function func(){body} is a variable.
+	}
 	window.CSfn= new Function("ic", "rgb", "U", "W", "r", "g", "b","oRGB", fn);
 });
 setTimeout(()=>{
+	console.log('runing: 1');
 	if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
 }, 1500);
 
 function Intlize(items){
+	console.log('runing: 2');
 	switch(typeof items.Active){
 		case 'undefined':
 		case 'null':
@@ -244,7 +246,7 @@ function tick(ic, rgb, U, W, r, g, b){
 	//More calibration required
 	var oRGB= oldRgb;
 	//start eval
-	CSfn(ic, rgb, U, W, r, g, b);
+	CSfn(ic, rgb, U, W, r, g, b, oRGB);
 	//end eval
 	/*		Anomaly
 too dark
