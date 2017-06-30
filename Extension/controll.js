@@ -28,7 +28,7 @@ chrome.storage.sync.get('fn', items=>{//Executed last
 	fn=`var V= oRGB*(1-ic) + rgb*ic;
 let _X= 0.0266813*V -6,
 _PN= _X<0? -1: 1;
-var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 1.33771,
+var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 2.2,
 vrt=V<= 249? 0: V<353.5? (V-249)/15: V<=354.5? .3: -(((V-254.5)/10)+.3);
 con=sat= 1;
 setFilter(brt, vrt, con, sat);`
@@ -243,21 +243,7 @@ function evalu(){
 }
 
 function tick(ic, rgb, U, W, r, g, b){
-	//More calibration required
-	var oRGB= oldRgb;
-	//start eval
-	CSfn(ic, rgb, U, W, r, g, b, oRGB);
-	//end eval
-	/*		Anomaly
-too dark
-	248.8117272654424
-
-too bright
-	244.29555905921788
-	245.78281672545228
-	246.01222483370788
-	
-	*/
+	CSfn(ic, rgb, U, W, r, g, b, oldRgb);
 }
 function setFilter(brt=1, vrt=0, con=1, sat=1){
 	brt= brt==1? '': `brightness(${brt}) `;
