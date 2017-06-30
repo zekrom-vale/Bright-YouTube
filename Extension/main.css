@@ -8,7 +8,7 @@
 #Brt-canvas{
 	display:none;
 }
-#Brt-opt{
+#Brt-opt:not(.Brt-Fixed){
 	position:absolute;
     left:-33px;
     top:9px;

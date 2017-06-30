@@ -78,15 +78,15 @@ function Intlize(items){
 							document.documentElement.appendChild(opt);
 							//style
 						}
-						let sheet= document.createElement('style');
+						var sheet= document.createElement('style');
 						sheet.id= 'Brt-FS';
-						if(items.AdvOn=== false){
+						if(items.AdvOn!== true){
 							with(items.PozCSS){
 sheet.innerHTML= `.Brt-Fixed{
 	position:${position};\n	${TB.join('')};
-	${RL.join('')};\n	${PT.join('')};
-	${PR.join('')};\n	${PB.join('')};
-	${PL.join('')}
+	${RL.join('')};\n	padding-top:${PT.join('')};
+	padding-right:${PR.join('')};\n	padding-bottom:${PB.join('')};
+	padding-left:${PL.join('')};\n	z-index:16644
 }
 ${apply}{
 	${Bc}
@@ -94,6 +94,7 @@ ${apply}{
 							}
 						}
 						else sheet.innerHTML= items.Adv;
+						document.documentElement.appendChild(sheet);
 						opt.addEventListener("change", function(){
 							chrome.storage.local.set({'Active': this.checked});
 							console.log('switch');
