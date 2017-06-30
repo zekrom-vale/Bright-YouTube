@@ -1,16 +1,15 @@
-document.addEventListener('DOMContentLoaded', (event)=>{
-	var div=document.createElement('div'),
-	type= ['px', 'in', 'cm', 'mm', 'vw', 'vh', 'vmax', 'vmin', '%'],
-	unit= [];
-	for(var i= 0; i<type.length; i++){
-		unit[i]= document.createElement('option');
-		unit[i].value= unit[i].innerHTML= type[i];
-		div.appendChild(unit[i]);
-	}
-	var select= document.getElementsByClassName('unit');
-	console.info(select);
-	for(var i= 0; i<select.length; i++){
-		select[i].innerHTML=div.innerHTML;
+document.addEventListener('DOMContentLoaded', event=>{
+	chrome.storage.sync.get('type', items=>{
+		if(items.type== undefined) runSelect(['px', 'in', 'cm', 'mm', 'vw', 'vh', 'vmax', 'vmin', '%']);
+		else runSelect(items.type);
+	});
+	if(document.querySelector('#cUnit')!== null){
+		document.getElementById('cUnit').addEventListener('change', ()=>{
+			var unit=document.getElementById('cUnit').value;
+			unit= unit.split(/\s*,\s*/);
+			chrome.storage.sync.set({'type': unit});
+			runSelect(unit);
+		});
 	}
 	document.getElementById('OnOff').addEventListener('change', function(){
 		chrome.storage.sync.set({'PozOn':this.checked});
@@ -76,10 +75,12 @@ document.addEventListener('DOMContentLoaded', (event)=>{
 
 //Save Normal CSS
 function saveCSS(){
-	var ovrd= /ovrd/.test(document.getElementById('Apply').value),
-	apply= ovrd=== false? document.getElementById('Apply').value: '#Brt-opt';
+	with(document.getElementById('Apply')){
+		var ovrd= /ovrd/.test(value),
+		apply= ovrd=== false? value: value.replace('ovrd,','');
+	}
 	with(document){
-		chrome.storage.sync.set({'PozCSS': //Sync??
+		chrome.storage.sync.set({'PozCSS':
 			{
 				'apply': apply,
 				'position': getElementById('position').value,
@@ -116,4 +117,20 @@ function saveCSS(){
 		});
 	}
 	chrome.storage.sync.set({'PozSkip': ovrd});
+}
+function runSelect(type){
+	//['pt', 'pc', 'ch', 'em', 'rem']
+	var div= document.createElement('div'),
+	unit= [];
+	var i;
+	for(i in type){
+		unit[i]= document.createElement('option');
+		unit[i].value= unit[i].innerHTML= type[i];
+		div.appendChild(unit[i]);
+	}
+	var select= document.getElementsByClassName('unit');
+	for(i in select){
+		select[i].innerHTML=div.innerHTML;
+	}
+	if(document.querySelector('#cUnit')!== null)document.getElementById('cUnit').value= type.join(', ')
 }

@@ -144,3 +144,7 @@ code{
 	height:100px;
 	resize:vertical
 }
+#cUnit{
+	width:calc(100vw - 90px);
+	font-size:15px
+}
