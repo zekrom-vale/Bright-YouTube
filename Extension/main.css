@@ -6,7 +6,7 @@
 	filter:invert(1)
 }
 #Brt-canvas{
-	display:none;
+	display:none
 }
 #Brt-opt:not(.Brt-Fixed){
 	position:absolute;

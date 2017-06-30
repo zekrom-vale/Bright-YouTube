@@ -75,29 +75,38 @@ function Intlize(items){
 						}
 						else{
 							opt.classList.add('Brt-Fixed');
-							document.documentElement.appendChild(opt);
+							var div= document.createElement('div');
+							div.classList.add('Brt-FxDiv');
+							div.appendChild(opt);
+							document.documentElement.appendChild(div);
 							//style
 						}
 						var sheet= document.createElement('style');
 						sheet.id= 'Brt-FS';
 						if(items.AdvOn!== true){
 							with(items.PozCSS){
-sheet.innerHTML= `.Brt-Fixed{
+sheet.innerHTML= `.Brt-FxDiv{
 	position:${position};\n	${TB.join('')};
 	${RL.join('')};\n	padding-top:${PT.join('')};
 	padding-right:${PR.join('')};\n	padding-bottom:${PB.join('')};
-	padding-left:${PL.join('')};\n	z-index:16644
+	padding-left:${PL.join('')};
+	width:20px;\n	height:20px;
+	z-index:16644;\n	border-radius:10px;
+	background:${Bc}
 }
-${apply}{
-	${Bc}
-}`;
+#Brt-opt{
+	width:20px;
+	height:20px;
+	margin:0
+}`;//Add Size, border-radius
+/*${apply}{}*/
 							}
 						}
 						else sheet.innerHTML= items.Adv;
 						document.documentElement.appendChild(sheet);
+						if(items.Active!== false) opt.checked= true;
 						opt.addEventListener("change", function(){
 							chrome.storage.local.set({'Active': this.checked});
-							console.log('switch');
 						});
 					}
 					else console.info('[OFF] Inline IO, User specification')
