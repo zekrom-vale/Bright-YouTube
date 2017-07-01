@@ -86,20 +86,19 @@ function Intlize(items){
 						if(items.AdvOn!== true){
 							with(items.PozCSS){
 sheet.innerHTML= `.Brt-FxDiv{
-	position:${position};\n	${TB.join('')};
-	${RL.join('')};\n	padding-top:${PT.join('')};
-	padding-right:${PR.join('')};\n	padding-bottom:${PB.join('')};
-	padding-left:${PL.join('')};
-	width:${WH.join('')};\n	height:${WH.join('')};
+	position:${position};
+	${TB.join('')};	${RL.join('')};
+	padding-top:${PT.join('')};	padding-right:${PR.join('')};
+	padding-bottom:${PB.join('')};	padding-left:${PL.join('')};
+	width:${WH.join('')};	height:${WH.join('')};
 	z-index:16644;\n	border-radius:${Rad.join('')};
 	background:${Bc}
 }
-#Brt-opt{
+${apply}{
 	width:${WH.join('')};
 	height:${WH.join('')};
 	margin:0
 }`;
-/*${apply}{}*/
 							}
 						}
 						else sheet.innerHTML= items.Adv;

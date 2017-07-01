@@ -86,60 +86,44 @@ function saveCSS(){
 		var ovrd= /ovrd/.test(value),
 		apply= ovrd=== false? value: value.replace('ovrd,','');
 	}
-	with(document){
-		var items={'PozCSS':
-			{
-				'apply': apply,
-				'position': getElementById('position').value,
-				'TB': [
-					getElementById('TB').value,
-					':',
-					getElementById('TBn').value,
-					getElementById('TBu').value
-				],
-				'RL':[
-					getElementById('RL').value,
-					':',
-					getElementById('RLn').value,
-					getElementById('RLu').value
-				],
-				'PT':[
-					getElementById('PTn').value,
-					getElementById('PTu').value
-				],
-				'PR':[
-					getElementById('PRn').value,
-					getElementById('PRu').value
-				],
-				'PB':[
-					getElementById('PBn').value,
-					getElementById('PBu').value
-				],
-				'PL':[
-					getElementById('PLn').value,
-					getElementById('PLu').value
-				],
-				'WH':[
-					getElementById('WHn').value,
-					getElementById('WHu').value
-				],
-				'Rad':[
-					getElementById('Radn').value,
-					getElementById('Radu').value
-				],
-				'Bc': getElementById('Bc').value
-			}
-		}
-		chrome.storage.sync.set(items);
+	var items= {PozCSS:{}};
+	items.PozCSS.position= document.getElementById('position').value;
+	items.PozCSS.TB=[
+		document.getElementById('TB').value,
+		':',
+		document.getElementById('TBn').value,
+		document.getElementById('TBu').value
+	];
+	items.PozCSS.RL=[
+		document.getElementById('RL').value,
+		':',
+		document.getElementById('RLn').value,
+		document.getElementById('RLu').value
+	];
+	items.PozCSS.PT= Padding('PT');
+	items.PozCSS.PR= Padding('PR');
+	items.PozCSS.PB= Padding('PB');
+	items.PozCSS.PL= Padding('PL');
+	items.PozCSS.WH= Padding('WH');
+	items.PozCSS.Rad= Padding('Rad');
+	items.PozCSS.Bc= document.getElementById('Bc').value
+	items.PozCSS.apply= apply;
+	with(chrome.storage.sync){
+		set(items);
+		set({'PozSkip': ovrd});
 	}
-	chrome.storage.sync.set({'PozSkip': ovrd});
 	preView(items.PozCSS);
-	}
+}
+function Padding(n){
+	var arr= [
+		document.getElementById(n+ 'n').value,
+		document.getElementById(n+'u').value
+	];
+	return arr;
+}
 function runSelect(type){
-	//['pt', 'pc', 'ch', 'em', 'rem']
 	var div= document.createElement('div'),
-	unit= [],
-	i,
+	unit= [], i,
 	select= document.getElementsByClassName('unit');
 	for(i in type){
 		unit[i]= document.createElement('option');
@@ -149,16 +133,15 @@ function runSelect(type){
 	for(i in select){
 		select[i].innerHTML= div.innerHTML;
 	}
-	if(document.querySelector('#cUnit')!== null)document.getElementById('cUnit').value= type.join(', ');
+	if(document.querySelector('#cUnit')!== null) document.getElementById('cUnit').value= type.join(', ');
 }
 function preView(PozCSS){
 	with(PozCSS){
 		document.getElementById('Brt-FS').innerHTML= `.Brt-FxDiv{
-	padding-top:${PT.join('')};
-	padding-right:${PR.join('')};\n	padding-bottom:${PB.join('')};
-	padding-left:${PL.join('')};
-	width:${WH.join('')};\n	height:${WH.join('')};
-	z-index:16644;\n	border-radius:${Rad.join('')};
+	padding-top:${PT.join('')};		padding-right:${PR.join('')};
+	padding-bottom:${PB.join('')};	padding-left:${PL.join('')};
+	width:${WH.join('')};	height:${WH.join('')};
+	border-radius:${Rad.join('')};
 	background:${Bc}
 }
 #Brt-opt{
