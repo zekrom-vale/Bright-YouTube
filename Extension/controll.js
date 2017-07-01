@@ -90,15 +90,15 @@ sheet.innerHTML= `.Brt-FxDiv{
 	${RL.join('')};\n	padding-top:${PT.join('')};
 	padding-right:${PR.join('')};\n	padding-bottom:${PB.join('')};
 	padding-left:${PL.join('')};
-	width:20px;\n	height:20px;
-	z-index:16644;\n	border-radius:10px;
+	width:${WH.join('')};\n	height:${WH.join('')};
+	z-index:16644;\n	border-radius:${Rad.join('')};
 	background:${Bc}
 }
 #Brt-opt{
-	width:20px;
-	height:20px;
+	width:${WH.join('')};
+	height:${WH.join('')};
 	margin:0
-}`;//Add Size, border-radius
+}`;
 /*${apply}{}*/
 							}
 						}

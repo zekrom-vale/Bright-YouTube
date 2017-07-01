@@ -35,8 +35,13 @@ document.addEventListener('DOMContentLoaded', event=>{
 			document.getElementById('PBu').value= PB[1];
 			document.getElementById('PLn').value= PL[0];
 			document.getElementById('PLu').value= PL[1];
+			document.getElementById('WHn').value= WH[0];
+			document.getElementById('WHu').value= WH[1];
+			document.getElementById('Radn').value= Rad[0];
+			document.getElementById('Radu').value= Rad[1];
 			document.getElementById('Bc').value=  Bc;
 		}
+		preView(items.PozCSS);
 		//Set Advanced CSS
 		if(items.Adv!== undefined) document.getElementById('adv').value= items.Adv;
 		document.getElementById('AdvOn').checked= items.AdvOn;
@@ -82,7 +87,7 @@ function saveCSS(){
 		apply= ovrd=== false? value: value.replace('ovrd,','');
 	}
 	with(document){
-		chrome.storage.sync.set({'PozCSS':
+		var items={'PozCSS':
 			{
 				'apply': apply,
 				'position': getElementById('position').value,
@@ -114,12 +119,22 @@ function saveCSS(){
 					getElementById('PLn').value,
 					getElementById('PLu').value
 				],
+				'WH':[
+					getElementById('WHn').value,
+					getElementById('WHu').value
+				],
+				'Rad':[
+					getElementById('Radn').value,
+					getElementById('Radu').value
+				],
 				'Bc': getElementById('Bc').value
 			}
-		});
+		}
+		chrome.storage.sync.set(items);
 	}
 	chrome.storage.sync.set({'PozSkip': ovrd});
-}
+	preView(items.PozCSS);
+	}
 function runSelect(type){
 	//['pt', 'pc', 'ch', 'em', 'rem']
 	var div= document.createElement('div'),
@@ -135,4 +150,21 @@ function runSelect(type){
 		select[i].innerHTML= div.innerHTML;
 	}
 	if(document.querySelector('#cUnit')!== null)document.getElementById('cUnit').value= type.join(', ');
+}
+function preView(PozCSS){
+	with(PozCSS){
+		document.getElementById('Brt-FS').innerHTML= `.Brt-FxDiv{
+	padding-top:${PT.join('')};
+	padding-right:${PR.join('')};\n	padding-bottom:${PB.join('')};
+	padding-left:${PL.join('')};
+	width:${WH.join('')};\n	height:${WH.join('')};
+	z-index:16644;\n	border-radius:${Rad.join('')};
+	background:${Bc}
+}
+#Brt-opt{
+	width:${WH.join('')};
+	height:${WH.join('')};
+	margin:0
+}`
+	}
 }
