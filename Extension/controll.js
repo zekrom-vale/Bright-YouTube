@@ -9,35 +9,23 @@ CONT= VAS.getContext && VAS.getContext('2d', {willReadFrequently:true});
 VAS.id= 'Brt-canvas',
 PLY= setPl();
 var FN;
-chrome.storage.sync.get('fn', items=>{
+chrome.storage.sync.get('fn', items=>{//Executed last
+	var fn=items.fn;
 	try{
-		function isGlobal(v){
-			chrome.storage.local.set({'Err': {'time':Date(), 'code':100.7, 'text':v+' is global'}});
-			throw new SyntaxError(v+' is global');
-		}
-		if(typeof fn!= typeof undefined) isGlobal('fn');
-		else if(typeof fnSq!= typeof undefined) isGlobal('fnSq');
-		else if(typeof rez!= typeof undefined) isGlobal('rez');
-		else if(typeof CSfn!= typeof undefined){
-			isGlobal('function CSfn');
-			delete CSfn;
-		}
-		else var fn=items.fn;
-		if(fn== undefined) throw new ReferenceError('fn is undefined');
+		if(fn==undefined) throw new ReferenceError('fn is undefined');
 		else{
-			var rez= fn.replace(/(\/{2}.*\n|\/\*([^*/]|\s)*\*\/|\s|Math\.((pow|round|ceil|floor|abs|log|exp|random|a?(cos|sin2?|tan)|m(ax|in)|sqrt)|SQRT(1_)?2|PI|E|(LN|LOG)(10|2)E?)|setFilter|(([bv]r|sa)t|con|[rgbUWV]|oRGB|ic)(?!(\w|\d))|_(\w|\d)+(?!\()|var|let|(if|(if )?else)\(|[!%&(-?{-}]|true|false|undefined|null|is(NaN|Finite)(?=\(.*\)))/g,'');
-			fn= fn.replace(/(window|document|de(let|bugg)er?|evalu?|const|function|(chrom|toggl|Intliz)e|setPl|on(Play|Pause)|S(torageChange|HORT|TOP|TART)|clock|getAvColor|(CS)?fn(Sq)?|(inn|out)erHTML)|re(place|[sS]et|z)/, 'return;');
-			if(rez==''&&! /(\=>{|\(.?\)\=>)/.test(fn)){
-				const fnSq= fn;
+			rez=fn.replace(/(\/{2}.*\n|\/\*([^*/]|\s)*\*\/|\s|Math\.((pow|round|ceil|floor|abs|log|exp|random|a?(cos|sin2?|tan)m(ax|in)|sqrt)|SQRT(1_)?2|PI|E|(LN|LOG)(10|2)E?)|setFilter|(([bv]r|sa)t|con|[rgbUWV]|oRGB|ic)(?!(\w|\d))|_(\w|\d)+(?!\()|var|let|(if|(if )?else)\(|[!%&(-?{-}]|true|false|undefined|null|is(NaN|Finite)(?=\(.*\)))/g,'');
+			fn= fn.replace(/(window|document|evalu?|const|function|(chrom|toggl|Intliz)e|setPl|on(Play|Pause)|S(torageChange|HORT|TOP|TART)|clock|tick|getAvColor|fn|(inn|out)erHTML)|re(place|[sS]et|z)/, 'return;');
+			if((rez==''&&! /(\=>{|\(.?\)\=>)/.test(fn))){
+				console.info('input is OK');
 			}
 			else{
-				chrome.storage.local.set({'Err': {'time':Date(), 'code':100.7, 'text':'Invalid input at Custom function'}});
 				throw new SyntaxError('Invalid input: '+ rez);
 			}
 		}
 	}catch(e){
-		console.warn(e);
-		const fnSq=`var V= oRGB*(1-ic) + rgb*ic;
+	console.warn(e);
+	fn=`var V= oRGB*(1-ic) + rgb*ic;
 let _X= 0.0266813*V -6,
 _PN= _X<0? -1: 1;
 var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 2.2,
@@ -45,18 +33,23 @@ vrt=V<= 249? 0: V<353.5? (V-249)/15: V<=354.5? .3: -(((V-254.5)/10)+.3);
 con=sat= 1;
 setFilter(brt, vrt, con, sat);`
 	}
-	window.CSfn= new Function("ic", "rgb", "U", "W", "r", "g", "b","oRGB", fnSq);
+	window.CSfn= new Function("ic", "rgb", "U", "W", "r", "g", "b","oRGB", fn);
 });
 setTimeout(()=>{
+	console.log('runing: 1');
 	if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
 }, 1500);
 
 function Intlize(items){
+	console.log('runing: 2');
 	switch(typeof items.Active){
 		case 'undefined':
 		case 'null':
 			throw new ReferenceError('Active is not defined, forced to true');
-			chrome.storage.local.set({'Err': {'time':Date(), 'code':404, 'text':'Active und, overiden'}, {'Active': true}});
+			with(chrome.storage.local){
+				set({'Err': {'time':Date(), 'code':404, 'text':'Active und, overiden'}});
+				set({'Active': true});
+			}
 			reSet();
 			items.Active= true;		//fall-through
 		case 'boolean':
@@ -216,10 +209,10 @@ function evalu(){
 			console.warn('Continuing');
 			oldRgb= rgb= 140;
 			clock= setInterval(evalu, DLY);
-			chrome.storage.local.set({
-				'0': true, 
-				'Err': {'time':Date(), 'code':100.7, 'text':'Varables ilegaly modifyed'}
-			});
+			with(chrome.storage.local){
+				set({'0': true});
+				set({'Err': {'time':Date(), 'code':100.7, 'text':'Varables ilegaly modifyed'}});
+			}
 		}
 		else{
 			SHORT();
@@ -250,12 +243,16 @@ function evalu(){
 	if(rgb< 254.9 && rgb> 20){
 		while(IC< 10){
 			let ic= IC;
-			setTimeout(CSfn(ic, rgb, U, W, r, g, b, oldRgb), (DLY*ic)/10);
+			setTimeout(tick(ic, rgb, U, W, r, g, b), (DLY*ic)/10);
 			IC+= inc;
 		}
 		oldRgb= rgb;
 	}
 	else if(rgb<= 20) setFilter(1, 1);
+}
+
+function tick(ic, rgb, U, W, r, g, b){
+	CSfn(ic, rgb, U, W, r, g, b, oldRgb);
 }
 function setFilter(brt=1, vrt=0, con=1, sat=1){
 	brt= brt==1? '': `brightness(${brt}) `;

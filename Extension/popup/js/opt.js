@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', event=>{
 		with(items){
 			document.getElementById('Apply').value= PozSkip=== true? 'ovrd,'+ PozCSS.apply: PozCSS.apply;
 		}
-		function SetPad(n, it, ext=0){
+		function SetPadding(n, it, ext=0){
 			var i=0;
 			if(ext== true){
 				document.getElementById(n).value= it[i];
@@ -30,14 +30,14 @@ document.addEventListener('DOMContentLoaded', event=>{
 		}
 		with(items.PozCSS){
 			document.getElementById('position').value= position;
-			SetPad('TB', TB, 1);
-			SetPad('RL', RL, 1);
-			SetPad('PT', PT);
-			SetPad('PR', PR);
-			SetPad('PB', PB);
-			SetPad('PL', PL);
-			SetPad('WH', WH);
-			SetPad('Rad', Rad);
+			SetPadding('TB', TB, 1);
+			SetPadding('RL', RL, 1);
+			SetPadding('PT', PT);
+			SetPadding('PR', PR);
+			SetPadding('PB', PB);
+			SetPadding('PL', PL);
+			SetPadding('WH', WH);
+			SetPadding('Rad', Rad);
 			document.getElementById('Bc').value=  Bc;
 		}
 		preView(items.PozCSS);
@@ -87,20 +87,20 @@ function saveCSS(){
 	}
 	var items= {PozCSS:{}, PozSkip: ovrd};
 	items.PozCSS.position= document.getElementById('position').value;
-	items.PozCSS.TB= Pad('TB', 1);
-	items.PozCSS.RL= Pad('RL', 1);
-	items.PozCSS.PT= Pad('PT');
-	items.PozCSS.PR= Pad('PR');
-	items.PozCSS.PB= Pad('PB');
-	items.PozCSS.PL= Pad('PL');
-	items.PozCSS.WH= Pad('WH');
-	items.PozCSS.Rad= Pad('Rad');
-	items.PozCSS.Bc= document.getElementById('Bc').value;
+	items.PozCSS.TB= Padding('TB', 1);
+	items.PozCSS.RL= Padding('RL', 1);
+	items.PozCSS.PT= Padding('PT');
+	items.PozCSS.PR= Padding('PR');
+	items.PozCSS.PB= Padding('PB');
+	items.PozCSS.PL= Padding('PL');
+	items.PozCSS.WH= Padding('WH');
+	items.PozCSS.Rad= Padding('Rad');
+	items.PozCSS.Bc= document.getElementById('Bc').value
 	items.PozCSS.apply= apply;
 	chrome.storage.sync.set(items);
 	preView(items.PozCSS);
 }
-function Pad(n, ext=0){
+function Padding(n, ext=0){
 	var arr= [
 		document.getElementById(n+ 'n').value,
 		document.getElementById(n+'u').value
