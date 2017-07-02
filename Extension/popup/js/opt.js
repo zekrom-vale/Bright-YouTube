@@ -19,20 +19,19 @@ document.addEventListener('DOMContentLoaded', event=>{
 		with(items){
 			document.getElementById('Apply').value= PozSkip=== true? 'ovrd,'+ PozCSS.apply: PozCSS.apply;
 		}
-		function SetPadding(n, it, ext=false){
+		function SetPadding(n, it, ext=0){
 			var i=0;
-			if(ext=== true){
+			if(ext== true){
 				document.getElementById(n).value= it[i];
 				i+=2;
 			}
-			document.getElementById(n+ 'n').value= it[i];
-			i++;
+			document.getElementById(n+ 'n').value= it[i++];
 			document.getElementById(n+ 'u').value= it[i];
 		}
 		with(items.PozCSS){
 			document.getElementById('position').value= position;
-			SetPadding('TB', TB, true);
-			SetPadding('RL', RL, true);
+			SetPadding('TB', TB, 1);
+			SetPadding('RL', RL, 1);
 			SetPadding('PT', PT);
 			SetPadding('PR', PR);
 			SetPadding('PB', PB);
@@ -86,10 +85,10 @@ function saveCSS(){
 		var ovrd= /ovrd/.test(value),
 		apply= ovrd=== false? value: value.replace('ovrd,','');
 	}
-	var items= {PozCSS:{}};
+	var items= {PozCSS:{}, PozSkip: ovrd};
 	items.PozCSS.position= document.getElementById('position').value;
-	items.PozCSS.TB= Padding('TB', true);
-	items.PozCSS.RL= Padding('RL', true);
+	items.PozCSS.TB= Padding('TB', 1);
+	items.PozCSS.RL= Padding('RL', 1);
 	items.PozCSS.PT= Padding('PT');
 	items.PozCSS.PR= Padding('PR');
 	items.PozCSS.PB= Padding('PB');
@@ -98,28 +97,25 @@ function saveCSS(){
 	items.PozCSS.Rad= Padding('Rad');
 	items.PozCSS.Bc= document.getElementById('Bc').value
 	items.PozCSS.apply= apply;
-	with(chrome.storage.sync){
-		set(items);
-		set({'PozSkip': ovrd});
-	}
+	chrome.storage.sync.set(items);
 	preView(items.PozCSS);
 }
-function Padding(n, ext=false){
+function Padding(n, ext=0){
 	var arr= [
 		document.getElementById(n+ 'n').value,
 		document.getElementById(n+'u').value
 	];
-	if(ext===true) arr= [document.getElementById(n).value,':'].concat(arr);
+	if(ext== true) arr= [document.getElementById(n).value,':'].concat(arr);
 	return arr;
 }
 function runSelect(type){
 	var div= document.createElement('div'),
-	unit= [], i,
+	i,
 	select= document.getElementsByClassName('unit');
 	for(i in type){
-		unit[i]= document.createElement('option');
-		unit[i].value= unit[i].innerHTML= type[i];
-		div.appendChild(unit[i]);
+		let unit= document.createElement('option');
+		unit.value= unit.innerHTML= type[i];
+		div.appendChild(unit);
 	}
 	for(i in select){
 		select[i].innerHTML= div.innerHTML;
