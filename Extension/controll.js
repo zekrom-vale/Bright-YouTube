@@ -9,7 +9,7 @@ CONT= VAS.getContext && VAS.getContext('2d', {willReadFrequently:true});
 VAS.id= 'Brt-canvas',
 PLY= setPl();
 var FN;
-chrome.storage.sync.get('fn', items=>{//Executed last
+chrome.storage.sync.get('fn', items=>{
 	var fn=items.fn;
 	try{
 		if(fn==undefined) throw new ReferenceError('fn is undefined');
@@ -29,7 +29,7 @@ chrome.storage.sync.get('fn', items=>{//Executed last
 let _X= 0.0266813*V -6,
 _PN= _X<0? -1: 1;
 var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 2.2,
-vrt=V<= 249? 0: V<353.5? (V-249)/15: V<=354.5? .3: -(((V-254.5)/10)+.3);
+vrt=V<= 249? 0: V<253.5? (V-249)/15: V<=254.5? .3: -(((V-254.5)/10)+.3);
 con=sat= 1;
 setFilter(brt, vrt, con, sat);`
 	}
@@ -243,16 +243,12 @@ function evalu(){
 	if(rgb< 254.9 && rgb> 20){
 		while(IC< 10){
 			let ic= IC;
-			setTimeout(tick(ic, rgb, U, W, r, g, b), (DLY*ic)/10);
+			setTimeout(CSfn(ic, rgb, U, W, r, g, b, oldRgb), (DLY*ic)/10);
 			IC+= inc;
 		}
 		oldRgb= rgb;
 	}
 	else if(rgb<= 20) setFilter(1, 1);
-}
-
-function tick(ic, rgb, U, W, r, g, b){
-	CSfn(ic, rgb, U, W, r, g, b, oldRgb);
 }
 function setFilter(brt=1, vrt=0, con=1, sat=1){
 	brt= brt==1? '': `brightness(${brt}) `;
@@ -260,7 +256,7 @@ function setFilter(brt=1, vrt=0, con=1, sat=1){
 	con= con==1? '': `contrast(${con}) `;
 	sat= sat==1? '': `saturate(${sat})`;
 	if(brt+vrt+con+sat=='') document.getElementById('Brt-YT').innerHTML='';
-	else document.getElementById('Brt-YT').innerHTML= `video{\n\tfilter:${brt+ vrt+ con+ sat}\n}`;//9.1 ms Most resource incentive
+	else document.getElementById('Brt-YT').innerHTML= `video{\n\tfilter:${brt+ vrt+ con+ sat}\n}`;
 }
 
 function getAvColor(){
@@ -288,47 +284,21 @@ function toggle(poz= true){
 }
 
 
-//reSet or Set
+//reSet
 function reSet(){
-	with(chrome.storage.sync){//With test
-	set({'PozCSS':
-		{
-			'apply': '#Brt-opt.Brt-Fixed',
-			'position': 'fixed',
-			'TB': [
-				'top',
-				':',
-				5,
-				'px'
-			],
-			'RL':[
-				'right',
-				':',
-				5,
-				'px'
-			],
-			'PT':[
-				5,
-				'px'
-			],
-			'PR':[
-				5,
-				'px'
-			],
-			'PB':[
-				5,
-				'px'
-			],
-			'PL':[
-				5,
-				'px'
-			],
-			'Bc': '66ffff'
-		}
-	});
-		set({'PozSkip': false});
-		set({'PozOn': true});
-		set({'PozSkip': false});
-		set({'AdvOn': false});
+	var items={
+		'PozCSS':{},
+		'PozSkip': false,
+		'PozOn': true,
+		'PozSkip': false,
+		'AdvOn': false
 	}
+	items.PozCSS.apply= '#Brt-opt.Brt-Fixed';
+	items.PozCSS.position= 'fixed';
+	items.PozCSS.TB= ['top', ':', 5, 'px'];
+	items.PozCSS.RL= ['right', ':', 5, 'px'];
+	items.PozCSS.PT= items.PozCSS.PR= items.PozCSS.PB= items.PozCSS.PL= [5, 'px'];
+	items.PozCSS.Rad= items.PozCSS.WH= [20, 'px'];
+	items.PozCSS.BC= '66ffff';
+	chrome.storage.sync.set(items);
 }
