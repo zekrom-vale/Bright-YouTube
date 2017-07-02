@@ -19,26 +19,26 @@ document.addEventListener('DOMContentLoaded', event=>{
 		with(items){
 			document.getElementById('Apply').value= PozSkip=== true? 'ovrd,'+ PozCSS.apply: PozCSS.apply;
 		}
+		function SetPadding(n, it, ext=false){
+			var i=0;
+			if(ext=== true){
+				document.getElementById(n).value= it[i];
+				i+=2;
+			}
+			document.getElementById(n+ 'n').value= it[i];
+			i++;
+			document.getElementById(n+ 'u').value= it[i];
+		}
 		with(items.PozCSS){
 			document.getElementById('position').value= position;
-			document.getElementById('TB').value=  TB[0];		
-			document.getElementById('TBn').value= TB[2];		
-			document.getElementById('TBu').value= TB[3];
-			document.getElementById('RL').value=  RL[0];		
-			document.getElementById('RLn').value= RL[2];		
-			document.getElementById('RLu').value= RL[3];
-			document.getElementById('PTn').value= PT[0];
-			document.getElementById('PTu').value= PT[1];
-			document.getElementById('PRn').value= PR[0];
-			document.getElementById('PRu').value= PR[1];
-			document.getElementById('PBn').value= PB[0];
-			document.getElementById('PBu').value= PB[1];
-			document.getElementById('PLn').value= PL[0];
-			document.getElementById('PLu').value= PL[1];
-			document.getElementById('WHn').value= WH[0];
-			document.getElementById('WHu').value= WH[1];
-			document.getElementById('Radn').value= Rad[0];
-			document.getElementById('Radu').value= Rad[1];
+			SetPadding('TB', TB, true);
+			SetPadding('RL', RL, true);
+			SetPadding('PT', PT);
+			SetPadding('PR', PR);
+			SetPadding('PB', PB);
+			SetPadding('PL', PL);
+			SetPadding('WH', WH);
+			SetPadding('Rad', Rad);
 			document.getElementById('Bc').value=  Bc;
 		}
 		preView(items.PozCSS);
@@ -88,18 +88,8 @@ function saveCSS(){
 	}
 	var items= {PozCSS:{}};
 	items.PozCSS.position= document.getElementById('position').value;
-	items.PozCSS.TB=[
-		document.getElementById('TB').value,
-		':',
-		document.getElementById('TBn').value,
-		document.getElementById('TBu').value
-	];
-	items.PozCSS.RL=[
-		document.getElementById('RL').value,
-		':',
-		document.getElementById('RLn').value,
-		document.getElementById('RLu').value
-	];
+	items.PozCSS.TB= Padding('TB', true);
+	items.PozCSS.RL= Padding('RL', true);
 	items.PozCSS.PT= Padding('PT');
 	items.PozCSS.PR= Padding('PR');
 	items.PozCSS.PB= Padding('PB');
@@ -114,11 +104,12 @@ function saveCSS(){
 	}
 	preView(items.PozCSS);
 }
-function Padding(n){
+function Padding(n, ext=false){
 	var arr= [
 		document.getElementById(n+ 'n').value,
 		document.getElementById(n+'u').value
 	];
+	if(ext===true) arr= [document.getElementById(n).value,':'].concat(arr);
 	return arr;
 }
 function runSelect(type){
