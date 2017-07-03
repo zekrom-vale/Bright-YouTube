@@ -287,18 +287,18 @@ function toggle(poz= true){
 //reSet
 function reSet(){
 	var items={
-		'PozCSS':{},
-		'PozSkip': false,
-		'PozOn': true,
-		'PozSkip': false,
-		'AdvOn': false
+		'PozCSS': {},
+		'PozOn': true
 	}
-	items.PozCSS.apply= '#Brt-opt.Brt-Fixed';
-	items.PozCSS.position= 'fixed';
-	items.PozCSS.TB= ['top', ':', 5, 'px'];
-	items.PozCSS.RL= ['right', ':', 5, 'px'];
-	items.PozCSS.PT= items.PozCSS.PR= items.PozCSS.PB= items.PozCSS.PL= [5, 'px'];
-	items.PozCSS.Rad= items.PozCSS.WH= [20, 'px'];
-	items.PozCSS.BC= '66ffff';
+	items.PozSkip= items.PozSkip= items.AdvOn= false;
+	with(items){
+		PozCSS.apply= '#Brt-opt.Brt-Fixed';
+		PozCSS.position= 'fixed';
+		PozCSS.TB= ['top', ':', 5, 'px'];
+		PozCSS.RL= ['right', ':', 5, 'px'];
+		PozCSS.PT= PozCSS.PR= PozCSS.PB= PozCSS.PL= [5, 'px'];
+		PozCSS.Rad= items.PozCSS.WH= [20, 'px'];
+		PozCSS.BC= '66ffff';
+	}
 	chrome.storage.sync.set(items);
 }
