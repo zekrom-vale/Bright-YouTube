@@ -16,11 +16,11 @@ chrome.storage.sync.get('fn', items=>{
 		else{
 			rez=fn.replace(/(\/{2}.*\n|\/\*([^*/]|\s)*\*\/|\s|Math\.((pow|round|ceil|floor|abs|log|exp|random|a?(cos|sin2?|tan)m(ax|in)|sqrt)|SQRT(1_)?2|PI|E|(LN|LOG)(10|2)E?)|setFilter|(([bv]r|sa)t|con|[rgbUWV]|oRGB|ic)(?!(\w|\d))|_(\w|\d)+(?!\()|var|let|(if|(if )?else)\(|[!%&(-?{-}]|true|false|undefined|null|is(NaN|Finite)(?=\(.*\)))/g,'');
 			fn= fn.replace(/(window|document|evalu?|const|function|(chrom|toggl|Intliz)e|setPl|on(Play|Pause)|S(torageChange|HORT|TOP|TART)|clock|tick|getAvColor|fn|(inn|out)erHTML)|re(place|[sS]et|z)/, 'return;');
-			if((rez==''&&! /(\=>{|\(.?\)\=>)/.test(fn))){
-				console.info('input is OK');
-			}
-			else{
-				throw new SyntaxError('Invalid input: '+ rez);
+			if(rez!=''||/(\=>{|\(.?\)\=>)/.test(fn)){
+				const warn= '[BREACH DETECTED]Custom function is invalid, bypased first checheck';
+				chrome.storage.local.set({'Err': {'time':Date(), 'code':407, 'text':warn}});
+				alert(warn+ ':\n'+ rez);
+				throw new SyntaxError(warn+ ': \n'+ rez);
 			}
 		}
 	}catch(e){
@@ -36,20 +36,22 @@ setFilter(brt, vrt, con, sat);`
 	window.CSfn= new Function("ic", "rgb", "U", "W", "r", "g", "b","oRGB", fn);
 });
 setTimeout(()=>{
-	console.log('runing: 1');
 	if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
 }, 1500);
 
 function Intlize(items){
-	console.log('runing: 2');
 	switch(typeof items.Active){
 		case 'undefined':
 		case 'null':
 			throw new ReferenceError('Active is not defined, forced to true');
-			with(chrome.storage.local){
-				set({'Err': {'time':Date(), 'code':404, 'text':'Active und, overiden'}});
-				set({'Active': true});
-			}
+			chrome.storage.local.set({
+				'Err':{
+					'time':Date(),
+					'code':404,
+					'text':'Active und, overiden'
+				}
+				'Active': true
+			});
 			reSet();
 			items.Active= true;		//fall-through
 		case 'boolean':
@@ -209,10 +211,14 @@ function evalu(){
 			console.warn('Continuing');
 			oldRgb= rgb= 140;
 			clock= setInterval(evalu, DLY);
-			with(chrome.storage.local){
-				set({'0': true});
-				set({'Err': {'time':Date(), 'code':100.7, 'text':'Varables ilegaly modifyed'}});
-			}
+			chrome.storage.local.set({
+				'0': true,
+				'Err':{
+					'time':Date(),
+					'code':100.7,
+					'text':'Varables ilegaly modifyed'
+				}
+			});
 		}
 		else{
 			SHORT();
@@ -226,13 +232,13 @@ function evalu(){
 	var U= (av.r+av.g+av.b)/3,
 	W= 0.2126*av.r+ 0.7152*av.g+ 0.0722*av.b,
 	rgb= 255-(.9*U+.1*W);
-	//*
+	/*
 	with(console){
 		groupCollapsed('%crgb: %.2f', "color:blue",rgb);
 		info(av);
 		info('Unweighted rgb(U): %.5f', U);
 		info('Weighted rgb(W): %f.5', W);
-		info('Diference (U-W): %f.5', U-W);
+		info('Difference (U-W): %f.5', U-W);
 		info('rgb: %f.5', rgb);
 		trace('from');
 		timeStamp('time');
