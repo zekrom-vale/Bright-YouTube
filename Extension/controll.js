@@ -10,13 +10,16 @@ VAS.id= 'Brt-canvas',
 PLY= setPl();
 var FN;
 chrome.storage.sync.get('fn', items=>{
-	var fn=items.fn;
 	try{
-		if(fn==undefined) throw new ReferenceError('fn is undefined');
+		if(items.fn==undefined) throw new ReferenceError('fn is undefined');
 		else{
-			rez=fn.replace(/(\/{2}.*\n|\/\*([^*/]|\s)*\*\/|\s|Math\.((pow|round|ceil|floor|abs|log|exp|random|a?(cos|sin2?|tan)m(ax|in)|sqrt)|SQRT(1_)?2|PI|E|(LN|LOG)(10|2)E?)|setFilter|(([bv]r|sa)t|con|[rgbUWV]|oRGB|ic)(?!(\w|\d))|_(\w|\d)+(?!\()|var|let|(if|(if )?else)\(|[!%&(-?{-}]|true|false|undefined|null|is(NaN|Finite)(?=\(.*\)))/g,'');
-			fn= fn.replace(/(window|document|evalu?|const|function|(chrom|toggl|Intliz)e|setPl|on(Play|Pause)|S(torageChange|HORT|TOP|TART)|clock|tick|getAvColor|fn|(inn|out)erHTML)|re(place|[sS]et|z)/, 'return;');
-			if(rez!=''||/(\=>{|\(.?\)\=>)/.test(fn)){
+			rez= items.fn.replace(/(\/{2}.*\n|\/\*([^*/]|\s)*\*\/|\s|Math\.((pow|round|ceil|floor|abs|log|exp|random|a?(cos|sin2?|tan)m(ax|in)|sqrt)|SQRT(1_)?2|PI|E|(LN|LOG)(10|2)E?)|setFilter|(([bv]r|sa)t|con|[rgbUWV]|oRGB|ic)(?!(\w|\d))|_(\w|\d)+(?!\()|var|let|(if|(if )?else)\(|[!%&(-?{-}]|true|false|undefined|null|is(NaN|Finite)(?=\(.*\)))/g,'');
+			items.fn= items.fn.replace(/(window|document|evalu?|const|function|(chrom|toggl|Intliz)e|setPl|on(Play|Pause)|S(torageChange|HORT|TOP|TART)|clock|tick|getAvColor|fn|(inn|out)erHTML)|re(place|[sS]et|z)/, 'return;');
+			if(rez==''&&! /(\=>{|\(.?\)\=>)/.test(fn)){
+				var fn= items.fn;
+			}
+			else{
+				items.fn= undefined;
 				const warn= '[BREACH DETECTED]Custom function is invalid, bypased first checheck';
 				chrome.storage.local.set({'Err': {'time':Date(), 'code':407, 'text':warn}});
 				alert(warn+ ':\n'+ rez);
@@ -49,13 +52,13 @@ function Intlize(items){
 					'time':Date(),
 					'code':404,
 					'text':'Active und, overiden'
-				}
+				},
 				'Active': true
 			});
 			reSet();
 			items.Active= true;		//fall-through
 		case 'boolean':
-			VID.addEventListener('canplay',()=>{
+			VID.addEventListener('canplay', items=>{
 			//Style
 				let Style= document.createElement('style');
 				Style.id= 'Brt-YT';
