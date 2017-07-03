@@ -1,4 +1,4 @@
-var oldRgb=140,
+var oldRgb= oldU= oldW= 140,
 clock;
 const DLY=1500,
 VID= document.getElementsByTagName('video')[0],
@@ -13,7 +13,7 @@ chrome.storage.sync.get('fn', items=>{
 	try{
 		if(items.fn==undefined) throw new ReferenceError('fn is undefined');
 		else{
-			rez= items.fn.replace(/(\/{2}.*\n|\/\*([^*/]|\s)*\*\/|\s|Math\.((pow|round|ceil|floor|abs|log|exp|random|a?(cos|sin2?|tan)m(ax|in)|sqrt)|SQRT(1_)?2|PI|E|(LN|LOG)(10|2)E?)|setFilter|(([bv]r|sa)t|con|[rgbUWV]|oRGB|ic)(?!(\w|\d))|_(\w|\d)+(?!\()|var|let|(if|(if )?else)\(|[!%&(-?{-}]|true|false|undefined|null|is(NaN|Finite)(?=\(.*\)))/g,'');
+			rez= items.fn.replace(/(\/{2}.*\n|\/\*([^*/]|\s)*\*\/|\s|Math\.((pow|round|ceil|floor|abs|log|exp|random|a?(cos|sin2?|tan)m(ax|in)|sqrt)|SQRT(1_)?2|PI|E|(LN|LOG)(10|2)E?)|setFilter|(([bv]r|sa)t|con|[rgbUWV]|o(RGB|U|W)|ic)(?!(\w|\d))|_(\w|\d)+(?!\()|var|let|(if|(if )?else)\(|[!%&(-?{-}]|true|false|undefined|null|is(NaN|Finite)(?=\(.*\)))/g,'');
 			items.fn= items.fn.replace(/(window|document|evalu?|const|function|(chrom|toggl|Intliz)e|setPl|on(Play|Pause)|S(torageChange|HORT|TOP|TART)|clock|tick|getAvColor|fn|(inn|out)erHTML)|re(place|[sS]et|z)/, 'return;');
 			if(rez==''&&! /(\=>{|\(.?\)\=>)/.test(fn)){
 				var fn= items.fn;
@@ -36,7 +36,7 @@ vrt=V<= 249? 0: V<253.5? (V-249)/15: V<=254.5? .3: -(((V-254.5)/10)+.3);
 con=sat= 1;
 setFilter(brt, vrt, con, sat);`
 	}
-	window.CSfn= new Function("ic", "rgb", "U", "W", "r", "g", "b","oRGB", fn);
+	window.CSfn= new Function("ic", "rgb", "U", "W", "r", "g", "b","oRGB", "oW", "oU", fn);
 });
 setTimeout(()=>{
 	if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
@@ -252,10 +252,12 @@ function evalu(){
 	if(rgb< 254.9 && rgb> 20){
 		while(IC< 10){
 			let ic= IC;
-			setTimeout(CSfn(ic, rgb, U, W, r, g, b, oldRgb), (DLY*ic)/10);
+			setTimeout(CSfn(ic, rgb, U, W, r, g, b, oldRgb, oldW, oldU), (DLY*ic)/10);
 			IC+= inc;
 		}
 		oldRgb= rgb;
+		oldW= W;
+		oldU= U;
 	}
 	else if(rgb<= 20) setFilter(1, 1);
 }
