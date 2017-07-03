@@ -4,7 +4,7 @@
 	"short_name": "Brt YT",
 	"version": "1.6",
 	"minimum_chrome_version": "49",
-	"description": "This extension automatically adjusts the brightness of YouTube videos",
+	"description": "This extension automatically adjusts the brightness of not only YouTube videos, but HTML5 videos too!  Note: Enable: chrome://flags/#enable-canvas-2d-dynamic-rendering-mode-switching or disable 'Use hardware acceleration when available' at chrome://settings#advancedToggle to fix quality degradation",
 	"icons":{
 		"16": "img/YT16.png",
 		"32": "img/YT32.png",
@@ -15,25 +15,15 @@
 		"default_title": "Bright YouTube Options", 
 		"default_popup": "popup/act.html"
 	},
-	"devtools_page": "https://github.com/zekrom-vale/Bright-YouTube/tree/Experimental",
 	"homepage_url": "https://github.com/zekrom-vale/Bright-YouTube",
+	"options_ui":{
+		"page": "popup/option.html"
+	},
+	"devtools_page": "https://github.com/zekrom-vale/Bright-YouTube/tree/Experimental",
 	"offline_enabled": true,
 	"permissions": [
 		"storage"
 	],
-	"event_rules": [{
-		"event": "declarativeContent.onPageChanged",
-		"actions": [{
-			"type": "declarativeContent.ShowPageAction"
-		}],
-    "conditions": [{
-			"type": "declarativeContent.PageStateMatcher",
-			"css": ["video"]
-		}]
-	}],
-	"options_ui":{
-		"page": "popup/option.html"
-	},
 	"optional_permissions": [
 		"https://www.youtube.com/watch*",
 		"https://gaming.youtube.com/watch*",
@@ -55,6 +45,16 @@
 		"http://www.veoh.com//*",
 		"file://*/*"
 	],
+	"event_rules": [{
+		"event": "declarativeContent.onPageChanged",
+		"actions": [{
+			"type": "declarativeContent.ShowPageAction"
+		}],
+    "conditions": [{
+			"type": "declarativeContent.PageStateMatcher",
+			"css": ["video"]
+		}]
+	}],
 	"content_scripts": [{
 		"matches": [
 			"https://gaming.youtube.com/watch*",
@@ -100,12 +100,10 @@
 			"*minecraft*",
 			"*login*",
 			"*signin*",
-			"*account-selection*",
 			"*signup*",
 			"*account*",
 			"*oauth*",
 			"*authorize*",
-			"*oauth_token*",
 			"*api*"
 		],
 		"css": ["main.css"],
