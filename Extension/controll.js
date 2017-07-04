@@ -1,26 +1,44 @@
 var oldRgb= oldU= oldW= 140,
 clock;
 const DLY=1500,
-VID= document.getElementsByTagName('video')[0],
 //Canvas
 SUB=0,
 VAS= document.createElement('canvas'),
 CONT= VAS.getContext && VAS.getContext('2d', {willReadFrequently:true});
 VAS.id= 'Brt-canvas',
-PLY= setPl();
+PLY= setPl(),
+VID= defVID();
+function defVID(){
+	with(document){
+		if(querySelector('video')!==null) return getElementsByTagName('video')[0];		
+		//more options
+		/*
+		if(querySelector('img[src$=".gif"]')!==null){
+			return querySelector('img[src$=".gif"]');
+		}
+		if(querySelector('embed"]')!==null){
+			return getElementsByTagName('embed')[0];
+		}//*/
+	}
+}
 var FN;
 chrome.storage.sync.get('fn', items=>{
+	if(typeof CSfn== 'function'){
+		var warn= '[BREACH DETECTED]CSfn is predefined';
+		console.warn(warn+ '/n'+ CSfn);
+		chrome.storage.local.set({'Err': {'time':Date(), 'code':407, 'text':warn}});
+	}
 	try{
 		if(items.fn==undefined) throw new ReferenceError('fn is undefined');
 		else{
-			rez= items.fn.replace(/(\/{2}.*\n|\/\*([^*/]|\s)*\*\/|\s|Math\.((pow|round|ceil|floor|abs|log|exp|random|a?(cos|sin2?|tan)m(ax|in)|sqrt)|SQRT(1_)?2|PI|E|(LN|LOG)(10|2)E?)|setFilter|(([bv]r|sa)t|con|[rgbUWV]|o(RGB|U|W)|ic)(?!(\w|\d))|_(\w|\d)+(?!\()|var|let|(if|(if )?else)\(|[!%&(-?{-}]|true|false|undefined|null|is(NaN|Finite)(?=\(.*\)))/g,'');
-			items.fn= items.fn.replace(/(window|document|evalu?|const|function|(chrom|toggl|Intliz)e|setPl|on(Play|Pause)|S(torageChange|HORT|TOP|TART)|clock|tick|getAvColor|fn|(inn|out)erHTML)|re(place|[sS]et|z)/, 'return;');
+			rez= items.fn.replace(/(\/{2}.*\n|\/\*([^*/]|\s)*\*\/|\s|Math\.((pow|round|ceil|floor|abs|log|exp|random|a?(cos|sin2?|tan)m(ax|in)|sqrt)|SQRT(1_)?2|PI|E|(LN|LOG)(10|2)E?)|setFilter|(([bv]r|sa)t|con|[rgbUWV]|o(RGB|U|W)|ic)(?!(\w|\d))|_(\w|\d)+(?!\()|var|let|(if|(if )?else)\(|[!%&(-?{-}]|true|false|undefined|null|arguments([\d+]|\.lenght)|is(NaN|Finite)(?=\(.*\)))/g,'');
+			items.fn= items.fn.replace(/(window|document|evalu?|const|[Ff]unction|(chrom|toggl|Intliz)e|setPl|on(Play|Pause)|S(torageChange|HORT|TOP|TART)|clock|tick|getAvColor|fn|(inn|out)erHTML)|re(place|[sS]et|z)/g, 'return;');
 			if(rez==''&&! /(\=>{|\(.?\)\=>)/.test(fn)){
 				var fn= items.fn;
 			}
 			else{
 				items.fn= undefined;
-				const warn= '[BREACH DETECTED]Custom function is invalid, bypased first checheck';
+				var warn= '[BREACH DETECTED]Custom function is invalid, bypased first checheck';
 				chrome.storage.local.set({'Err': {'time':Date(), 'code':407, 'text':warn}});
 				alert(warn+ ':\n'+ rez);
 				throw new SyntaxError(warn+ ': \n'+ rez);
@@ -58,38 +76,46 @@ function Intlize(items){
 			reSet();
 			items.Active= true;		//fall-through
 		case 'boolean':
-			VID.addEventListener('canplay', items=>{
-			//Style
-				let Style= document.createElement('style');
-				Style.id= 'Brt-YT';
-				VID.appendChild(Style);
-			//Canvas
-				VID.appendChild(VAS);
-				chrome.storage.onChanged.addListener(StorageChange);
-				if(items.Active) START();
-			//In line IO
-				chrome.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
-					if(items.PozOn!== false){
-						var opt= document.createElement('input');
-						opt.type= 'checkbox';
-						opt.checked= items.Active;
-						opt.id= 'Brt-opt';
-						if(document.querySelector('#menu-container')!== null
-							&& items.PozSkip!== true){
-								document.getElementById('menu-container').appendChild(opt);
-						}
-						else{
-							opt.classList.add('Brt-Fixed');
-							var div= document.createElement('div');
-							div.classList.add('Brt-FxDiv');
-							div.appendChild(opt);
-							document.documentElement.appendChild(div);
-							//style
-						}
-						var sheet= document.createElement('style');
-						sheet.id= 'Brt-FS';
-						if(items.AdvOn!== true){
-							with(items.PozCSS){
+			if(VID.tagName== 'VIDEO'){
+				VID.addEventListener('canplay', items=>{Int2(items);}, {once:true});
+			}
+			else{
+				Int2(items);
+			}
+	}
+}
+function Int2(){
+	//Style
+		let Style= document.createElement('style');
+		Style.id= 'Brt-YT';
+		VID.appendChild(Style);
+	//Canvas
+		VID.appendChild(VAS);
+		chrome.storage.onChanged.addListener(StorageChange);
+		if(items.Active) START();
+	//In line IO
+		chrome.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
+			if(items.PozOn!== false){
+				var opt= document.createElement('input');
+				opt.type= 'checkbox';
+				opt.checked= items.Active;
+				opt.id= 'Brt-opt';
+				if(document.querySelector('#menu-container')!== null
+					&& items.PozSkip!== true){
+						document.getElementById('menu-container').appendChild(opt);
+				}
+				else{
+					opt.classList.add('Brt-Fixed');
+					var div= document.createElement('div');
+					div.classList.add('Brt-FxDiv');
+					div.appendChild(opt);
+					document.documentElement.appendChild(div);
+					//style
+				}
+				var sheet= document.createElement('style');
+				sheet.id= 'Brt-FS';
+				if(items.AdvOn!== true){
+					with(items.PozCSS){
 sheet.innerHTML= `.Brt-FxDiv{
 	position:${position};
 	${TB.join('')};	${RL.join('')};
@@ -104,20 +130,19 @@ ${apply}{
 	height:${WH.join('')};
 	margin:0
 }`;
-							}
-						}
-						else sheet.innerHTML= items.Adv;
-						document.documentElement.appendChild(sheet);
-						if(items.Active!== false) opt.checked= true;
-						opt.addEventListener("change", function(){
-							chrome.storage.local.set({'Active': this.checked});
-						});
-					}
-					else console.info('[OFF] Inline IO, User specification')
-				});
-			}, {once:true});
-	}
+				}
+			}
+			else sheet.innerHTML= items.Adv;
+			document.documentElement.appendChild(sheet);
+			if(items.Active!== false) opt.checked= true;
+			opt.addEventListener("change", function(){
+				chrome.storage.local.set({'Active': this.checked});
+			});
+		}
+		else console.info('[OFF] Inline IO, User specification')
+	});
 }
+
 function setPl(){
 	try{
 		if(/youtube/.test(window.location.hostname)){
