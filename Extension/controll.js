@@ -2,25 +2,8 @@ var oldRgb= oldU= oldW= 140,
 clock;
 const DLY=1500,
 //Canvas
-SUB=0,
-VAS= document.createElement('canvas'),
-CONT= VAS.getContext && VAS.getContext('2d', {willReadFrequently:true});
-VAS.id= 'Brt-canvas',
-PLY= setPl(),
-VID= defVID();
-function defVID(){
-	with(document){
-		if(querySelector('video')!==null) return getElementsByTagName('video')[0];		
-		//more options
-		/*
-		if(querySelector('img[src$=".gif"]')!==null){
-			return querySelector('img[src$=".gif"]');
-		}
-		if(querySelector('embed"]')!==null){
-			return getElementsByTagName('embed')[0];
-		}//*/
-	}
-}
+SUB=0;
+PLY= setPl();
 var FN;
 chrome.storage.sync.get('fn', items=>{
 	if(typeof CSfn== 'function'){
@@ -76,8 +59,8 @@ function Intlize(items){
 			reSet();
 			items.Active= true;		//fall-through
 		case 'boolean':
-			if(VID.tagName== 'VIDEO'){
-				VID.addEventListener('canplay', items=>{Int2(items);}, {once:true});
+			if(document.getElementsByTagName('video')[0].tagName== 'VIDEO'){
+				document.getElementsByTagName('video')[0].addEventListener('canplay', items=>{Int2(items);});
 			}
 			else{
 				Int2(items);
@@ -85,12 +68,14 @@ function Intlize(items){
 	}
 }
 function Int2(){
+	let VAS= document.createElement('canvas');
+	VAS.id= 'Brt-canvas';
+	document.getElementsByTagName('video')[0].appendChild(VAS);
 	//Style
 		let Style= document.createElement('style');
 		Style.id= 'Brt-YT';
-		VID.appendChild(Style);
+		document.getElementsByTagName('video')[0].appendChild(Style);
 	//Canvas
-		VID.appendChild(VAS);
 		chrome.storage.onChanged.addListener(StorageChange);
 		if(items.Active) START();
 	//In line IO
@@ -196,30 +181,30 @@ function StorageChange(changes){
 //STP
 function SHORT(){
 	onPause();
-	with(VID){
+	with(document.getElementsByTagName('video')[0]){
 		style.willChange= 'auto';
 		removeEventListener('play', onPlay);
 		removeEventListener('pause', onPause);
-		removeChild(VAS);
+		removeChild(document.getElementById('Brt-canvas'));
 		removeChild(document.getElementById('Brt-YT'));
 		style.willChange= '';
 	}
 	chrome.storage.onChanged.removeListener(StorageChange);
 }
 function STOP(){
-	VID.style.willChange= 'auto';
+	document.getElementsByTagName('video')[0].style.willChange= 'auto';
 	onPause();
-	VID.removeEventListener('play', onPlay);
-	VID.removeEventListener('pause', onPause);
+	document.getElementsByTagName('video')[0].removeEventListener('play', onPlay);
+	document.getElementsByTagName('video')[0].removeEventListener('pause', onPause);
 	document.getElementById('Brt-YT').innerHTML= '';
 }
 function START(){
-	VID.style.willChange= 'filter';
+	document.getElementsByTagName('video')[0].style.willChange= 'filter';
 	clearInterval(clock);
 	clock= setInterval(evalu, DLY);
 	toggle();
-	VID.addEventListener('play', onPlay);
-	VID.addEventListener('pause', onPause);
+	document.getElementsByTagName('video')[0].addEventListener('play', onPlay);
+	document.getElementsByTagName('video')[0].addEventListener('pause', onPause);
 }
 //End STP
 function evalu(){
@@ -228,7 +213,7 @@ function evalu(){
 		console.info('[STOP] audio_only detected');
 		return;
 	}
-	if(VID.style.filter!='' || VID.readyState< 4) return;
+	if(document.getElementsByTagName('video')[0].style.filter!='' || document.getElementsByTagName('video')[0].readyState< 4) return;
 	if(document.webkitHidden || document.hidden) return;
 	//security
 	if(isNaN(oldRgb)){
@@ -296,11 +281,11 @@ function setFilter(brt=1, vrt=0, con=1, sat=1){
 }
 
 function getAvColor(){
-	var o= VID.clientWidth<= 550? 0:1,
-	height= VAS.height= VID.clientHeight-SUB*2*o,
-	width= VAS.width= VID.clientWidth-SUB*2*o;
-	CONT.drawImage(VID, SUB*o, SUB*o, width, height,0,0,width,height);//hardware acceleration
-    data= CONT.getImageData(0,0, width, height);
+	var o= document.getElementsByTagName('video')[0].clientWidth<= 550? 0:1,
+	height= document.getElementById('Brt-canvas').height= document.getElementsByTagName('video')[0].clientHeight-SUB*2*o,
+	width= document.getElementById('Brt-canvas').width= document.getElementsByTagName('video')[0].clientWidth-SUB*2*o;
+	document.getElementById('Brt-canvas').getContext('2d', {willReadFrequently:true}).drawImage(document.getElementsByTagName('video')[0], SUB*o, SUB*o, width, height,0,0,width,height);//hardware acceleration
+    data= document.getElementById('Brt-canvas').getContext('2d', {willReadFrequently:true}).getImageData(0,0, width, height);
 	var i= r= g= b= a= C= 0;
 	while(i< data.data.length){
 		r+= data.data[i];
