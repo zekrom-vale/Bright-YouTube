@@ -5,12 +5,16 @@ const DLY=1500,
 SUB=0;
 PLY= setPl();
 var FN;
+function CSfn(ic, rgb, U, W, r, g, b, oRGB, oW, oU){
+	var V= oRGB*(1-ic) + rgb*ic;
+	let _X= 0.0266813*V -6,
+	_PN= _X<0? -1: 1;
+	var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 2.2,
+	vrt=V<= 249? 0: V<253.5? (V-249)/15: V<=254.5? .3: -(((V-254.5)/10)+.3);
+	con=sat= 1;
+	setFilter(brt, vrt, con, sat);
+}
 chrome.storage.sync.get('fn', items=>{
-	if(typeof CSfn== 'function'){
-		var warn= '[BREACH DETECTED]CSfn is predefined';
-		console.warn(warn+ '/n'+ CSfn);
-		chrome.storage.local.set({'Err': {'time':Date(), 'code':407, 'text':warn}});
-	}
 	try{
 		if(items.fn==undefined) throw new ReferenceError('fn is undefined');
 		else{
@@ -24,20 +28,14 @@ chrome.storage.sync.get('fn', items=>{
 				var warn= '[BREACH DETECTED]Custom function is invalid, bypased first checheck';
 				chrome.storage.local.set({'Err': {'time':Date(), 'code':407, 'text':warn}});
 				alert(warn+ ':\n'+ rez);
-				throw new SyntaxError(warn+ ': \n'+ rez);
+				throw new SyntaxError(`%c${warn}:\n`+ rez, 'font-weight:bold');
 			}
 		}
 	}catch(e){
-	console.warn(e);
-	fn=`var V= oRGB*(1-ic) + rgb*ic;
-let _X= 0.0266813*V -6,
-_PN= _X<0? -1: 1;
-var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 2.2,
-vrt=V<= 249? 0: V<253.5? (V-249)/15: V<=254.5? .3: -(((V-254.5)/10)+.3);
-con=sat= 1;
-setFilter(brt, vrt, con, sat);`
+		console.warn(e);
+		return;
 	}
-	window.CSfn= new Function("ic", "rgb", "U", "W", "r", "g", "b","oRGB", "oW", "oU", fn);
+	window.CSfn= new Function("ic", "rgb", "U", "W", "r", "g", "b", "oRGB", "oW", "oU", fn);
 });
 setTimeout(()=>{
 	if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
@@ -59,12 +57,7 @@ function Intlize(items){
 			reSet();
 			items.Active= true;		//fall-through
 		case 'boolean':
-			if(document.getElementsByTagName('video')[0].tagName== 'VIDEO'){
-				document.getElementsByTagName('video')[0].addEventListener('canplay', items=>{Int2(items);});
-			}
-			else{
-				Int2(items);
-			}
+			document.getElementsByTagName('video')[0].addEventListener('canplay', items=>{Int2(items);});
 	}
 }
 function Int2(){
@@ -119,7 +112,7 @@ ${apply}{
 			}
 			else sheet.innerHTML= items.Adv;
 			document.documentElement.appendChild(sheet);
-			if(items.Active!== false) opt.checked= true;
+			if(items.Active!= false) opt.checked= true;
 			opt.addEventListener("change", function(){
 				chrome.storage.local.set({'Active': this.checked});
 			});
@@ -139,16 +132,13 @@ function setPl(){
 		else if(/___domain___/.test(window.location.hostname)){
 			var PLY=document.getElementsByClassName('___class play button___')[0];
 		}//*/
-		else if(document.querySelector('#playpause')!== null){
+		else if(document.querySelector('#playpause')!== null){//Or find by CSS selectors
 			var PLY= document.querySelector('#playpause');
-			console.info('Got normal HTML5 video button');
 		}else{
 			PLY= false;
-			throw new ReferenceError('No button found');
 		}
 	}catch(e){
 		PLY= false;
-		console.warn(e);
 	}
 	return PLY;
 }
@@ -168,8 +158,8 @@ function onPause(){
 function StorageChange(changes){
 	try{
 		with(changes.Active){
-			if(newValue=== true) START();
-			else if(newValue=== false) STOP();
+			if(newValue== true) START();
+			else if(newValue== false) STOP();
 			else if(newValue== 'Short'){
 				console.info('[STOP] User specification');
 				SHORT();
@@ -192,10 +182,12 @@ function SHORT(){
 	chrome.storage.onChanged.removeListener(StorageChange);
 }
 function STOP(){
-	document.getElementsByTagName('video')[0].style.willChange= 'auto';
 	onPause();
-	document.getElementsByTagName('video')[0].removeEventListener('play', onPlay);
-	document.getElementsByTagName('video')[0].removeEventListener('pause', onPause);
+	with(document.getElementsByTagName('video')[0]){
+		style.willChange= 'auto';
+		removeEventListener('play', onPlay);
+		removeEventListener('pause', onPause);
+	}
 	document.getElementById('Brt-YT').innerHTML= '';
 }
 function START(){
@@ -203,8 +195,10 @@ function START(){
 	clearInterval(clock);
 	clock= setInterval(evalu, DLY);
 	toggle();
-	document.getElementsByTagName('video')[0].addEventListener('play', onPlay);
-	document.getElementsByTagName('video')[0].addEventListener('pause', onPause);
+	with(document.getElementsByTagName('video')[0]){
+		addEventListener('play', onPlay);
+		addEventListener('pause', onPause);
+	}
 }
 //End STP
 function evalu(){
@@ -214,35 +208,32 @@ function evalu(){
 		return;
 	}
 	if(document.getElementsByTagName('video')[0].style.filter!='' || document.getElementsByTagName('video')[0].readyState< 4) return;
-	if(document.webkitHidden || document.hidden) return;
+	if(document.webkitHidden || document.hidden){
+		//*
+			clearInterval(clock);
+			setTimeout(()=>{
+				clock= setInterval(evalu, DLY);
+			}, 5000);
+		//*/
+		return;
+	}
 	//security
 	if(isNaN(oldRgb)){
 		console.warn('Varables ilegaly modifyed');
 		clearInterval(clock);
-		let warning= confirm("Variables illegally modified, possibly malicious code.  Do you want to Reset and Continue?");
-		if(warning=== true){
-			console.warn('Continuing');
-			oldRgb= rgb= 140;
-			clock= setInterval(evalu, DLY);
-			chrome.storage.local.set({
-				'0': true,
-				'Err':{
-					'time':Date(),
-					'code':100.7,
-					'text':'Varables ilegaly modifyed'
-				}
-			});
-		}
-		else{
-			SHORT();
-			chrome.storage.local.set({'Err': {'time':Date(), 'code':407, 'text':'Varables ilegaly modifyed'}});
-			return;
-		}
+		oldRgb= 140;
+		clock= setInterval(evalu, DLY);
+		chrome.storage.local.set({
+			'Err':{
+				'time':Date(),
+				'code':100.7,
+				'text':'oldRgb isNaN->140'
+			}
+		});
 	}
-	//End security
 	document.getElementById('Brt-YT').innerHTML= '';
-	var av= getAvColor();
-	var U= (av.r+av.g+av.b)/3,
+	var av= getAvColor(),
+	U= (av.r+av.g+av.b)/3,
 	W= 0.2126*av.r+ 0.7152*av.g+ 0.0722*av.b,
 	rgb= 255-(.9*U+.1*W);
 	/*
@@ -253,7 +244,6 @@ function evalu(){
 		info('Weighted rgb(W): %f.5', W);
 		info('Difference (U-W): %f.5', U-W);
 		info('rgb: %f.5', rgb);
-		trace('from');
 		timeStamp('time');
 		groupEnd();
 	}//*/
@@ -281,10 +271,11 @@ function setFilter(brt=1, vrt=0, con=1, sat=1){
 }
 
 function getAvColor(){
-	var o= document.getElementsByTagName('video')[0].clientWidth<= 550? 0:1,
-	height= document.getElementById('Brt-canvas').height= document.getElementsByTagName('video')[0].clientHeight-SUB*2*o,
-	width= document.getElementById('Brt-canvas').width= document.getElementsByTagName('video')[0].clientWidth-SUB*2*o;
-	document.getElementById('Brt-canvas').getContext('2d', {willReadFrequently:true}).drawImage(document.getElementsByTagName('video')[0], SUB*o, SUB*o, width, height,0,0,width,height);//hardware acceleration
+	let VID=document.getElementsByTagName('video')[0];
+	var o= VID.clientWidth<= 550? 0:1,
+	height= document.getElementById('Brt-canvas').height= VID.clientHeight-SUB*2*o,
+	width= document.getElementById('Brt-canvas').width= VID.clientWidth-SUB*2*o;
+	document.getElementById('Brt-canvas').getContext('2d', {willReadFrequently:true}).drawImage(VID, SUB*o, SUB*o, width, height,0,0,width,height);//hardware acceleration
     data= document.getElementById('Brt-canvas').getContext('2d', {willReadFrequently:true}).getImageData(0,0, width, height);
 	var i= r= g= b= a= C= 0;
 	while(i< data.data.length){
@@ -303,7 +294,6 @@ function toggle(poz= true){
 		poz?PLY.classList.add('active'):PLY.classList.remove('active');
 	}
 }
-
 
 //reSet
 function reSet(){
