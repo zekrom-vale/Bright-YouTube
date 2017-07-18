@@ -58,8 +58,6 @@
 	}],
 	"content_scripts": [{
 		"matches": [
-			"https://gaming.youtube.com/channel/*",
-			"https://www.youtube.com/*",
 			"https://www.youtube-nocookie.com/embed/*",
 			"https://www.twitch.tv/videos/*",
 			"http://www.dailymotion.com/video/*",
@@ -110,7 +108,8 @@
 	}],
 	"content_scripts": [{
 		"matches": [
-			"https://gaming.youtube.com/watch*"
+			"https://www.youtube.com/*",
+			"https://gaming.youtube.com/*"
 		],
 		"css": ["main.css"],
 		"js": ["YTcontroll.js"],
