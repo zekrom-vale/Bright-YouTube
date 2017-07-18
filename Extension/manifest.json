@@ -1,9 +1,9 @@
 {
 	"manifest_version": 2,
-	"name": "Bright YouTube [BETA]",
+	"name": "Bright YouTube [GAMMA]",
 	"short_name": "Brt YT",
-				 "version": "1.6",
-	"version_name":"beta Pro 1.6",
+				 "version": "2.0",
+	"version_name":"gamma Pro 2.0",
 	"author": "zekrom_vale",
 	"minimum_chrome_version": "49",
 	"description": "This extension automatically adjusts the brightness of not only YouTube videos, but HTML5 videos too!  Note: Enable: chrome://flags/#enable-canvas-2d-dynamic-rendering-mode-switching or disable 'Use hardware acceleration when available' at the bottom of  chrome://settings#advancedToggle to fix quality degradation",
@@ -27,10 +27,9 @@
 		"storage"
 	],
 	"optional_permissions": [
-		"https://www.youtube.com/watch*",
+		"https://www.youtube.com/*",
 		"https://gaming.youtube.com/watch*",
 		"https://gaming.youtube.com/channel/*",
-		"https://www.youtube.com/embed/*",
 		"https://www.youtube-nocookie.com/embed/*",
 		"https://www.twitch.tv/videos/*",
 		"http://www.dailymotion.com/video/*",
@@ -59,11 +58,8 @@
 	}],
 	"content_scripts": [{
 		"matches": [
-			"https://gaming.youtube.com/watch*",
 			"https://gaming.youtube.com/channel/*",
-			"https://www.youtube.com/watch*",
-			"https://www.youtube.com/channel/*",
-			"https://www.youtube.com/embed/*",
+			"https://www.youtube.com/*",
 			"https://www.youtube-nocookie.com/embed/*",
 			"https://www.twitch.tv/videos/*",
 			"http://www.dailymotion.com/video/*",
@@ -110,6 +106,14 @@
 		],
 		"css": ["main.css"],
 		"js": ["controll.js"],
+		"all_frames": true
+	}],
+	"content_scripts": [{
+		"matches": [
+			"https://gaming.youtube.com/watch*"
+		],
+		"css": ["main.css"],
+		"js": ["YTcontroll.js"],
 		"all_frames": true
 	}]
 }

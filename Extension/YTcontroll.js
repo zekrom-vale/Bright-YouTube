@@ -1,10 +1,28 @@
+document.documentElement.addEventListener('yt-navigate-finish', ()=>{
+	window.oldRgb= window.oldU= window.oldW= 140;
+	window.clock;
+	window.DLY=1500;
+	window.FN;
+	window.CSfn= function(ic, rgb, U, W, r, g, b, oRGB, oW, oU){
+		var V= oRGB*(1-ic) + rgb*ic;
+		let _X= 0.0266813*V -6,
+		_PN= _X<0? -1: 1;
+		var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 2.2,
+		vrt=V<= 249? 0: V<253.5? (V-249)/15: V<=254.5? .3: -(((V-254.5)/10)+.3);
+		con=sat= 1;
+		setFilter(brt, vrt, con, sat);
+	}
+	chrome.storage.sync.get('fn', items=>{getFN(items)});
+	setTimeout(()=>{
+		if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
+	}, 1500);
+	console.log('navigated');
+});
 var oldRgb= oldU= oldW= 140,
-clock;
-const DLY=1500,
+clock,
+DLY=1500,
 //Canvas
-SUB=0;
-PLY= setPl();
-var FN;
+FN;
 function CSfn(ic, rgb, U, W, r, g, b, oRGB, oW, oU){
 	var V= oRGB*(1-ic) + rgb*ic;
 	let _X= 0.0266813*V -6,
@@ -14,7 +32,8 @@ function CSfn(ic, rgb, U, W, r, g, b, oRGB, oW, oU){
 	con=sat= 1;
 	setFilter(brt, vrt, con, sat);
 }
-chrome.storage.sync.get('fn', items=>{
+chrome.storage.sync.get('fn', items=>{getFN(items)});
+function getFN(items){
 	try{
 		if(items.fn==undefined) throw new ReferenceError('fn is undefined');
 		else{
@@ -36,7 +55,7 @@ chrome.storage.sync.get('fn', items=>{
 		return;
 	}
 	window.CSfn= new Function("ic", "rgb", "U", "W", "r", "g", "b", "oRGB", "oW", "oU", fn);
-});
+}
 setTimeout(()=>{
 	if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
 }, 1500);
@@ -120,29 +139,6 @@ ${apply}{
 		else console.info('[OFF] Inline IO, User specification')
 	});
 }
-
-function setPl(){
-	try{
-		if(/youtube/.test(window.location.hostname)){
-			var PLY= document.getElementsByClassName('ytp-play-button')[0];
-		}else if(/twitch/.test(window.location.hostname)){
-			var PLY=document.getElementsByClassName('player-icon-pause')[0];
-		}
-		/* "//*"= on "/*"= off	//More options!
-		else if(/___domain___/.test(window.location.hostname)){
-			var PLY=document.getElementsByClassName('___class play button___')[0];
-		}//*/
-		else if(document.querySelector('#playpause')!== null){//Or find by CSS selectors
-			var PLY= document.querySelector('#playpause');
-		}else{
-			PLY= false;
-		}
-	}catch(e){
-		PLY= false;
-	}
-	return PLY;
-}
-
 //Active?
 function onPlay(){
 	clearInterval(clock);
@@ -272,10 +268,9 @@ function setFilter(brt=1, vrt=0, con=1, sat=1){
 
 function getAvColor(){
 	let VID=document.getElementsByTagName('video')[0];
-	var o= VID.clientWidth<= 550? 0:1,
-	height= document.getElementById('Brt-canvas').height= VID.clientHeight-SUB*2*o,
-	width= document.getElementById('Brt-canvas').width= VID.clientWidth-SUB*2*o;
-	document.getElementById('Brt-canvas').getContext('2d', {willReadFrequently:true}).drawImage(VID, SUB*o, SUB*o, width, height,0,0,width,height);//hardware acceleration
+	var height= document.getElementById('Brt-canvas').height= VID.clientHeight,
+	width= document.getElementById('Brt-canvas').width= VID.clientWidth;
+	document.getElementById('Brt-canvas').getContext('2d', {willReadFrequently:true}).drawImage(VID, 0, 0, width, height,0,0,width,height);//hardware acceleration
     data= document.getElementById('Brt-canvas').getContext('2d', {willReadFrequently:true}).getImageData(0,0, width, height);
 	var i= r= g= b= a= C= 0;
 	while(i< data.data.length){
@@ -290,6 +285,7 @@ function getAvColor(){
 }
 //Indicate
 function toggle(poz= true){
+	const PLY= document.getElementsByClassName('player-icon-pause')[0];
 	if(PLY!= false){
 		poz?PLY.classList.add('active'):PLY.classList.remove('active');
 	}

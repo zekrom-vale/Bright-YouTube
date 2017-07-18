@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	});
 	//End Set	//Listen
 	YTB.addEventListener('change', ()=>{
-		pros(["https://www.youtube.com/watch*"], YTB);
+		pros(["https://www.youtube.com/*"], YTB);
 	});
 	GAME.addEventListener('change', ()=>{
 		pros(["https://gaming.youtube.com/watch*"], GAME);
