@@ -57,15 +57,7 @@ function Intlize(items){
 			reSet();
 			items.Active= true;		//fall-through
 		case 'boolean':
-			//location.search changes ?v=64-bit
-			document.documentElement.addEventListener("load", items=>{
-				document.getElementsByTagName('video')[0].addEventListener('canplay', items=>{
-					Int2(items);
-				}, {once: true});
-			});
-			document.getElementsByTagName('video')[0].addEventListener('canplay', items=>{
-				Int2(items);
-			}, {once: true});
+			document.getElementsByTagName('video')[0].addEventListener('canplay', items=>{Int2(items);});
 	}
 }
 function Int2(){
