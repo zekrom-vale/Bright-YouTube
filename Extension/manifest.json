@@ -27,10 +27,9 @@
 		"storage"
 	],
 	"optional_permissions": [
-		"https://www.youtube.com/watch*",
+		"https://www.youtube.com/*",
 		"https://gaming.youtube.com/watch*",
 		"https://gaming.youtube.com/channel/*",
-		"https://www.youtube.com/embed/*",
 		"https://www.youtube-nocookie.com/embed/*",
 		"https://www.twitch.tv/videos/*",
 		"http://www.dailymotion.com/video/*",
@@ -59,12 +58,11 @@
 	}],
 	"content_scripts": [{
 		"matches": [
-			"https://gaming.youtube.com/watch*",
+			"https://gaming.youtube.com/*",
 			"https://gaming.youtube.com/channel/*",
 			"https://www.youtube.com/watch*",
 			"https://www.youtube.com/channel/*",
 			"https://www.youtube.com/embed/*",
-			"https://www.youtube-nocookie.com/embed/*",
 			"https://www.twitch.tv/videos/*",
 			"http://www.dailymotion.com/video/*",
 			"https://www.hulu.com/*",

@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	});
 	//End Set	//Listen
 	YTB.addEventListener('change', ()=>{
-		pros(["https://www.youtube.com/watch*"], YTB);
+		pros(["https://www.youtube.com/*"], YTB);
 	});
 	GAME.addEventListener('change', ()=>{
 		pros(["https://gaming.youtube.com/watch*"], GAME);
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 });
 function pros(url=undefined, ent, per=undefined){
 	var obj={};
-	if(url!==undefined) obj.origins= url;
+	if(url!== undefined) obj.origins= url;
 	if(per!== undefined) obj.permissions= per;
 	if(ent.checked){
 		chrome.permissions.request(obj, granted=>{
