@@ -1,3 +1,6 @@
+document.documentElement.addEventListener('yt-navigate-finish', ()=>{
+	console.log('navigated');//Run this extension on navigation
+});
 var oldRgb= oldU= oldW= 140,
 clock;
 const DLY=1500,
