@@ -18,6 +18,21 @@ document.documentElement.addEventListener('yt-navigate-finish', ()=>{
 	}, 1500);
 	console.log('navigated');
 });
+var oldRgb= oldU= oldW= 140,
+clock,
+DLY=1500,
+//Canvas
+FN;
+function CSfn(ic, rgb, U, W, r, g, b, oRGB, oW, oU){
+	var V= oRGB*(1-ic) + rgb*ic;
+	let _X= 0.0266813*V -6,
+	_PN= _X<0? -1: 1;
+	var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 2.2,
+	vrt=V<= 249? 0: V<253.5? (V-249)/15: V<=254.5? .3: -(((V-254.5)/10)+.3);
+	con=sat= 1;
+	setFilter(brt, vrt, con, sat);
+}
+chrome.storage.sync.get('fn', items=>{getFN(items)});
 function getFN(items){
 	try{
 		if(items.fn==undefined) throw new ReferenceError('fn is undefined');
@@ -41,6 +56,10 @@ function getFN(items){
 	}
 	window.CSfn= new Function("ic", "rgb", "U", "W", "r", "g", "b", "oRGB", "oW", "oU", fn);
 }
+setTimeout(()=>{
+	if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
+}, 1500);
+
 function Intlize(items){
 	switch(typeof items.Active){
 		case 'undefined':
@@ -259,7 +278,7 @@ function getAvColor(){
 		g+= data.data[i+1];
 		b+= data.data[i+2];
 		//a+= data.data[i+3];
-		i+= Math.round(Math.random()*5 +1)*4;
+		i+= o==0? 4: Math.round(Math.random()*5 +1)*4;
 		C++;
 	}
 	return {'r':r/C, 'g':g/C, 'b':b/C, 'C':C};
