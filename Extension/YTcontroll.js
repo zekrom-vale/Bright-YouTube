@@ -10,6 +10,7 @@ document.documentElement.addEventListener('yt-navigate-finish', ()=>{
 		&& typeof clock!= 'undefined'){
 			return;
 	}
+	//*
 	function removeIfNn(Q){
 		if(document.querySelector(Q)!== null){
 			let parent= document.getElementsByTagName('video')[0],
@@ -20,7 +21,7 @@ document.documentElement.addEventListener('yt-navigate-finish', ()=>{
 	removeIfNn('#Brt-FS');
 	removeIfNn('#Brt-canvas');
 	removeIfNn('#Brt-YT');
-	removeIfNn('#Brt-opt');
+	removeIfNn('#Brt-opt'); //*/
 	window.oldRgb= window.oldU= window.oldW= 140;
 	window.clock;
 	window.DLY=1500;
@@ -40,7 +41,8 @@ document.documentElement.addEventListener('yt-navigate-finish', ()=>{
 	}, 1500);
 	console.log('navigated');
 });
-var oldRgb= oldU= oldW= 140,
+//Navigation is triggered regardless of DOM load
+/* var oldRgb= oldU= oldW= 140,
 clock,
 DLY=1500,
 //Canvas
@@ -54,7 +56,7 @@ function CSfn(ic, rgb, U, W, r, g, b, oRGB, oW, oU){
 	con=sat= 1;
 	setFilter(brt, vrt, con, sat);
 }
-chrome.storage.sync.get('fn', items=>{getFN(items)});
+chrome.storage.sync.get('fn', items=>{getFN(items)}); */
 function getFN(items){
 	try{
 		if(items.fn==undefined) throw new ReferenceError('fn is undefined');
