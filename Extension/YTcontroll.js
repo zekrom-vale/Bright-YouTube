@@ -1,4 +1,26 @@
 document.documentElement.addEventListener('yt-navigate-finish', ()=>{
+	//Remove excess nodes
+	if(document.querySelector('video')== null){
+		SHORT();
+		return;
+	}
+	if(document.querySelector('#Brt-canvas')!== null 
+		&& document.querySelector('#Brt-YT')!== null
+		&& typeof CSfn== 'function'
+		&& typeof clock!= 'undefined'){
+			return;
+	}
+	function removeIfNn(query){
+		if(document.querySelector(query)!== null){
+			let parent= document.getElementsByTagName('video')[0],
+			child= document.querySelector(query);
+			parent.removeChild(child);
+		}
+	}
+	removeIfNn('#Brt-FS');
+	removeIfNn('#Brt-canvas');
+	removeIfNn('#Brt-YT');
+	removeIfNn('#Brt-opt');
 	window.oldRgb= window.oldU= window.oldW= 140;
 	window.clock;
 	window.DLY=1500;
@@ -278,14 +300,14 @@ function getAvColor(){
 		g+= data.data[i+1];
 		b+= data.data[i+2];
 		//a+= data.data[i+3];
-		i+= o==0? 4: Math.round(Math.random()*5 +1)*4;
+		i+= Math.round(Math.random()*5 +1)*4;
 		C++;
 	}
 	return {'r':r/C, 'g':g/C, 'b':b/C, 'C':C};
 }
 //Indicate
 function toggle(poz= true){
-	const PLY= document.getElementsByClassName('player-icon-pause')[0];
+	var PLY= document.getElementsByClassName('ytp-play-button')[0];
 	if(PLY!= false){
 		poz?PLY.classList.add('active'):PLY.classList.remove('active');
 	}
