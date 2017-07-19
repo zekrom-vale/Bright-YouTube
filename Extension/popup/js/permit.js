@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		pros(["https://www.youtube.com/*"], YTB);
 	});
 	GAME.addEventListener('change', ()=>{
-		pros(["https://gaming.youtube.com/watch*"], GAME);
+		pros(["https://gaming.youtube.com/*"], GAME);
 	});
 	EMB.addEventListener('change', ()=>{
 		var url= ["https://www.youtube-nocookie.com/embed/*"/*, "https://www.youtube.com/embed/*"*/];

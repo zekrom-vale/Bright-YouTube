@@ -1,45 +1,3 @@
-document.documentElement.addEventListener('yt-navigate-finish', ()=>{
-	//Remove excess nodes
-	if(document.querySelector('video')== null){
-		SHORT();
-		return;
-	}
-	if(document.querySelector('#Brt-canvas')!== null 
-		&& document.querySelector('#Brt-YT')!== null
-		&& typeof CSfn== 'function'
-		&& typeof clock!= 'undefined'){
-			return;
-	}
-	function removeIfNn(Q){
-		if(document.querySelector(Q)!== null){
-			let parent= document.getElementsByTagName('video')[0],
-			child= document.querySelector(Q);
-			parent.removeChild(child);
-		}
-	}
-	removeIfNn('#Brt-FS');
-	removeIfNn('#Brt-canvas');
-	removeIfNn('#Brt-YT');
-	removeIfNn('#Brt-opt');
-	window.oldRgb= window.oldU= window.oldW= 140;
-	window.clock;
-	window.DLY=1500;
-	window.FN;
-	window.CSfn= function(ic, rgb, U, W, r, g, b, oRGB, oW, oU){
-		var V= oRGB*(1-ic) + rgb*ic;
-		let _X= 0.0266813*V -6,
-		_PN= _X<0? -1: 1;
-		var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 2.2,
-		vrt=V<= 249? 0: V<253.5? (V-249)/15: V<=254.5? .3: -(((V-254.5)/10)+.3);
-		con=sat= 1;
-		setFilter(brt, vrt, con, sat);
-	}
-	chrome.storage.sync.get('fn', items=>{getFN(items)});
-	setTimeout(()=>{
-		if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
-	}, 1500);
-	console.log('navigated');
-});
 var oldRgb= oldU= oldW= 140,
 clock,
 DLY=1500,
@@ -54,7 +12,25 @@ function CSfn(ic, rgb, U, W, r, g, b, oRGB, oW, oU){
 	con=sat= 1;
 	setFilter(brt, vrt, con, sat);
 }
-chrome.storage.sync.get('fn', items=>{getFN(items)});
+document.documentElement.addEventListener('yt-navigate-finish', ()=>{
+	if(document.querySelector('video')===null){
+		STOP();
+		return;
+	}
+	window.oldRgb= window.oldU= window.oldW= 140;
+	/* window.DLY=1500;
+	window.CSfn= function(ic, rgb, U, W, r, g, b, oRGB, oW, oU){
+		var V= oRGB*(1-ic) + rgb*ic;
+		let _X= 0.0266813*V -6,
+		_PN= _X<0? -1: 1;
+		var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 2.2,
+		vrt=V<= 249? 0: V<253.5? (V-249)/15: V<=254.5? .3: -(((V-254.5)/10)+.3);
+		con=sat= 1;
+		setFilter(brt, vrt, con, sat);
+	} */
+	chrome.storage.sync.get('fn', items=>{getFN(items)});
+	if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
+});
 function getFN(items){
 	try{
 		if(items.fn==undefined) throw new ReferenceError('fn is undefined');
@@ -78,10 +54,6 @@ function getFN(items){
 	}
 	window.CSfn= new Function("ic", "rgb", "U", "W", "r", "g", "b", "oRGB", "oW", "oU", fn);
 }
-setTimeout(()=>{
-	if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
-}, 1500);
-
 function Intlize(items){
 	switch(typeof items.Active){
 		case 'undefined':
@@ -98,23 +70,28 @@ function Intlize(items){
 			reSet();
 			items.Active= true;		//fall-through
 		case 'boolean':
-			document.getElementsByTagName('video')[0].addEventListener('canplay', items=>{
-				Int2(items);
-			}, {once: true});
+			if(document.getElementsByTagName('video')[0].readyState>= 2) Int2(items);
+			else{
+				document.getElementsByTagName('video')[0].addEventListener('canplay', items=>{
+					Int2(items);
+				}, {once: true});
+			}
 	}
 }
-function Int2(){
-	let VAS= document.createElement('canvas');
-	VAS.id= 'Brt-canvas';
-	document.getElementsByTagName('video')[0].appendChild(VAS);
-	//Style
+function Int2(items){
+	if(document.querySelector('#Brt-canvas')===null){
+		let VAS= document.createElement('canvas');
+		VAS.id= 'Brt-canvas';
+		document.getElementsByTagName('video')[0].appendChild(VAS);
+	}
+	if(document.querySelector('#Brt-YT')===null){
 		let Style= document.createElement('style');
 		Style.id= 'Brt-YT';
 		document.getElementsByTagName('video')[0].appendChild(Style);
-	//Canvas
+	}
 		chrome.storage.onChanged.addListener(StorageChange);
 		if(items.Active) START();
-	//In line IO
+	if(document.querySelector('#Brt-opt')===null){
 		chrome.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
 			if(items.PozOn!== false){
 				var opt= document.createElement('input');
@@ -151,17 +128,18 @@ ${apply}{
 	height:${WH.join('')};
 	margin:0
 }`;
+					}
 				}
+				else sheet.innerHTML= items.Adv;
+				document.documentElement.appendChild(sheet);
+				if(items.Active!= false) opt.checked= true;
+				opt.addEventListener("change", function(){
+					chrome.storage.local.set({'Active': this.checked});
+				});
 			}
-			else sheet.innerHTML= items.Adv;
-			document.documentElement.appendChild(sheet);
-			if(items.Active!= false) opt.checked= true;
-			opt.addEventListener("change", function(){
-				chrome.storage.local.set({'Active': this.checked});
-			});
-		}
-		else console.info('[OFF] Inline IO, User specification')
-	});
+			else console.info('[OFF] Inline IO, User specification')
+		});
+	}
 }
 //Active?
 function onPlay(){
