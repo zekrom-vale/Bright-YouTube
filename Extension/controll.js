@@ -62,7 +62,7 @@ function Intlize(items){
 			}, {once: true});
 	}
 }
-function Int2(items){
+function Int2(){
 	let VAS= document.createElement('canvas');
 	VAS.id= 'Brt-canvas';
 	document.getElementsByTagName('video')[0].appendChild(VAS);
