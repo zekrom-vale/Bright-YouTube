@@ -57,7 +57,9 @@ function Intlize(items){
 			reSet();
 			items.Active= true;		//fall-through
 		case 'boolean':
-			document.getElementsByTagName('video')[0].addEventListener('canplay', items=>{Int2(items);});
+			document.getElementsByTagName('video')[0].addEventListener('canplay', items=>{
+				Int2(items);
+			}, {once: true});
 	}
 }
 function Int2(){
