@@ -63,7 +63,7 @@ function Intlize(items){
 			}, {once: true});
 	}
 }
-function Int2(){
+function Int2(items){
 	let VAS= document.createElement('canvas');
 	VAS.id= 'Brt-canvas';
 	document.getElementsByTagName('video')[0].appendChild(VAS);
@@ -74,7 +74,7 @@ function Int2(){
 	//Canvas
 		chrome.storage.onChanged.addListener(StorageChange);
 		//Start?
-		if(items.Active) START();
+		if(items.Active!==false) START();
 	//In line IO
 		chrome.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
 			if(items.PozOn!== false){
@@ -123,10 +123,6 @@ ${apply}{
 			}
 			else console.info('[OFF] Inline IO, User specification')
 		});
-	//Alt Start
-	chrome.storage.sync.get('Active', items=>{
-		if(items.Active===true) START();
-	});
 }
 
 function setPl(){
