@@ -1,3 +1,4 @@
+//Not for pages that handle navigation
 var oldRgb= oldU= oldW= 140,
 clock;
 const DLY=1500,
@@ -72,6 +73,7 @@ function Int2(){
 		document.getElementsByTagName('video')[0].appendChild(Style);
 	//Canvas
 		chrome.storage.onChanged.addListener(StorageChange);
+		//Start?
 		if(items.Active) START();
 	//In line IO
 		chrome.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
@@ -110,16 +112,20 @@ ${apply}{
 	height:${WH.join('')};
 	margin:0
 }`;
+					}
 				}
+				else sheet.innerHTML= items.Adv;
+				document.documentElement.appendChild(sheet);
+				if(items.Active!== false) opt.checked= true;
+				opt.addEventListener("change", function(){
+					chrome.storage.local.set({'Active': this.checked});
+				});
 			}
-			else sheet.innerHTML= items.Adv;
-			document.documentElement.appendChild(sheet);
-			if(items.Active!= false) opt.checked= true;
-			opt.addEventListener("change", function(){
-				chrome.storage.local.set({'Active': this.checked});
-			});
-		}
-		else console.info('[OFF] Inline IO, User specification')
+			else console.info('[OFF] Inline IO, User specification')
+		});
+	//Alt Start
+	chrome.storage.sync.get('Active', items=>{
+		if(items.Active===true) START();
 	});
 }
 

@@ -89,8 +89,13 @@ function Int2(items){
 		Style.id= 'Brt-YT';
 		document.getElementsByTagName('video')[0].appendChild(Style);
 	}
-		chrome.storage.onChanged.addListener(StorageChange);
-		if(items.Active) START();
+	chrome.storage.onChanged.addListener(StorageChange);
+	//Start?
+	console.info(items.Active);
+	if(items.Active!==false){
+		console.log('Starting');
+		START();
+	}
 	if(document.querySelector('#Brt-opt')===null){
 		chrome.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
 			if(items.PozOn!== false){
@@ -140,6 +145,10 @@ ${apply}{
 			else console.info('[OFF] Inline IO, User specification')
 		});
 	}
+	//Alt Start?
+	chrome.storage.sync.get('Active', items=>{
+		if(items.Active===true) START();
+	});
 }
 //Active?
 function onPlay(){
@@ -168,6 +177,7 @@ function StorageChange(changes){
 //End Active?
 //STP
 function SHORT(){
+	console.log('SHORT');
 	onPause();
 	with(document.getElementsByTagName('video')[0]){
 		style.willChange= 'auto';
@@ -180,6 +190,7 @@ function SHORT(){
 	chrome.storage.onChanged.removeListener(StorageChange);
 }
 function STOP(){
+	console.log('STOP');
 	onPause();
 	with(document.getElementsByTagName('video')[0]){
 		style.willChange= 'auto';
@@ -189,6 +200,7 @@ function STOP(){
 	document.getElementById('Brt-YT').innerHTML= '';
 }
 function START(){
+	console.log('SHORT');
 	document.getElementsByTagName('video')[0].style.willChange= 'filter';
 	clearInterval(clock);
 	clock= setInterval(evalu, DLY);
