@@ -1,4 +1,4 @@
-document.documentElement.addEventListener('yt-navigate-finish', ()=>{
+document.documentElement.addEventListener('yt-navigate', ()=>{
 	//Remove excess nodes
 	if(document.querySelector('video')== null){
 		SHORT();
@@ -10,17 +10,6 @@ document.documentElement.addEventListener('yt-navigate-finish', ()=>{
 		&& typeof clock!= 'undefined'){
 			return;
 	}
-	function removeIfNn(Q){
-		if(document.querySelector(Q)!== null){
-			let parent= document.getElementsByTagName('video')[0],
-			child= document.querySelector(Q);
-			parent.removeChild(child);
-		}
-	}
-	removeIfNn('#Brt-FS');
-	removeIfNn('#Brt-canvas');
-	removeIfNn('#Brt-YT');
-	removeIfNn('#Brt-opt');
 	window.oldRgb= window.oldU= window.oldW= 140;
 	window.clock;
 	window.DLY=1500;
@@ -103,18 +92,20 @@ function Intlize(items){
 			}, {once: true});
 	}
 }
-function Int2(){
-	let VAS= document.createElement('canvas');
-	VAS.id= 'Brt-canvas';
-	document.getElementsByTagName('video')[0].appendChild(VAS);
-	//Style
+function Int2(items){
+	if(document.querySelector('#Brt-canvas')===null){
+		let VAS= document.createElement('canvas');
+		VAS.id= 'Brt-canvas';
+		document.getElementsByTagName('video')[0].appendChild(VAS);
+	}
+	if(document.querySelector('#Brt-YT')===null){
 		let Style= document.createElement('style');
 		Style.id= 'Brt-YT';
 		document.getElementsByTagName('video')[0].appendChild(Style);
-	//Canvas
-		chrome.storage.onChanged.addListener(StorageChange);
-		if(items.Active) START();
-	//In line IO
+	}
+	chrome.storage.onChanged.addListener(StorageChange);
+	if(items.Active) START();
+	if(document.querySelector('#Brt-opt')===null){
 		chrome.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
 			if(items.PozOn!== false){
 				var opt= document.createElement('input');
@@ -151,17 +142,18 @@ ${apply}{
 	height:${WH.join('')};
 	margin:0
 }`;
+					}
 				}
+				else sheet.innerHTML= items.Adv;
+				document.documentElement.appendChild(sheet);
+				if(items.Active!= false) opt.checked= true;
+				opt.addEventListener("change", function(){
+					chrome.storage.local.set({'Active': this.checked});
+				});
 			}
-			else sheet.innerHTML= items.Adv;
-			document.documentElement.appendChild(sheet);
-			if(items.Active!= false) opt.checked= true;
-			opt.addEventListener("change", function(){
-				chrome.storage.local.set({'Active': this.checked});
-			});
-		}
-		else console.info('[OFF] Inline IO, User specification')
-	});
+		else console.info('[OFF] Inline IO, User specification');
+		});
+	}
 }
 //Active?
 function onPlay(){
