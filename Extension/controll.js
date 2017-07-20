@@ -85,7 +85,7 @@ function Int2(items){
 			if(items.PozOn!== false){
 				var opt= document.createElement('input');
 				opt.type= 'checkbox';
-				opt.checked= items.Active;
+				if(items.Auto!==false)opt.checked= items.Active;
 				opt.id= 'Brt-opt';
 				if(document.querySelector('#menu-container')!== null
 					&& items.PozSkip!== true){
@@ -122,14 +122,13 @@ ${apply}{
 				else sheet.innerHTML= items.Adv;
 				document.documentElement.appendChild(sheet);
 				if(items.Active!== false && items.Auto!==false) opt.checked= true;
-				opt.addEventListener("change", function(){
-					chrome.storage.local.get('Auto', (items)=>{
-						if(items.Auto!==false){
-							chrome.storage.local.set({'Active': this.checked});
-						}
-						else if(this.checked===true) START();
-						else STOP();
-					});
+				//Watch for duplicates
+				opt.addEventListener("change", function(items){
+					if(items.Auto!==false){
+						chrome.storage.local.set({'Active': this.checked});
+					}
+					else if(this.checked===true) START();
+					else STOP();
 				});
 			}
 			else console.info('[OFF] Inline IO, User specification')

@@ -1,12 +1,12 @@
 {
 	"manifest_version": 2,
 	"name": "Bright YouTube [GAMMA]",
-	"short_name": "Brt YT",
-				 "version": "2.2.2",
-	"version_name":"Pro gamma 2b 'Adding auto start option'",
+	"short_name": "Brt YTγ",
+				 "version": "2.2.3",
+	"version_name":"Pro Γ2c 'Adding auto start option'",
 	"author": "zekrom_vale",
 	"minimum_chrome_version": "49",
-	"description": "This extension automatically adjusts the brightness of not only YouTube videos, but HTML5 videos too!  Note: Enable: chrome://flags/#enable-canvas-2d-dynamic-rendering-mode-switching or disable 'Use hardware acceleration when available' at the bottom of  chrome://settings#advancedToggle to fix quality degradation",
+	"description": "This extension automatically adjusts the brightness of not only YouTube videos, but HTML5 videos too[BETA]!  Note: Enable: chrome://flags/#enable-canvas-2d-dynamic-rendering-mode-switching or disable 'Use hardware acceleration when available' at the bottom of  chrome://settings#advancedToggle to fix quality degradation",
 	"icons":{
 		"16": "img/YT16.png",
 		"32": "img/YT32.png",
