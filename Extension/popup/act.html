@@ -66,7 +66,7 @@
 		}
 	</style>
 	CSS
-	<button id="exp">
+	<button id="exp" title="What sites to run on">
 		Permissions
 	</button>
 	<div id="permit" style="display:none">
@@ -118,7 +118,7 @@
 	<!--CSS for opt-->
 	<script src="js/opt.js"></script>
 	<button id="CSS">
-		On / Off options
+		In-line On / Off
 	</button>
 	<div id="CSScore" style="font-weight:800; display:none">
 		<span class="box">
@@ -141,8 +141,8 @@
 			<span>
 				position: 
 				<select id="position">
-					<option value="fixed">fixed</option>
-					<option value="absolute">absolute</option>
+					<option value="fixed" title="relative to the page.">fixed</option>
+					<option value="absolute" title="relative to the window">absolute</option>
 				</select>
 			</span>
 			<br/>
@@ -222,16 +222,18 @@
 		<form>
 			<textarea type="text" id="adv" style="width:calc(100vw - 20px)">
 #Brt-opt.Brt-Fixed{
+	/*Ex top right button*/
 	position:fixed;
 	top:5px;
 	left:5px
 }
 #Brt-opt:not(.Brt-Fixed){
-	/*Comment*/
+	/*Ex in line IO for YT*/
 	background:black
 }
 #Brt-opt{
 	background-color:blue
+	/*All*/
 }
 			</textarea>
 			<input type="checkbox" id="arm"/>

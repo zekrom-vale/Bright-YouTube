@@ -50,14 +50,14 @@
 		<span class="name"> Enabled</span>
 	</span>
 	
-	<span class="box"  title="Must reload to activate">
+	<span class="box"  title="Disables the extinction. Must reload to activate">
 		<label class="switch">
 			<input type="checkbox" id="ST"/>
 			<div class="slider round red"></div>
 		</label>
 		<span class="name red"> Short</span>
 	</span>
-	<span class="box">
+	<span class="box" title="Changes checkbox action and Auto start.  On: toggles enabled.  Off: only starts and stops the extension on that page.">
 		<label class="switch">
 			<input type="checkbox" id="Auto" checked />
 			<div class="slider round"></div>
@@ -65,7 +65,7 @@
 		<span class="name"> Auto Start</span>
 	</span>
 	<!--Permissions-->
-	<h1>
+	<h1 title="What sites to run on">
 		Permissions
 	</h1>
 	<div id="permit">
@@ -188,10 +188,10 @@
 		</div>
 		<span class="box">
 			<label class="switch">
-				<input type="checkbox" id="All" disabled/>
+				<input type="checkbox" id="All"/>
 				<div class="slider round red"></div>
 			</label>
-			<span class="name red"> [OFF]All URLs</span>
+			<span class="name red"> [NO OFF]All URLs</span>
 		</span>
 		<span class="box" title="Enable also at chrome://extensions">
 			<label class="switch">
@@ -207,7 +207,7 @@
 	<!--if[Pro]-->
 	<script src="js/opt.js"></script>
 	<h1>
-		On / Off options
+		In-line On / Off
 	</h1>
 	<div id="CSScore" style="font-weight:800">
 		<span class="box">
@@ -231,8 +231,8 @@
 			<span>
 				position: 
 				<select id="position">
-					<option value="fixed">fixed</option>
-					<option value="absolute">absolute</option>
+					<option value="fixed" title="relative to the page.">fixed</option>
+					<option value="absolute" title="relative to the window">absolute</option>
 				</select>
 			</span>
 			<br/>
@@ -306,7 +306,7 @@
 			</div>
 			<style id="Brt-FS"></style>
 		</div>
-		<h1 style="color:#6FF">
+		<h1 style="color:#6FF" title="Edit if you know CSS">
 			CSS Style (Advanced)
 		</h1>
 		<span class="box">
@@ -319,20 +319,22 @@
 		<form>
 			<textarea type="text" id="adv">
 #Brt-opt.Brt-Fixed{
+	/*Ex top right button*/
 	position:fixed;
 	top:5px;
 	left:5px
 }
 #Brt-opt:not(.Brt-Fixed){
-	/*Comment*/
+	/*Ex in line IO for YT*/
 	background:black
 }
 #Brt-opt{
 	background-color:blue
+	/*All*/
 }
 			</textarea>
 			<input type="checkbox" id="arm"/>
-			<input type="reset" id="reset" disabled />
+			<input type="reset" id="reset" title="<-Check the box" disabled />
 			<!--endif[Pro]-->
 		</form>
 		<form>
