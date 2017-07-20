@@ -74,7 +74,12 @@ function Int2(items){
 	//Canvas
 		chrome.storage.onChanged.addListener(StorageChange);
 		//Start?
-		if(items.Active!==false) START();
+		chrome.storage.local.get(['Active', 'Auto'], items=>{
+			if(items.Active!==false && items.Auto!==false){
+				console.log('Starting');
+				START();
+			}
+		}
 	//In line IO
 		chrome.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
 			if(items.PozOn!== false){

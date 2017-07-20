@@ -6,15 +6,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		document.getElementById('setRb').innerHTML= '.rb{filter:hue-rotate('+ n +'deg)}';
 	}, 200);
 	//End Rainbow
-	chrome.storage.local.get('Active', items=>{
-		if(items.Active=== false) document.getElementById('IO').checked= false;
+	chrome.storage.local.get(['Active', 'Auto'], items=>{
+		if(items.Active===false) document.getElementById('IO').checked= false;
 		else if(items.Active=== 'Short'){
 			document.getElementById('ST').checked= true;
 			document.getElementById('IO').checked= false;
 		}
+		if(items.Auto===false) document.getElementById('Auto').checked= false;
 	});
 	document.getElementById("IO").addEventListener("change", IO);
 	document.getElementById("ST").addEventListener("change", Srt);
+	document.getElementById("Auto").addEventListener("change", AutoFn);
 	//Get ERR
 	try{
 		chrome.storage.local.get('Err', items=>{//Use Object.entries(obj);
@@ -92,6 +94,9 @@ function Srt(){
 	}
 	else document.getElementById('IO').checked= true;
 	Dlt();
+}
+function AutoFn(){
+	chrome.storage.local.set({'Auto': document.getElementById('Auto').checked});
 }
 function Dlt(){
 	if(document.getElementById('IO').checked){

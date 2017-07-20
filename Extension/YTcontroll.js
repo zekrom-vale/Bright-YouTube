@@ -78,12 +78,14 @@ function Int2(items){
 		document.getElementsByTagName('video')[0].appendChild(Style);
 	}
 	chrome.storage.onChanged.addListener(StorageChange);
-	//Start?
 	console.info(items.Active);
-	if(items.Active!==false){
-		console.log('Starting');
-		START();
-	}
+	//Add option NOT to auto start
+	chrome.storage.local.get(['Active', 'Auto'], items=>{
+		if(items.Active!==false && items.Auto!==false){
+			console.log('Starting');
+			START();
+		}
+	});
 	if(document.querySelector('#Brt-opt')===null){
 		chrome.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn'], items=>{
 			if(items.PozOn!== false){
