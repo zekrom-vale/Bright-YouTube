@@ -122,14 +122,19 @@ ${apply}{
 				else sheet.innerHTML= items.Adv;
 				document.documentElement.appendChild(sheet);
 				if(items.Active!== false && items.Auto!==false) opt.checked= true;
-				//Watch for duplicates
-				opt.addEventListener("change", function(items){
-					if(items.Auto!==false){
+				if(items.Auto!==false){
+					opt.setAttribute('mode', 'Local');
+					opt.onchange=function(){
 						chrome.storage.local.set({'Active': this.checked});
 					}
-					else if(this.checked===true) START();
-					else STOP();
-				});
+				}
+				else{
+					opt.setAttribute('mode', 'Global');
+					opt.onchange=function(){
+						if(this.checked===true) START();
+						else STOP();
+					}
+				}
 			}
 			else console.info('[OFF] Inline IO, User specification')
 		});
