@@ -21,9 +21,6 @@
 	"options_ui":{
 		"page": "popup/option.html"
 	},
-	"background": {
-      "scripts": ["merch/main.js"]
-    },
 	"devtools_page": "https://github.com/zekrom-vale/Bright-YouTube/tree/Experimental",
 	"offline_enabled": true,
 	"permissions": [
