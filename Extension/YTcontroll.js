@@ -39,7 +39,7 @@ function Varify(){
 		console.log("No license ever issued.");
 		return "NONE";
 	}
-});
+}
 //Run if
 if(paid=='FULL'||paid=='FREE_TRIAL'){
 	document.documentElement.addEventListener('yt-navigate-finish', ()=>{
@@ -52,9 +52,9 @@ if(paid=='FULL'||paid=='FREE_TRIAL'){
 		if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
 	});
 }
-chrome.storage.sync.set({"license":[paid, Date()]});
 else alert(`"${paid}"
 If you believe this is incorrect contact me.`);
+chrome.storage.sync.set({"license":[paid, Date()]});
 //---------------------------------------------
 var oldRgb= oldU= oldW= 140,
 clock,
