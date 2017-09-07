@@ -21,11 +21,22 @@
 	"options_ui":{
 		"page": "popup/option.html"
 	},
+	"background": {
+      "scripts": ["merch/main.js"]
+    },
 	"devtools_page": "https://github.com/zekrom-vale/Bright-YouTube/tree/Experimental",
 	"offline_enabled": true,
 	"permissions": [
-		"storage"
+		"storage",
+		"identity",
+		"https://www.googleapis.com/"
 	],
+	"oauth2": {
+		"client_id": "12345-appidExample.apps.googleusercontent.com",
+		"scopes": [
+			"https://www.googleapis.com/auth/chromewebstore.readonly"
+		]
+	},
 	"optional_permissions": [
 		"https://www.youtube.com/*",
 		"https://gaming.youtube.com/watch*",

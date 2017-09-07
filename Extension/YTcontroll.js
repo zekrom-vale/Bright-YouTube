@@ -1,3 +1,61 @@
+//Get
+var paid;
+chrome.storage.sync.get("license", items=>{
+	var d=items.license[1];
+	if(d.setHours(d.getHours()+12)>= new Date()) paid=Varify();
+	else paid=items.license[0];
+});
+function Varify(){
+	//Query
+	const CWS_LICENSE_API_URL='https://www.googleapis.com/chromewebstore/v1.1/userlicenses/';
+	var req=new XMLHttpRequest();
+	req.open('GET', CWS_LICENSE_API_URL +chrome.runtime.id);
+	req.setRequestHeader('Authorization', 'Bearer ' + token);
+	req.onreadystatechange=function(){
+		if(req.readyState==4){
+			var license=JSON.parse(req.responseText);
+			verifyAndSaveLicense(license);
+		}
+	}
+	req.send();
+	//Act
+	if(license.result&&license.accessLevel=="FULL"){
+		console.log("Fully paid & properly licensed.");
+		return "FULL";
+	}
+	else if(license.result&&license.accessLevel=="FREE_TRIAL"){
+		var daysAgoLicenseIssued=Date.now()- parseInt(license.createdTime, 10);
+		daysAgoLicenseIssued= daysAgoLicenseIssued/ 1000/ 60/ 60/ 24;
+		if (daysAgoLicenseIssued<= TRIAL_PERIOD_DAYS) {
+			console.log("Free trial, still within trial period");
+			return "FREE_TRIAL";
+		}
+		else{
+			console.log("Free trial, trial period expired.");
+			return "FREE_TRIAL_EXPIRED";
+		}
+	}
+	else{
+		console.log("No license ever issued.");
+		return "NONE";
+	}
+});
+//Run if
+if(paid=='FULL'||paid=='FREE_TRIAL'){
+	document.documentElement.addEventListener('yt-navigate-finish', ()=>{
+		if(document.querySelector('video')===null){
+			STOP();
+			return;
+		}
+		oldRgb= oldU= oldW= 140;
+		chrome.storage.sync.get('fn', items=>{getFN(items)});
+		if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
+	});
+}
+chrome.storage.sync.set({"license":[paid, Date()]});
+else alert(`"${paid}"
+If you believe this is incorrect contact me.`);
+//---------------------------------------------
 var oldRgb= oldU= oldW= 140,
 clock,
 DLY=1500,
@@ -10,15 +68,6 @@ function CSfn(ic, rgb, U, W, r, g, b, oRGB, oW, oU){
 	vrt=V<= 249? 0: V<253.5? (V-249)/15: V<=254.5? .3: -(((V-254.5)/10)+.3);
 	setFilter(brt, vrt);
 }
-document.documentElement.addEventListener('yt-navigate-finish', ()=>{
-	if(document.querySelector('video')===null){
-		STOP();
-		return;
-	}
-	oldRgb= oldU= oldW= 140;
-	chrome.storage.sync.get('fn', items=>{getFN(items)});
-	if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
-});
 function getFN(items){
 	try{
 		if(items.fn==undefined) throw new ReferenceError('fn is undefined');
