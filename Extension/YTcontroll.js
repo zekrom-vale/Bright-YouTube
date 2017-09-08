@@ -1,13 +1,9 @@
 //Get
 var paid;
 chrome.storage.sync.get("license", items=>{
-	try{
-		var d=items.license[1];
-		if(d.setHours(d.getHours()+12)>= new Date()) paid=Varify();
-		else paid=items.license[0];
-	}catch(e){
-		paid=Varify();
-	}
+	var d=items.license[1];
+	if(d.setHours(d.getHours()+12)>= new Date()) paid=Varify();
+	else paid=items.license[0];
 });
 function Varify(){
 	//Query
