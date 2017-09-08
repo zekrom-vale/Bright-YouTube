@@ -17,7 +17,7 @@ function CSfn(ic, rgb, U, W, r, g, b, oRGB, oW, oU){
 }
 chrome.storage.sync.get('fn', items=>{
 	try{
-		if(items.fn==undefined) throw new ReferenceError('fn is undefined');
+		if(items.fn==undefined) console.warn('fn is undefined');
 		else{
 			rez= items.fn.replace(/(\/{2}.*\n|\/\*([^*/]|\s)*\*\/|\s|Math\.((pow|round|ceil|floor|abs|log|exp|random|a?(cos|sin2?|tan)m(ax|in)|sqrt)|SQRT(1_)?2|PI|E|(LN|LOG)(10|2)E?)|setFilter|(([bv]r|sa)t|con|[rgbUWV]|o(RGB|U|W)|ic)(?!(\w|\d))|_(\w|\d)+(?!\()|var|let|(if|(if )?else)\(|[!%&(-?{-}]|true|false|undefined|null|arguments([\d+]|\.lenght)|is(NaN|Finite)(?=\(.*\)))/g,'');
 			items.fn= items.fn.replace(/(window|document|evalu?|const|[Ff]unction|(chrom|toggl|Intliz)e|setPl|on(Play|Pause)|S(torageChange|HORT|TOP|TART)|clock|tick|getAvColor|fn|(inn|out)erHTML)|re(place|[sS]et|z)/g, 'return;');
@@ -46,7 +46,7 @@ function Intlize(items){
 	switch(typeof items.Active){
 		case 'undefined':
 		case 'null':
-			throw new ReferenceError('Active is not defined, forced to true');
+			throw console.warn('Active is not defined, forced to true');
 			chrome.storage.local.set({
 				'Err':{
 					'time':Date(),
@@ -101,6 +101,11 @@ function Int2(items){
 				}
 				var sheet= document.createElement('style');
 				sheet.id= 'Brt-FS';
+				//act on undefined
+				if(typeof items.AdvOn!= 'boolean') {
+					reSet();
+					items.AdvOn=false;
+				}
 				if(items.AdvOn!== true){
 					with(items.PozCSS){
 sheet.innerHTML= `.Brt-FxDiv{
@@ -318,8 +323,21 @@ function toggle(poz= true){
 function reSet(){
 	var items={
 		'PozCSS': {},
-		'PozOn': true
+		'Adv': '/*error!*/',
+		'fn': `var V= oRGB*(1-ic) + U*ic;
+let _X= 0.0266813*V -6,
+_PN= _X<0? -1: 1;
+var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 2.2,
+//Math.pow of fraction can't have negative base
+vrt=V<= 249? 0: V<253.5? (V-249)/15: V<=254.5? .3: -(((V-254.5)/10)+.3);
+con=sat= 1;
+/* 
+can exclude any parameter 
+ex(brt)
+*/
+setFilter(brt, vrt, con, sat);`
 	}
+	items.PozOn= true;
 	items.PozSkip= items.PozSkip= items.AdvOn= false;
 	with(items){
 		PozCSS.apply= '#Brt-opt.Brt-Fixed';
@@ -331,4 +349,5 @@ function reSet(){
 		PozCSS.BC= '66ffff';
 	}
 	chrome.storage.sync.set(items);
+	chrome.storage.local.set({"Active":true, "Auto": true});
 }
