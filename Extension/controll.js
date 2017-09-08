@@ -346,7 +346,7 @@ setFilter(brt, vrt, con, sat);`
 		PozCSS.RL= ['right', ':', 5, 'px'];
 		PozCSS.PT= PozCSS.PR= PozCSS.PB= PozCSS.PL= [5, 'px'];
 		PozCSS.Rad= items.PozCSS.WH= [20, 'px'];
-		PozCSS.BC= '66ffff';
+		PozCSS.Bc= '66ffff';
 	}
 	chrome.storage.sync.set(items);
 	chrome.storage.local.set({"Active":true, "Auto": true});
