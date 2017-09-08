@@ -40,16 +40,16 @@ function Varify(){
 		console.log("No license ever issued.");
 		return "NONE";
 	}
-}
+});
 //Run if
 if(paid=='FULL'||paid=='FREE_TRIAL'){
 	setTimeout(()=>{
 		if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
 	}, 1500);
 }
+chrome.storage.sync.set({"license":[paid, Date()]});
 else alert(`"${paid}"
 If you believe this is incorrect contact me.`);
-chrome.storage.sync.set({"license":[paid, Date()]});
 //---------------------------------------------
 
 var oldRgb= oldU= oldW= 140,
