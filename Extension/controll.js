@@ -1,57 +1,4 @@
 //Not for pages that handle navigation
-//Get
-var paid;
-chrome.storage.sync.get("license", items=>{
-	var d=items.license[1];
-	if(d.setHours(d.getHours()+12)>= new Date()) paid=Varify();
-	else paid=items.license[0];
-});
-function Varify(){
-	//Query
-	const CWS_LICENSE_API_URL='https://www.googleapis.com/chromewebstore/v1.1/userlicenses/';
-	var req=new XMLHttpRequest();
-	req.open('GET', CWS_LICENSE_API_URL +chrome.runtime.id);
-	req.setRequestHeader('Authorization', 'Bearer ' + token);
-	req.onreadystatechange=function(){
-		if(req.readyState==4){
-			var license=JSON.parse(req.responseText);
-			verifyAndSaveLicense(license);
-		}
-	}
-	req.send();
-	//Act
-	if(license.result&&license.accessLevel=="FULL"){
-		console.log("Fully paid & properly licensed.");
-		return "FULL";
-	}
-	else if(license.result&&license.accessLevel=="FREE_TRIAL"){
-		var daysAgoLicenseIssued=Date.now()- parseInt(license.createdTime, 10);
-		daysAgoLicenseIssued= daysAgoLicenseIssued/ 1000/ 60/ 60/ 24;
-		if (daysAgoLicenseIssued<= TRIAL_PERIOD_DAYS) {
-			console.log("Free trial, still within trial period");
-			return "FREE_TRIAL";
-		}
-		else{
-			console.log("Free trial, trial period expired.");
-			return "FREE_TRIAL_EXPIRED";
-		}
-	}
-	else{
-		console.log("No license ever issued.");
-		return "NONE";
-	}
-});
-//Run if
-if(paid=='FULL'||paid=='FREE_TRIAL'){
-	setTimeout(()=>{
-		if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
-	}, 1500);
-}
-chrome.storage.sync.set({"license":[paid, Date()]});
-else alert(`"${paid}"
-If you believe this is incorrect contact me.`);
-//---------------------------------------------
-
 var oldRgb= oldU= oldW= 140,
 clock;
 const DLY=1500,
@@ -91,6 +38,10 @@ chrome.storage.sync.get('fn', items=>{
 	}
 	window.CSfn= new Function("ic", "rgb", "U", "W", "r", "g", "b", "oRGB", "oW", "oU", fn);
 });
+setTimeout(()=>{
+	if(document.querySelector('video')!== null)	chrome.storage.local.get('Active', items=>{Intlize(items);});
+}, 1500);
+
 function Intlize(items){
 	switch(typeof items.Active){
 		case 'undefined':
