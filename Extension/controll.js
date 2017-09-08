@@ -6,44 +6,6 @@ const DLY=1500,
 SUB=0;
 PLY= setPl();
 var FN;
-//On install
-var fnExists;
-chrome.runtime.onInstalled.addListener(()=>{
-	chrome.storage.local.set({
-		'Active': true,
-		'Auto': false
-	});
-	try{
-		chrome.storage.sync.get('fn',items=>{
-			if(typeof items.fn=='string') fnExists=true;
-			else fnExists=false;
-		});
-	}catch(e){fnExists=false}
-	var items={
-		'PozCSS': {},
-		'PozOn': true
-	}
-	items.PozSkip= items.PozSkip= items.AdvOn= false;
-	with(items){
-		PozCSS.apply= '#Brt-opt.Brt-Fixed';
-		PozCSS.position= 'fixed';
-		PozCSS.TB= ['top', ':', 5, 'px'];
-		PozCSS.RL= ['right', ':', 5, 'px'];
-		PozCSS.PT= PozCSS.PR= PozCSS.PB= PozCSS.PL= [5, 'px'];
-		PozCSS.Rad= items.PozCSS.WH= [20, 'px'];
-		PozCSS.BC= '66ffff';
-	}
-	if(fnExists===false){
-		items.fn=`var V= oRGB*(1-ic) + rgb*ic;
-let _X= 0.0266813*V -6,
-_PN= _X<0? -1: 1;
-var brt= _PN*0.473474*Math.pow(Math.abs(_X), 1/7)+ 2.2,
-vrt=V<= 249? 0: V<253.5? (V-249)/15: V<=254.5? .3: -(((V-254.5)/10)+.3);
-setFilter(brt, vrt);`
-	}
-	chrome.storage.sync.set(items);
-});
-//On install End
 function CSfn(ic, rgb, U, W, r, g, b, oRGB, oW, oU){
 	var V= oRGB*(1-ic) + rgb*ic;
 	let _X= 0.0266813*V -6,
