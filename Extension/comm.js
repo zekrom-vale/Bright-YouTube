@@ -20,7 +20,69 @@ const lang={
 	},
 	"Reset": "Values successfully reset"
 };
-
+//inlineIO
+function intINline(items){
+	if(items.PozOn!== false){
+		var opt= document.createElement('input');
+		opt.type= 'checkbox';
+		if(items.Auto!==false)opt.checked= items.Active;
+		opt.id= 'Brt-opt';
+		if(document.querySelector('#menu-container')!== null
+			&& items.PozSkip!== true){
+				document.getElementById('menu-container').appendChild(opt);
+		}
+		else{
+			opt.classList.add('Brt-Fixed');
+			var div= document.createElement('div');
+			div.classList.add('Brt-FxDiv');
+			div.appendChild(opt);
+			document.documentElement.appendChild(div);
+			//style
+		}
+		var sheet= document.createElement('style');
+		sheet.id= 'Brt-FS';
+		//act on undefined
+		if(typeof items.AdvOn!= 'boolean') {
+			reSet();
+			items.AdvOn=false;
+		}
+		if(items.AdvOn!== true){
+			with(items.PozCSS){
+sheet.innerHTML= `.Brt-FxDiv{
+	position:${position};
+	${TB.join('')};	${RL.join('')};
+	padding-top:${PT.join('')};	padding-right:${PR.join('')};
+	padding-bottom:${PB.join('')};	padding-left:${PL.join('')};
+	width:${WH.join('')};	height:${WH.join('')};
+	z-index:16644;\n	border-radius:${Rad.join('')};
+	background:${Bc}
+}
+${apply}{
+	width:${WH.join('')};
+	height:${WH.join('')};
+	margin:0
+}`;
+			}
+		}
+		else sheet.innerHTML= items.Adv;
+		document.documentElement.appendChild(sheet);
+		if(items.Active!== false && items.Auto!==false) opt.checked= true;
+		if(items.Auto!==false){
+			opt.setAttribute('mode', 'Local');
+			opt.onchange=function(){
+				chrome.storage.local.set({'Active': this.checked});
+			}
+		}
+		else{
+			opt.setAttribute('mode', 'Global');
+			opt.onchange=function(){
+				if(this.checked===true) START();
+				else STOP();
+			}
+		}
+	}
+	else console.info(lang.stat.inIO);
+}
 
 //Active?
 function onPlay(){
