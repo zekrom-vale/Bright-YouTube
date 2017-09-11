@@ -1,65 +1,57 @@
 {
-	"manifest_version": 2,
-	"name": "Bright YouTube [GAMMA]",
-	"short_name": "Brt YTγ",
-				 "version": "2.5.1",
-	"version_name":"Pro Γ5a",
-	"author": "zekrom_vale",
-	"minimum_chrome_version": "49",
-	"description": "This extension automatically adjusts the brightness of not only YouTube videos, but HTML5 videos too[BETA]!",
-	"icons":{
-		"16": "img/YT16.png",
-		"32": "img/YT32.png",
-		"64": "img/YT64.png",
-		"128": "img/YT128.png"
-	},
-	"browser_action": {
-		"default_title": "Bright YouTube Options",
-		"default_popup": "popup/act.html"
-	},
-	"homepage_url": "https://github.com/zekrom-vale/Bright-YouTube",
-	"options_ui":{
-		"page": "popup/option.html"
-	},
-	"devtools_page": "https://github.com/zekrom-vale/Bright-YouTube/tree/Experimental",
-	"offline_enabled": true,
-	"permissions": [
-		"storage"
-	],
-	"optional_permissions": [
-		"https://www.youtube.com/*",
-		"https://gaming.youtube.com/watch*",
-		"https://gaming.youtube.com/channel/*",
-		"https://www.youtube-nocookie.com/embed/*",
-		"https://www.twitch.tv/videos/*",
-		"http://www.dailymotion.com/video/*",
-		"https://www.hulu.com/*",
-		"https://vimeo.com/*",
-		"https://www.liveleak.com/view*",
-		"http://www.break.com/video/*",
-		"https://www.netflix.com/",
-		"https://vine.co/*",
-		"https://view.yahoo.com/show/*",
-		"http://www.viewster.com/serie/*",
-		"*://*.tv/*",
-		"https://www.vevo.com/watch/*",
-		"http://www.veoh.com//*",
-		"file://*/*"
-	],
-	"event_rules": [{
-		"event": "declarativeContent.onPageChanged",
-		"actions": [{
-			"type": "declarativeContent.ShowPageAction"
-		}],
-		"conditions": [{
-			"type": "declarativeContent.PageStateMatcher",
-			"css": ["video"]
-		}]
-	}],
-	"content_scripts": [{
+"manifest_version": 2,
+"name": "Bright YouTube [GAMMA]",
+"short_name": "Brt YTγ",
+	"version": "2.5.1",
+"version_name":"Pro Γ5a",
+"author": "zekrom_vale",
+"minimum_chrome_version": "49",
+"description": "This extension automatically adjusts the brightness of not only YouTube videos, but HTML5 videos too![BETA]",
+"icons":{
+	"16": "img/YT16.png",
+	"32": "img/YT32.png",
+	"64": "img/YT64.png",
+	"128": "img/YT128.png"
+},
+"browser_action": {
+	"default_title": "Bright YouTube Options",
+	"default_popup": "popup/act.html"
+},
+"homepage_url": "https://github.com/zekrom-vale/Bright-YouTube",
+"options_ui":{
+	"page": "popup/option.html"
+},
+"devtools_page": "https://github.com/zekrom-vale/Bright-YouTube/tree/Experimental",
+"offline_enabled": true,
+"permissions": [
+	"storage"
+],
+"optional_permissions": [
+	"https://www.youtube.com/*",
+	"https://gaming.youtube.com/watch*",
+	"https://gaming.youtube.com/channel/*",
+	"https://www.youtube-nocookie.com/embed/*",
+	"https://www.twitch.tv/*",
+	"http://www.dailymotion.com/video/*",
+	"https://www.hulu.com/*",
+	"https://vimeo.com/*",
+	"https://www.liveleak.com/view*",
+	"http://www.break.com/video/*",
+	"https://www.netflix.com/",
+	"https://vine.co/*",
+	"https://view.yahoo.com/show/*",
+	"http://www.viewster.com/serie/*",
+	"*://*.tv/*",
+	"https://www.vevo.com/watch/*",
+	"http://www.veoh.com//*",
+	"file://*/*"
+],
+
+"content_scripts": [
+	{
 		"matches": [
 			"https://www.youtube-nocookie.com/embed/*",
-			"https://www.twitch.tv/videos/*",
+			"https://www.twitch.tv/*",
 			"http://www.dailymotion.com/video/*",
 			"https://www.hulu.com/*",
 			"https://vimeo.com/*",
@@ -81,7 +73,6 @@
 			"*://developer.mozilla.org/*",
 			"*://github.com/*",
 			"*://store.steampowered.com/*",
-			"*://*.io/*",
 			"*://stackoverflow.com/*",
 			"*://jsfiddle.net/*",
 			"*://codepen.io/*",
@@ -89,24 +80,11 @@
 			"*://paypal.com/*",
 			"*://paypalobjects.com/*"
 		],
-		"exclude_globs": [
-			"*bank*",
-			"*FBI*",
-			"*edit*",
-			"*minecraft*",
-			"*login*",
-			"*signin*",
-			"*signup*",
-			"*account*",
-			"*oauth*",
-			"*authorize*",
-			"*api*"
-		],
 		"css": ["main.css"],
 		"js": ["controll.js", "comm.js"],
 		"all_frames": true
-	}],
-	"content_scripts": [{
+	},
+	{
 		"matches": [
 			"https://www.youtube.com/*",
 			"https://gaming.youtube.com/*"
@@ -114,5 +92,6 @@
 		"css": ["main.css"],
 		"js": ["YTcontroll.js", "comm.js"],
 		"all_frames": true
-	}]
+	}
+]
 }

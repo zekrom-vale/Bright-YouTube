@@ -78,7 +78,7 @@ function Int2(items){
 				console.log(lang.stat.starting);
 				START();
 			}
-		}
+		});
 	//In line IO
 		chrome.storage.sync.get(['PozOn', 'PozSkip', 'PozCSS', 'Active', 'Adv', 'AdvOn', 'Auto'], items=>{
 			if(items.PozOn!== false){

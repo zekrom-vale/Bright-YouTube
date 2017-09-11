@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		pros(url, EMB);
 	});
 	TWCH.addEventListener('change', ()=>{
-		pros(["https://www.twitch.tv/videos/*"], TWCH);
+		pros(["https://www.twitch.tv/*"], TWCH);
 	});
 	FILE.addEventListener('change', ()=>{
 		pros(["file://*/*"], FILE);
