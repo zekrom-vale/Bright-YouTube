@@ -23,19 +23,11 @@ pay the Licence Holder 65% of profits, excluding other services provided.  But s
 are required to inform the Licence Holder of ishues and/or fixed.  And are required to
 link to the sorce code in GitHub.  Finaly, the minumum price per unit shall be $2.25 USD.
 </p>
-<h2>
-  Organization or Busness
-</h2>
-<p>
-Non-profit organizations can recive this extention at 75% off per user, while small busnesses 
-only recive 25% off per user. (Rates are baced on app store prices.)
-Big busnesses need to contact the Licence Holder for a quote.
-</p>
 <h5>
   VIOLATERS OF THIS POLICY WILL BE BLACKLISTED AND WILL RECIVE A COPYRIGHT NOTICE AS WELL AS 
   A FINE IF SEVERE.  LINKING VIOLATIONS WILL BE FINED UP TO $350 USD.  SELLING VIOLATIONS, 
   UP TO $7,500 USD.  FALCELY SUBMITING A BUSINESS OR ORGANIZATION WILL REVOKE ALL KEYS, FINE
   UP TO $5,000 USD, AND BLACKLIST THE ORGANIZATION OR BUSINESS.  BLACKLISTED ENTETYS WILL BE
   CHARGED AT 200% TO 500% NORMAL PRICE.  ALL COURT DISPUTES WILL BE WITHIN PIERCE COUNTY, 
-  RIVER FALLS, WISCONSIN.  SPELLING ERRORS DO NOT VOID ANY LEGALY BINDING TERMS.
+  RIVER FALLS, WISCONSIN UNITED STATES.  SPELLING ERRORS DO NOT VOID ANY LEGALY BINDING TERMS.
 </h5>
