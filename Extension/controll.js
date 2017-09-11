@@ -146,9 +146,7 @@ ${apply}{
 
 function setPl(){
 	try{
-		if(/youtube/.test(window.location.hostname)){
-			var PLY= document.getElementsByClassName('ytp-play-button')[0];
-		}else if(/twitch/.test(window.location.hostname)){
+		if(/twitch\.tv/.test(window.location.hostname)){
 			var PLY=document.getElementsByClassName('player-icon-pause')[0];
 		}
 		/* "//*"= on "/*"= off	//More options!
@@ -167,7 +165,10 @@ function setPl(){
 }
 //Indicate
 function toggle(poz= true){
-	if(PLY!= false){
-		poz?PLY.classList.add('active'):PLY.classList.remove('active');
-	}
+	try{
+		if(PLY!= false|| PLY!= 'false'){
+			console.info(PLY);
+			poz?PLY.classList.add('active'):PLY.classList.remove('active');
+		}
+	}catch(e){console.warn(e)}
 }
