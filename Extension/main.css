@@ -5,3 +5,17 @@
 .active#playpause{
 	filter:invert(1)
 }
+#Brt-canvas{
+	display:none
+}
+#Brt-opt:not(.Brt-Fixed){
+	position:absolute;
+    left:-33px;
+    top:9px;
+    height:20px;
+    width:20px
+}
+#Brt-canvas,
+#Brt-YT{
+	will-change:contents
+}

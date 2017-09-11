@@ -1,49 +1,97 @@
 {
-	"manifest_version": 2,
-	"name": "Bright YouTube",
-	"short_name": "Brt YT",
-	"version": "1.1",
-	"description": "This extension automaticaly ajusts the brightness of YouTube videos",
-	"icons":{
-		"16": "img/YT16.png",
-		"32": "img/YT32.png",
-		"64": "img/YT64.png",
-		"128": "img/YT128.png"
-	},
-	"browser_action": {
-		"default_title": "Bright YouTube Options", 
-		"default_popup": "popup/act.html"
-	},
-	 "devtools_page": "https://github.com/zekrom-vale/Bright-YouTube/tree/Experimental",
-	"homepage_url": "https://github.com/zekrom-vale/Bright-YouTube",
-	"offline_enabled": true,
-	"permissions": [
-		"https://gaming.youtube.com/watch*",
-		"https://gaming.youtube.com/channel/*",
-		"https://www.youtube.com/watch*",
-		"https://www.youtube.com/channel/*",
-		"https://www.youtube.com/embed/*",
-		"https://www.youtube-nocookie.com/embed/*",
-		"https://www.twitch.tv/videos/*",
-		"storage"
-	],
-	"optional_permissions": [
-		"https://www.youtube.com/channel/*",
-		"https://www.youtube.com/embed/*",
-		"https://www.youtube-nocookie.com/embed/*"
-	],
-	"content_scripts": [{
+"manifest_version": 2,
+"name": "Bright YouTube [GAMMA]",
+"short_name": "Brt YTγ",
+	"version": "2.5.2",
+"version_name":"Pro Γ5b",
+"author": "zekrom_vale",
+"minimum_chrome_version": "49",
+"description": "This extension automatically adjusts the brightness of not only YouTube videos, but HTML5 videos too![BETA]",
+"icons":{
+	"16": "img/YT16.png",
+	"32": "img/YT32.png",
+	"64": "img/YT64.png",
+	"128": "img/YT128.png"
+},
+"browser_action": {
+	"default_title": "Bright YouTube Options",
+	"default_popup": "popup/act.html"
+},
+"homepage_url": "https://github.com/zekrom-vale/Bright-YouTube",
+"options_ui":{
+	"page": "popup/option.html"
+},
+"devtools_page": "https://github.com/zekrom-vale/Bright-YouTube/tree/Experimental",
+"offline_enabled": true,
+"permissions": [
+	"storage"
+],
+"optional_permissions": [
+	"https://www.youtube.com/*",
+	"https://gaming.youtube.com/watch*",
+	"https://gaming.youtube.com/channel/*",
+	"https://www.youtube-nocookie.com/embed/*",
+	"https://www.twitch.tv/*",
+	"http://www.dailymotion.com/video/*",
+	"https://www.hulu.com/*",
+	"https://vimeo.com/*",
+	"https://www.liveleak.com/view*",
+	"http://www.break.com/video/*",
+	"https://www.netflix.com/",
+	"https://vine.co/*",
+	"https://view.yahoo.com/show/*",
+	"http://www.viewster.com/serie/*",
+	"*://*.tv/*",
+	"https://www.vevo.com/watch/*",
+	"http://www.veoh.com//*",
+	"file://*/*"
+],
+
+"content_scripts": [
+	{
 		"matches": [
-			"https://gaming.youtube.com/watch*",
-			"https://gaming.youtube.com/channel/*",
-			"https://www.youtube.com/watch*",
-			"https://www.youtube.com/channel/*",
-			"https://www.youtube.com/embed/*",
 			"https://www.youtube-nocookie.com/embed/*",
-			"https://www.twitch.tv/videos/*"
+			"https://www.twitch.tv/*",
+			"http://www.dailymotion.com/video/*",
+			"https://www.hulu.com/*",
+			"https://vimeo.com/*",
+			"https://www.liveleak.com/view*",
+			"http://www.break.com/video/*",
+			"https://www.netflix.com/",
+			"https://vine.co/*",
+			"https://view.yahoo.com/show/*",
+			"http://www.viewster.com/serie/*",
+			"*://*.tv/*",
+			"https://www.vevo.com/watch/*",
+			"http://www.veoh.com/*",
+			"file://*/*"
+		],
+		"exclude_matches": [
+			"*://soundcloud.com/*",
+			"*://developer.chrome.com/*",
+			"*://www.w3schools.com/*",
+			"*://developer.mozilla.org/*",
+			"*://github.com/*",
+			"*://store.steampowered.com/*",
+			"*://stackoverflow.com/*",
+			"*://jsfiddle.net/*",
+			"*://codepen.io/*",
+			"*://www.paypal.com/*",
+			"*://paypal.com/*",
+			"*://paypalobjects.com/*"
 		],
 		"css": ["main.css"],
-		"js": ["controll.js"],
-        "all_frames": true
-	}]
+		"js": ["controll.js", "comm.js"],
+		"all_frames": true
+	},
+	{
+		"matches": [
+			"https://www.youtube.com/*",
+			"https://gaming.youtube.com/*"
+		],
+		"css": ["main.css"],
+		"js": ["YTcontroll.js", "comm.js"],
+		"all_frames": true
+	}
+]
 }

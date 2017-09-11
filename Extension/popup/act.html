@@ -1,25 +1,259 @@
 <!DOCTYPE html>
-<html class="black">
-	<head>
-		<link rel="stylesheet" href="core.css"/>
-		<link rel="stylesheet" href="togle.css"/>
-		<script src="page.js"></script>
-	</head>
-	<body>
+<html class="black" style="width:225px">
+<head>
+	<meta charset="ANSI"/>
+	<link rel="stylesheet" href="core.css"/>
+	<link rel="stylesheet" href="togle.css"/>
+	<script src="js/page.js"></script>
+	<script src="js/act.js"></script>
+	<style id="setRb"></style>
+</head>
+<body>
+	<a href="https://github.com/zekrom-vale" target="_blank" title="&copy; zekrom_vale">
+		<svg id="logo" viewBox="0 0 500 500">
+			<circle cy="250" cx="250" r="185"/>
+			<path d="M80 80 L180 240 L220 200 L280 360 L330 300 L420 420 L340 220 L300 270 L240 130 L180 180 Z" id="bolt"/>
+			<path d="M80 80 L180 240 L220 200 L280 360 L330 300 L420 420 L330 290 L284 344 L225 180 L180 220 Z" id="shadow"/>
+		</svg>
+	</a>
+	<h2 style="color:red"><!--#2196f3-->
+		<span id="bright">Bright</span> YouTube
+	</h2>
+	<span class="box">
+		<label class="switch">
+			<input type="checkbox" id="IO" checked>
+			<div class="slider round"></div>
+		</label>
+		<span class="name"> Enabled</span>
+	</span>
+	
+	<span class="box"  title="Must reload to activate">
+		<label class="switch">
+			<input type="checkbox" id="ST">
+			<div class="slider round red"></div>
+		</label>
+		<span class="name red"> Short</span>
+	</span>
+	<span class="box">
+		<label class="switch">
+			<input type="checkbox" id="Auto" checked />
+			<div class="slider round"></div>
+		</label>
+		<span class="name"> Auto Start</span>
+	</span>
+	<button id="close" style="font-weight:700">X</button>
+	<!--
+		if[Pro]
+		Permissions
+	-->
+	<style>
+		#exp,
+		#CSS{
+			margin:10px 10px;
+			border-radius:10px;
+			background:aqua;
+			color:black;
+			font-size:20px
+		}
+		#close{
+			position:fixed;
+			bottom:5px;
+			right:5px;
+			font-size:15px;
+			border:solid red 1px;
+			border-radius:5px;
+			background:gray
+		}
+	</style>
+	CSS
+	<button id="exp" title="What sites to run on">
+		Permissions
+	</button>
+	<div id="permit" style="display:none">
+		<script src="js/permit.js"></script>
+		<span class="box" title="youtube.com/embed/* Included">
+			<label class="switch">
+				<input type="checkbox" id="YouTube">
+				<div class="slider round"></div>
+			</label>
+			<span class="name"> YouTube</span>
+		</span>
 		<span class="box">
 			<label class="switch">
-				<input type="checkbox" id="IO" checked>
+				<input type="checkbox" id="Game">
+				<div class="slider round"></div>
+			</label>
+			<span class="name"> YT Games</span>
+		</span>
+		<span class="box" title="youtube.com/embed/* Excluded">
+			<label class="switch">
+				<input type="checkbox" id="Embed">
+				<div class="slider round"></div>
+			</label>
+			<span class="name"> Embedded</span>
+		</span>
+		
+		<span class="box">
+			<label class="switch">
+				<input type="checkbox" id="Twitch">
+				<div class="slider round"></div>
+			</label>
+			<span class="name"> Twitch</span>
+		</span>
+		<span class="box" title="Enable also at chrome://extensions">
+			<label class="switch">
+				<input type="checkbox" id="file">
+				<div class="slider round"></div>
+			</label>
+			<span class="name"> <a href="chrome://extensions" target="_blank" style="color:white">File</a></span>
+		</span>
+		<span class="box">
+			<label class="switch">
+				<input type="checkbox" id="All" disabled>
+				<div class="slider round red"></div>
+			</label>
+			<span class="name red"> [OFF]All URLs</span>
+		</span>
+	</div>
+	<!--CSS for opt-->
+	<script src="js/opt.js"></script>
+	<button id="CSS">
+		In-line On / Off
+	</button>
+	<div id="CSScore" style="font-weight:800; display:none">
+		<span class="box">
+			<label class="switch">
+				<input type="checkbox" id="OnOff" checked>
 				<div class="slider round"></div>
 			</label>
 			<span class="name"> Enabled</span>
 		</span>
-		
-		<span class="box"  title="Must reload and have this off to activate">
+		<form id="formCSS">
+			<span>
+				Apply to:
+				<select id="Apply">
+					<option value="#Brt-opt.Brt-Fixed">Non-YouTube</option>
+					<option value="#Brt-opt:not(.Brt-Fixed)">YouTube</option>
+					<option value="#Brt-opt">Both</option>
+					<option value="ovrd,#Brt-opt">Override YouTube</option>
+				</select>
+			</span>
+			<span>
+				position: 
+				<select id="position">
+					<option value="fixed" title="relative to the page.">fixed</option>
+					<option value="absolute" title="relative to the window">absolute</option>
+				</select>
+			</span>
+			<br/>
+			<span>
+				<select id="TB">
+					<option value="top">top</option>
+					<option value="bottom">bottom</option>
+				</select>
+				:
+				<input id="TBn" type="number" value="5"/>
+				<select class="unit" id="TBu"></select>
+			</span>
+			<br/>
+			<span>
+				<select id="RL">
+					<option value="right">right</option>
+					<option value="left">left</option>
+				</select>
+				:
+				<input id="RLn" type="number" value="5"/>
+				<select class="unit" id="RLu"></select>
+			</span>
+			<br/>
+			<span>
+				padding-top:
+				<input id="PTn" type="number" min="0" value="5"/>
+				<select class="unit" id="PTu"></select>
+			</span>
+			<br/>
+			<span>
+				padding-right:
+				<input id="PRn" type="number" min="0" value="5"/>
+				<select class="unit" id="PRu"></select>
+			</span>
+			<br/>
+			<span>
+				padding-bottom:
+				<input id="PBn" type="number" min="0" value="5"/>
+				<select class="unit" id="PBu"></select>
+			</span>
+			<br/>
+			<span>
+				padding-left:
+				<input id="PLn" type="number" min="0" value="5">
+				<select class="unit" id="PLu"></select>
+			</span>
+			<br/>
+			<span>
+				size:
+				<input id="WHn" type="number" min="0" value="20"/>
+				<select class="unit" id="WHu"></select>
+			</span>
+			<br/>
+			<span>
+				radius:
+				<input id="Radn" type="number" min="0" value="20"/>
+				<select class="unit" id="Radu"></select>
+			</span>
+			<br/>
+			<span>
+				background-color:
+				<input id="Bc" type="color" value="#66FFFF"/>
+			</span>
+			<input type="reset" id="Nreset"/>
+		</form>
+		<!--Advancer-->
+		<h3 style="color:#6FF">
+			CSS Style (Advanced)
+		</h3>
+		<span class="box">
 			<label class="switch">
-				<input type="checkbox" id="ST">
-				<div class="slider round red"></div>
+				<input type="checkbox" id="AdvOn">
+				<div class="slider round"></div>
 			</label>
-			<span class="name" style="color:red"> Short</span>
+			<span class="name"> Enabled</span>
 		</span>
-	</body>
+		<form>
+			<textarea type="text" id="adv" style="width:calc(100vw - 20px)">
+#Brt-opt.Brt-Fixed{
+	/*Ex top right button*/
+	position:fixed;
+	top:5px;
+	left:5px
+}
+#Brt-opt:not(.Brt-Fixed){
+	/*Ex in line IO for YT*/
+	background:black
+}
+#Brt-opt{
+	background-color:blue
+	/*All*/
+}
+			</textarea>
+			<input type="checkbox" id="arm"/>
+			<input type="reset" id="reset" disabled />
+		</form>
+	</div>
+	<!--endif[Pro]-->
+	<div style="font-size:17px; margin:10px 0">
+		<a href="https://www.patreon.com/zekrom_vale" target="_blank" id="Pat">
+			<svg style="width:20; height:20" viewBox="0 0 500 500" class="rb">
+				<rect x="0" y="10" rx="10" ry="10"/>
+				<circle cx="320" cy="190" r="179"/>
+			</svg>
+			<span style="position:relative; left:-10px; color:#2196f3" class="rb">
+				atrion
+			</span>
+		</a>
+	</div>
+	<!--if[Free]->
+	<div id="display" style="color:white; font-size:12px"/>
+	<!--endif[Free]-->
+</body>
 </html>
