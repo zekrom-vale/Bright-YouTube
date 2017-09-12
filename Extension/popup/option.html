@@ -1,13 +1,7 @@
 <!DOCTYPE html>
-<!--script>
-	htmlLang{
-		title: 'Bright YouTube Options',
-		'permissions': 'Permissions',
-		'permissions_Title': 'What sites to run on'
-	}
-</script-->
 <html style="width:332px">
 <head>
+	<script src="js/htmlLang.js"></script>
 	<title key="title">
 		Bright YouTube Options
 	</title>
@@ -74,7 +68,7 @@
 	<div id="permit">
 		<script src="js/permit.js"></script>
 		<div style="height:220px; overflow-y:scroll; margin-bottom:10px">
-			<span class="box" title="youtube.com/embed/* Included">
+			<span class="box" title="youtube.com/embed/* Included" key-title="YT">
 				<label class="switch">
 					<input type="checkbox" id="YouTube"/>
 					<div class="slider round"></div>
@@ -196,12 +190,12 @@
 			</label>
 			<span class="name red" key="allURLs"> [NO OFF]All URLs</span>
 		</span>
-		<span class="box" title="Enable also at chrome://extensions" key-ref="file">
+		<span class="box" title="Enable also at chrome://extensions" key-title="file">
 			<label class="switch">
 				<input type="checkbox" id="file">
 				<div class="slider round"></div>
 			</label>
-			<span class="name"> <a href="chrome://extensions" target="_blank" style="color:black" key="file" key-title="span">File</a></span>
+			<span class="name"> <a href="chrome://extensions" target="_blank" style="color:black" key="file">File</a></span>
 		</span>
 		<!--endif[Pro]-->
 	</div>
@@ -218,11 +212,11 @@
 				<input type="checkbox" id="OnOff" checked />
 				<div class="slider round"></div>
 			</label>
-			<span class="name"> Enabled</span>
+			<span class="name" key="enabled"> Enabled</span>
 		</span>
 		<form id="formCSS">
 			<span>
-				<span key="CSS.apply">Apply to:</span>
+				<span key="CSS.apply.head">Apply to:</span>
 				<select id="Apply">
 					<option value="#Brt-opt.Brt-Fixed" key="CSS.apply.nonYT">Non-YouTube</option>
 					<option value="#Brt-opt:not(.Brt-Fixed)" key="CSS.apply.YT">YouTube</option>
@@ -232,10 +226,10 @@
 			</span>
 			<br/>
 			<span>
-				<span key="CSS.pos">position:</span>
+				<span key="CSS.pos.head">position:</span>
 				<select id="position">
-					<option value="fixed" title="relative to the page." key="CSS.pos.fix">fixed</option>
-					<option value="absolute" title="relative to the window" key="CSS.pos.abs">absolute</option>
+					<option value="fixed" title="relative to the page" key="CSS.pos.fix" key-title>fixed</option>
+					<option value="absolute" title="relative to the window" key="CSS.pos.abs" key-title>absolute</option>
 				</select>
 			</span>
 			<br/>

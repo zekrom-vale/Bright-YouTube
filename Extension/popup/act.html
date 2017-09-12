@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html class="black" style="width:225px">
 <head>
+	<script src="js/htmlLang.js"></script>
 	<meta charset="ANSI"/>
 	<link rel="stylesheet" href="core.css"/>
 	<link rel="stylesheet" href="togle.css"/>
@@ -20,7 +21,7 @@
 			<input type="checkbox" id="IO" checked>
 			<div class="slider round"></div>
 		</label>
-		<span class="name"> Enabled</span>
+		<span class="name" key="enabled"> Enabled</span>
 	</span>
 	
 	<span class="box"  title="Must reload to activate">
@@ -28,14 +29,14 @@
 			<input type="checkbox" id="ST">
 			<div class="slider round red"></div>
 		</label>
-		<span class="name red"> Short</span>
+		<span class="name red" key="short"> Short</span>
 	</span>
 	<span class="box">
 		<label class="switch">
 			<input type="checkbox" id="Auto" checked />
 			<div class="slider round"></div>
 		</label>
-		<span class="name"> Auto Start</span>
+		<span class="name" key="autoStart"> Auto Start</span>
 	</span>
 	<button id="close" style="font-weight:700">X</button>
 	<!--
@@ -61,13 +62,12 @@
 			background:gray
 		}
 	</style>
-	CSS
-	<button id="exp" title="What sites to run on">
+	<button id="exp" title="What sites to run on" key="permissions" key-title>
 		Permissions
 	</button>
 	<div id="permit" style="display:none">
 		<script src="js/permit.js"></script>
-		<span class="box" title="youtube.com/embed/* Included">
+		<span class="box" title="youtube.com/embed/* Included" key-title="YT">
 			<label class="switch">
 				<input type="checkbox" id="YouTube">
 				<div class="slider round"></div>
@@ -79,14 +79,14 @@
 				<input type="checkbox" id="Game">
 				<div class="slider round"></div>
 			</label>
-			<span class="name"> YT Games</span>
+			<span class="name" key="YTgames"> YT Games</span>
 		</span>
 		<span class="box" title="youtube.com/embed/* Excluded">
 			<label class="switch">
 				<input type="checkbox" id="Embed">
 				<div class="slider round"></div>
 			</label>
-			<span class="name"> Embedded</span>
+			<span class="name" key="embedded"> Embedded</span>
 		</span>
 		
 		<span class="box">
@@ -101,19 +101,19 @@
 				<input type="checkbox" id="file">
 				<div class="slider round"></div>
 			</label>
-			<span class="name"> <a href="chrome://extensions" target="_blank" style="color:white">File</a></span>
+			<span class="name"> <a href="chrome://extensions" target="_blank" style="color:white" key="file">File</a></span>
 		</span>
 		<span class="box">
 			<label class="switch">
 				<input type="checkbox" id="All">
 				<div class="slider round red"></div>
 			</label>
-			<span class="name red"> [OFF]All URLs</span>
+			<span class="name red" key="allURLs"> [OFF]All URLs</span>
 		</span>
 	</div>
 	<!--CSS for opt-->
 	<script src="js/opt.js"></script>
-	<button id="CSS">
+	<button id="CSS" key="Ilnf">
 		In-line On / Off
 	</button>
 	<div id="CSScore" style="font-weight:800; display:none">
@@ -122,31 +122,31 @@
 				<input type="checkbox" id="OnOff" checked>
 				<div class="slider round"></div>
 			</label>
-			<span class="name"> Enabled</span>
+			<span class="name" key="enabled"> Enabled</span>
 		</span>
 		<form id="formCSS">
 			<span>
-				Apply to:
+				<span key="CSS.apply.head">Apply to:</span>
 				<select id="Apply">
-					<option value="#Brt-opt.Brt-Fixed">Non-YouTube</option>
-					<option value="#Brt-opt:not(.Brt-Fixed)">YouTube</option>
-					<option value="#Brt-opt">Both</option>
-					<option value="ovrd,#Brt-opt">Override YouTube</option>
+					<option value="#Brt-opt.Brt-Fixed" key="CSS.apply.nonYT">Non-YouTube</option>
+					<option value="#Brt-opt:not(.Brt-Fixed)" key="CSS.apply.YT">YouTube</option>
+					<option value="#Brt-opt" key="CSS.apply.both">Both</option>
+					<option value="ovrd,#Brt-opt" key="CSS.apply.ovYT">Override YouTube</option>
 				</select>
 			</span>
 			<br/>
 			<span>
-				position: 
+				<span key="CSS.pos.head">position:</span>
 				<select id="position">
-					<option value="fixed" title="relative to the page.">fixed</option>
-					<option value="absolute" title="relative to the window">absolute</option>
+					<option value="fixed" title="relative to the page" key="CSS.pos.fix" key-title>fixed</option>
+					<option value="absolute" title="relative to the window" key="CSS.pos.abs" key-title>absolute</option>
 				</select>
 			</span>
 			<br/>
 			<span>
 				<select id="TB">
-					<option value="top">top</option>
-					<option value="bottom">bottom</option>
+					<option value="top" key="CSS.top">top</option>
+					<option value="bottom" key="CSS.bottom">bottom</option>
 				</select>
 				:
 				<input id="TBn" type="number" value="5"/>
@@ -155,8 +155,8 @@
 			<br/>
 			<span>
 				<select id="RL">
-					<option value="right">right</option>
-					<option value="left">left</option>
+					<option value="right" key="CSS.R">right</option>
+					<option value="left "key="CSS.L">left</option>
 				</select>
 				:
 				<input id="RLn" type="number" value="5"/>
@@ -164,51 +164,51 @@
 			</span>
 			<br/>
 			<span>
-				padding-top:
+				<span key="CSS.pad.top">padding-top:</span>
 				<input id="PTn" type="number" min="0" value="5"/>
 				<select class="unit" id="PTu"></select>
 			</span>
 			<br/>
 			<span>
-				padding-right:
+				<span key="CSS.pad.R">padding-right:</span>
 				<input id="PRn" type="number" min="0" value="5"/>
 				<select class="unit" id="PRu"></select>
 			</span>
 			<br/>
 			<span>
-				padding-bottom:
+				<span key="CSS.pad.bottom">padding-bottom:</span>
 				<input id="PBn" type="number" min="0" value="5"/>
 				<select class="unit" id="PBu"></select>
 			</span>
 			<br/>
 			<span>
-				padding-left:
+				<span key="CSS.pad.L">padding-left:</span>
 				<input id="PLn" type="number" min="0" value="5"/>
 				<select class="unit" id="PLu"></select>
 			</span>
 			<br/>
 			<span>
-				size:
+				<span key="CSS.size">size:</span>
 				<input id="WHn" type="number" min="0" value="20"/>
 				<select class="unit" id="WHu"></select>
 			</span>
 			<br/>
 			<span>
-				radius:
+				<span key="CSS.rad">radius:</span>
 				<input id="Radn" type="number" min="0" value="20"/>
 				<select class="unit" id="Radu">
 				</select>
 			</span>
 			<br/>
 			<span>
-				background-color:
+				<span key="CSS.backColor">background-color:</span>
 				<input id="Bc" type="color" value="#66FFFF"/>
 			</span>
 			<br/>
 			<input type="reset" id="Nreset"/>
 		</form>
 		<!--Advancer-->
-		<h3 style="color:#6FF">
+		<h3 style="color:#6FF" key="CSS.adv">
 			CSS Style (Advanced)
 		</h3>
 		<span class="box">
@@ -216,7 +216,7 @@
 				<input type="checkbox" id="AdvOn">
 				<div class="slider round"></div>
 			</label>
-			<span class="name"> Enabled</span>
+			<span class="name" key="enabled"> Enabled</span>
 		</span>
 		<form>
 			<textarea type="text" id="adv" style="width:calc(100vw - 20px)">
