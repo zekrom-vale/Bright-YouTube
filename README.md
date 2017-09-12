@@ -35,12 +35,11 @@ Note the new licence is now in effect, affecting all previous versions down to
 </h3>
 
 ------------
-
 # <a href="about:blank"> Bright-YouTube </a> Experimental
 
 <h3>
   Ajusta automáticamente el brillo del video para YouTube, Twitch y video HTML5.
-</ h3>
+</h3>
 Esta es la sucursal para contribuidores que ayudarán al Titular de Derechos de Autor (zekrom_vale)
 para mejorar la Pro verson de Bright-YouTube.
 
