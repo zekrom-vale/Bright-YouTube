@@ -84,7 +84,7 @@ end .black
 /*------------
 scrollbar end
 --------------
-     logo
+    logo
 ------------*/
 #logo{
 	width:50px;
@@ -92,24 +92,6 @@ scrollbar end
 	position:absolute;
 	top:0;
 	right:0
-}
-#logo circle{
-	stroke:blue;
-	stroke-width:115px;
-	fill:gray
-}
-#bolt{
-	fill:#6FF;
-	stroke:blue;
-	stroke-width:3px
-}
-#shadow{
-	fill:grey;
-	opacity:.5
-}
-#bolt,
-#shadow{
-	stroke-linejoin:round
 }
 #Pat{
 	color:white;
