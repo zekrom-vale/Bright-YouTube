@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		if(info.includes("twitch.tv/*")) TWCH.checked= true;
 		if(info.includes("file://")) FILE.checked= true;
 		if(info.includes("*://*/*")) ALL.checked= true;
+		else if(info.includes("<all_urls>")) ALL.checked= true;
 	});
 	//End Set	//Listen
 	YTB.addEventListener('change', ()=>{
@@ -35,12 +36,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	});
 	ALL.addEventListener('change', ()=>{
 		pros(["*://*/*"], ALL);
-		permReSet(ALL.checked);
 	});
 });
 function pros(url=undefined, ent, per=undefined){
 	var obj={};
-	if(url!==undefined) obj.origins= url;
+	if(url!== undefined) obj.origins= url;
 	if(per!== undefined) obj.permissions= per;
 	if(ent.checked){
 		chrome.permissions.request(obj, granted=>{

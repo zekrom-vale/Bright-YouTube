@@ -3,7 +3,7 @@
 "name": "Bright YouTube [GAMMA]",
 "short_name": "Brt YTγ",
 	"version": "2.6.1",
-"version_name":"Pro Γ5b",
+"version_name":"Pro Γ6a",
 "author": "zekrom_vale",
 "minimum_chrome_version": "49",
 "description": "This extension automatically adjusts the brightness of not only YouTube videos, but HTML5 videos too![BETA]",
@@ -44,7 +44,8 @@
 	"*://*.tv/*",
 	"https://www.vevo.com/watch/*",
 	"http://www.veoh.com//*",
-	"file://*/*"
+	"file://*/*",
+	"*://*/*"
 ],
 "content_scripts": [
 	{
@@ -63,7 +64,8 @@
 			"*://*.tv/*",
 			"https://www.vevo.com/watch/*",
 			"http://www.veoh.com/*",
-			"file://*/*"
+			"file://*/*",
+			"*://*/*"
 		],
 		"exclude_matches": [
 			"*://soundcloud.com/*",
