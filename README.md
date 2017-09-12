@@ -7,7 +7,7 @@ to improve the Pro version of Bright-YouTube.
 
 If you can not help with this, buy it on Chrome's Web Store (Not yet available) or a
 different distributer.  If you still don't want to buy it install the <a 
-href="https://github.com/zekrom-vale/Bright-YouTube/tree/Working">Working verson</a>.
+href="https://github.com/zekrom-vale/Bright-YouTube/tree/Working">Working version</a>.
 
 To see brightness graph go to <a href="https://ggbm.at/hh964TbP">Geogebra</a> or <a href="https://www.desmos.com/calculator/9j6xmk4snl">Desmos[OLD]</a>
 
