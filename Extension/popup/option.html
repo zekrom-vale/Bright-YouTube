@@ -1,7 +1,14 @@
 <!DOCTYPE html>
+<!--script>
+	htmlLang{
+		title: 'Bright YouTube Options',
+		'permissions': 'Permissions',
+		'permissions_Title': 'What sites to run on'
+	}
+</script-->
 <html style="width:332px">
 <head>
-	<title key="head.title">
+	<title key="title">
 		Bright YouTube Options
 	</title>
 	<meta charset="ANSI"/>
@@ -215,7 +222,7 @@
 		</span>
 		<form id="formCSS">
 			<span>
-				<p key="CSS.apply">Apply to:</p>
+				<span key="CSS.apply">Apply to:</span>
 				<select id="Apply">
 					<option value="#Brt-opt.Brt-Fixed" key="CSS.apply.nonYT">Non-YouTube</option>
 					<option value="#Brt-opt:not(.Brt-Fixed)" key="CSS.apply.YT">YouTube</option>
@@ -225,7 +232,7 @@
 			</span>
 			<br/>
 			<span>
-				<p key="CSS.pos">position:</p>
+				<span key="CSS.pos">position:</span>
 				<select id="position">
 					<option value="fixed" title="relative to the page." key="CSS.pos.fix">fixed</option>
 					<option value="absolute" title="relative to the window" key="CSS.pos.abs">absolute</option>
@@ -253,44 +260,44 @@
 			</span>
 			<br/>
 			<span>
-				<p key="CSS.pad.top">padding-top:</p>
+				<span key="CSS.pad.top">padding-top:</span>
 				<input id="PTn" type="number" min="0" value="5"/>
 				<select class="unit" id="PTu"></select>
 			</span>
 			<br/>
 			<span>
-				<p key="CSS.pad.R">padding-right:</p>
+				<span key="CSS.pad.R">padding-right:</span>
 				<input id="PRn" type="number" min="0" value="5"/>
 				<select class="unit" id="PRu"></select>
 			</span>
 			<br/>
 			<span>
-				<p key="CSS.pad.bottom">padding-bottom:</p>
+				<span key="CSS.pad.bottom">padding-bottom:</span>
 				<input id="PBn" type="number" min="0" value="5"/>
 				<select class="unit" id="PBu"></select>
 			</span>
 			<br/>
 			<span>
-				<p key="CSS.pad.L">padding-left:</p>
+				<span key="CSS.pad.L">padding-left:</span>
 				<input id="PLn" type="number" min="0" value="5"/>
 				<select class="unit" id="PLu"></select>
 			</span>
 			<br/>
 			<span>
-				<p key="CSS.size">size:</p>
+				<span key="CSS.size">size:</span>
 				<input id="WHn" type="number" min="0" value="20"/>
 				<select class="unit" id="WHu"></select>
 			</span>
 			<br/>
 			<span>
-				<p key="CSS.rad">radius:</p>
+				<span key="CSS.rad">radius:</span>
 				<input id="Radn" type="number" min="0" value="20"/>
 				<select class="unit" id="Radu">
 				</select>
 			</span>
 			<br/>
 			<span>
-				<p key="CSS.backColor">background-color:</p>
+				<span key="CSS.backColor">background-color:</span>
 				<input id="Bc" type="color" value="#66FFFF"/>
 			</span>
 			<br/>
