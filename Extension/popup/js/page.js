@@ -1,68 +1,46 @@
+const lang={
+	'code':{
+		null: '"No context": ',
+		100.7: 'Security Alert Overide: ',
+		200:'OK: ',
+		300: '',
+		401:'Request Denied: ', 404.1:'Error, could not remove: ', 404: 'Could not find: ', 407:'Security Alert: ',
+		502: 'Chromemium error: '
+	},
+	'Class':[
+		undefined,
+		'Informational',
+		'Successful',
+		'Redirection',
+		'Client Err',
+		'Server Err'
+	]
+}
+
 var n=0;
 document.addEventListener('DOMContentLoaded', ()=>{
 	//Rainbow
-	setInterval(()=>{
-		n=n<=360? n+2: 0;
-		document.getElementById('setRb').innerHTML= '.rb{filter:hue-rotate('+ n +'deg)}';
-	}, 200);
-	//End Rainbow
+	setInterval(()=>document.getElementById('setRb').innerHTML= `.rb{filter:hue-rotate(${n=n<=360? n+2: 0}deg)}`, 200);
 	chrome.storage.local.get(['Active', 'Auto'], items=>{
 		if(items.Active===false) document.getElementById('IO').checked= false;
 		else if(items.Active=== 'Short'){
 			document.getElementById('ST').checked= true;
 			document.getElementById('IO').checked= false;
 		}
-		if(items.Auto===false) document.getElementById('Auto').checked= false;
+		else if(items.Auto===false) document.getElementById('Auto').checked= false;
 	});
-	document.getElementById("IO").addEventListener("change", IO);
-	document.getElementById("ST").addEventListener("change", Srt);
-	document.getElementById("Auto").addEventListener("change", AutoFn);
+	with(document){
+		getElementById("IO").addEventListener("change", IO);
+		getElementById("ST").addEventListener("change", Srt);
+		getElementById("Auto").addEventListener("change", AutoFn);
+	}
 	//Get ERR
 	try{
 		chrome.storage.local.get('Err', items=>{//Use Object.entries(obj);
+			//https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
 			with(items.Err){
-				switch(code){//https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
-					case 200:
-						text= 'OK: '+ text;
-						break;
-					case 401:
-						text= 'Request Denied: '+ text;
-						break;
-					case 404.1:
-						text= 'Error, could not remove: '+ text;
-						break;
-					case 404:
-						text= 'Error, could not find: '+ text;
-						break;
-					case 407:
-						text= 'Security Alert: '+ text;
-						break;
-					case 100.7:
-						text= 'Security Alert Overide: '+ text;
-						break;
-					case 502:
-						text= 'Chromemium error: '+ text;
-						break;
-					default:
-						text= '"No context": '+ text;
-				}
-				var Class= code.toString().charAt(0);
-				switch(Class){
-					case '1':
-						Class= 'Informational';
-						break;
-					case '2':
-						Class= 'Successful';
-						break;
-					case '3':
-						Class= 'Redirection';
-						break;
-					case '4':
-						Class= 'Client Err';
-						break;
-					case '5':
-						Class= 'Server Err';
-				}
+				text= lang.code[code];
+				items.Err.Class= lang.Class[code.toString().charAt(0)];
 			}
 			console.log(items.Err.text);//May want to encodeURI
 			document.getElementById('display').innerHTML= items.Err.text+ ' '+ items.Err.code;
