@@ -33,8 +33,9 @@ Note the new license is now in effect, affecting all previous versions down to
     Limits to distribution
   </a>
 </h3>
+
 ------------
-# <a href="about:blank"> Bright-YouTube </a> Experimental
+# <a href="about:blank"> Brillante-YouTube </a> Experimental
 
 <h3>
   Ajusta automáticamente el brillo del video para YouTube, Twitch y video HTML5.
@@ -70,3 +71,40 @@ Tenga en cuenta que la nueva licencia está ahora en efecto, afectando a todas l
       Límites de distribución
     </a>
 </ h3>
+
+--------------
+# <a href="about:blank"> Brillant-YouTube </a> Expérimental
+<h3>
+   Ajoute automatiquement la luminosité vidéo pour YouTube, Twitch et HTML5.
+</ h3>
+C'est la branche pour les contributeurs qui aideront le titulaire du droit d'auteur (zekrom_vale)
+pour améliorer la version Pro de Bright-YouTube.
+
+Si vous ne pouvez pas vous aider, achetez-le sur le Web Store de Chrome (Pas encore disponible) ou un
+Distributeur différent. Si vous ne souhaitez toujours pas l'acheter, installez le <a
+href = "https://github.com/zekrom-vale/Bright-YouTube/tree/Working"> Version de travail </a>.
+
+Pour voir le graphique de luminosité, accédez à <a href="https://ggbm.at/hh964TbP"> Geogebra </a> ou <a href="https://www.desmos.com/calculator/9j6xmk4snl"> Desmos [ VIEUX] </a>
+
+Créé par zekrom_vale et contribué par:
+
+Codeurs:
+
+Graphistes:
+
+Traducteurs:
+
+Testeurs:
+
+Développeurs Wiki:
+
+Notez que la nouvelle licence est maintenant en vigueur, affectant toutes les versions précédentes jusqu'à
+<a href="https://github.com/zekrom-vale/Bright-YouTube/commit/697cda09f8c41e3965349f3368485006913f2728">
+  <code class="commit-sha">697cda0</code>
+</a>
+
+<h3>
+  <a href="https://github.com/zekrom-vale/Bright-YouTube/blob/Experimental/distribution.md">
+    Limite de distribution
+  </a>
+</h3>
