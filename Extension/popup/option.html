@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="width:332px">
 <head>
-	<title>
+	<title key="head.title">
 		Bright YouTube Options
 	</title>
 	<meta charset="ANSI"/>
@@ -43,7 +43,7 @@
 			<input type="checkbox" id="IO" checked />
 			<div class="slider round"></div>
 		</label>
-		<span class="name"> Enabled</span>
+		<span class="name" key="enabled"> Enabled</span>
 	</span>
 	
 	<span class="box"  title="Disables the extinction. Must reload to activate">
@@ -51,17 +51,17 @@
 			<input type="checkbox" id="ST"/>
 			<div class="slider round red"></div>
 		</label>
-		<span class="name red"> Short</span>
+		<span class="name red" key="short"> Short</span>
 	</span>
 	<span class="box" title="Changes checkbox action and Auto start.  On: toggles enabled.  Off: only starts and stops the extension on that page.">
 		<label class="switch">
 			<input type="checkbox" id="Auto" checked />
 			<div class="slider round"></div>
 		</label>
-		<span class="name"> Auto Start</span>
+		<span class="name" key="autoStart"> Auto Start</span>
 	</span>
 	<!--Permissions-->
-	<h1 title="What sites to run on">
+	<h1 title="What sites to run on" key="permissions" key-title>
 		Permissions
 	</h1>
 	<div id="permit">
@@ -79,14 +79,14 @@
 					<input type="checkbox" id="Game"/>
 					<div class="slider round"></div>
 				</label>
-				<span class="name"> YT Games</span>
+				<span class="name" key="YTgames"> YT Games</span>
 			</span>
 			<span class="box" title="youtube.com/embed/* Excluded">
 				<label class="switch">
 					<input type="checkbox" id="Embed"/>
 					<div class="slider round"></div>
 				</label>
-				<span class="name"> Embedded</span>
+				<span class="name" key="embedded"> Embedded</span>
 			</span>
 			<span class="box">
 				<label class="switch">
@@ -165,7 +165,7 @@
 					<input type="checkbox" id="Dot_tv"/>
 					<div class="slider round"></div>
 				</label>
-				<span class="name"> Dot tv</span>
+				<span class="name" key="dot_tv"> Dot tv</span>
 			</span>
 			<span class="box">
 				<label class="switch">
@@ -187,14 +187,14 @@
 				<input type="checkbox" id="All"/>
 				<div class="slider round red"></div>
 			</label>
-			<span class="name red"> [NO OFF]All URLs</span>
+			<span class="name red" key="allURLs"> [NO OFF]All URLs</span>
 		</span>
-		<span class="box" title="Enable also at chrome://extensions">
+		<span class="box" title="Enable also at chrome://extensions" key-ref="file">
 			<label class="switch">
 				<input type="checkbox" id="file">
 				<div class="slider round"></div>
 			</label>
-			<span class="name"> <a href="chrome://extensions" target="_blank" style="color:black">File</a></span>
+			<span class="name"> <a href="chrome://extensions" target="_blank" style="color:black" key="file" key-title="span">File</a></span>
 		</span>
 		<!--endif[Pro]-->
 	</div>
@@ -202,7 +202,7 @@
 	<!--CSS for opt-->
 	<!--if[Pro]-->
 	<script src="js/opt.js"></script>
-	<h1>
+	<h1 key="Ilnf">
 		In-line On / Off
 	</h1>
 	<div id="CSScore" style="font-weight:800">
@@ -215,27 +215,27 @@
 		</span>
 		<form id="formCSS">
 			<span>
-				Apply to:
+				<p key="CSS.apply">Apply to:</p>
 				<select id="Apply">
-					<option value="#Brt-opt.Brt-Fixed">Non-YouTube</option>
-					<option value="#Brt-opt:not(.Brt-Fixed)">YouTube</option>
-					<option value="#Brt-opt">Both</option>
-					<option value="ovrd,#Brt-opt">Override YouTube</option>
+					<option value="#Brt-opt.Brt-Fixed" key="CSS.apply.nonYT">Non-YouTube</option>
+					<option value="#Brt-opt:not(.Brt-Fixed)" key="CSS.apply.YT">YouTube</option>
+					<option value="#Brt-opt" key="CSS.apply.both">Both</option>
+					<option value="ovrd,#Brt-opt" key="CSS.apply.ovYT">Override YouTube</option>
 				</select>
 			</span>
 			<br/>
 			<span>
-				position: 
+				<p key="CSS.pos">position:</p>
 				<select id="position">
-					<option value="fixed" title="relative to the page.">fixed</option>
-					<option value="absolute" title="relative to the window">absolute</option>
+					<option value="fixed" title="relative to the page." key="CSS.pos.fix">fixed</option>
+					<option value="absolute" title="relative to the window" key="CSS.pos.abs">absolute</option>
 				</select>
 			</span>
 			<br/>
 			<span>
 				<select id="TB">
-					<option value="top">top</option>
-					<option value="bottom">bottom</option>
+					<option value="top" key="CSS.top">top</option>
+					<option value="bottom" key="CSS.bottom">bottom</option>
 				</select>
 				:
 				<input id="TBn" type="number" value="5"/>
@@ -244,8 +244,8 @@
 			<br/>
 			<span>
 				<select id="RL">
-					<option value="right">right</option>
-					<option value="left">left</option>
+					<option value="right" key="CSS.R">right</option>
+					<option value="left "key="CSS.L">left</option>
 				</select>
 				:
 				<input id="RLn" type="number" value="5"/>
@@ -253,44 +253,44 @@
 			</span>
 			<br/>
 			<span>
-				padding-top:
+				<p key="CSS.pad.top">padding-top:</p>
 				<input id="PTn" type="number" min="0" value="5"/>
 				<select class="unit" id="PTu"></select>
 			</span>
 			<br/>
 			<span>
-				padding-right:
+				<p key="CSS.pad.R">padding-right:</p>
 				<input id="PRn" type="number" min="0" value="5"/>
 				<select class="unit" id="PRu"></select>
 			</span>
 			<br/>
 			<span>
-				padding-bottom:
+				<p key="CSS.pad.bottom">padding-bottom:</p>
 				<input id="PBn" type="number" min="0" value="5"/>
 				<select class="unit" id="PBu"></select>
 			</span>
 			<br/>
 			<span>
-				padding-left:
+				<p key="CSS.pad.L">padding-left:</p>
 				<input id="PLn" type="number" min="0" value="5"/>
 				<select class="unit" id="PLu"></select>
 			</span>
 			<br/>
 			<span>
-				size:
+				<p key="CSS.size">size:</p>
 				<input id="WHn" type="number" min="0" value="20"/>
 				<select class="unit" id="WHu"></select>
 			</span>
 			<br/>
 			<span>
-				radius:
+				<p key="CSS.rad">radius:</p>
 				<input id="Radn" type="number" min="0" value="20"/>
 				<select class="unit" id="Radu">
 				</select>
 			</span>
 			<br/>
 			<span>
-				background-color:
+				<p key="CSS.backColor">background-color:</p>
 				<input id="Bc" type="color" value="#66FFFF"/>
 			</span>
 			<br/>
@@ -302,7 +302,7 @@
 			</div>
 			<style id="Brt-FS"></style>
 		</div>
-		<h1 style="color:#6FF" title="Edit if you know CSS">
+		<h1 style="color:#6FF" title="Edit if you know CSS" key="CSS.adv" key-title>
 			CSS Style (Advanced)
 		</h1>
 		<span class="box">
@@ -310,7 +310,7 @@
 				<input type="checkbox" id="AdvOn"/>
 				<div class="slider round"></div>
 			</label>
-			<span class="name"> Enabled</span>
+			<span class="name" key="enabled"> Enabled</span>
 		</span>
 		<form>
 			<textarea type="text" id="adv">
@@ -334,17 +334,17 @@
 			<!--endif[Pro]-->
 		</form>
 		<form>
-			<h1>
+			<h1 key="CSS.units">
 				Custom units
 			</h1>
 			<input type="text" value="px, in, cm, mm, vw, vh, vmax, vmin, %" id="cUnit"/>
 		</form>
 		<script src="js/fn.js"></script>
 		<form style="width:calc(100vw - 70px)" class="CSfn">
-			<h1>
+			<h1 key="filter.head">
 				[BETA]Custom filter function
 			</h1>
-			<h2>
+			<h2 key="filter.JSrule">
 				Limited JavaScript Rules
 			</h2>
 			<style>
@@ -355,7 +355,7 @@
 					content:") "
 				}
 			</style>
-			<ol style="font-size:15px; font-weight:bold">
+			<ol style="font-size:15px; font-weight:bold" key="filter.list">
 				<li>Custom function variables MUST start with an underscore</li>
 				<li>No functions (includes arrow functions)</li>
 				<li>if else statements allowed</li>
@@ -365,7 +365,7 @@
 					Use <code>setFilter(brt, vrt, con, sat)</code> to set the filter
 				</li>
 			</ol>
-			<pre style="font-size:15px; position:relative; left:20px; top:-10px">
+			<pre style="font-size:15px; position:relative; left:20px; top:-10px" key="filter.pre">
 <var>r</var>average red
 <var>g</var>average green
 <var>b</var>average blue
