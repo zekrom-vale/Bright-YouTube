@@ -14,7 +14,13 @@ const lang={
 		'Redirection',
 		'Client Err',
 		'Server Err'
-	]
+	],
+	'fn':{
+		'inOK':'input is OK',
+		'saved':'Function saved',
+		'inval': 'Invalid input: '
+	}
+	
 }
 
 var n=0;
@@ -38,10 +44,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	try{
 		chrome.storage.local.get('Err', items=>{//Use Object.entries(obj);
 			//https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
-			with(items.Err){
-				text= lang.code[code];
-				items.Err.Class= lang.Class[code.toString().charAt(0)];
-			}
+			items.Err.text= lang.code[code];
+			items.Err.Class= lang.Class[items.Err.code.toString().charAt(0)];
 			console.log(items.Err.text);//May want to encodeURI
 			document.getElementById('display').innerHTML= items.Err.text+ ' '+ items.Err.code;
 			document.getElementById('display').title= items.Err.time+ ': '+ items.Err.Class;
