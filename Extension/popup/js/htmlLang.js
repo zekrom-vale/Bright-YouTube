@@ -145,7 +145,7 @@ Langs.enEX={//To be translated
 	}
 }
 Langs.fr={
-	'title': 'Bright YouTube Options',
+	'title': 'Luisant YouTube Options',
 	'enabled': 'Enabled',
 	'short': 'Short',
 	'autoStart': 'Démarrage automatique',
@@ -219,10 +219,21 @@ Langs.it= {};
 Langs.gr= {};
 Langs.jp= {};
 document.addEventListener('DOMContentLoaded', ()=>{
-	document.getElementById('lang').addEventListener('click', ()=>{
+	/*document.getElementById('lang').addEventListener('click', ()=>{
 		var hash=window.location.hash;
 		hash= hash.replace('#', '');
 		chrome.storage.sync.set({'lang': hash});
+	});*/
+	document.getElementById('lang').addEventListener('mouseleave', ()=>{
+		//Look to see if hash changed
+		chrome.storage.sync.get('lang', items=>{
+			var hash=window.location.hash;
+			hash= hash.replace('#', '');
+			if(hash!=items.lang){
+				chrome.storage.sync.set({'lang': hash});
+				window.location.reload();
+			}
+		});
 	});
 	try{
 		chrome.storage.sync.get('lang', items=>{
