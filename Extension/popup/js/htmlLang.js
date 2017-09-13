@@ -39,12 +39,13 @@ Langs.en={//To be translated
 			'R': 'padding-right:',
 			'bottom': 'padding-bottom:',
 			'L': 'padding-left:'
-		}
+		},
+		'size': 'size:',
+		'rad': 'radius:',
+		'backClolor': 'background-color:',
+		'adv': 'CSS Style (Advanced)',
+		'units': 'Custom units'
 	},
-	'size': 'size:',
-	'backClolor': 'background-color:',
-	'adv': 'CSS Style (Advanced)',
-	'units': 'Custom units',
 	'filter':{
 		'head': '[BETA]Custom filter function',
 		'JSrule': 'Limited JavaScript Rules',
@@ -56,7 +57,7 @@ Langs.en={//To be translated
 <li>
 	Use <code>setFilter(brt, vrt, con, sat)</code> to set the filter
 </li>`,
-			'pre':`<var>r</var>average red
+		'pre':`<var>r</var>average red
 <var>g</var>average green
 <var>b</var>average blue
 <var>a</var>average alpha[DISABLED]
@@ -66,7 +67,7 @@ Langs.en={//To be translated
 <var>oRGB</var>old RGB
 <var>oU</var>old unweighted RGB
 <var>oW</var>old weighted RGB</pre>`
-		}
+	}
 }
 //Encoding warning!
 Langs.es= {};
@@ -111,13 +112,15 @@ Langs.enEX={//To be translated
 			'_L': 'padding-left:'
 		},
 		'_size': 'size:',
+		'_rad': 'radius:',
 		'_backClolor': 'background-color:',
 		'_adv': 'CSS Style (Advanced)',
-		'_units': 'Custom units',
-		'_filter':{
-			'_head': '[BETA]Custom filter function',
-			'_JSrule': 'Limited JavaScript Rules',
-			'_list': `<li>Custom function variables MUST start with an underscore</li>
+		'_units': 'Custom units'
+	},
+	'_filter':{
+		'_head': '[BETA]Custom filter function',
+		'_JSrule': 'Limited JavaScript Rules',
+		'_list': `<li>Custom function variables MUST start with an underscore</li>
 <li>No functions (includes arrow functions)</li>
 <li>if else statements allowed</li>
 <li>document, window, and getElement are all disabled</li>
@@ -125,7 +128,7 @@ Langs.enEX={//To be translated
 <li>
 	Use <code>setFilter(brt, vrt, con, sat)</code> to set the filter
 </li>`,
-			'_pre':`<var>r</var>average red
+		'_pre':`<var>r</var>average red
 <var>g</var>average green
 <var>b</var>average blue
 <var>a</var>average alpha[DISABLED]
@@ -135,27 +138,26 @@ Langs.enEX={//To be translated
 <var>oRGB</var>old RGB
 <var>oU</var>old unweighted RGB
 <var>oW</var>old weighted RGB</pre>`
-		}
 	}
 }
 Langs.fr={
 	'title': 'Bright YouTube Options',
 	'enabled': 'Enabled',
 	'short': 'Short',
-	'autoStart': 'Dï¿½marrage automatique',
+	'autoStart': 'Démarrage automatique',
 	'permissions': 'Autorisations',
-	'permissions_Title': 'Quels sites ï¿½ exï¿½cuter',
+	'permissions_Title': 'Quels sites à exécuter',
 	'YT_Title': 'youtube.com/embed/* Inclus',
 	'YTgames': 'YT Games',
 	'embedded': 'Embedded',
 	'dot_tv': 'Dot tv',
 	'allURLs': '[NO OFF] Toutes les URL',
-	'file_Title': 'Activer aussi ï¿½ chrome: // extensions',
+	'file_Title': 'Activer aussi à chrome: // extensions',
 	'file': 'Fichier',
 	'Ilnf': 'In-line On / Off',
 	'CSS':{
 		'apply':{
-			'head': 'Appliquer ï¿½:',
+			'head': 'Appliquer à:',
 			'nonYT': 'Non-YouTube',
 			'YT': 'YouTube',
 			'both': 'les deux',
@@ -163,10 +165,10 @@ Langs.fr={
 		},
 		'pos': {
 			'head': 'position:',
-			'fix': 'fixï¿½',
-			'fix_Title': 'relatif ï¿½ la page',
+			'fix': 'fixé',
+			'fix_Title': 'relatif à la page',
 			'abs': 'absolu',
-			'abs_Title': 'relative ï¿½ la fenï¿½tre'
+			'abs_Title': 'relative à la fenêtre'
 		},
 		'top': 'top',
 		'bottom': 'bas',
@@ -177,33 +179,34 @@ Langs.fr={
 			'R': 'rembourrage-droit:',
 			'bottom': 'padding-bottom:',
 			'L': 'rembourrage-gauche:'
-		}
+		},
+		'size': 'taille:',
+		'rad': 'rayon:',
+		'backColor': 'background-color:',
+		'adv': 'Style CSS (Avancé)',
+		'units':' unités personnalisées ',
 	},
-	'size': 'taille:',
-	'backClolor': 'background-color:',
-	'adv': 'Style CSS (Avancï¿½)',
-	'units':' unitï¿½s personnalisï¿½es ',
-	'filtre':{
-		'head': '[BETA] Fonction de filtre personnalisï¿½e',
-		'JSrule': 'Rï¿½gles JavaScript limitï¿½es',
-		'list': `<li> Les variables de fonction personnalisï¿½es DOIVENT commencer par un trait de soulignement </ li>
-<li> Pas de fonctions (comprend les fonctions de flï¿½che) </ li>
-<li> si d'autres instructions ont ï¿½tï¿½ autorisï¿½es </ li>
-<li> document, fenï¿½tre et getElement sont tous dï¿½sactivï¿½s </ li>
-<li> La plupart des fonctions mathï¿½matiques sont autorisï¿½es </ li>
+	'filter':{
+		'head': '[BETA] Fonction de filtre personnalisée',
+		'JSrule': 'Règles JavaScript limitées',
+		'list': `<li> Les variables de fonction personnalisées DOIVENT commencer par un trait de soulignement </ li>
+<li> Pas de fonctions (comprend les fonctions de flèche) </ li>
+<li> si d'autres instructions ont été autorisées </ li>
+<li> document, fenêtre et getElement sont tous désactivés </ li>
+<li> La plupart des fonctions mathématiques sont autorisées </ li>
 <li>
-Utilisez <code> setFilter (brt, vrt, con, sat) </ code> pour dï¿½finir le filtre
+Utilisez <code> setFilter (brt, vrt, con, sat) </ code> pour définir le filtre
 </ li> `,
-		'_pre': `<var> r </ var> rouge moyen
-<var> g </ var> moyenne verte
-<var> b </ var> bleu moyen
-<var> a </ var> alpha moyen [DISABLED]
-<var> ic </ var> (0-10) numï¿½ro de passage
-<var> U </ var> RGB non pondï¿½rï¿½
-<var> W </ var> RGB pondï¿½rï¿½
-<var> oRGB </ var> ancien RVB
-<var> oU </ var> ancien RGB non pondï¿½rï¿½
-<var> oW </ var> ancien RGB pondï¿½rï¿½ </ pre> `
+		'pre': `<var>r</var> rouge moyen
+<var>g</var> moyenne verte
+<var>b</var> bleu moyen
+<var>a</var> alpha moyen [DISABLED]
+<var>ic</var> (0-10) numéro de passage
+<var>U</var> RGB non pondéré
+<var>W</var> RGB pondéré
+<var>oRGB</var> ancien RVB
+<var>oU</var> ancien RGB non pondéré
+<var>oW</var> ancien RGB pondéré`
 	}
 }
 Langs.it= {};
@@ -217,21 +220,37 @@ document.addEventListener('DOMContentLoaded', ()=>{
 });
 function setHTML(L){
 	var allKey= document.querySelectorAll('[key]');
-	console.log(allKey);
 	var i=0;
 	while(i< allKey.length){
-		console.log(allKey[i]);
-		console.log(allKey[i].getAttribute('key'));
-		allKey[i].innerHTML=L[allKey[i].getAttribute('key').toString()];
+		allKey[i].innerHTML=GoTo(L, allKey[i].getAttribute('key'));//L[a.b.c]!= L[a][b][c]
 		if(allKey[i].getAttribute('key-title')==''){
-			allKey[i].title=L[allKey[i].getAttribute('key')+'_Title'];
+			allKey[i].title=GoTo(L, allKey[i].getAttribute('key')+'_Title');
 		}
 		i++;
 	}
 	var keyT0= document.querySelectorAll('[key-title]:not([key])');
 	var I=0;
 	while(I< keyT0.length){
-		keyT0[I].title=L[keyT0[I].getAttribute('key')+'_Title'];
+		keyT0[I].title=GoTo(L, keyT0[I].getAttribute('key')+'_Title');
 		I++;
+	}
+}//var part= allKey[i].getAttribute('key').split('.');
+function GoTo(B, P){
+	P= P.split('.');
+	switch(P.length){
+		case 1:
+			return B[P[0]];
+		case 2:
+			return B[P[0]][P[1]];
+		case 3:
+			return B[P[0]][P[1]][P[2]];
+		case 4:
+			return B[P[0]][P[1]][P[2]][P[3]];
+		case 5:
+			return B[P[0]][P[1]][P[2]][P[3]][P[4]];
+		case 6:
+			return B[P[0]][P[1]][P[2]][P[3]][P[4]][P[5]];
+		default:
+			return false;
 	}
 }
