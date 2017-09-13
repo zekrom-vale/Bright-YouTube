@@ -249,7 +249,20 @@ function getAvColor(){
 function reSet(){
 	var items={
 		'PozCSS': {},
-		'Adv': '/*reset[TEMP]*/',
+		'Adv': `#Brt-opt.Brt-Fixed{
+	/*Ex top right button*/
+	position:fixed;
+	top:5px;
+	left:5px
+}
+#Brt-opt:not(.Brt-Fixed){
+	/*Ex in line IO for YT*/
+	background:black
+}
+#Brt-opt{
+	background-color:blue
+	/*All*/
+}`,
 		'fn': `var V= oRGB*(1-ic) + U*ic;
 let _X= 0.0266813*V -6,
 _PN= _X<0? -1: 1;
