@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	/*chrome.storage.sync.get('lang', items=>{
 		setHTML(Langs[items.lang]);
 	});*/
-	setHTML(Langs.fr);
+	setHTML(Langs.en);
 });
 function setHTML(L){
 	var allKey= document.querySelectorAll('[key]');

@@ -1,6 +1,7 @@
 const lang={
 	'code':{
 		null: '"No context": ',
+		undefined: '"No context": ',
 		100.7: 'Security Alert Overide: ',
 		200:'OK: ',
 		300: '',
