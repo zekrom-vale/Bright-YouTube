@@ -152,13 +152,13 @@ Langs.fr={
 	'permissions': 'Autorisations',
 	'permissions_Title': 'Quels sites à exécuter',
 	'YT_Title': 'youtube.com/embed/* Inclus',
-	'YTgames': 'YT Games',
+	'YTgames': 'YT Jeux',
 	'embedded': 'Embedded',
 	'dot_tv': 'Dot tv',
-	'allURLs': '[NO OFF] Toutes les URL',
+	'allURLs': '[NON OFF] Toutes les URL',
 	'file_Title': 'Activer aussi à chrome: // extensions',
 	'file': 'Fichier',
-	'Ilnf': 'In-line On / Off',
+	'Ilnf': 'Inline On / Off',
 	'CSS':{
 		'apply':{
 			'head': 'Appliquer à:',
@@ -179,19 +179,19 @@ Langs.fr={
 		'R': 'droit',
 		'L': 'left',
 		'pad':{
-			'top': 'padding-top:',
-			'R': 'rembourrage-droit:',
-			'bottom': 'padding-bottom:',
-			'L': 'rembourrage-gauche:'
+			'top': 'rembourrage droit haut:',
+			'R': 'rembourrage droit droite:',
+			'bottom': 'rembourrage droit bas:',
+			'L': 'rembourrage droit gauche:'
 		},
 		'size': 'taille:',
 		'rad': 'rayon:',
-		'backColor': 'background-color:',
+		'backColor': 'Couleur de fond:',
 		'adv': 'Style CSS (Avancé)',
-		'units':' unités personnalisées ',
+		'units':'unités personnalisées',
 	},
 	'filter':{
-		'head': '[BETA] Fonction de filtre personnalisée',
+		'head': '[BÊTA] Fonction de filtre personnalisée',
 		'JSrule': 'Règles JavaScript limitées',
 		'list': [
 			'Les variables de fonction personnalisées DOIVENT commencer par un trait de soulignement',
@@ -243,22 +243,24 @@ function setHTML(L){
 }
 function GoTo(B, P){//Base & Path
 	P= P.split('.');
-	switch(P.length){
-		case 0:
-			return B;
-		case 1:
-			return B[P[0]];
-		case 2:
-			return B[P[0]][P[1]];
-		case 3:
-			return B[P[0]][P[1]][P[2]];
-		case 4:
-			return B[P[0]][P[1]][P[2]][P[3]];
-		case 5:
-			return B[P[0]][P[1]][P[2]][P[3]][P[4]];
-		case 6:
-			return B[P[0]][P[1]][P[2]][P[3]][P[4]][P[5]];
-		default:
-			return null;
-	}
+	try{
+		switch(P.length){
+			case 0:
+				return B;
+			case 1:
+				return B[P[0]];
+			case 2:
+				return B[P[0]][P[1]];
+			case 3:
+				return B[P[0]][P[1]][P[2]];
+			case 4:
+				return B[P[0]][P[1]][P[2]][P[3]];
+			case 5:
+				return B[P[0]][P[1]][P[2]][P[3]][P[4]];
+			case 6:
+				return B[P[0]][P[1]][P[2]][P[3]][P[4]][P[5]];
+			default:
+				return null;
+		}
+	}catch(e){console.warn(e);}
 }
