@@ -148,20 +148,20 @@ Langs.fr={
 	'title': 'Bright YouTube Options',
 	'enabled': 'Enabled',
 	'short': 'Short',
-	'autoStart': 'Démarrage automatique',
+	'autoStart': 'DÃ©marrage automatique',
 	'permissions': 'Autorisations',
-	'permissions_Title': 'Quels sites à exécuter',
+	'permissions_Title': 'Quels sites Ã  exÃ©cuter',
 	'YT_Title': 'youtube.com/embed/* Inclus',
 	'YTgames': 'YT Games',
 	'embedded': 'Embedded',
 	'dot_tv': 'Dot tv',
 	'allURLs': '[NO OFF] Toutes les URL',
-	'file_Title': 'Activer aussi à chrome: // extensions',
+	'file_Title': 'Activer aussi Ã  chrome: // extensions',
 	'file': 'Fichier',
 	'Ilnf': 'In-line On / Off',
 	'CSS':{
 		'apply':{
-			'head': 'Appliquer à:',
+			'head': 'Appliquer Ã :',
 			'nonYT': 'Non-YouTube',
 			'YT': 'YouTube',
 			'both': 'les deux',
@@ -169,10 +169,10 @@ Langs.fr={
 		},
 		'pos': {
 			'head': 'position:',
-			'fix': 'fixé',
-			'fix_Title': 'relatif à la page',
+			'fix': 'fixÃ©',
+			'fix_Title': 'relatif Ã  la page',
 			'abs': 'absolu',
-			'abs_Title': 'relative à la fenêtre'
+			'abs_Title': 'relative Ã  la fenÃªtre'
 		},
 		'top': 'top',
 		'bottom': 'bas',
@@ -187,31 +187,31 @@ Langs.fr={
 		'size': 'taille:',
 		'rad': 'rayon:',
 		'backColor': 'background-color:',
-		'adv': 'Style CSS (Avancé)',
-		'units':' unités personnalisées ',
+		'adv': 'Style CSS (AvancÃ©)',
+		'units':' unitÃ©s personnalisÃ©es ',
 	},
 	'filter':{
-		'head': '[BETA] Fonction de filtre personnalisée',
-		'JSrule': 'Règles JavaScript limitées',
+		'head': '[BETA] Fonction de filtre personnalisÃ©e',
+		'JSrule': 'RÃ¨gles JavaScript limitÃ©es',
 		'list': [
-			'Les variables de fonction personnalisées DOIVENT commencer par un trait de soulignement',
-			'Aucune fonction (incluant les fonctions de la flèche)',
-			'si d\'autres déclarations sont autorisées',
-			'document, fenêtre et getElement sont tous désactivés',
-			'La plupart des fonctions mathématiques sont autorisées',
-			['Utiliser', 'pour régler le filtre']
+			'Les variables de fonction personnalisÃ©es DOIVENT commencer par un trait de soulignement',
+			'Aucune fonction (incluant les fonctions de la flÃ¨che)',
+			'si d\'autres dÃ©clarations sont autorisÃ©es',
+			'document, fenÃªtre et getElement sont tous dÃ©sactivÃ©s',
+			'La plupart des fonctions mathÃ©matiques sont autorisÃ©es',
+			['Utiliser', 'pour rÃ©gler le filtre']
 		],
 		'pre':[
 			'moyenne rouge',
 			'vert moyen',
 			'moyenne bleue',
-			'alpha moyen [DÉSACTIVÉ]',
-			'numéro de passage',
-			'RGB non pondéré',
-			'RGB pondéré',
+			'alpha moyen [DÃ‰SACTIVÃ‰]',
+			'numÃ©ro de passage',
+			'RGB non pondÃ©rÃ©',
+			'RGB pondÃ©rÃ©',
 			'vieux RGB',
-			'vieux RGB non pondéré',
-			'vieux RGB pondéré'
+			'vieux RGB non pondÃ©rÃ©',
+			'vieux RGB pondÃ©rÃ©'
 		]
 	}
 }
