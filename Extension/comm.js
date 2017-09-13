@@ -1,4 +1,5 @@
-const lang={//En
+const LangsCore={};
+LangsCore.en={//En
 	"warn":{
 		"breach":"[BREACH DETECTED]Custom function is invalid, bypassed first check"
 	},
@@ -18,6 +19,18 @@ const lang={//En
 		"SHORT": "SHORT"
 	},
 	"Reset": "Values successfully reset"
+};
+var lang;
+try{
+	document.addEventListener('DOMContentLoaded', ()=>{
+		chrome.storage.sync.get('lang', items=>{
+			LangsCore[items.lang];
+		});
+	});
+}catch(e){
+	console.warn('lang undefined, set to en');
+	lang= LangsCore.en;
+	chrome.strorage.sync.set({'lang': 'en'});
 };
 //inlineIO
 function intINline(items){

@@ -1,4 +1,5 @@
-const lang={
+const LangsJS={};
+LangsJS.en={
 	'code':{
 		null: '"No context": ',
 		undefined: '"No context": ',
@@ -23,7 +24,18 @@ const lang={
 	}
 	
 }
-
+var lang;
+try{
+	document.addEventListener('DOMContentLoaded', ()=>{
+		chrome.storage.sync.get('lang', items=>{
+			LangsJS[items.lang];
+		});
+	});
+}catch(e){
+	console.warn('lang undefined, set to en');
+	lang= LangsJS.en;
+	chrome.strorage.sync.set({'lang': 'en'});
+};
 var n=0;
 document.addEventListener('DOMContentLoaded', ()=>{
 	//Rainbow

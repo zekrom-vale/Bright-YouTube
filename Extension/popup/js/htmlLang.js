@@ -219,10 +219,15 @@ Langs.it= {};
 Langs.gr= {};
 Langs.jp= {};
 document.addEventListener('DOMContentLoaded', ()=>{
-	/*chrome.storage.sync.get('lang', items=>{
-		setHTML(Langs[items.lang]);
-	});*/
-	setHTML(Langs.en);
+	try{
+		chrome.storage.sync.get('lang', items=>{
+			setHTML(Langs[items.lang]);
+		});
+	}catch(e){
+		console.warn('lang undefined, set to en');
+		setHTML(Langs.en);
+		chrome.strorage.sync.set({'lang': 'en'});
+	}
 });
 function setHTML(L){
 	var allKey= document.querySelectorAll('[key]');
@@ -243,24 +248,22 @@ function setHTML(L){
 }
 function GoTo(B, P){//Base & Path
 	P= P.split('.');
-	try{
-		switch(P.length){
-			case 0:
-				return B;
-			case 1:
-				return B[P[0]];
-			case 2:
-				return B[P[0]][P[1]];
-			case 3:
-				return B[P[0]][P[1]][P[2]];
-			case 4:
-				return B[P[0]][P[1]][P[2]][P[3]];
-			case 5:
-				return B[P[0]][P[1]][P[2]][P[3]][P[4]];
-			case 6:
-				return B[P[0]][P[1]][P[2]][P[3]][P[4]][P[5]];
-			default:
-				return null;
-		}
-	}catch(e){console.warn(e);}
+	switch(P.length){
+		case 0:
+			return B;
+		case 1:
+			return B[P[0]];
+		case 2:
+			return B[P[0]][P[1]];
+		case 3:
+			return B[P[0]][P[1]][P[2]];
+		case 4:
+			return B[P[0]][P[1]][P[2]][P[3]];
+		case 5:
+			return B[P[0]][P[1]][P[2]][P[3]][P[4]];
+		case 6:
+			return B[P[0]][P[1]][P[2]][P[3]][P[4]][P[5]];
+		default:
+			return null;
+	}
 }
