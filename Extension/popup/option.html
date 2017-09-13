@@ -356,27 +356,27 @@
 					content:") "
 				}
 			</style>
-			<ol style="font-size:15px; font-weight:bold" key="filter.list">
-				<li>Custom function variables MUST start with an underscore</li>
-				<li>No functions (includes arrow functions)</li>
-				<li>if else statements allowed</li>
-				<li>document, window, and getElement are all disabled</li>
-				<li>Most Math functions are allowed</li>
-				<li>
-					Use <code>setFilter(brt, vrt, con, sat)</code> to set the filter
+			<ol style="font-size:15px; font-weight:bold" dep-key="filter.list">
+				<li key="filter.list.0">Custom function variables MUST start with an underscore</li>
+				<li key="filter.list.1">No functions (includes arrow functions)</li>
+				<li key="filter.list.2">if else statements allowed</li>
+				<li key="filter.list.3">document, window, and getElement are all disabled</li>
+				<li key="filter.list.4">Most Math functions are allowed</li>
+				<li key="filter.list.5">
+					<span key="filter.list.6.0">Use</span> <code>setFilter(brt, vrt, con, sat)</code> <span key="filter.list.5.1">to set the filter</span>
 				</li>
 			</ol>
-			<pre style="font-size:15px; position:relative; left:20px; top:-10px" key="filter.pre">
-<var>r</var>average red
-<var>g</var>average green
-<var>b</var>average blue
-<var>a</var>average alpha[DISABLED]
-<var>ic</var>(0-10) pass number
-<var>U</var>unweighted RGB
-<var>W</var>weighted RGB
-<var>oRGB</var>old RGB
-<var>oU</var>old unweighted RGB
-<var>oW</var>old weighted RGB</pre>
+			<pre style="font-size:15px; position:relative; left:20px; top:-10px" dep-key="filter.pre">
+<var>r</var><span key="filter.pre.0">average red</span>
+<var>g</var><span key="filter.pre.1">average green</span>
+<var>b</var><span key="filter.pre.2">average blue</span>
+<var>a</var><span key="filter.pre.3">average alpha[DISABLED]</span>
+<var>ic</var>(0-10) <span key="filter.pre.4">pass number</span>
+<var>U</var><span key="filter.pre.5">unweighted RGB</span>
+<var>W</var><span key="filter.pre.6">weighted RGB</span>
+<var>oRGB</var><span key="filter.pre.7">old RGB</span>
+<var>oU</var><span key="filter.pre.8">old unweighted RGB</span>
+<var>oW</var><span key="filter.pre.9">old weighted RGB</span></pre>
 			<h2 id="valit"></h2>
 			<textarea style="width:calc(100vw - 70px); height:100px; resize:vertical" id="func">
 var V= oRGB*(1-ic) + U*ic;

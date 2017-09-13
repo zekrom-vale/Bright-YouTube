@@ -49,24 +49,26 @@ Langs.en={//To be translated
 	'filter':{
 		'head': '[BETA]Custom filter function',
 		'JSrule': 'Limited JavaScript Rules',
-		'list': `<li>Custom function variables MUST start with an underscore</li>
-<li>No functions (includes arrow functions)</li>
-<li>if else statements allowed</li>
-<li>document, window, and getElement are all disabled</li>
-<li>Most Math functions are allowed</li>
-<li>
-	Use <code>setFilter(brt, vrt, con, sat)</code> to set the filter
-</li>`,
-		'pre':`<var>r</var>average red
-<var>g</var>average green
-<var>b</var>average blue
-<var>a</var>average alpha[DISABLED]
-<var>ic</var>(0-10) pass number
-<var>U</var>unweighted RGB
-<var>W</var>weighted RGB
-<var>oRGB</var>old RGB
-<var>oU</var>old unweighted RGB
-<var>oW</var>old weighted RGB</pre>`
+		'list': [
+			'Custom function variables MUST start with an underscore',
+			'No functions (includes arrow functions)',
+			'if else statements allowed',
+			'document, window, and getElement are all disabled',
+			'Most Math functions are allowed',
+			['Use', 'to set the filter']
+		],
+		'pre':[
+			'average red',
+			'average green',
+			'average blue',
+			'average alpha[DISABLED]',
+			'pass number',
+			'unweighted RGB',
+			'weighted RGB',
+			'old RGB',
+			'old unweighted RGB',
+			'old weighted RGB'
+		]
 	}
 }
 //Encoding warning!
@@ -120,24 +122,26 @@ Langs.enEX={//To be translated
 	'_filter':{
 		'_head': '[BETA]Custom filter function',
 		'_JSrule': 'Limited JavaScript Rules',
-		'_list': `<li>Custom function variables MUST start with an underscore</li>
-<li>No functions (includes arrow functions)</li>
-<li>if else statements allowed</li>
-<li>document, window, and getElement are all disabled</li>
-<li>Most Math functions are allowed</li>
-<li>
-	Use <code>setFilter(brt, vrt, con, sat)</code> to set the filter
-</li>`,
-		'_pre':`<var>r</var>average red
-<var>g</var>average green
-<var>b</var>average blue
-<var>a</var>average alpha[DISABLED]
-<var>ic</var>(0-10) pass number
-<var>U</var>unweighted RGB
-<var>W</var>weighted RGB
-<var>oRGB</var>old RGB
-<var>oU</var>old unweighted RGB
-<var>oW</var>old weighted RGB</pre>`
+		'_list': [
+			'Custom function variables MUST start with an underscore',
+			'No functions (includes arrow functions)',
+			'if else statements allowed',
+			'document, window, and getElement are all disabled',
+			'Most Math functions are allowed',
+			['Use', 'to set the filter']
+		],
+		'_pre':[
+			'average red',
+			'average green',
+			'average blue',
+			'average alpha[DISABLED]',
+			'pass number',
+			'unweighted RGB',
+			'weighted RGB',
+			'old RGB',
+			'old unweighted RGB',
+			'old weighted RGB'
+		]
 	}
 }
 Langs.fr={
@@ -189,24 +193,26 @@ Langs.fr={
 	'filter':{
 		'head': '[BETA] Fonction de filtre personnalisée',
 		'JSrule': 'Règles JavaScript limitées',
-		'list': `<li> Les variables de fonction personnalisées DOIVENT commencer par un trait de soulignement </ li>
-<li> Pas de fonctions (comprend les fonctions de flèche) </ li>
-<li> si d'autres instructions ont été autorisées </ li>
-<li> document, fenêtre et getElement sont tous désactivés </ li>
-<li> La plupart des fonctions mathématiques sont autorisées </ li>
-<li>
-Utilisez <code> setFilter (brt, vrt, con, sat) </ code> pour définir le filtre
-</ li> `,
-		'pre': `<var>r</var> rouge moyen
-<var>g</var> moyenne verte
-<var>b</var> bleu moyen
-<var>a</var> alpha moyen [DISABLED]
-<var>ic</var> (0-10) numéro de passage
-<var>U</var> RGB non pondéré
-<var>W</var> RGB pondéré
-<var>oRGB</var> ancien RVB
-<var>oU</var> ancien RGB non pondéré
-<var>oW</var> ancien RGB pondéré`
+		'list': [
+			'Les variables de fonction personnalisées DOIVENT commencer par un trait de soulignement',
+			'Aucune fonction (incluant les fonctions de la flèche)',
+			'si d\'autres déclarations sont autorisées',
+			'document, fenêtre et getElement sont tous désactivés',
+			'La plupart des fonctions mathématiques sont autorisées',
+			['Utiliser', 'pour régler le filtre']
+		],
+		'pre':[
+			'moyenne rouge',
+			'vert moyen',
+			'moyenne bleue',
+			'alpha moyen [DÉSACTIVÉ]',
+			'numéro de passage',
+			'RGB non pondéré',
+			'RGB pondéré',
+			'vieux RGB',
+			'vieux RGB non pondéré',
+			'vieux RGB pondéré'
+		]
 	}
 }
 Langs.it= {};
@@ -234,10 +240,12 @@ function setHTML(L){
 		keyT0[I].title=GoTo(L, keyT0[I].getAttribute('key')+'_Title');
 		I++;
 	}
-}//var part= allKey[i].getAttribute('key').split('.');
-function GoTo(B, P){
+}
+function GoTo(B, P){//Base & Path
 	P= P.split('.');
 	switch(P.length){
+		case 0:
+			return B;
 		case 1:
 			return B[P[0]];
 		case 2:
@@ -251,6 +259,6 @@ function GoTo(B, P){
 		case 6:
 			return B[P[0]][P[1]][P[2]][P[3]][P[4]][P[5]];
 		default:
-			return false;
+			return null;
 	}
 }
