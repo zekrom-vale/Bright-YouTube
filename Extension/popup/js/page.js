@@ -22,7 +22,54 @@ LangsJS.en={
 		'saved':'Function saved',
 		'inval': 'Invalid input: '
 	}
-	
+}
+LangsJS.enEx={
+	'_code':{
+		null: '"No context": ',
+		undefined: '"No context": ',
+		100.7: 'Security Alert Overide: ',
+		200:'OK: ',
+		300: '',
+		401:'Request Denied: ', 404.1:'Error, could not remove: ', 404: 'Could not find: ', 407:'Security Alert: ',
+		502: 'Chromemium error: '
+	},
+	'_Class':[
+		undefined,
+		'_Informational',
+		'_Successful',
+		'_Redirection',
+		'_Client Err',
+		'_Server Err'
+	],
+	'_fn':{
+		'_inOK':'input is OK',
+		'_saved':'Function saved',
+		'_inval': 'Invalid input: '
+	}
+}
+LangsJS.fr={
+	'code':{
+		null: '"Pas de contexte":',
+		undefined: '"Pas de contexte":',
+		100.7: 'Alerte de sécurité Overide:',
+		200: 'OK:',
+		300: '',
+		401: 'Demande refusée:', 404.1: 'Erreur, n\'a pas pu supprimer:', 404: 'Impossible de trouver:', 407: 'Alerte de sécurité:',
+		502: 'Erreur de chrominium:'
+	},
+	'Class':[
+		'indéfini',
+		'Informational',
+		'Réussi',
+		'Redirection',
+		'Client Erreur',
+		'Serveur Erreur'
+	],
+	'fn':{
+		'inOK': 'entrée est OK',
+		'saved': 'Fonction enregistrée',
+		'inval': 'Entrée non valide:'
+	}
 }
 var lang;
 try{

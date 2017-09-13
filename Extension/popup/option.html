@@ -8,6 +8,7 @@
 	<meta charset="UTF-8"/>
 	<link rel="stylesheet" href="core.css"/>
 	<link rel="stylesheet" href="togle.css"/>
+	<link rel="stylesheet" href="lang.css"/>
 	<script src="js/page.js"></script>
 	<style id="setRb"></style>
 </head>
@@ -23,7 +24,18 @@
 			margin:5px;
 			overflow:auto
 		}
+		#en::after{
+			content:url("http://i64.tinypic.com/fd60km.png")
+		}
 	</style>
+	<ul hidden class="languagepicker roundborders large" style="position:absolute; top:0; right:0; background-color:white; z-index:999" id="lang">
+		<a href="#en"><li><img src="http://i64.tinypic.com/fd60km.png">English</li></a>
+		<a href="#nl"><li><img src="http://i65.tinypic.com/2d0kyno.png">Nederlands</li></a>
+		<a href="#de"><li><img src="http://i63.tinypic.com/10zmzyb.png">German</li></a>
+		<a href="#fr"><li><img src="http://i65.tinypic.com/300b30k.png">Français</li></a>
+		<a href="#es"><li><img src="http://i68.tinypic.com/avo5ky.png">Español</li></a>
+		<a href="#it"><li><img src="http://i65.tinypic.com/23jl6bn.png">Italiano</li></a>
+	</ul>
 	<a href="https://github.com/zekrom-vale" target="_blank" title="&copy; zekrom_vale" style="position:absolute; top:100px; right:266px">
 		<img src="logo.svg" style="width:150px; height:150px">
 	</a>

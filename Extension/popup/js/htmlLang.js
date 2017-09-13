@@ -219,6 +219,11 @@ Langs.it= {};
 Langs.gr= {};
 Langs.jp= {};
 document.addEventListener('DOMContentLoaded', ()=>{
+	document.getElementById('lang').addEventListener('click', ()=>{
+		var hash=window.location.hash;
+		hash= hash.replace('#', '');
+		chrome.storage.sync.set({'lang': hash});
+	});
 	try{
 		chrome.storage.sync.get('lang', items=>{
 			setHTML(Langs[items.lang]);

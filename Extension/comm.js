@@ -1,5 +1,5 @@
 const LangsCore={};
-LangsCore.en={//En
+LangsCore.en={
 	"warn":{
 		"breach":"[BREACH DETECTED]Custom function is invalid, bypassed first check"
 	},
@@ -19,6 +19,48 @@ LangsCore.en={//En
 		"SHORT": "SHORT"
 	},
 	"Reset": "Values successfully reset"
+};
+LangsCore.enEx={
+	"_warn":{
+		"_breach":"[BREACH DETECTED]Custom function is invalid, bypassed first check"
+	},
+	"_und":{
+		"_Active":"Active is not defined, forced to true"
+	},
+	"_stat":{
+		"_starting": "Starting",
+		"_inIO": "[OFF] In line IO, User specification",
+		"_Short": "[STOP] User specification",
+		"_AudOn": "[STOP] audio_only detected",
+		"_VarIlg": "Variables illegally modified"
+	},
+	"_word":{
+		"_START": "START",
+		"_STOP": "STOP",
+		"_SHORT": "SHORT"
+	},
+	"_Reset": "Values successfully reset"
+};
+LangsCore.fr={
+	"warn":{
+		"breach": "[BREACH DETECTED] La fonction personnalisée n'est pas valide",
+	},
+	"und":{
+		"Active": "Active n'est pas défini, forcé à vrai"
+	},
+	"stat":{
+		"starting": "Démarrage",
+		"inIO": "[DE] En ligne IO, Spécifications utilisateur",
+		"Short": "[ARRÊTEZ] Spécifications utilisateur",
+		"AudOn": "[ARRÊTEZ] audio_only detecté",
+		"VarIlg": "Variables illégalement modifiées"
+	},
+	"word":{
+		"START": "DÉBUT",
+		"STOP": "ARRÊTEZ",
+		"SHORT": "COURT"
+	},
+	"Reset": "Values réinitialisées avec succès"
 };
 var lang;
 try{
