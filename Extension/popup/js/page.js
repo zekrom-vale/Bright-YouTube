@@ -71,6 +71,8 @@ LangsJS.fr={
 		'inval': 'Entrée non valide:'
 	}
 }
+//LangsJS above this
+Object.freeze(LangsJS);
 var lang;
 try{
 	document.addEventListener('DOMContentLoaded', ()=>{

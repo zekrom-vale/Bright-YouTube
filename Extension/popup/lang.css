@@ -44,11 +44,10 @@
 	border-radius: 5px;
 }
 
-.large:hover {
-	/* 
-	don't forget the 1px border!
+.large:hover{
+	/* don't forget the 1px border!
 	The first language is 40px heigh, 
 	the others are 41px
-	*/
-	height: 245px;
+	calc(41px * 6 - 1px)*/
+	height: 245px
 }

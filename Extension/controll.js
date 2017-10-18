@@ -1,10 +1,15 @@
 //Not for pages that handle navigation
 var oldRgb= oldU= oldW= 140,
 clock;
-const DLY=1500,
+try{
+	const DLY=1500;
+}catch(e){console.warn(e);}
 //Canvas
-SUB=0;
+const SUB=0;
 PLY= setPl();
+if(typeof lang=="undefined") console.info("lang is undefined");
+if(typeof LangsCore=="undefined") console.info("LangsCore is undefined");
+//Warning Lang is und!
 var FN;
 function CSfn(ic, rgb, U, W, r, g, b, oRGB, oW, oU){
 	var V= oRGB*(1-ic) + rgb*ic;

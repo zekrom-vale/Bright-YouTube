@@ -1,7 +1,11 @@
 var oldRgb= oldU= oldW= 140,
 clock,
-DLY=1500,
 FN;
+if(typeof lang=="undefined") console.info("lang is undefined");
+if(typeof LangsCore=="undefined") console.info("LangsCore is undefined");
+try{
+	var DLY=1500;
+}catch(e){console.warn(e);}
 function CSfn(ic, rgb, U, W, r, g, b, oRGB, oW, oU){
 	var V= oRGB*(1-ic) + rgb*ic;
 	let _X= 0.0266813*V -6,

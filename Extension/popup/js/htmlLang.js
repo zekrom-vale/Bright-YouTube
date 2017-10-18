@@ -1,6 +1,6 @@
 //may not run on En
 const Langs={};
-Langs.en={//To be translated
+Langs.en={
 	'title': 'Bright YouTube Options',
 	'enabled': 'Enabled',
 	'short': 'Short',
@@ -71,7 +71,6 @@ Langs.en={//To be translated
 		]
 	}
 }
-//Encoding warning!
 Langs.es= {};
 Langs.enEX={//To be translated
 	'_title': 'Bright YouTube Options',
@@ -148,14 +147,14 @@ Langs.fr={
 	'title': 'Luisant YouTube Options',
 	'enabled': 'Enabled',
 	'short': 'Short',
-	'autoStart': 'Démarrage automatique',
+	'autoStart': 'Auto Début',
 	'permissions': 'Autorisations',
 	'permissions_Title': 'Quels sites à exécuter',
 	'YT_Title': 'youtube.com/embed/* Inclus',
 	'YTgames': 'YT Jeux',
 	'embedded': 'Embedded',
 	'dot_tv': 'Dot tv',
-	'allURLs': '[NON OFF] Toutes les URL',
+	'allURLs': '[NON OFF] Toute URL',
 	'file_Title': 'Activer aussi à chrome: // extensions',
 	'file': 'Fichier',
 	'Ilnf': 'Inline On / Off',
@@ -218,6 +217,9 @@ Langs.fr={
 Langs.it= {};
 Langs.gr= {};
 Langs.jp= {};
+
+//Langs above this
+Object.freeze(Langs);
 document.addEventListener('DOMContentLoaded', ()=>{
 	/*document.getElementById('lang').addEventListener('click', ()=>{
 		var hash=window.location.hash;
@@ -225,11 +227,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
 		chrome.storage.sync.set({'lang': hash});
 	});*/
 	document.getElementById('lang').addEventListener('mouseleave', ()=>{
-		//Look to see if hash changed
 		chrome.storage.sync.get('lang', items=>{
 			var hash=window.location.hash;
 			hash= hash.replace('#', '');
-			if(hash!=items.lang){
+			if(!(hash==''||typeof hash=='undefined')&&hash!=items.lang){
 				chrome.storage.sync.set({'lang': hash});
 				window.location.reload();
 			}
@@ -262,7 +263,7 @@ function setHTML(L){
 		I++;
 	}
 }
-function GoTo(B, P){//Base & Path
+function GoTo(B, P){//Base & Path L[[a][b]] != L[a][b]
 	P= P.split('.');
 	switch(P.length){
 		case 0:

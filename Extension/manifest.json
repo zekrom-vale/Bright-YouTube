@@ -2,8 +2,8 @@
 "manifest_version": 2,
 "name": "Bright YouTube [GAMMA]",
 "short_name": "Brt YTγ",
-	"version": "2.6.3",
-"version_name":"Pro Γ6c",
+	"version": "2.7.1",
+"version_name":"Pro Γ7a",
 "author": "zekrom_vale",
 "minimum_chrome_version": "49",
 "description": "This extension automatically adjusts the brightness of not only YouTube videos, but HTML5 videos too![BETA]",
@@ -79,7 +79,9 @@
 			"*://codepen.io/*",
 			"*://www.paypal.com/*",
 			"*://paypal.com/*",
-			"*://paypalobjects.com/*"
+			"*://paypalobjects.com/*",
+			"https://www.youtube.com/*",
+			"https://gaming.youtube.com/*"
 		],
 		"css": ["main.css"],
 		"js": ["controll.js", "comm.js"],
@@ -91,7 +93,7 @@
 			"https://gaming.youtube.com/*"
 		],
 		"css": ["main.css"],
-		"js": ["YTcontroll.js", "comm.js"],
+		"js": ["comm.js", "YTcontroll.js"],
 		"all_frames": true
 	}
 ]

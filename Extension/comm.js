@@ -62,6 +62,8 @@ LangsCore.fr={
 	},
 	"Reset": "Values réinitialisées avec succès"
 };
+//LangsCore above this
+Object.freeze(LangsCore);
 var lang;
 try{
 	document.addEventListener('DOMContentLoaded', ()=>{
